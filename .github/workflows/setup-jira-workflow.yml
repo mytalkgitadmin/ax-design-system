@@ -117,23 +117,49 @@ jobs:
           echo "$TRANSITIONS" | jq -r '.transitions[] | "  ID: \(.id) | \(.name) → \(.to.name)"'
 
           # transitions 데이터를 output으로 저장 (배열만 추출)
+          echo ""
+          echo "💾 Output 저장 중..."
+          TRANSITIONS_ARRAY=$(echo "$TRANSITIONS" | jq '.transitions')
+
+          echo "DEBUG: Transitions array:"
+          echo "$TRANSITIONS_ARRAY"
+          echo "DEBUG: Array length: $(echo "$TRANSITIONS_ARRAY" | wc -c)"
+
           echo "transitions<<EOF" >> $GITHUB_OUTPUT
-          echo "$TRANSITIONS" | jq '.transitions'
+          echo "$TRANSITIONS_ARRAY" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
           echo "sample_issue=$SAMPLE_ISSUE" >> $GITHUB_OUTPUT
           echo "should_delete=$SHOULD_DELETE_ISSUE" >> $GITHUB_OUTPUT
 
+          echo "✅ Output 저장 완료"
+
       - name: Auto-detect transitions if not provided
         id: auto-detect
         run: |
+          echo "🔍 DEBUG: Output 확인"
+          echo "Raw output: '${{ steps.fetch-transitions.outputs.transitions }}'"
+          echo "Length: $(echo '${{ steps.fetch-transitions.outputs.transitions }}' | wc -c)"
+
           # Multiline output을 heredoc으로 읽기
           TRANSITIONS=$(cat <<'TRANSITIONS_EOF'
           ${{ steps.fetch-transitions.outputs.transitions }}
           TRANSITIONS_EOF
           )
 
+          echo ""
           echo "🔍 받은 TRANSITIONS 데이터:"
+          echo "Length: $(echo "$TRANSITIONS" | wc -c)"
+          echo "Content:"
+          echo "$TRANSITIONS"
+
+          if [ -z "$TRANSITIONS" ] || [ "$TRANSITIONS" = "null" ]; then
+            echo "❌ TRANSITIONS가 비어있습니다!"
+            exit 1
+          fi
+
+          echo ""
+          echo "📋 JSON 파싱 시도:"
           echo "$TRANSITIONS" | jq '.'
 
           # 자동 탐지
