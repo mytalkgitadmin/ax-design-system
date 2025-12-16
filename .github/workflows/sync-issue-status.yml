@@ -18,15 +18,12 @@ jobs:
       - name: Extract Jira ticket from issue
         id: extract-ticket
         run: |
-          TITLE="${{ github.event.issue.title }}"
-          BODY="${{ github.event.issue.body }}"
-          
           # 제목에서 [JIRA-123] 형식으로 추출
-          JIRA_TICKET=$(echo "$TITLE" | grep -oE '\[([A-Z]+-[0-9]+)\]' | tr -d '[]' | head -n 1)
+          JIRA_TICKET=$(echo '${{ github.event.issue.title }}' | grep -oE '\[([A-Z]+-[0-9]+)\]' | tr -d '[]' | head -n 1)
           
           # 제목에 없으면 본문에서 추출
           if [ -z "$JIRA_TICKET" ]; then
-            JIRA_TICKET=$(echo "$BODY" | grep -oE '([A-Z]+-[0-9]+)' | head -n 1)
+            JIRA_TICKET=$(echo '${{ github.event.issue.body }}' | grep -oE '([A-Z]+-[0-9]+)' | head -n 1)
           fi
           
           if [ -z "$JIRA_TICKET" ]; then
@@ -35,9 +32,9 @@ jobs:
             exit 0
           fi
           
-          echo "jira_ticket=${JIRA_TICKET}" >> $GITHUB_OUTPUT
+          echo "jira_ticket=$JIRA_TICKET" >> $GITHUB_OUTPUT
           echo "skip=false" >> $GITHUB_OUTPUT
-          echo "✅ Jira 티켓 발견: ${JIRA_TICKET}"
+          echo "✅ Jira 티켓 발견: $JIRA_TICKET"
 
       # 3. GitHub Issue 상태를 Jira 상태로 매핑
       - name: Map GitHub status to Jira
