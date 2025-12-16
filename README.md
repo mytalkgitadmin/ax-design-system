@@ -84,46 +84,6 @@ npm run issue
 
 ---
 
-## 🚨 문제 해결
-
-### "Jira API error (401)"
-
-**원인**: GitHub Secrets 미설정 또는 API 토큰 만료
-
-**해결**:
-
-```bash
-# 1. 새 API 토큰 생성
-https://id.atlassian.com/manage-profile/security/api-tokens
-
-# 2. GitHub Secrets 업데이트 (관리자)
-Settings → Secrets and variables → Actions
-```
-
-### "브랜치를 찾을 수 없음"
-
-**해결**:
-
-```bash
-# GitHub Actions 로그 확인
-# https://github.com/<your-repo>/actions
-
-# 수동으로 브랜치 확인
-git fetch origin
-git branch -r
-```
-
-### "gh: command not found"
-
-**해결**:
-
-```bash
-brew install gh
-gh auth login
-```
-
----
-
 ## 📂 프로젝트 구조
 
 ```
