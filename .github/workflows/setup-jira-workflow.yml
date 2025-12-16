@@ -124,17 +124,6 @@ jobs:
           echo "sample_issue=$SAMPLE_ISSUE" >> $GITHUB_OUTPUT
           echo "should_delete=$SHOULD_DELETE_ISSUE" >> $GITHUB_OUTPUT
 
-          # 임시 이슈 삭제
-          if [ "$SHOULD_DELETE_ISSUE" = "true" ]; then
-            echo ""
-            echo "🗑️  임시 이슈 삭제 중..."
-            curl -s -X DELETE \
-              -H "Content-Type: application/json" \
-              -u "${{ secrets.JIRA_USER_EMAIL }}:${{ secrets.JIRA_API_TOKEN }}" \
-              "${{ secrets.JIRA_BASE_URL }}/rest/api/2/issue/${SAMPLE_ISSUE}"
-            echo "✅ 임시 이슈 삭제됨"
-          fi
-
       - name: Auto-detect transitions if not provided
         id: auto-detect
         run: |
@@ -321,3 +310,25 @@ jobs:
 
             **설정 파일**: `scripts/jira/jira-workflow-config.json`
           labels: "jira,automation,config"
+
+      - name: Cleanup temporary issue
+        if: steps.fetch-transitions.outputs.should_delete == 'true'
+        run: |
+          SAMPLE_ISSUE="${{ steps.fetch-transitions.outputs.sample_issue }}"
+          echo "🗑️  임시 이슈 삭제 중: $SAMPLE_ISSUE"
+
+          DELETE_RESPONSE=$(curl -s -w "\n%{http_code}" -X DELETE \
+            -H "Content-Type: application/json" \
+            -u "${{ secrets.JIRA_USER_EMAIL }}:${{ secrets.JIRA_API_TOKEN }}" \
+            "${{ secrets.JIRA_BASE_URL }}/rest/api/2/issue/${SAMPLE_ISSUE}")
+
+          HTTP_CODE=$(echo "$DELETE_RESPONSE" | tail -n1)
+          RESPONSE_BODY=$(echo "$DELETE_RESPONSE" | sed '$d')
+
+          if [ "$HTTP_CODE" = "204" ] || [ "$HTTP_CODE" = "200" ]; then
+            echo "✅ 임시 이슈가 삭제되었습니다"
+          else
+            echo "⚠️  임시 이슈 삭제 실패 (HTTP $HTTP_CODE)"
+            echo "$RESPONSE_BODY"
+            echo "💡 권한 문제로 삭제되지 않았지만, workflow 설정은 완료되었습니다."
+          fi
