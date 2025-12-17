@@ -34,7 +34,7 @@ const meta = {
   parameters: {
     layout: 'centered',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', '!dev'],
   argTypes: {
     name: {
       control: 'select',
