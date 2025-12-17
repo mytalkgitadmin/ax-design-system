@@ -108,6 +108,11 @@ jobs:
 
       - name: Log created Jira issue
         run: |
+          echo "==== JIRA_TICKET_START ===="
+          echo "JIRA_KEY=${{ steps.create-jira.outputs.issue }}"
+          echo "JIRA_URL=${{ secrets.JIRA_BASE_URL }}/browse/${{ steps.create-jira.outputs.issue }}"
+          echo "==== JIRA_TICKET_END ===="
+          echo ""
           echo "✅ Jira Issue Created: ${{ steps.create-jira.outputs.issue }}"
           echo "🔗 Issue URL: ${{ secrets.JIRA_BASE_URL }}/browse/${{ steps.create-jira.outputs.issue }}"
           
