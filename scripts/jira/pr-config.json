@@ -5,7 +5,6 @@
     "title_prefix": "[",
     "title_suffix": "]",
     "include_jira_link": true,
-    "draft": false,
-    "labels": ["work:completed"]
+    "draft": false
   }
 }

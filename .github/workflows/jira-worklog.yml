@@ -297,7 +297,6 @@ jobs:
             --head "${SOURCE_BRANCH}" \
             --title "${PR_TITLE}" \
             --body "${PR_BODY}" \
-            --label "work:completed" \
             ${DRAFT_FLAG})
 
           echo "pr_url=${PR_URL}" >> $GITHUB_OUTPUT
