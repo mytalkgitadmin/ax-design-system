@@ -124,78 +124,79 @@ async function main() {
       process.exit(1);
     }
 
-    // 6. 워크플로우 로그에서 Jira 티켓 번호 추출
+    // 6. Artifact에서 Jira 티켓 번호 다운로드
     console.log("\n✅ 워크플로우 완료!");
     console.log("📋 Jira 티켓 정보를 가져오는 중...\n");
 
     try {
-      // 로그를 가져와서 파싱
-      const logOutput = executeCommand(`gh run view ${runId} --log 2>&1 || echo ""`);
-
-      let jiraKey = null;
-      let jiraUrl = null;
-
-      // 명확한 마커로 추출
-      const ticketSection = logOutput.match(/==== JIRA_TICKET_START ====([\s\S]*?)==== JIRA_TICKET_END ====/);
-      if (ticketSection) {
-        const keyMatch = ticketSection[1].match(/JIRA_KEY=([A-Z]+-\d+)/);
-        const urlMatch = ticketSection[1].match(/JIRA_URL=(https:\/\/[^\s]+)/);
-        
-        if (keyMatch) jiraKey = keyMatch[1];
-        if (urlMatch) jiraUrl = urlMatch[1];
+      // 임시 디렉토리 생성
+      const tempDir = path.join(__dirname, ".temp-jira-artifact");
+      if (!fs.existsSync(tempDir)) {
+        fs.mkdirSync(tempDir, { recursive: true });
       }
 
-      // 폴백: 다른 패턴들로 시도
-      if (!jiraKey) {
-        let match = logOutput.match(/Jira Issue Created:\s*([A-Z]+-\d+)/i);
-        if (match) jiraKey = match[1];
-      }
+      // Artifact 다운로드 (최대 3번 재시도)
+      let downloadSuccess = false;
+      for (let i = 0; i < 3; i++) {
+        try {
+          // 잠시 대기 (artifact가 준비될 때까지)
+          if (i > 0) {
+            console.log(`재시도 중... (${i + 1}/3)`);
+            await new Promise((resolve) => setTimeout(resolve, 2000));
+          }
 
-      if (!jiraKey) {
-        let match = logOutput.match(/browse\/([A-Z]+-\d+)/i);
-        if (match) jiraKey = match[1];
-      }
-
-      if (!jiraUrl) {
-        const urlMatch = logOutput.match(/(https:\/\/[^\/\s]+\/browse\/[A-Z]+-\d+)/i);
-        if (urlMatch) jiraUrl = urlMatch[1];
-      }
-
-      if (jiraKey) {
-        const repoInfo = executeCommand(
-          "gh repo view --json nameWithOwner -q .nameWithOwner"
-        );
-
-        console.log("🎉 Jira 이슈가 성공적으로 생성되었습니다!\n");
-        console.log(`📍 Jira 티켓: ${jiraKey}`);
-        if (jiraUrl) {
-          console.log(`🔗 URL: ${jiraUrl}`);
+          executeCommand(
+            `cd "${tempDir}" && gh run download ${runId} -n jira-ticket-info 2>&1`
+          );
+          downloadSuccess = true;
+          break;
+        } catch (e) {
+          if (i === 2) throw e;
         }
-        if (parentKey) {
-          console.log(`📎 상위 티켓: ${parentKey}`);
-        }
-        console.log(
-          `\n🔗 워크플로우: https://github.com/${repoInfo}/actions/runs/${runId}\n`
-        );
-      } else {
-        // 로그에서 찾지 못한 경우, 워크플로우 URL만 표시
-        const repoInfo = executeCommand(
-          "gh repo view --json nameWithOwner -q .nameWithOwner"
-        );
+      }
 
-        console.log("🎉 Jira 이슈가 생성되었습니다!\n");
-        console.log("📋 워크플로우에서 생성된 티켓 번호를 확인해주세요:");
-        console.log(
-          `🔗 https://github.com/${repoInfo}/actions/runs/${runId}\n`
-        );
+      if (downloadSuccess) {
+        // 파일에서 Jira 정보 읽기
+        const ticketFilePath = path.join(tempDir, "jira-ticket.txt");
+        const ticketInfo = fs.readFileSync(ticketFilePath, "utf-8").split("\n");
+
+        const jiraKey = ticketInfo[0]?.trim();
+        const jiraUrl = ticketInfo[1]?.trim();
+        const parentTicket = ticketInfo[2]?.trim();
+
+        // 임시 파일 삭제
+        fs.unlinkSync(ticketFilePath);
+        fs.rmdirSync(tempDir);
+
+        if (jiraKey) {
+          const repoInfo = executeCommand(
+            "gh repo view --json nameWithOwner -q .nameWithOwner"
+          );
+
+          console.log("🎉 Jira 이슈가 성공적으로 생성되었습니다!\n");
+          console.log(`📍 Jira 티켓: ${jiraKey}`);
+          if (jiraUrl) {
+            console.log(`🔗 URL: ${jiraUrl}`);
+          }
+          if (parentTicket) {
+            console.log(`📎 상위 티켓: ${parentTicket}`);
+          }
+          console.log(
+            `\n🔗 워크플로우: https://github.com/${repoInfo}/actions/runs/${runId}\n`
+          );
+        } else {
+          throw new Error("Jira 티켓 번호를 파일에서 찾을 수 없습니다.");
+        }
       }
     } catch (error) {
+      // Artifact 다운로드 실패 시 폴백
       const repoInfo = executeCommand(
         "gh repo view --json nameWithOwner -q .nameWithOwner"
       );
       console.log("🎉 Jira 이슈가 생성되었습니다!\n");
       console.log("📋 워크플로우에서 생성된 티켓 번호를 확인해주세요:");
       console.log(`🔗 https://github.com/${repoInfo}/actions/runs/${runId}\n`);
+      console.log(`⚠️  자동 추출 실패: ${error.message}`);
     }
   } catch (error) {
     console.error("\n❌ 오류 발생:", error.message);

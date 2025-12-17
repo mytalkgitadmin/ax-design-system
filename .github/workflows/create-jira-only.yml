@@ -106,19 +106,27 @@ jobs:
             echo "⏭️  jira-workflow-config.json 파일이 없습니다. 상태 변경을 건너뜁니다."
           fi
 
-      - name: Log created Jira issue
+      - name: Save Jira ticket info to file
         run: |
-          echo "==== JIRA_TICKET_START ===="
-          echo "JIRA_KEY=${{ steps.create-jira.outputs.issue }}"
-          echo "JIRA_URL=${{ secrets.JIRA_BASE_URL }}/browse/${{ steps.create-jira.outputs.issue }}"
-          echo "==== JIRA_TICKET_END ===="
-          echo ""
+          echo "${{ steps.create-jira.outputs.issue }}" > jira-ticket.txt
+          echo "${{ secrets.JIRA_BASE_URL }}/browse/${{ steps.create-jira.outputs.issue }}" >> jira-ticket.txt
+          if [ -n "${{ inputs.parent_key }}" ]; then
+            echo "${{ inputs.parent_key }}" >> jira-ticket.txt
+          fi
+          
           echo "✅ Jira Issue Created: ${{ steps.create-jira.outputs.issue }}"
           echo "🔗 Issue URL: ${{ secrets.JIRA_BASE_URL }}/browse/${{ steps.create-jira.outputs.issue }}"
           
           if [ -n "${{ inputs.parent_key }}" ]; then
             echo "📎 Parent Ticket: ${{ inputs.parent_key }}"
           fi
+
+      - name: Upload Jira ticket info
+        uses: actions/upload-artifact@v4
+        with:
+          name: jira-ticket-info
+          path: jira-ticket.txt
+          retention-days: 1
 
       - name: Create summary comment
         run: |
