@@ -103,11 +103,35 @@ gh workflow run setup-github-labels.yml
 
 **Transition ID 찾는 방법:**
 
+##### 🎯 방법 1: 자동 조회 스크립트 (추천!)
+
+```bash
+# 1. 먼저 Issue 하나 생성
+npm run issue
+
+# 2. 생성된 Issue 번호로 조회 (예: FMTW-123)
+npm run jira:get-transitions FMTW-123
+```
+
+출력 예시:
+
+```
+📌 현재 상태: 해야 할 일
+
+✅ 사용 가능한 Transitions:
+  ID: 4  | Start Progress → 진행 중
+  ID: 5  | Resolve Issue → 완료
+  ID: 11 | In Progress → 진행 중
+  ID: 31 | Done → 완료
+```
+
+##### 🎯 방법 2: 브라우저 개발자 도구
+
 1. Jira에서 아무 Issue 열기
-2. F12 (개발자 도구) → Network 탭 열기
-3. 상태 변경 버튼 클릭 (예: "Start Progress")
-4. Network 탭에서 `transitions` 요청 찾기
-5. Response에서 `id` 값 확인
+2. **F12** (개발자 도구) → **Network 탭**
+3. 상태 변경 버튼 클릭 (예: "진행 중")
+4. Network 탭에서 **`transitions`** 요청 찾기
+5. **Response**에서 `id` 값 확인
 
 **필수 ID:**
 
