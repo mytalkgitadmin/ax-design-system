@@ -1,9 +1,6 @@
 module.exports = {
   // 분리된 토큰 파일들을 모두 읽어옴
-  source: [
-    'src/tokens/primitives/**/*.json',
-    'src/tokens/semantic/**/*.json',
-  ],
+  source: ['src/tokens/primitives/**/*.json', 'src/tokens/semantic/**/*.json'],
   // hooks를 사용한 커스텀 transform, format 등록 (v5+)
   hooks: {
     transforms: {
@@ -17,29 +14,6 @@ module.exports = {
           // 1. 'color' prefix 제거 (색상은 타입이 명확하므로)
           if (path[0] === 'color') {
             path.shift();
-          }
-
-          // 2. 'number' prefix 처리
-          if (path[0] === 'number') {
-            path.shift(); // 'number' 제거
-
-            // rounded인 경우 그대로 사용
-            if (path[0] === 'rounded') {
-              // --rounded-sm 형태
-            } else {
-              // spacing인 경우 prefix 추가
-              path.unshift('spacing');
-            }
-          }
-
-          // 3. 'typo' → 'font' 변경
-          if (path[0] === 'typo') {
-            path[0] = 'font';
-          }
-
-          // 4. 'typography' → 'font' 변경
-          if (path[0] === 'typography') {
-            path[0] = 'font';
           }
 
           // 4. 'font-family' → 'family'
@@ -66,9 +40,7 @@ module.exports = {
           const primitives = {
             color: {},
             font: {},
-            typography: {},
-            spacing: {},
-            rounded: {},
+            number: {},
           };
           const semantics = {
             theme: {},
@@ -97,8 +69,7 @@ module.exports = {
                   current = current[key];
                 }
               }
-            }
-            else if (path[0] === 'typo') {
+            } else if (path[0] === 'font') {
               // font.family.pretendard, font.weight.bold 형태
               const fontPath = path.slice(1); // 'typo' 제거
 
@@ -117,34 +88,19 @@ module.exports = {
                   current = current[key];
                 }
               }
-            }
-            else if (path[0] === 'typography') {
-              // typography.fontSize.lg, typography.lineHeight.lg 형태
-              const typoPath = path.slice(1); // 'typography' 제거
+            } else if (path[0] === 'number') {
+              // spacing.4, rounded.8 형태
+              const numberPath = path.slice(1); // ex) ['4'], ['999']
 
-              let current = primitives.typography;
-              for (let i = 0; i < typoPath.length; i++) {
-                const key = typoPath[i];
-                if (i === typoPath.length - 1) {
+              let current = primitives.number;
+              for (let i = 0; i < numberPath.length; i++) {
+                const key = numberPath[i];
+                if (i === numberPath.length - 1) {
                   current[key] = token.value;
                 } else {
                   if (!current[key]) current[key] = {};
                   current = current[key];
                 }
-              }
-            }
-            else if (path[0] === 'number') {
-              // spacing.4, rounded.8 형태
-              const numPath = path.slice(1); // 'number' 제거
-
-              if (numPath[0] === 'rounded') {
-                // rounded.8
-                const roundedKey = numPath[1];
-                primitives.rounded[roundedKey] = token.value;
-              } else {
-                // spacing.4
-                const spacingKey = numPath[0];
-                primitives.spacing[spacingKey] = token.value;
               }
             }
             // Semantic 토큰 처리
@@ -175,7 +131,9 @@ module.exports = {
 
         // kebab-case를 camelCase로 변환
         const toCamelCase = (str) => {
-          return str.replace(/-([a-z0-9])/g, (_, letter) => letter.toUpperCase());
+          return str.replace(/-([a-z0-9])/g, (_, letter) =>
+            letter.toUpperCase()
+          );
         };
 
         // 재귀적으로 객체를 문자열로 변환 (키도 camelCase로 변환)
@@ -194,7 +152,8 @@ module.exports = {
             if (typeof value === 'object' && value !== null) {
               return `${spaces}${safeKey}: ${stringifyObject(value, indent + 2)}`;
             } else {
-              const stringValue = typeof value === 'string' ? `'${value}'` : value;
+              const stringValue =
+                typeof value === 'string' ? `'${value}'` : value;
               return `${spaces}${safeKey}: ${stringValue}`;
             }
           });

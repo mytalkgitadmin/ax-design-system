@@ -100,48 +100,30 @@
   --font-weight-regular: 400;
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
-  --spacing-unit-0: 0;
-  --spacing-unit-1: 1;
-  --spacing-unit-2: 2;
-  --spacing-unit-4: 4;
-  --spacing-unit-8: 8;
-  --spacing-unit-10: 10;
-  --spacing-unit-12: 12;
-  --spacing-unit-16: 16;
-  --spacing-unit-20: 20;
-  --spacing-unit-24: 24;
-  --spacing-unit-32: 32;
-  --spacing-unit-40: 40;
-  --spacing-unit-48: 48;
-  --spacing-unit-56: 56;
-  --spacing-unit-64: 64;
-  --spacing-unit-72: 72;
-  --spacing-unit-80: 80;
-  --spacing-unit-96: 96;
-  --spacing-unit-112: 112;
-  --spacing-unit-128: 128;
-  --spacing-unit-144: 144;
-  --spacing-unit-152: 152;
-  --spacing-unit-200: 200;
-  --spacing-unit-999: 999;
-  --font-fontSize-4xl: 56px; /** Display Large */
-  --font-fontSize-3xl: 48px; /** Display Medium */
-  --font-fontSize-2xl: 40px; /** Display Small */
-  --font-fontSize-xl: 32px; /** Display XSmall */
-  --font-fontSize-lg: 28px; /** Title Large */
-  --font-fontSize-md: 24px; /** Title Medium */
-  --font-fontSize-sm: 20px; /** Title Small */
-  --font-fontSize-base: 18px; /** Body Large */
-  --font-fontSize-default: 16px; /** Base font size (1rem) */
-  --font-fontSize-xs: 14px; /** Body Small */
-  --font-fontSize-2xs: 12px; /** Caption */
-  --font-fontSize-3xs: 10px; /** Caption XSmall */
-  --font-lineHeight-tight: 1.25; /** Tight line height for headings */
-  --font-lineHeight-normal: 1.5; /** Normal line height for body text */
-  --font-lineHeight-relaxed: 1.75; /** Relaxed line height for long text */
-  --font-letterSpacing-tight: -0.01em; /** Tight letter spacing (-1) */
-  --font-letterSpacing-normal: 0; /** Normal letter spacing (0) */
-  --font-letterSpacing-wide: 0.01em; /** Wide letter spacing (+1) */
+  --number-0: 0;
+  --number-1: 1;
+  --number-2: 2;
+  --number-4: 4;
+  --number-8: 8;
+  --number-10: 10;
+  --number-12: 12;
+  --number-16: 16;
+  --number-20: 20;
+  --number-24: 24;
+  --number-32: 32;
+  --number-40: 40;
+  --number-48: 48;
+  --number-56: 56;
+  --number-64: 64;
+  --number-72: 72;
+  --number-80: 80;
+  --number-96: 96;
+  --number-112: 112;
+  --number-128: 128;
+  --number-144: 144;
+  --number-152: 152;
+  --number-200: 200;
+  --number-999: 999;
   --brand-1-bg-default: var(--base-white);
   --brand-1-bg-subtle: var(--gray-50);
   --brand-1-bg-dim: var(--alpha-black64);

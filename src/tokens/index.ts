@@ -127,38 +127,32 @@ export const font = {
   }
 };
 
-export const typography = {
-  fontSize: {
-    '4xl': '56px',
-    '3xl': '48px',
-    '2xl': '40px',
-    xl: '32px',
-    lg: '28px',
-    md: '24px',
-    sm: '20px',
-    base: '18px',
-    default: '16px',
-    xs: '14px',
-    '2xs': '12px',
-    '3xs': '10px'
-  },
-  lineHeight: {
-    tight: 1.25,
-    normal: 1.5,
-    relaxed: 1.75
-  },
-  letterSpacing: {
-    tight: '-0.01em',
-    normal: '0',
-    wide: '0.01em'
-  }
+export const number = {
+  '0': 0,
+  '1': 1,
+  '2': 2,
+  '4': 4,
+  '8': 8,
+  '10': 10,
+  '12': 12,
+  '16': 16,
+  '20': 20,
+  '24': 24,
+  '32': 32,
+  '40': 40,
+  '48': 48,
+  '56': 56,
+  '64': 64,
+  '72': 72,
+  '80': 80,
+  '96': 96,
+  '112': 112,
+  '128': 128,
+  '144': 144,
+  '152': 152,
+  '200': 200,
+  '999': 999
 };
-
-export const spacing = {
-  unit: 999
-};
-
-export const rounded = {};
 
 export const theme = {
   brand1: {

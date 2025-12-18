@@ -1,13 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import Text from './index';
 import {
-  TEXT_SIZES,
-  TEXT_WEIGHTS,
-  TEXT_ALIGNS,
-  TEXT_LINE_HEIGHTS,
-  TEXT_LETTER_SPACINGS,
-  TEXT_PRESETS,
-} from './types';
+  fontSizeOptions as TEXT_SIZES,
+  fontWeightOptions as TEXT_WEIGHTS,
+  textAlignOptions as TEXT_ALIGNS,
+  textWrapOptions as TEXT_WRAPS,
+  wordBreakOptions as WORD_BREAKS,
+  lineHeightOptions as TEXT_LINE_HEIGHTS,
+  letterSpacingOptions as TEXT_LETTER_SPACINGS,
+  presetOptions as TEXT_PRESETS,
+  textElement,
+} from '../../tokens/dev/typography';
 import { theme } from '../../tokens';
 
 /**
@@ -19,21 +22,80 @@ import { theme } from '../../tokens';
  * - **토큰 기반 타이포그래피**: 글로벌 디자인 토큰을 사용한 일관된 타이포그래피
  * - **오버라이드 가능**: preset을 사용하면서도 개별 속성으로 오버라이드 가능
  * - **색상 커스터마이징**: color prop으로 자유롭게 색상 변경
- * - **정렬 및 데코레이션**: align, underline, truncate 옵션
+ * - **텍스트 제어**: align, textWrap, wordBreak로 텍스트 레이아웃 제어
+ * - **데코레이션**: underline, 다중 라인 truncate 지원
  * - **시맨틱 HTML**: as prop으로 적절한 HTML 태그 사용 가능
+ * - **글로벌 CSS 클래스**: CDN을 통한 간편한 배포 및 사용
  *
- * ## 사용법
+ * ## 사용법 1: React 컴포넌트
+ *
+ * ### Preset 사용 (권장)
  * ```tsx
- * // Preset 사용
- * <Text preset="title1">페이지 제목</Text>
+ * import { Text } from '@your-design-system';
+ *
+ * <Text preset="display1">큰 제목</Text>
  * <Text preset="body1">본문 텍스트</Text>
- *
- * // Preset + 오버라이드
- * <Text preset="body1" weight="bold">강조된 본문</Text>
- *
- * // 개별 속성만 사용
- * <Text size="lg" weight="semibold" color="#000">커스텀 텍스트</Text>
+ * <Text preset="caption1">작은 텍스트</Text>
  * ```
+ *
+ * ### 개별 속성 제어
+ * ```tsx
+ * <Text size={18} weight="bold" align="center">커스텀 텍스트</Text>
+ * <Text preset="body1" weight="bold">Preset + 오버라이드</Text>
+ * ```
+ *
+ * ### 색상 및 데코레이션
+ * ```tsx
+ * <Text preset="body2" color="#f9556e">빨간색 텍스트</Text>
+ * <Text preset="body2" underline>밑줄 텍스트</Text>
+ * <Text preset="body2" truncate={1}>1줄 말줄임</Text>
+ * <Text preset="body2" truncate={3}>3줄 말줄임</Text>
+ * ```
+ *
+ * ### 텍스트 레이아웃 제어
+ * ```tsx
+ * <Text align="justify">양쪽 정렬</Text>
+ * <Text textWrap="balance">균형잡힌 줄바꿈</Text>
+ * <Text wordBreak="keepAll">한중일 단어 단위 줄바꿈</Text>
+ * ```
+ *
+ * ## 사용법 2: 글로벌 CSS 클래스 (NCP 서버 CDN)
+ *
+ * ### 1. CSS 파일 로드
+ * ```html
+ * <link rel="stylesheet" href="https://your-cdn.ncp.com/design-system/styles.css">
+ * ```
+ *
+ * ### 2. 글로벌 클래스 사용
+ * ```html
+ * <!-- 기본 사용 -->
+ * <p class="text-18 font-bold text-center">제목</p>
+ * <p class="text-16 leading-relaxed">본문 텍스트</p>
+ * <p class="text-14 tracking-wide">작은 텍스트</p>
+ *
+ * <!-- 조합 사용 -->
+ * <h2 class="text-32 font-bold leading-tight tracking-tight">큰 제목</h2>
+ * <p class="text-16 font-regular leading-relaxed text-center">가운데 정렬 본문</p>
+ *
+ * <!-- 텍스트 레이아웃 제어 -->
+ * <p class="text-16 text-justify text-balance">양쪽 정렬 + 균형잡힌 줄바꿈</p>
+ * <p class="text-16 break-keep-all">한중일 단어 단위 줄바꿈</p>
+ * <p class="text-16 truncate-2">2줄 말줄임</p>
+ * ```
+ *
+ * ## 사용 가능한 글로벌 클래스
+ * - **Font Size**: `.text-56`, `.text-44`, `.text-40`, `.text-32`, `.text-26`, `.text-22`, `.text-20`, `.text-18`, `.text-16`, `.text-15`, `.text-14`, `.text-13`, `.text-12`, `.text-11`
+ * - **Font Weight**: `.font-regular` (400), `.font-semibold` (600), `.font-bold` (700)
+ * - **Line Height**: `.leading-tight` (1.2), `.leading-normal` (1.4), `.leading-relaxed` (1.5)
+ * - **Letter Spacing**: `.tracking-tight` (-0.1rem), `.tracking-normal` (0), `.tracking-wide` (0.1rem)
+ * - **Text Align**: `.text-left`, `.text-center`, `.text-right`, `.text-justify`
+ * - **Text Wrap**: `.text-wrap`, `.text-nowrap`, `.text-balance`, `.text-pretty`
+ * - **Word Break**: `.break-normal`, `.break-all`, `.break-keep-all`, `.break-word`
+ * - **Truncate**: `.truncate-1` ~ `.truncate-10` (1줄~10줄 말줄임)
+ * - **Extra**: `.underline` (밑줄)
+ *
+ * **참고**: `.truncate-2`, `.truncate-3` 등 다중 라인 truncate 클래스는 글로벌 CSS에 미리 정의되어 있어야 합니다.
+ * React 컴포넌트에서는 `truncate={3}` 처럼 동적으로 값을 설정할 수 있습니다.
  */
 const meta = {
   title: 'Foundation/Typo',
@@ -66,28 +128,42 @@ const meta = {
       table: { category: 'Appearance' },
     },
     weight: {
-      control: { type: 'radio' },
+      control: { type: 'select' },
       options: TEXT_WEIGHTS,
       description: 'Font weight',
       table: { category: 'Appearance' },
     },
     lineHeight: {
-      control: { type: 'radio' },
+      control: { type: 'select' },
       options: TEXT_LINE_HEIGHTS,
       description: 'Line height (비율 기반)',
       table: { category: 'Appearance' },
     },
     letterSpacing: {
-      control: { type: 'radio' },
+      control: { type: 'select' },
       options: TEXT_LETTER_SPACINGS,
       description: 'Letter spacing',
       table: { category: 'Appearance' },
     },
 
     align: {
-      control: { type: 'radio' },
+      control: { type: 'select' },
       options: TEXT_ALIGNS,
       description: '글자 정렬',
+      table: { category: 'Appearance' },
+    },
+    textWrap: {
+      control: { type: 'select' },
+      options: TEXT_WRAPS,
+      description:
+        '텍스트 줄바꿈 방식 (wrap: 기본, nowrap: 줄바꿈 안함, balance: 균형잡힌 줄바꿈, pretty: 가독성 최적화)',
+      table: { category: 'Appearance' },
+    },
+    wordBreak: {
+      control: { type: 'select' },
+      options: WORD_BREAKS,
+      description:
+        '단어 줄바꿈 규칙 (normal: 기본, breakAll: 모든 문자에서 줄바꿈, keepAll: 한중일 단어 단위 줄바꿈, breakWord: 넘치는 단어 줄바꿈)',
       table: { category: 'Appearance' },
     },
     underline: {
@@ -96,28 +172,17 @@ const meta = {
       table: { category: 'Appearance' },
     },
     truncate: {
-      control: { type: 'boolean' },
-      description: '말줄임 처리 (overflow ellipsis)',
+      control: { type: 'number', min: 0, max: 10, step: 1 },
+      description:
+        '말줄임 처리 (0 또는 false: 안함, 1 또는 true: 1줄, 2 이상: 다중 라인)',
       table: { category: 'Appearance' },
     },
 
     // HTML
     as: {
       control: { type: 'select' },
-      options: [
-        'p',
-        'span',
-        'div',
-        'h1',
-        'h2',
-        'h3',
-        'h4',
-        'h5',
-        'h6',
-        'label',
-        'a',
-      ],
-      description: 'HTML 태그 변경 (p, span, div, h1~h6, label)',
+      options: Object.keys(textElement),
+      description: 'HTML 태그 변경 (h2~h6, p, span, div, label)',
       table: { category: 'HTML' },
     },
     className: {
@@ -162,606 +227,167 @@ export const Default: Story = {
     truncate: false,
 
     // html
-    children: '기본 텍스트입니다',
+    children: '기본 텍스트입니다. ABC abc 가나다 123 !@#',
     as: undefined,
     className: undefined,
     style: undefined,
   },
+  decorators: [
+    (Story) => (
+      <div style={{ width: '600px', maxWidth: '100%' }}>
+        <Story />
+      </div>
+    ),
+  ],
 };
 
 /**
- * Preset 테스트용 - Controls로 다양한 Preset을 테스트할 수 있습니다.
- * Preset을 선택한 후 개별 속성을 변경해서 오버라이드도 테스트 가능합니다.
- */
-export const PresetPlayground: Story = {
-  args: {
-    children: 'Preset을 선택하고 속성을 변경해보세요!',
-    preset: 'body1',
-  },
-};
-
-/**
- * Preset 시스템 - Display 프리셋
+ * Preset 시스템
  * Display는 가장 큰 타이포그래피로, 랜딩 페이지나 대형 타이틀에 사용됩니다.
  */
-export const DisplayPresets: Story = {
+export const Presets: Story = {
   args: { children: '' },
   render: () => (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '32px',
-        width: '900px',
-      }}
-    >
-      <div>
-        <p style={{ fontSize: '12px', color: '#888', marginBottom: '8px' }}>
-          display1: 56px / Bold / Tight / Tight
-        </p>
-        <Text preset='display1'>무대 위의 감동을 곧장로 만나보세요</Text>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+        <Text preset='display1' />
+        <Text preset='display2' />
       </div>
-      <div>
-        <p style={{ fontSize: '12px', color: '#888', marginBottom: '8px' }}>
-          display2: 48px / Bold / Tight / Tight
-        </p>
-        <Text preset='display2'>Pretendard 프리텐다드 12345 !@#$</Text>
+
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '10px',
+          border: '1px solid #eee',
+          borderWidth: '1px 0',
+          padding: '20px 0',
+        }}
+      >
+        <Text preset='title1' />
+        <Text preset='title2' />
+        <Text preset='title3' />
+        <Text preset='title4' />
+        <Text preset='title5' />
       </div>
-      <div>
-        <p style={{ fontSize: '12px', color: '#888', marginBottom: '8px' }}>
-          display3: 40px / Bold / Tight / Tight
-        </p>
-        <Text preset='display3'>Pretendard 프리텐다드 12345 !@#$</Text>
+
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '10px',
+        }}
+      >
+        <Text preset='subTitle1' />
+        <Text preset='subTitle2' />
+        <Text preset='subTitle3' />
       </div>
-      <div>
-        <p style={{ fontSize: '12px', color: '#888', marginBottom: '8px' }}>
-          display4: 32px / Bold / Tight / Normal
-        </p>
-        <Text preset='display4'>Pretendard 프리텐다드 12345 !@#$</Text>
+
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '10px',
+          border: '1px solid #eee',
+          borderWidth: '1px 0',
+          padding: '20px 0',
+        }}
+      >
+        <Text preset='body1' />
+        <Text preset='body2' />
+        <Text preset='body3' />
+        <Text preset='body4' />
+      </div>
+
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '10px',
+        }}
+      >
+        <Text preset='label1' />
+        <Text preset='label2' />
+        <Text preset='label3' />
+      </div>
+
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '10px',
+          borderTop: '1px solid #eee',
+          padding: '20px 0',
+        }}
+      >
+        <Text preset='caption1' />
+        <Text preset='caption2' />
       </div>
     </div>
   ),
 };
 
-/**
- * Preset 시스템 - Title 프리셋
- * Title은 페이지 제목이나 섹션 타이틀에 사용됩니다.
- */
-export const TitlePresets: Story = {
-  args: { children: '' },
-  render: () => (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '24px',
-        width: '700px',
-      }}
-    >
-      <div>
-        <p style={{ fontSize: '12px', color: '#888', marginBottom: '8px' }}>
-          title1: 28px / Semibold / Tight / Normal
-        </p>
-        <Text preset='title1'>
-          ALLDAY PROJECT The 1st EP Album [ALLDAY PROJECT]
-        </Text>
-      </div>
-      <div>
-        <p style={{ fontSize: '12px', color: '#888', marginBottom: '8px' }}>
-          title2: 24px / Semibold / Normal / Normal
-        </p>
-        <Text preset='title2'>오랜만, 다시 만난 우리의 세계</Text>
-      </div>
-      <div>
-        <p style={{ fontSize: '12px', color: '#888', marginBottom: '8px' }}>
-          title3: 20px / Semibold / Normal / Normal
-        </p>
-        <Text preset='title3'>너를 위한 라방대</Text>
-      </div>
-    </div>
-  ),
-};
-
-/**
- * Preset 시스템 - Body 프리셋
- * Body는 본문 텍스트로, 가장 많이 사용됩니다.
- */
-export const BodyPresets: Story = {
-  args: { children: '' },
-  render: () => (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '20px',
-        width: '700px',
-      }}
-    >
-      <div>
-        <p style={{ fontSize: '12px', color: '#888', marginBottom: '8px' }}>
-          body1: 18px / Regular / Normal / Normal
-        </p>
-        <Text preset='body1'>
-          이번에 방문 계획 중인 공연이나 전시를 알려주시면 리뷰와 소식을 담은 새
-          글과 함께 다시 찾아올게요.
-        </Text>
-      </div>
-      <div>
-        <p style={{ fontSize: '12px', color: '#888', marginBottom: '8px' }}>
-          body2: 16px / Regular / Normal / Normal (기본)
-        </p>
-        <Text preset='body2'>Pretendard 프리텐다드 12345 !@#$</Text>
-      </div>
-      <div>
-        <p style={{ fontSize: '12px', color: '#888', marginBottom: '8px' }}>
-          body3: 14px / Regular / Normal / Normal
-        </p>
-        <Text preset='body3'>
-          <span>Pretendard 프리텐다드 12345 !@#$</span>
-        </Text>
-      </div>
-      <div>
-        <p style={{ fontSize: '12px', color: '#888', marginBottom: '8px' }}>
-          body4: 12px / Regular / Relaxed / Normal
-        </p>
-        <Text preset='body4'>Pretendard 프리텐다드 12345 !@#$</Text>
-      </div>
-    </div>
-  ),
-};
-
-/**
- * Preset 시스템 - Caption 프리셋
- * Caption은 가장 작은 텍스트로, 보조 정보에 사용됩니다.
- */
-export const CaptionPresets: Story = {
-  args: { children: '' },
-  render: () => (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '16px',
-        width: '500px',
-      }}
-    >
-      <div>
-        <p style={{ fontSize: '12px', color: '#888', marginBottom: '8px' }}>
-          caption1: 12px / Regular / Normal / Wide
-        </p>
-        <Text preset='caption1'>무대</Text>
-      </div>
-      <div>
-        <p style={{ fontSize: '12px', color: '#888', marginBottom: '8px' }}>
-          caption2: 10px / Regular / Normal / Wide
-        </p>
-        <Text preset='caption2'>Pretendard 프리텐다드 | 12345 !@#$</Text>
-      </div>
-    </div>
-  ),
-};
-
-/**
- * 모든 Preset 한눈에 보기
- */
-export const AllPresets: Story = {
-  args: { children: '' },
-  render: () => (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '24px',
-        width: '900px',
-      }}
-    >
-      <Text preset='display1'>Display 1 - 56px Bold Tight</Text>
-      <Text preset='display2'>Display 2 - 48px Bold Tight</Text>
-      <Text preset='title1'>Title 1 - 28px Semibold Tight</Text>
-      <Text preset='title2'>Title 2 - 24px Semibold Normal</Text>
-      <Text preset='title3'>Title 3 - 20px Semibold Normal</Text>
-      <Text preset='body1'>Body 1 - 18px Regular Normal</Text>
-      <Text preset='body2'>Body 2 - 16px Regular Normal (기본)</Text>
-      <Text preset='body3'>Body 3 - 14px Regular Normal</Text>
-      <Text preset='body4'>Body 4 - 12px Regular Relaxed</Text>
-      <Text preset='caption1'>Caption 1 - 12px Regular Wide</Text>
-      <Text preset='caption2'>Caption 2 - 10px Regular Wide</Text>
-    </div>
-  ),
-};
-
-/**
- * Preset 오버라이드
- * Preset을 사용하면서도 개별 속성으로 오버라이드할 수 있습니다.
- */
-export const PresetOverride: Story = {
-  args: { children: '' },
-  render: () => (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '20px',
-        width: '700px',
-      }}
-    >
-      <div>
-        <p style={{ fontSize: '12px', color: '#888', marginBottom: '8px' }}>
-          기본 body1 preset
-        </p>
-        <Text preset='body1'>일반 본문 텍스트입니다.</Text>
-      </div>
-      <div>
-        <p style={{ fontSize: '12px', color: '#888', marginBottom: '8px' }}>
-          body1 preset + weight='bold' 오버라이드
-        </p>
-        <Text preset='body1' weight='bold'>
-          강조된 본문 텍스트입니다.
-        </Text>
-      </div>
-      <div>
-        <p style={{ fontSize: '12px', color: '#888', marginBottom: '8px' }}>
-          body1 preset + size='xl' 오버라이드
-        </p>
-        <Text preset='body1' size='xl'>
-          크기가 변경된 본문 텍스트입니다.
-        </Text>
-      </div>
-      <div>
-        <p style={{ fontSize: '12px', color: '#888', marginBottom: '8px' }}>
-          title2 preset + lineHeight='relaxed' 오버라이드
-        </p>
-        <Text preset='title2' lineHeight='relaxed'>
-          줄 간격이 넓어진 제목입니다.
-        </Text>
-      </div>
-    </div>
-  ),
-};
-
-/**
- * 개별 속성 제어 - Size
- * Preset 없이 size만 독립적으로 제어할 수 있습니다.
- */
-export const IndependentSize: Story = {
-  args: { children: '' },
-  render: () => (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '16px',
-        width: '800px',
-      }}
-    >
-      <Text size='4xl'>4xl - 56px</Text>
-      <Text size='3xl'>3xl - 48px</Text>
-      <Text size='2xl'>2xl - 40px</Text>
-      <Text size='xl'>xl - 32px</Text>
-      <Text size='lg'>lg - 28px</Text>
-      <Text size='md'>md - 24px</Text>
-      <Text size='sm'>sm - 20px</Text>
-      <Text size='base'>base - 18px</Text>
-      <Text size='default'>default - 16px</Text>
-      <Text size='xs'>xs - 14px</Text>
-      <Text size='2xs'>2xs - 12px</Text>
-      <Text size='3xs'>3xs - 10px</Text>
-    </div>
-  ),
-};
-
-/**
- * 개별 속성 제어 - Weight
- */
-export const IndependentWeight: Story = {
-  args: { children: '' },
-  render: () => (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '16px',
-        width: '600px',
-      }}
-    >
-      <Text size='lg' weight='regular'>
-        Regular (400) - 일반 텍스트
-      </Text>
-      <Text size='lg' weight='semibold'>
-        Semibold (600) - 강조 텍스트
-      </Text>
-      <Text size='lg' weight='bold'>
-        Bold (700) - 굵은 텍스트
-      </Text>
-    </div>
-  ),
-};
-
-/**
- * 개별 속성 제어 - Line Height
- */
-export const IndependentLineHeight: Story = {
-  args: { children: '' },
-  render: () => (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '24px',
-        width: '600px',
-      }}
-    >
-      <div>
-        <p style={{ fontSize: '12px', color: '#888', marginBottom: '8px' }}>
-          tight (1.25) - 제목에 적합
-        </p>
-        <Text size='md' lineHeight='tight'>
-          이것은 줄 간격이 좁은 텍스트입니다.
-          <br />
-          여러 줄로 작성하면 차이를 확인할 수 있습니다.
-        </Text>
-      </div>
-      <div>
-        <p style={{ fontSize: '12px', color: '#888', marginBottom: '8px' }}>
-          normal (1.5) - 본문에 적합
-        </p>
-        <Text size='md' lineHeight='normal'>
-          이것은 일반 줄 간격의 텍스트입니다.
-          <br />
-          여러 줄로 작성하면 차이를 확인할 수 있습니다.
-        </Text>
-      </div>
-      <div>
-        <p style={{ fontSize: '12px', color: '#888', marginBottom: '8px' }}>
-          relaxed (1.75) - 긴 본문에 적합
-        </p>
-        <Text size='md' lineHeight='relaxed'>
-          이것은 줄 간격이 넓은 텍스트입니다.
-          <br />
-          여러 줄로 작성하면 차이를 확인할 수 있습니다.
-        </Text>
-      </div>
-    </div>
-  ),
-};
-
-/**
- * 개별 속성 제어 - Letter Spacing
- */
-export const IndependentLetterSpacing: Story = {
-  args: { children: '' },
-  render: () => (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '16px',
-        width: '600px',
-      }}
-    >
-      <div>
-        <p style={{ fontSize: '12px', color: '#888', marginBottom: '8px' }}>
-          tight (-0.01em)
-        </p>
-        <Text size='lg' letterSpacing='tight'>
-          자간이 좁은 텍스트 Tight Letter Spacing
-        </Text>
-      </div>
-      <div>
-        <p style={{ fontSize: '12px', color: '#888', marginBottom: '8px' }}>
-          normal (0)
-        </p>
-        <Text size='lg' letterSpacing='normal'>
-          일반 자간 텍스트 Normal Letter Spacing
-        </Text>
-      </div>
-      <div>
-        <p style={{ fontSize: '12px', color: '#888', marginBottom: '8px' }}>
-          wide (0.01em)
-        </p>
-        <Text size='lg' letterSpacing='wide'>
-          자간이 넓은 텍스트 Wide Letter Spacing
-        </Text>
-      </div>
-    </div>
-  ),
-};
-
-/**
- * 색상 커스터마이징
- */
-export const Colors: Story = {
-  args: { children: '' },
-  render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-      <Text preset='body2' color={theme.brand1.text.title}>
-        Title Color
-      </Text>
-      <Text preset='body2' color={theme.brand1.text.body}>
-        Body Color
-      </Text>
-      <Text preset='body2' color={theme.brand1.text.secondary}>
-        Secondary Color
-      </Text>
-      <Text preset='body2' color={theme.brand1.text.muted}>
-        Muted Color
-      </Text>
-      <Text preset='body2' color={theme.brand1.text.brand}>
-        Brand Color
-      </Text>
-      <Text preset='body2' color={theme.brand1.text.link}>
-        Link Color
-      </Text>
-      <Text preset='body2' color='#f9556e'>
-        Custom Color (Red)
-      </Text>
-    </div>
-  ),
-};
-
-/**
- * Align 옵션
- */
-export const Alignment: Story = {
-  args: { children: '' },
-  render: () => (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '16px',
-        width: '500px',
-      }}
-    >
-      <Text preset='body2' align='left'>
-        왼쪽 정렬 텍스트
-      </Text>
-      <Text preset='body2' align='center'>
-        가운데 정렬 텍스트
-      </Text>
-      <Text preset='body2' align='right'>
-        오른쪽 정렬 텍스트
-      </Text>
-    </div>
-  ),
-};
-
-/**
- * Underline 옵션
- */
-export const Underline: Story = {
-  args: { children: '' },
-  render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-      <Text preset='body2' color={theme.brand1.text.link}>
-        일반 링크 스타일
-      </Text>
-      <Text preset='body2' color={theme.brand1.text.link} underline>
-        밑줄이 있는 링크 스타일
-      </Text>
-    </div>
-  ),
-};
-
-/**
- * Truncate (말줄임)
- */
 export const Truncate: Story = {
   args: { children: '' },
   render: () => (
     <div
       style={{
+        width: '400px',
         display: 'flex',
         flexDirection: 'column',
-        gap: '16px',
-        width: '300px',
+        gap: '30px',
       }}
     >
       <div>
-        <p style={{ fontSize: '12px', color: '#888', marginBottom: '8px' }}>
-          일반 텍스트 (넘치면 줄바꿈)
-        </p>
+        <h4 style={{ marginBottom: '10px', fontSize: '14px', color: '#666' }}>
+          기본 (truncate 없음)
+        </h4>
         <Text preset='body2'>
-          이것은 매우 긴 텍스트입니다. 컨테이너를 넘어가면 자동으로 줄바꿈이
-          됩니다.
-        </Text>
-      </div>
-      <div>
-        <p style={{ fontSize: '12px', color: '#888', marginBottom: '8px' }}>
-          Truncate (말줄임)
-        </p>
-        <Text preset='body2' truncate>
-          이것은 매우 긴 텍스트입니다. 컨테이너를 넘어가면 말줄임 처리됩니다.
-        </Text>
-      </div>
-    </div>
-  ),
-};
-
-/**
- * As prop으로 HTML 태그 변경
- */
-export const CustomElement: Story = {
-  args: { children: '' },
-  render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-      <Text preset='body2' as='h1'>
-        H1 태그로 렌더링
-      </Text>
-      <Text preset='body2' as='span'>
-        Span 태그로 렌더링
-      </Text>
-      <Text preset='body2' as='div'>
-        Div 태그로 렌더링
-      </Text>
-      <Text preset='body2' as='label'>
-        Label 태그로 렌더링
-      </Text>
-    </div>
-  ),
-};
-
-/**
- * 실전 사용 예시
- */
-export const RealWorldExample: Story = {
-  args: { children: '' },
-  render: () => (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '24px',
-        width: '700px',
-        padding: '32px',
-        backgroundColor: '#f8f9fc',
-        borderRadius: '12px',
-      }}
-    >
-      <div>
-        <Text preset='display2' as='h1'>
-          공연 정보
-        </Text>
-      </div>
-
-      <div
-        style={{
-          backgroundColor: 'white',
-          padding: '24px',
-          borderRadius: '8px',
-        }}
-      >
-        <Text preset='title2' as='h2' style={{ marginBottom: '12px' }}>
-          ALLDAY PROJECT The 1st EP Album
-        </Text>
-
-        <Text
-          preset='body3'
-          color={theme.brand1.text.secondary}
-          style={{ marginBottom: '16px' }}
-        >
-          2024.12.20 FRI 19:30
-        </Text>
-
-        <Text preset='body2' style={{ marginBottom: '16px' }}>
-          이번에 방문 계획 중인 공연이나 전시를 알려주시면 리뷰와 소식을 담은 새
-          글과 함께 다시 찾아올게요.
-        </Text>
-
-        <Text
-          preset='body3'
-          color={theme.brand1.text.link}
-          underline
-          as='a'
-          style={{ cursor: 'pointer' }}
-        >
-          더 알아보기
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda
+          expedita nemo incidunt odit quaerat et delectus, aperiam ab quasi
+          voluptatum eaque libero neque eos debitis quidem a fugiat molestias
+          at. 짜앗히산은가 간스월다 등온곺무는 간미다 릴가 잉베며 핀채련뒀의
+          여이옽여울. 니따는 로슼어 욘이 토눈으링이다 다시쩹써간먹 드하어가
+          콘껙마솝게의.
         </Text>
       </div>
 
       <div>
-        <Text preset='caption1' color={theme.brand1.text.muted}>
-          마지막 업데이트: 2024년 12월 17일
+        <h4 style={{ marginBottom: '10px', fontSize: '14px', color: '#666' }}>
+          1줄 말줄임 (truncate={'{1}'} 또는 truncate)
+        </h4>
+        <Text preset='body2' truncate={1}>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda
+          expedita nemo incidunt odit quaerat et delectus, aperiam ab quasi
+          voluptatum eaque libero neque eos debitis quidem a fugiat molestias
+          at.
+        </Text>
+      </div>
+
+      <div>
+        <h4 style={{ marginBottom: '10px', fontSize: '14px', color: '#666' }}>
+          2줄 말줄임 (truncate={'{2}'})
+        </h4>
+        <Text preset='body2' truncate={2}>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda
+          expedita nemo incidunt odit quaerat et delectus, aperiam ab quasi
+          voluptatum eaque libero neque eos debitis quidem a fugiat molestias
+          at. 짜앗히산은가 간스월다 등온곺무는 간미다 릴가 잉베며 핀채련뒀의
+          여이옽여울.
+        </Text>
+      </div>
+
+      <div>
+        <h4 style={{ marginBottom: '10px', fontSize: '14px', color: '#666' }}>
+          3줄 말줄임 (truncate={'{3}'})
+        </h4>
+        <Text preset='body2' truncate={3}>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda
+          expedita nemo incidunt odit quaerat et delectus, aperiam ab quasi
+          voluptatum eaque libero neque eos debitis quidem a fugiat molestias
+          at. 짜앗히산은가 간스월다 등온곺무는 간미다 릴가 잉베며 핀채련뒀의
+          여이옽여울. 니따는 로슼어 욘이 토눈으링이다 다시쩹써간먹 드하어가
+          콘껙마솝게의.
         </Text>
       </div>
     </div>

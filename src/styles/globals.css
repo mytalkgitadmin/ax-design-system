@@ -14,7 +14,12 @@ p {
   display: grid;
   gap: 0;
 }
-
+html {
+  font-size: 10px;
+}
+body {
+  font-size: 1.6rem;
+}
 .container {
   container-type: inline-size;
   container-name: container;
