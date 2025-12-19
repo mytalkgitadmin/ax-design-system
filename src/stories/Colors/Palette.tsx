@@ -4,7 +4,7 @@ import styles from './Palette.module.css';
 
 export type CopyFormat = 'hex' | 'token' | 'var';
 
-export interface PaletteProps {
+export type PaletteProps = {
   color?: string;
   name?: string;
   isBorder?: boolean;
@@ -78,7 +78,7 @@ const ColorBox: React.FC<{
   );
 };
 
-const Palette: React.FC<PaletteProps> = (props) => {
+export const Palette: React.FC<PaletteProps> = (props) => {
   const defaultCopyFormat: CopyFormat = props.copyFormat || 'hex';
 
   if (props.title && props.colors) {
@@ -132,5 +132,3 @@ const Palette: React.FC<PaletteProps> = (props) => {
 
   return null;
 };
-
-export default Palette;

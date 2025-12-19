@@ -1,8 +1,9 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import Icon from './index';
-import type { IconType } from './types';
-import { ICON_COLOR_PRESETS } from './types';
 import { color } from '../../tokens/auto';
+import { Icon } from './index';
+import { ICON_COLOR_PRESETS } from './types';
+
+import type { IconType } from './types';
+import type { Meta, StoryObj } from '@storybook/react';
 
 /**
  * Icon 컴포넌트는 Tabler 아이콘을 사용하는 아이콘 컴포넌트입니다.

@@ -21,7 +21,7 @@ export type IconType =
 export type IconColorPreset = 'primary' | 'secondary' | 'warning' | 'success' | 'danger';
 export type IconColor = IconColorPreset | string;
 
-export interface IconProps {
+export type IconProps = {
   /** 아이콘 이름 (tabler 아이콘 사용) */
   name: IconType;
   /** 아이콘 크기 (px) */

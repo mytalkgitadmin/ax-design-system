@@ -1,12 +1,13 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import Button from './index';
+import { color } from '../../tokens/auto';
+import { Button } from './index';
 import {
-  BUTTON_VARIANTS,
+  BUTTON_COLOR_PRESETS,
   BUTTON_SIZES,
   BUTTON_TYPES,
-  BUTTON_COLOR_PRESETS,
+  BUTTON_VARIANTS,
 } from './types';
-import { color } from '../../tokens/auto';
+
+import type { Meta, StoryObj } from '@storybook/react';
 
 /**
  * Button 컴포넌트는 사용자 액션을 트리거하는 기본 버튼입니다.
