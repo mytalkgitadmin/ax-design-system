@@ -113,11 +113,10 @@ module.exports = {
           // Jira 키가 없어도 통과 (선택사항)
           return [true, ""];
         },
-        "smart-commit-format": (parsed) => {
-          // 스마트 커밋 명령어 패턴
-          const smartCommitPattern =
-            /#(comment|time|start|resolve|close|transition)/i;
-          const hasSmartCommit = smartCommitPattern.test(parsed.raw);
+         "smart-commit-format": (parsed) => {
+           // 스마트 커밋 명령어 패턴 (comment, time만 지원)
+           const smartCommitPattern = /#(comment|time)/i;
+           const hasSmartCommit = smartCommitPattern.test(parsed.raw);
 
           if (hasSmartCommit) {
             // Jira 키도 있는지 확인

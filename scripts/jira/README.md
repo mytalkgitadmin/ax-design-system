@@ -127,6 +127,8 @@ GitHub 웹사이트에서 직접 워크플로우를 실행할 수도 있습니�
 
 ### 지원하는 명령어
 
+> ℹ️ 현재 지원하는 명령어: `#comment`, `#time`
+
 #### 1. 코멘트 추가 (`#comment`)
 
 ```bash
@@ -156,41 +158,18 @@ git commit -m "✨ Feat: 아이콘 컴포넌트 구현 FMTW-123 #time 2h 30m"
 - `#time 2d` - 2일 (16시간)
 - `#time 1w 2d 3h` - 1주 2일 3시간
 
-#### 3. 작업 시작 (`#start`)
-
-```bash
-git commit -m "✨ Feat: 작업 시작 FMTW-123 #start"
-```
-
-결과: Jira 티켓 상태가 "작업 중(In Progress)"으로 변경됩니다.
-
-> ⚠️ `jira-workflow-config.json`에 `start` transition ID가 설정되어 있어야 합니다.
-
-#### 4. 완료 처리 (`#resolve` 또는 `#close`)
-
-```bash
-git commit -m "✨ Feat: 버튼 컴포넌트 완료 FMTW-123 #resolve"
-# 또는
-git commit -m "🐛 Fix: 버그 수정 완료 FMTW-123 #close"
-```
-
-결과: Jira 티켓 상태가 "완료(Done)" 또는 "해결(Resolved)"로 변경됩니다.
-
-> ⚠️ `jira-workflow-config.json`에 `end` transition ID가 설정되어 있어야 합니다.
-
 ### 여러 명령어 조합
 
 하나의 커밋 메시지에 여러 명령어를 함께 사용할 수 있습니다:
 
 ```bash
-git commit -m "✨ Feat: 버튼 컴포넌트 완료 FMTW-123 #time 3h #comment 테스트 완료, 리뷰 준비됨 #resolve"
+git commit -m "✨ Feat: 버튼 컴포넌트 완료 FMTW-123 #time 3h #comment 테스트 완료, 리뷰 준비됨"
 ```
 
 위 커밋은 다음을 수행합니다:
 
 1. 3시간 작업 시간 기록
 2. "테스트 완료, 리뷰 준비됨" 코멘트 추가
-3. 티켓 상태를 완료로 변경
 
 ### 여러 티켓 동시 업데이트
 

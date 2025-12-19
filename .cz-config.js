@@ -71,7 +71,7 @@ module.exports = {
     subject: "커밋 제목을 입력하세요 (명령조, 첫글자 대문자, 마침표 X):\n",
     body: '상세 설명 (Enter=스킵, 긴 내용은 "git commit"으로 작성):\n',
     footer:
-      "Jira 티켓과 스마트 커밋 (선택사항):\n  예: FMTW-123 #comment 작업 완료\n  명령어: #comment, #time 2h, #start, #resolve, #close\n",
+      "Jira 티켓과 스마트 커밋 (선택사항):\n  예: FMTW-123 #comment 작업 완료 #time 2h\n  명령어: #comment [내용], #time [시간]\n",
     confirmCommit: "위 내용으로 커밋하시겠습니까?",
   },
 

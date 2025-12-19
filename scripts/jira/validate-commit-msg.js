@@ -31,10 +31,6 @@ if (jiraKeys) {
   const smartCommands = [];
   if (/#comment/i.test(commitMsg)) smartCommands.push("comment");
   if (/#time/i.test(commitMsg)) smartCommands.push("time");
-  if (/#close/i.test(commitMsg)) smartCommands.push("close");
-  if (/#resolve/i.test(commitMsg)) smartCommands.push("resolve");
-  if (/#start/i.test(commitMsg)) smartCommands.push("start");
-  if (/#transition/i.test(commitMsg)) smartCommands.push("transition");
 
   if (smartCommands.length > 0) {
     console.log(`🎯 스마트 커밋 명령어 감지: ${smartCommands.join(", ")}`);
