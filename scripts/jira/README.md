@@ -8,6 +8,7 @@
 - [초기 설정](#초기-설정)
 - [Jira 티켓 생성](#jira-티켓-생성)
 - [스마트 커밋](#스마트-커밋)
+- [PR 머지 시 자동 완료](#pr-머지-시-자동-완료)
 - [설정 파일](#설정-파일)
 - [문제 해결](#문제-해결)
 
@@ -15,10 +16,11 @@
 
 ## 개요
 
-프로젝트는 두 가지 주요 Jira 연동 기능을 제공합니다:
+프로젝트는 세 가지 주요 Jira 연동 기능을 제공합니다:
 
 1. **Jira 티켓 생성**: CLI를 통해 대화형으로 티켓 생성
 2. **스마트 커밋**: 커밋 메시지를 통한 자동 Jira 업데이트
+3. **PR 머지 자동 완료**: develop 브랜치로 PR 머지 시 티켓 자동 완료
 
 모든 기능은 GitHub Actions를 통해 실행되며, GitHub Secrets에 저장된 Jira 인증 정보를 사용합니다.
 
@@ -200,6 +202,100 @@ GitHub Actions가 자동으로:
 
 ---
 
+## PR 머지 시 자동 완료
+
+develop 브랜치로 PR이 머지되면 자동으로 Jira 티켓 상태를 "완료"로 변경합니다.
+
+### 브랜치 명명 규칙
+
+브랜치명에 Jira 티켓 번호를 포함해야 자동 완료가 작동합니다:
+
+```bash
+# ✅ 올바른 형식
+AUR-123-button-component
+feature/AUR-456-icon-system
+bugfix/AUR-789-fix-styling
+
+# ❌ 잘못된 형식 (티켓 번호 없음)
+button-component
+feature/new-icons
+```
+
+티켓 번호는 `[A-Z]+-[0-9]+` 패턴으로 추출됩니다 (예: `AUR-123`, `FMTW-456`).
+
+### 자동 실행 조건
+
+PR이 다음 조건을 만족하면 자동으로 실행됩니다:
+
+1. **타겟 브랜치**: develop 브랜치로의 PR
+2. **PR 상태**: 실제로 머지된 PR (닫히기만 한 PR은 제외)
+3. **브랜치명**: Jira 티켓 번호 포함
+
+### 자동 실행 내용
+
+PR이 머지되면 다음 작업이 자동으로 수행됩니다:
+
+1. **브랜치명에서 티켓 추출**
+
+   ```
+   AUR-6-fe-task-pr → AUR-6
+   ```
+
+2. **Jira 티켓 상태 변경**
+
+   - `jira-workflow-config.json`의 `end` transition ID 사용
+   - 티켓을 "완료" 상태로 자동 전환
+
+3. **완료 코멘트 추가**
+
+   ```
+   🎉 PR이 develop 브랜치에 머지되었습니다
+
+   PR: #123 Button 컴포넌트 추가
+   Branch: AUR-6-fe-task-pr
+   Merged by: username
+   ```
+
+### 워크플로우 확인
+
+PR 머지 후 GitHub Actions 탭에서 확인할 수 있습니다:
+
+1. **Actions** 탭 이동
+2. **Jira Auto Complete on PR Merge** 워크플로우 선택
+3. 실행 결과 및 로그 확인
+
+### 예시 플로우
+
+```bash
+# 1. 티켓 생성
+npm run jira:create
+# → Jira 티켓: AUR-123 생성됨
+
+# 2. 브랜치 생성 (티켓 번호 포함)
+git checkout -b AUR-123-button-component
+
+# 3. 작업 및 커밋
+npm run commit
+# → 커밋: ✨ Feat: 버튼 컴포넌트 추가 AUR-123
+
+# 4. PR 생성 및 머지
+# develop으로 PR 생성 → 리뷰 → 머지
+
+# 5. 자동 완료 ✅
+# → Jira 티켓 AUR-123이 자동으로 "완료" 상태로 변경됨
+# → Jira에 PR 링크 코멘트 자동 추가
+```
+
+### 수동 확인
+
+자동 완료가 제대로 작동했는지 확인하려면:
+
+1. Jira에서 해당 티켓 확인
+2. 티켓 상태가 "완료"로 변경되었는지 확인
+3. 최근 코멘트에 PR 링크가 추가되었는지 확인
+
+---
+
 ## 설정 파일
 
 ### `jira-create-config.json`
@@ -310,6 +406,27 @@ gh auth login
 1. GitHub Actions 워크플로우 페이지에서 직접 확인
 2. 워크플로우 Summary에서 생성된 티켓 번호 확인
 
+### 6. "PR 머지했는데 Jira가 완료되지 않음"
+
+**확인사항:**
+
+- 브랜치명에 Jira 티켓 번호가 포함되어 있는지 (예: `AUR-123-description`)
+- PR이 develop 브랜치로 머지되었는지 (단순히 닫힌 것이 아닌지)
+- `jira-workflow-config.json`에 `end` transition ID가 설정되어 있는지
+
+**디버깅:**
+
+1. GitHub Actions 탭에서 **Jira Auto Complete on PR Merge** 워크플로우 확인
+2. 워크플로우가 실행되었는지 확인 (PR 머지 시 자동 트리거)
+3. 워크플로우 로그에서 티켓 추출 및 상태 전환 과정 확인
+4. Jira 워크플로우에서 현재 상태에서 "완료"로 전환 가능한지 확인
+
+**해결방법:**
+
+1. 브랜치명 형식 확인: `[프로젝트키]-[번호]-[설명]` (예: `AUR-123-feature`)
+2. Transition ID 확인: `npm run` 또는 GitHub Actions에서 **Get Jira Transitions** 실행
+3. `scripts/jira/jira-workflow-config.json`의 `end` 값 업데이트
+
 ---
 
 ## 추가 리소스
@@ -340,5 +457,6 @@ scripts/jira/
 .github/workflows/
 ├── create-jira-only.yml          # Jira 티켓 생성 워크플로우
 ├── jira-smart-commit.yml         # 스마트 커밋 처리 워크플로우
+├── jira-pr-merged.yml            # PR 머지 시 자동 완료 워크플로우
 └── get-jira-transitions.yml      # Transition ID 조회 워크플로우
 ```
