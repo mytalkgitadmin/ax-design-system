@@ -1,7 +1,8 @@
 // Icon.tsx
 import { Icon as IconifyIcon } from '@iconify/react';
+
+import { theme } from '../../tokens/auto';
 import { IconProps } from './types';
-import { theme } from '../../tokens';
 
 export type { IconType } from './types';
 
@@ -27,7 +28,7 @@ const getIconColor = (color?: string): string | undefined => {
   return color;
 };
 
-const Icon = ({ name, size = 20, color, className }: IconProps) => {
+export const Icon = ({ name, size = 20, color, className }: IconProps) => {
   const iconColor = getIconColor(color);
 
   return (
@@ -40,5 +41,3 @@ const Icon = ({ name, size = 20, color, className }: IconProps) => {
     />
   );
 };
-
-export default Icon;

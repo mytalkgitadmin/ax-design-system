@@ -17,7 +17,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 2  # 이전 커밋 포함
+          fetch-depth: 0  # 전체 히스토리 가져오기 (스마트 커밋 범위 계산용)
 
       - name: Setup Node.js
         uses: actions/setup-node@v4

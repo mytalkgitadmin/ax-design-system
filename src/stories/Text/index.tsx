@@ -1,12 +1,15 @@
 import React from 'react';
+
 import { assignInlineVars } from '@vanilla-extract/dynamic';
-import { textStyle, textVars } from './Text.css';
-import { theme } from '../../tokens';
+
+import { theme } from '../../tokens/auto';
 import { type TextProps, typographyPresets } from '../../tokens/dev/typography';
+
+import { textStyle, textVars } from './Text.css';
 
 export type { TextProps } from '../../tokens/dev/typography';
 
-const Text = ({
+export const Text = ({
   preset,
   size,
   weight,
@@ -85,5 +88,3 @@ const Text = ({
     children
   );
 };
-
-export default Text;

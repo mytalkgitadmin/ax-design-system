@@ -1,0 +1,32 @@
+{
+  "rounded": {
+    "none": {
+      "value": "{number.0}",
+      "type": "number"
+    },
+    "xs": {
+      "value": "{number.4}",
+      "type": "number"
+    },
+    "sm": {
+      "value": "{number.8}",
+      "type": "number"
+    },
+    "md": {
+      "value": "{number.12}",
+      "type": "number"
+    },
+    "full": {
+      "value": "{number.999}",
+      "type": "number"
+    },
+    "lg": {
+      "value": "{number.16}",
+      "type": "number"
+    },
+    "xl": {
+      "value": "{number.24}",
+      "type": "number"
+    }
+  }
+}

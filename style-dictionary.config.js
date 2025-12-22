@@ -1,9 +1,27 @@
 module.exports = {
   // 분리된 토큰 파일들을 모두 읽어옴
-  source: ['src/tokens/primitives/**/*.json', 'src/tokens/semantic/**/*.json'],
+  source: [
+    'src/tokens/auto/primitives/**/*.json',
+    'src/tokens/auto/semantic/**/*.json',
+  ],
   // hooks를 사용한 커스텀 transform, format 등록 (v5+)
   hooks: {
     transforms: {
+      // rounded 토큰의 type을 borderRadius로 변경
+      'attribute/rounded-to-border-radius': {
+        type: 'attribute',
+        transform: (token) => {
+          // rounded 토큰의 type을 borderRadius로 변경
+          if (token.path[0] === 'rounded') {
+            return {
+              ...token.attributes,
+              category: 'size',
+              type: 'borderRadius',
+            };
+          }
+          return token.attributes;
+        },
+      },
       // Tailwind 스타일 네이밍 (CSS용)
       'name/css/tailwind': {
         type: 'name',
@@ -41,6 +59,7 @@ module.exports = {
             color: {},
             font: {},
             number: {},
+            rounded: {},
           };
           const semantics = {
             theme: {},
@@ -96,6 +115,20 @@ module.exports = {
               for (let i = 0; i < numberPath.length; i++) {
                 const key = numberPath[i];
                 if (i === numberPath.length - 1) {
+                  current[key] = token.value;
+                } else {
+                  if (!current[key]) current[key] = {};
+                  current = current[key];
+                }
+              }
+            } else if (path[0] === 'rounded') {
+              // rounded.none, rounded.xs 형태
+              const roundedPath = path.slice(1); // ex) ['none'], ['xs']
+
+              let current = primitives.rounded;
+              for (let i = 0; i < roundedPath.length; i++) {
+                const key = roundedPath[i];
+                if (i === roundedPath.length - 1) {
                   current[key] = token.value;
                 } else {
                   if (!current[key]) current[key] = {};
@@ -179,7 +212,7 @@ module.exports = {
     // TypeScript 파일 생성 (중첩 객체 형태)
     ts: {
       transformGroup: 'js',
-      buildPath: 'src/tokens/',
+      buildPath: 'src/tokens/auto/',
       files: [
         {
           destination: 'index.ts',
@@ -191,13 +224,14 @@ module.exports = {
     css: {
       transforms: [
         'attribute/cti',
+        'attribute/rounded-to-border-radius', // rounded를 borderRadius로 변환
         'name/css/tailwind', // 커스텀 transform 사용
         'time/seconds',
         'html/icon',
         'size/rem',
         'color/css',
       ],
-      buildPath: 'src/tokens/',
+      buildPath: 'src/tokens/auto/',
       files: [
         {
           destination: 'variables.css',

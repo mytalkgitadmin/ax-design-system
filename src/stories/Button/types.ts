@@ -9,13 +9,13 @@ export type ButtonType = 'button' | 'submit';
 export type ButtonColorPreset = 'primary' | 'secondary' | 'warning' | 'success' | 'danger';
 export type ButtonColor = ButtonColorPreset | string;
 
-export interface ButtonColorScheme {
+export type ButtonColorScheme = {
   default: string;
   hover: string;
   active: string;
 }
 
-export interface ButtonProps {
+export type ButtonProps = {
   variant?: ButtonVariant;
   size?: ButtonSize;
   color?: ButtonColor;

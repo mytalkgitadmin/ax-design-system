@@ -1,8 +1,10 @@
 import { assignInlineVars } from '@vanilla-extract/dynamic';
+
+import { theme } from '../../tokens/auto';
+import { Icon } from '../Icon';
+import { ButtonColorScheme, ButtonProps } from './types';
+
 import { buttonStyle, buttonVars } from './Button.css';
-import { ButtonProps, ButtonColorScheme } from './types';
-import { theme } from '../../tokens';
-import Icon from '../Icon';
 
 export type { ButtonProps } from './types';
 
@@ -50,7 +52,7 @@ const getColorScheme = (color: string): ButtonColorScheme => {
   };
 };
 
-const Button = ({
+export const Button = ({
   leftIcon,
   variant = 'solid',
   color = 'primary',
@@ -90,5 +92,3 @@ const Button = ({
     </button>
   );
 };
-
-export default Button;

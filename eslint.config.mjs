@@ -134,7 +134,7 @@ export default tseslint.config(
 
   // Storybook 파일은 Default Export 허용
   {
-    files: ['**/*.stories.{ts,tsx}'],
+    files: ['**/*.stories.{ts,tsx}', '**/*.d.ts'],
     rules: {
       'import/no-default-export': 'off',
     },
@@ -150,6 +150,10 @@ export default tseslint.config(
       '.storybook/**',
       '*.config.{js,ts,mjs,cjs}',
       'scripts/**',
+      '.commitlintrc.js',
+      '.cz-config.js',
+      '.prettierrc.js',
+      '**/*.d.ts', // 타입 선언 파일 제외
     ],
   }
 );

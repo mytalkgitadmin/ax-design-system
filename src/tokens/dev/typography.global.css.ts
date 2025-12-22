@@ -7,6 +7,7 @@
  * <p className="text-lg font-bold text-center">...</p>
  */
 import { globalStyle } from '@vanilla-extract/css';
+
 import * as typography from './typography';
 
 // Font Size - .text-{size}
@@ -44,7 +45,7 @@ Object.entries(typography.letterSpacing).forEach(([key, value]) => {
 // Text Align - .text-{align}
 Object.entries(typography.textAlign).forEach(([key, value]) => {
   globalStyle(`.text-${key}`, {
-    textAlign: value as any,
+    textAlign: value,
   });
 });
 
@@ -52,7 +53,7 @@ Object.entries(typography.textAlign).forEach(([key, value]) => {
 Object.entries(typography.textWrap).forEach(([key, value]) => {
   const className = key.replace(/([A-Z])/g, '-$1').toLowerCase();
   globalStyle(`.text-${className}`, {
-    textWrap: value as any,
+    textWrap: value,
   });
 });
 
@@ -60,7 +61,7 @@ Object.entries(typography.textWrap).forEach(([key, value]) => {
 Object.entries(typography.wordBreak).forEach(([key, value]) => {
   const className = key.replace(/([A-Z])/g, '-$1').toLowerCase();
   globalStyle(`.break-${className}`, {
-    wordBreak: value as any,
+    wordBreak: value,
   });
 });
 

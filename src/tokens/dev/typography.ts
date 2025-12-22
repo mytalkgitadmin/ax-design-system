@@ -86,7 +86,7 @@ export type TextElement = keyof typeof textElement;
  * Typography Presets
  * 자주 사용하는 타이포그래피 스타일 조합
  */
-export interface TypographyPreset {
+export type TypographyPreset = {
   size: FontSize;
   weight: FontWeight;
   lineHeight: LineHeight;
@@ -266,7 +266,7 @@ export const presetOptions = Object.keys(
 /**
  * Text Component Props
  */
-export interface TextProps {
+export type TextProps = {
   // Preset (선택사항 - preset을 사용하면 size, weight, lineHeight 자동 설정)
   preset?: TypographyPresetName;
 

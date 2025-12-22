@@ -124,6 +124,9 @@ export const font = {
     regular: 400,
     semibold: 600,
     bold: 700
+  },
+  size: {
+    '0': 0
   }
 };
 
@@ -152,6 +155,16 @@ export const number = {
   '152': 152,
   '200': 200,
   '999': 999
+};
+
+export const rounded = {
+  none: 0,
+  xs: 4,
+  sm: 8,
+  md: 12,
+  full: 999,
+  lg: 16,
+  xl: 24
 };
 
 export const theme = {

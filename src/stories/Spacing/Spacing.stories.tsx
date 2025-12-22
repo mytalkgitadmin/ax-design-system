@@ -1,6 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/react';
 import { spacing } from '../../tokens/dev/spacing';
 import { SpacingDemo } from './SpacingDemo';
+
+import type { Meta, StoryObj } from '@storybook/react';
 
 /**
  * 디자인 시스템 전반에서 사용되는 **여백(margin)**, **안쪽 여백(padding)**, **간격(gap)**의 기준 값입니다.

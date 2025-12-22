@@ -1,6 +1,6 @@
 import { spacing } from '../../tokens/dev/spacing';
 
-export interface SpacingDemoProps {
+export type SpacingDemoProps = {
   margin?: keyof typeof spacing;
   marginTop?: keyof typeof spacing;
   marginRight?: keyof typeof spacing;
@@ -16,7 +16,7 @@ export interface SpacingDemoProps {
   gapX?: keyof typeof spacing;
 }
 
-export function SpacingDemo({
+export const SpacingDemo = ({
   margin = 0,
   marginTop: marginTopProp,
   marginRight: marginRightProp,
@@ -30,7 +30,7 @@ export function SpacingDemo({
   gap = 0,
   gapY: gapYProp,
   gapX: gapXProp,
-}: SpacingDemoProps) {
+}: SpacingDemoProps) => {
   // 일괄 적용(margin)이 있으면 우선 사용, 없으면 개별 값 사용
   const marginTop = marginTopProp ?? margin;
   const marginRight = marginRightProp ?? margin;
