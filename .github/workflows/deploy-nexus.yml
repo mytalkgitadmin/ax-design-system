@@ -1,0 +1,53 @@
+name: Deploy to Nexus
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '23.11.0'
+          registry-url: 'https://nexus.danalentertainment.com/repository/npm-bemily/'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build package
+        run: npm run build
+
+      - name: Configure npm for Nexus
+        run: |
+          echo "@bemily:registry=https://nexus.danalentertainment.com/repository/npm-bemily/" > .npmrc
+          echo "//nexus.danalentertainment.com/repository/npm-bemily/:_auth=${{ secrets.NEXUS_AUTH_TOKEN }}" >> .npmrc
+
+      - name: Publish to Nexus
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NEXUS_AUTH_TOKEN }}
+
+      - name: Deployment Summary
+        if: success()
+        run: |
+          echo "## 📦 Nexus 배포 완료" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 배포 정보" >> $GITHUB_STEP_SUMMARY
+          echo "| 항목 | 내용 |" >> $GITHUB_STEP_SUMMARY
+          echo "|------|------|" >> $GITHUB_STEP_SUMMARY
+          echo "| 📦 패키지 | @bemily/design-system |" >> $GITHUB_STEP_SUMMARY
+          echo "| 🔢 버전 | $(node -p "require('./package.json').version") |" >> $GITHUB_STEP_SUMMARY
+          echo "| 🌐 레지스트리 | Nexus npm-bemily |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### ✅ 배포 성공" >> $GITHUB_STEP_SUMMARY
+          echo "패키지가 Nexus에 성공적으로 배포되었습니다." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "🔗 [Nexus Repository 확인하기](https://nexus.danalentertainment.com/#browse/browse:npm-bemily)" >> $GITHUB_STEP_SUMMARY
