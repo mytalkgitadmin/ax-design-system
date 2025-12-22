@@ -4,5 +4,6 @@ dist
 *.log
 .env
 .env.local
+.npmrc
 storybook-static
 build-storybook.log
