@@ -1,32 +1,40 @@
+// 커밋 타입 상수 정의 (중복 제거)
+const COMMIT_TYPES = [
+  '✨ Feat',
+  '⚡ Perf',
+  '🐛 Fix',
+  '🎨 UI/UX',
+  '💄 Style',
+  '➕ Add',
+  '♻️ Refactor',
+  '🔧 Chore',
+  '🏗️ Build',
+  '👷 CI',
+  '📝 Docs',
+  '🔥 Remove',
+  '🔍 SEO',
+  '🚧 WIP',
+  '♿ A11y',
+  '🧪 Test',
+  '🚚 Move',
+  '✏ Edit',
+  '🚨 Linter',
+  '🔀 Merge',
+];
+
+// 이모지만 추출
+const EMOJIS = COMMIT_TYPES.map((type) => type.split(' ')[0]).join('|');
+
+// 타입 이름만 추출 (예: Feat, Fix, Docs)
+const TYPE_NAMES = COMMIT_TYPES.map((type) => type.split(' ')[1]).join('|');
+
 module.exports = {
   // extends를 제거하여 커스텀 규칙만 사용
   // extends: ["@commitlint/config-conventional"],
 
   rules: {
     // 타입은 반드시 있어야 함
-    'type-enum': [
-      2,
-      'always',
-      [
-        '✨ Feat',
-        '⚡ Perf',
-        '🐛 Fix',
-        '🎨 UI/UX',
-        '💄 Style',
-        '➕ Add',
-        '♻️ Refactor',
-        '🔧 Chore',
-        '🏗️ Build',
-        '👷 CI',
-        '📝 Docs',
-        '🔥 Remove',
-        '🔍 SEO',
-        '🚧 WIP',
-        '♿ A11y',
-        '🧪 Test',
-        '🚚 Move',
-      ],
-    ],
+    'type-enum': [2, 'always', COMMIT_TYPES],
 
     // 타입은 대소문자 구분 없음 (gitmoji 포함하므로)
     'type-case': [0],
@@ -64,8 +72,9 @@ module.exports = {
     parserOpts: {
       // Jira 키와 스마트 커밋 명령어를 포함한 패턴
       // 예: ✨ Feat: 제목 FMTW-123 #comment 내용
-      headerPattern:
-        /^((?:✨|⚡|🐛|🎨|💄|➕|♻️|🔧|🏗️|👷|📝|🔥|🔍|🚧|♿|🧪|🚚)\s+\w+):\s(.+)$/,
+      headerPattern: new RegExp(
+        `^((?:${EMOJIS})\\s+(?:${TYPE_NAMES})):\\s(.+)$`
+      ),
       headerCorrespondence: ['type', 'subject'],
     },
   },
@@ -75,8 +84,7 @@ module.exports = {
     {
       rules: {
         'gitmoji-required': (parsed) => {
-          const gitmojiPattern =
-            /^(✨|⚡|🐛|🎨|💄|➕|♻️|🔧|🏗️|👷|📝|🔥|🔍|🚧|♿|🧪|🚚)\s+/;
+          const gitmojiPattern = new RegExp(`^(${EMOJIS})\\s+`);
           const hasGitmoji = gitmojiPattern.test(parsed.raw);
 
           return [
@@ -87,8 +95,9 @@ module.exports = {
           ];
         },
         'type-format': (parsed) => {
-          const typePattern =
-            /^(✨|⚡|🐛|🎨|💄|➕|♻️|🔧|🏗️|👷|📝|🔥|🔍|🚧|♿|🧪|🚚)\s+(Feat|Perf|Fix|UI\/UX|Style|Add|Refactor|Chore|Build|CI|Docs|Remove|SEO|WIP|A11y|Move):/;
+          const typePattern = new RegExp(
+            `^(${EMOJIS})\\s+(${TYPE_NAMES}):`
+          );
           const hasCorrectFormat = typePattern.test(parsed.raw);
 
           return [
