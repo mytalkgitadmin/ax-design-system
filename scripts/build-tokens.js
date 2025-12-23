@@ -97,18 +97,21 @@ function separateSemantics(figmaTokens) {
 /**
  * Brand 토큰 분리
  * @param {Object} figmaTokens - Figma 토큰 전체
- * @returns {Object} Brand 토큰
+ * @returns {Object} Brand 토큰 (brand1, brand2)
  */
 function separateBrands(figmaTokens) {
-  const brandTokens = { brand: {} };
+  const brandTokens = {};
+  let brandIndex = 1;
 
   Object.keys(figmaTokens).forEach((setName) => {
     if (setName.startsWith(FIGMA_TOKEN_SETS.BRAND_PREFIX)) {
       const tokens = figmaTokens[setName];
 
-      if (tokens.brand && isEmptyToken(brandTokens.brand)) {
-        // 첫 번째 브랜드 토큰만 사용 (모든 브랜드 토큰이 동일하다고 가정)
-        brandTokens.brand = processTokens(tokens.brand);
+      if (tokens.brand) {
+        // brand-1(blue) → brand1, brand-2(pink) → brand2
+        const brandKey = `brand${brandIndex}`;
+        brandTokens[brandKey] = processTokens(tokens.brand);
+        brandIndex++;
       }
     }
   });
@@ -194,7 +197,7 @@ function buildTokens() {
     // 4. Brand 토큰 분리 및 저장
     const brands = separateBrands(figmaTokens);
 
-    if (!isEmptyToken(brands.brand)) {
+    if (!isEmptyToken(brands)) {
       writeJsonFile(
         `${semanticDir}/${OUTPUT_FILES.SEMANTIC.BRANDS}`,
         brands,

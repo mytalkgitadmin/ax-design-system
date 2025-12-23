@@ -14,21 +14,19 @@ const disabledBgColorVar = createVar();
 const disabledTextColorVar = createVar();
 
 const baseButton = style({
+  borderRadius: borderRadiusVar,
+  fontFamily: fontFamilyVar,
+  fontWeight: fontWeightVar,
+
   display: 'inline-flex',
   alignItems: 'center',
   justifyContent: 'center',
   flexShrink: 0,
-
   cursor: 'pointer',
   border: 'none',
-
   transition: 'all 0.2s ease',
-
   gap: '8px',
-  borderRadius: borderRadiusVar,
 
-  fontFamily: fontFamilyVar,
-  fontWeight: fontWeightVar,
   boxSizing: 'border-box',
   ':disabled': {
     cursor: 'not-allowed',

@@ -271,12 +271,19 @@ export const typography = {
 };
 
 export const theme = {
-  brand: {
+  brand1: {
     strongest: '#1a318b',
     strong: '#355fea',
     default: '#4f7cff',
     subtle: '#6f94ff',
     stronger: '#2747be'
+  },
+  brand2: {
+    strongest: '#800060',
+    strong: '#c60095',
+    default: '#e900af',
+    subtle: '#f159cb',
+    stronger: '#a3007a'
   }
 };
 
