@@ -191,6 +191,7 @@
   --text-muted: var(--gray-500);
   --text-disabled: var(--gray-400);
   --text-inverse: var(--base-white);
+  --text-link: var(--blue-700);
   --text-negative: var(--red-600);
   --text-positive: var(--green-600);
   --text-warning: var(--yellow-600);
@@ -213,10 +214,14 @@
   --rounded-full: var(--number-999);
   --rounded-lg: var(--number-16);
   --rounded-xl: var(--number-24);
-  --brand-strongest: var(--blue-900);
-  --brand-strong: var(--blue-700);
-  --brand-default: var(--blue-600);
-  --brand-subtle: var(--blue-500);
-  --brand-stronger: var(--blue-800);
-  --text-link: var(--brand-strong);
+  --brand1-strongest: var(--blue-900);
+  --brand1-strong: var(--blue-700);
+  --brand1-default: var(--blue-600);
+  --brand1-subtle: var(--blue-500);
+  --brand1-stronger: var(--blue-800);
+  --brand2-strongest: var(--pink-900);
+  --brand2-strong: var(--pink-700);
+  --brand2-default: var(--pink-600);
+  --brand2-subtle: var(--pink-500);
+  --brand2-stronger: var(--pink-800);
 }
