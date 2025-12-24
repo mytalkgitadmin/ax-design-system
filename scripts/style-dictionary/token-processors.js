@@ -64,6 +64,16 @@ const tokenProcessors = {
     subPath: token.path.slice(1), // 'typography' 제거
   }),
 
+  componentSize: (token) => ({
+    category: 'componentSize',
+    subPath: token.path.slice(1), // 'componentSize' 제거
+  }),
+
+  breakpoint: (token) => ({
+    category: 'breakpoint',
+    subPath: token.path.slice(1), // 'breakpoint' 제거
+  }),
+
   // Semantic 토큰 (brand로 시작하는 토큰)
   brand: (token, semantics) => {
     const brandName = token.path[0];
@@ -95,6 +105,8 @@ function buildNestedObject(tokens) {
     zIndex: {},
     spacing: {},
     typography: {},
+    componentSize: {},
+    breakpoint: {},
   };
 
   const semantics = {

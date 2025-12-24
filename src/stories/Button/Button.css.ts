@@ -1,6 +1,8 @@
 import { createVar, style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
+import { componentSize } from '../../tokens';
+
 // CSS 변수 정의 - 런타임에 Theme에서 주입됨
 const defaultColorVar = createVar();
 const hoverColorVar = createVar();
@@ -76,28 +78,28 @@ export const buttonStyle = recipe({
     },
     size: {
       xl: {
-        height: '64px',
-        fontSize: '16px',
+        height: `${componentSize.xl.height}px`,
+        fontSize: `${componentSize.xl.fontSize}px`,
         padding: '0 32px',
       },
       lg: {
-        height: '56px',
-        fontSize: '16px',
+        height: `${componentSize.lg.height}px`,
+        fontSize: `${componentSize.lg.fontSize}px`,
         padding: '0 24px',
       },
       md: {
-        height: '44px',
-        fontSize: '14px',
+        height: `${componentSize.md.height}px`,
+        fontSize: `${componentSize.md.fontSize}px`,
         padding: '0 20px',
       },
       sm: {
-        height: '32px',
-        fontSize: '12px',
+        height: `${componentSize.sm.height}px`,
+        fontSize: `${componentSize.sm.fontSize}px`,
         padding: '0 12px',
       },
       xs: {
-        height: '26px',
-        fontSize: '12px',
+        height: `${componentSize.xs.height}px`,
+        fontSize: `${componentSize.xs.fontSize}px`,
         padding: '0 8px',
       },
     },

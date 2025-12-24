@@ -1,6 +1,7 @@
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 
 import { useTheme } from '../../theme';
+import { componentSize } from '../../tokens';
 import { Icon } from '../Icon';
 import { InputProps } from './types';
 
@@ -23,14 +24,6 @@ import {
 } from './Input.css';
 
 export type { InputProps } from './types';
-
-const iconSize = {
-  xs: 14,
-  sm: 16,
-  md: 18,
-  lg: 20,
-  xl: 22,
-};
 
 // 상태별 아이콘 매핑
 const statusIcons = {
@@ -109,6 +102,9 @@ export const Input = ({
   const finalRadius = inputTheme.radius ?? global.radius.sm;
   const finalFontWeight =
     inputTheme.fontWeight ?? global.typography.fontWeight.regular;
+
+  // componentSize 토큰에서 iconSize 가져오기
+  const iconSize = Number(componentSize[finalSize].iconSize);
 
   // Label 폰트 크기 기본값 (테마가 없으면 사용)
   const defaultLabelFontSize = {
@@ -215,11 +211,11 @@ export const Input = ({
                   }
                 }}
               >
-                <Icon name={leftIcon} size={iconSize[finalSize]} />
+                <Icon name={leftIcon} size={iconSize} />
               </button>
             ) : (
               <div className={`${iconContainer} ${leftIconContainer}`}>
-                <Icon name={leftIcon} size={iconSize[finalSize]} />
+                <Icon name={leftIcon} size={iconSize} />
               </div>
             )}
           </>
@@ -267,11 +263,11 @@ export const Input = ({
                   }
                 }}
               >
-                <Icon name={rightIcon} size={iconSize[finalSize]} />
+                <Icon name={rightIcon} size={iconSize} />
               </button>
             ) : (
               <div className={`${iconContainer} ${rightIconContainer}`}>
-                <Icon name={rightIcon} size={iconSize[finalSize]} />
+                <Icon name={rightIcon} size={iconSize} />
               </div>
             )}
           </>

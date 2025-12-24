@@ -1,6 +1,7 @@
 import { createVar, style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
+import { componentSize } from '../../tokens';
 import { fontWeight } from '../../tokens/dev/helpers/typography';
 
 /**
@@ -251,24 +252,24 @@ export const inputStyle = recipe({
   variants: {
     size: {
       xl: {
-        height: '64px',
-        fontSize: '16px',
+        height: `${componentSize.xl.height}px`,
+        fontSize: `${componentSize.xl.fontSize}px`,
       },
       lg: {
-        height: '56px',
-        fontSize: '16px',
+        height: `${componentSize.lg.height}px`,
+        fontSize: `${componentSize.lg.fontSize}px`,
       },
       md: {
-        height: '44px',
-        fontSize: '14px',
+        height: `${componentSize.md.height}px`,
+        fontSize: `${componentSize.md.fontSize}px`,
       },
       sm: {
-        height: '32px',
-        fontSize: '12px',
+        height: `${componentSize.sm.height}px`,
+        fontSize: `${componentSize.sm.fontSize}px`,
       },
       xs: {
-        height: '26px',
-        fontSize: '12px',
+        height: `${componentSize.xs.height}px`,
+        fontSize: `${componentSize.xs.fontSize}px`,
       },
     },
     full: {
