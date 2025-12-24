@@ -91,7 +91,7 @@ export const buttonStyle = recipe({
         padding: '0 20px',
       },
       sm: {
-        height: '34px',
+        height: '32px',
         fontSize: '12px',
         padding: '0 12px',
       },

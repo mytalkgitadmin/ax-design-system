@@ -26,7 +26,13 @@ export type IconType =
   | 'tabler:shopping-bag'
   | 'tabler:share'
   | 'tabler:message'
-  | 'tabler:message-circle';
+  | 'tabler:message-circle'
+  | 'tabler:mail'
+  | 'tabler:phone'
+  | 'tabler:link'
+  | 'tabler:eye'
+  | 'tabler:eye-off'
+  | 'tabler:alert-circle-filled';
 
 // 시맨틱 토큰 이름 또는 커스텀 컬러 값(hex, rgb)을 모두 허용
 export type IconColorPreset =
