@@ -1,4 +1,5 @@
-import { rounded } from '../../tokens';
+import { color, rounded, spacing, typography } from '../../tokens';
+import { toRem } from '../../tokens/dev/helpers/units';
 
 export type RoundedDemoProps = {
   rounded?: keyof typeof rounded;
@@ -12,7 +13,7 @@ export const RoundedDemo = ({
       style={{
         display: 'flex',
         alignItems: 'center',
-        gap: '24px',
+        gap: toRem(spacing[24]),
       }}
     >
       <Box width={100} height={100} rounded={roundedSize} />
@@ -37,21 +38,33 @@ export const Box = ({
       style={{
         width: `${width}px`,
         height: `${height}px`,
-        backgroundColor: '#8FACFF',
-        borderRadius: `${radiusValue}px`,
+        backgroundColor: color.blue[400],
+        borderRadius: toRem(radiusValue),
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        color: 'white',
-        fontSize: '16px',
+        color: color.base.white,
+        fontSize: toRem(typography.fontSize[16]),
         fontWeight: 600,
         transition: 'all 0.3s ease',
       }}
     >
-      <div style={{ textAlign: 'center', fontSize: '14px' }}>
+      <div
+        style={{
+          textAlign: 'center',
+          fontSize: toRem(typography.fontSize[14]),
+        }}
+      >
         {radiusValue}px
         <br />
-        <span style={{ fontSize: '12px', opacity: 0.8 }}>{roundedSize}</span>
+        <span
+          style={{
+            fontSize: toRem(typography.fontSize[12]),
+            opacity: 0.8,
+          }}
+        >
+          {roundedSize}
+        </span>
       </div>
     </div>
   );

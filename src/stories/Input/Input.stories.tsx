@@ -85,6 +85,8 @@ const meta = {
         category: 'Appearance',
       },
     },
+
+    // 레이블
     label: {
       control: 'text',
       description: 'Label text',
@@ -99,26 +101,28 @@ const meta = {
         category: 'Label',
       },
     },
+
+    // 보조 텍스트
     status: {
       control: 'select',
       options: ['help', 'success', 'warn', 'error'],
       description: '입력 상태 (help, success, warn, error)',
       table: {
-        category: 'Status',
+        category: 'HelpText',
       },
     },
     statusMessage: {
       control: 'text',
       description: '상태 메시지',
       table: {
-        category: 'Status',
+        category: 'HelpText',
       },
     },
     showStatusIcon: {
       control: 'boolean',
       description: '상태 아이콘 표시 여부',
       table: {
-        category: 'Status',
+        category: 'HelpText',
       },
     },
     leftIcon: {
@@ -141,7 +145,7 @@ const meta = {
     disabled: {
       control: 'boolean',
       description: 'Disabled state',
-      table: { category: 'State' },
+      table: { category: 'HTML' },
     },
 
     placeholder: {
@@ -199,35 +203,37 @@ const meta = {
       },
     },
   },
+
   args: {
-    label: '입력',
     size: 'md',
     color: 'primary',
-    type: 'text',
-    placeholder: '검색어를 입력하세요',
     disabled: false,
     full: false,
     error: false,
+
+    label: '레이블',
     required: false,
+    placeholder: '텍스트를 입력해 주세요',
+
+    type: 'text',
+    hiddenLabel: false,
+    onLeftIconClick: undefined,
+    onRightIconClick: undefined,
+    min: undefined,
+    max: undefined,
+    textAlign: 'left',
   },
 } satisfies Meta<typeof Input>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {
-  args: {
-    label: '입력',
-  },
-};
+export const Primary: Story = {};
 
 /**
  * Input 사이즈
  */
 export const Sizes: Story = {
-  args: {
-    label: '크기',
-  },
   render: () => (
     <div
       style={{
@@ -248,9 +254,6 @@ export const Sizes: Story = {
  * 상태
  */
 export const State: Story = {
-  args: {
-    label: '상태',
-  },
   render: () => (
     <div
       style={{
@@ -269,9 +272,6 @@ export const State: Story = {
  * Label과 Required
  */
 export const WithLabel: Story = {
-  args: {
-    label: 'Label',
-  },
   render: () => (
     <div
       style={{
@@ -296,9 +296,6 @@ export const WithLabel: Story = {
  * Full Width Input
  */
 export const FullWidth: Story = {
-  args: {
-    label: 'Full Width',
-  },
   render: () => (
     <div
       style={{
@@ -411,9 +408,6 @@ export const StatusMessages: Story = {
  * 아이콘이 있는 Input
  */
 export const WithIcons: Story = {
-  args: {
-    label: '아이콘',
-  },
   render: () => (
     <div
       style={{
@@ -454,9 +448,6 @@ export const WithIcons: Story = {
  * 비밀번호 토글 예시
  */
 export const PasswordToggle: Story = {
-  args: {
-    label: '비밀번호 토글',
-  },
   render: () => {
     const PasswordInput = () => {
       const [showPassword, setShowPassword] = useState(false);
@@ -512,9 +503,6 @@ export const PasswordToggle: Story = {
  * 종합 예제 - 회원가입 폼
  */
 export const SignupForm: Story = {
-  args: {
-    label: '회원가입',
-  },
   render: () => {
     const SignupFormComponent = () => {
       const [showPassword, setShowPassword] = useState(false);

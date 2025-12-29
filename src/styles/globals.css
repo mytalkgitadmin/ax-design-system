@@ -10,16 +10,25 @@ p {
   margin: 0;
 }
 
-[class^="grid"] {
-  display: grid;
-  gap: 0;
-}
 html {
   font-size: 10px;
 }
 body {
   font-size: 1.6rem;
 }
+
+button,
+input,
+img {
+  vertical-align: bottom;
+}
+
+/* ---------------------------------------------------------------------------------- storybook */
+[class^="grid"] {
+  display: grid;
+  gap: 0;
+}
+
 .container {
   container-type: inline-size;
   container-name: container;
@@ -46,7 +55,7 @@ body {
 }
 
 h1 + p {
-  color: #888e9c;
+  color: var(--gray-600, #888e9c);
 }
 
 h1,

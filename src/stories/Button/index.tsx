@@ -4,6 +4,7 @@ import { assignInlineVars } from '@vanilla-extract/dynamic';
 
 import { useTheme } from '../../theme';
 import { componentSize } from '../../tokens';
+import { toRem } from '../../tokens/dev/helpers/units';
 import { Icon } from '../Icon';
 import { ButtonProps } from './types';
 
@@ -63,7 +64,7 @@ export const Button = ({
     [buttonVars.textColor]: finalColorScheme.text,
     [buttonVars.fontFamily]: global.typography.fontFamily,
     [buttonVars.fontWeight]: String(finalFontWeight),
-    [buttonVars.borderRadius]: `${finalRadius}px`,
+    [buttonVars.borderRadius]: `${toRem(finalRadius)}`,
     [buttonVars.disabledBgColor]: global.color.bg.disabled,
     [buttonVars.disabledTextColor]: global.color.text.disabled,
   });

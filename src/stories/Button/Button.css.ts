@@ -1,7 +1,8 @@
 import { createVar, style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
-import { componentSize } from '../../tokens';
+import { componentSize, spacing } from '../../tokens';
+import { toRem } from '../../tokens/dev/helpers/units';
 
 // CSS 변수 정의 - 런타임에 Theme에서 주입됨
 const defaultColorVar = createVar();
@@ -27,7 +28,7 @@ const baseButton = style({
   cursor: 'pointer',
   border: 'none',
   transition: 'all 0.2s ease',
-  gap: '8px',
+  gap: toRem(spacing['8']), // 0.8rem
 
   boxSizing: 'border-box',
   ':disabled': {
@@ -78,29 +79,29 @@ export const buttonStyle = recipe({
     },
     size: {
       xl: {
-        height: `${componentSize.xl.height}px`,
-        fontSize: `${componentSize.xl.fontSize}px`,
-        padding: '0 32px',
+        height: `${toRem(componentSize.xl.height)}`,
+        fontSize: `${toRem(componentSize.xl.fontSize)}`,
+        padding: `0 ${toRem(spacing[32])}`,
       },
       lg: {
-        height: `${componentSize.lg.height}px`,
-        fontSize: `${componentSize.lg.fontSize}px`,
-        padding: '0 24px',
+        height: `${toRem(componentSize.lg.height)}`,
+        fontSize: `${toRem(componentSize.lg.fontSize)}`,
+        padding: `0 ${toRem(spacing[24])}`,
       },
       md: {
-        height: `${componentSize.md.height}px`,
-        fontSize: `${componentSize.md.fontSize}px`,
-        padding: '0 20px',
+        height: `${toRem(componentSize.md.height)}`,
+        fontSize: `${toRem(componentSize.md.fontSize)}`,
+        padding: `0 ${toRem(spacing[20])}`,
       },
       sm: {
-        height: `${componentSize.sm.height}px`,
-        fontSize: `${componentSize.sm.fontSize}px`,
-        padding: '0 12px',
+        height: `${toRem(componentSize.sm.height)}`,
+        fontSize: `${toRem(componentSize.sm.fontSize)}`,
+        padding: `0 ${toRem(spacing[12])}`,
       },
       xs: {
-        height: `${componentSize.xs.height}px`,
-        fontSize: `${componentSize.xs.fontSize}px`,
-        padding: '0 8px',
+        height: `${toRem(componentSize.xs.height)}`,
+        fontSize: `${toRem(componentSize.xs.fontSize)}`,
+        padding: `0 ${toRem(spacing[8])}`,
       },
     },
     full: {

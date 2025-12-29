@@ -4,6 +4,7 @@ import { useTheme } from '../../theme';
 import { color } from '../../tokens';
 import { Button } from '../Button';
 import { Icon } from '../Icon';
+import { Input } from '../Input';
 import { Text } from '../Text';
 
 import { gap, py } from '../../tokens/dev/utils/spacing.global.css';
@@ -255,6 +256,22 @@ export const ProductDetailPage = () => {
             />
           </div>
         </div>
+      </div>
+
+      <div style={{ display: 'flex', gap: '4px', margin: '40px 0' }}>
+        <Input
+          size='lg'
+          placeholder='검색어를 입력하세요'
+          label='검색'
+          hiddenLabel
+        />
+        <Button
+          variant='solid'
+          size='lg'
+          color='primary'
+          icon='tabler:search'
+          label='바로 구매'
+        />
       </div>
     </div>
   );

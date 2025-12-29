@@ -34,6 +34,7 @@ export const brandBTheme = createTheme({
       },
     },
     Input: {
+      radius: rounded.lg, // 완전한 라운드 스타일
       // labelFontSize는 선택사항 - 정의하지 않으면 global.typography.fontSize 사용
       // labelFontSize: {
       //   xs: 12,
