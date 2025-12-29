@@ -1,71 +1,76 @@
-import { color, zIndex } from '../../tokens';
+import { color, rounded, spacing, typography, zIndex } from '../../tokens';
+import { toRem } from '../../tokens/dev/helpers/units';
 
 export type ZIndexDemoProps = {
   level?: keyof typeof zIndex;
 };
 
 const layers = [
-  { name: 'base', value: zIndex.base, color: '#e3e6ee', textColor: '#4b5465' },
+  {
+    name: 'base',
+    value: zIndex.base,
+    color: color.gray[300],
+    textColor: color.gray[800],
+  },
   {
     name: 'docked',
     value: zIndex.docked,
-    color: '#c5c9d3',
-    textColor: '#2f3744',
+    color: color.gray[400],
+    textColor: color.gray[900],
   },
   {
     name: 'dropdown',
     value: zIndex.dropdown,
     color: color.blue[200],
-    textColor: '#fff',
+    textColor: color.base.white,
   },
   {
     name: 'sticky',
     value: zIndex.sticky,
     color: color.blue[200],
-    textColor: '#fff',
+    textColor: color.base.white,
   },
   {
     name: 'banner',
     value: zIndex.banner,
     color: color.blue[300],
-    textColor: '#fff',
+    textColor: color.base.white,
   },
   {
     name: 'overlay',
     value: zIndex.overlay,
     color: color.blue[500],
-    textColor: '#fff',
+    textColor: color.base.white,
   },
   {
     name: 'modal',
     value: zIndex.modal,
     color: color.blue[600],
-    textColor: '#fff',
+    textColor: color.base.white,
   },
   {
     name: 'popover',
     value: zIndex.popover,
     color: color.blue[700],
-    textColor: '#fff',
+    textColor: color.base.white,
   },
   {
     name: 'skipLink',
     value: zIndex.skipLink,
     color: color.blue[800],
-    textColor: '#fff',
+    textColor: color.base.white,
   },
   {
     name: 'toast',
     value: zIndex.toast,
     color: color.blue[900],
-    textColor: '#fff',
+    textColor: color.base.white,
   },
-
   {
     name: 'tooltip',
     value: zIndex.tooltip,
     color: color.blue[950],
-    textColor: '#fff',
+    textColor: color.base.white,
   },
 ];
 
@@ -75,14 +80,12 @@ export const ZIndexDemo = ({ level = 'base' }: ZIndexDemoProps) => {
   return (
     <div
       style={{
-        backgroundColor: '#f4f6fb',
-        borderRadius: '8px',
-
-        padding: '10px',
+        backgroundColor: color.gray[100],
+        borderRadius: toRem(rounded.sm),
+        padding: toRem(spacing[12]),
         position: 'relative',
         height: '300px',
         width: '800px',
-
         display: 'flex',
       }}
     >
@@ -92,14 +95,14 @@ export const ZIndexDemo = ({ level = 'base' }: ZIndexDemoProps) => {
           key={layer.name}
           style={{
             width: '80px',
-            height: `80px`,
+            height: '80px',
             backgroundColor: layer.color,
-            borderRadius: '8px',
+            borderRadius: toRem(rounded.sm),
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             color: layer.textColor,
-            fontSize: '14px',
+            fontSize: toRem(typography.fontSize[14]),
             fontWeight: 600,
             boxShadow: index === 0 ? 'none' : '0 2px 8px rgba(0,0,0,0.1)',
             zIndex: layer.value,
@@ -108,7 +111,12 @@ export const ZIndexDemo = ({ level = 'base' }: ZIndexDemoProps) => {
           <div style={{ textAlign: 'center' }}>
             {layer.name}
             <br />
-            <span style={{ fontSize: '12px', opacity: 0.8 }}>
+            <span
+              style={{
+                fontSize: toRem(typography.fontSize[12]),
+                opacity: 0.8,
+              }}
+            >
               {layer.value}
             </span>
           </div>
@@ -123,20 +131,31 @@ export const ZIndexDemo = ({ level = 'base' }: ZIndexDemoProps) => {
           left: '40px',
           width: '750px',
           height: '150px',
-          backgroundColor: '#6f94ff',
-          borderRadius: '8px',
+          backgroundColor: color.blue[500],
+          borderRadius: toRem(rounded.sm),
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           zIndex: parseInt(zValue),
-          color: 'white',
+          color: color.base.white,
           boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
         }}
       >
-        <div style={{ textAlign: 'center', fontSize: '16px', fontWeight: 600 }}>
+        <div
+          style={{
+            textAlign: 'center',
+            fontSize: toRem(typography.fontSize[16]),
+            fontWeight: 600,
+          }}
+        >
           {level}
           <br />
-          <span style={{ fontSize: '14px', opacity: 0.9 }}>
+          <span
+            style={{
+              fontSize: toRem(typography.fontSize[14]),
+              opacity: 0.9,
+            }}
+          >
             z-index: {zValue}
           </span>
         </div>
@@ -150,7 +169,7 @@ export const LayerStack = () => {
     <div
       style={{
         display: 'flex',
-        gap: '4px',
+        gap: toRem(spacing[4]),
         alignItems: 'flex-end',
       }}
     >
@@ -161,12 +180,12 @@ export const LayerStack = () => {
             width: '80px',
             height: `${60 + index * 20}px`,
             backgroundColor: layer.color,
-            borderRadius: '8px',
+            borderRadius: toRem(rounded.sm),
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             color: layer.textColor,
-            fontSize: '14px',
+            fontSize: toRem(typography.fontSize[14]),
             fontWeight: 600,
             boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
           }}
@@ -174,7 +193,12 @@ export const LayerStack = () => {
           <div style={{ textAlign: 'center' }}>
             {layer.name}
             <br />
-            <span style={{ fontSize: '12px', opacity: 0.8 }}>
+            <span
+              style={{
+                fontSize: toRem(typography.fontSize[12]),
+                opacity: 0.8,
+              }}
+            >
               {layer.value}
             </span>
           </div>

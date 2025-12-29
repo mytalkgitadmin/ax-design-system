@@ -3,20 +3,14 @@ import React from 'react';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 
 import { useTheme } from '../../theme';
+import { componentSize } from '../../tokens';
+import { toRem } from '../../tokens/dev/helpers/units';
 import { Icon } from '../Icon';
 import { ButtonProps } from './types';
 
 import { buttonStyle, buttonVars } from './Button.css';
 
 export type { ButtonProps } from './types';
-
-const iconSize = {
-  xs: 16,
-  sm: 18,
-  md: 20,
-  lg: 24,
-  xl: 24,
-};
 
 export const Button = ({
   leftIcon,
@@ -59,6 +53,9 @@ export const Button = ({
     text: color,
   };
 
+  // componentSize 토큰에서 iconSize 가져오기
+  const iconSize = Number(componentSize[finalSize].iconSize);
+
   // CSS Variables 주입
   const vars = assignInlineVars({
     [buttonVars.defaultColor]: finalColorScheme.default,
@@ -67,7 +64,7 @@ export const Button = ({
     [buttonVars.textColor]: finalColorScheme.text,
     [buttonVars.fontFamily]: global.typography.fontFamily,
     [buttonVars.fontWeight]: String(finalFontWeight),
-    [buttonVars.borderRadius]: `${finalRadius}px`,
+    [buttonVars.borderRadius]: `${toRem(finalRadius)}`,
     [buttonVars.disabledBgColor]: global.color.bg.disabled,
     [buttonVars.disabledTextColor]: global.color.text.disabled,
   });
@@ -89,9 +86,9 @@ export const Button = ({
     href: href,
     children: (
       <>
-        {leftIcon && <Icon name={leftIcon} size={iconSize[finalSize]} />}
-        {icon ? <Icon name={icon} size={iconSize[finalSize]} /> : label}
-        {rightIcon && <Icon name={rightIcon} size={iconSize[finalSize]} />}
+        {leftIcon && <Icon name={leftIcon} size={iconSize} />}
+        {icon ? <Icon name={icon} size={iconSize} /> : label}
+        {rightIcon && <Icon name={rightIcon} size={iconSize} />}
       </>
     ),
   });

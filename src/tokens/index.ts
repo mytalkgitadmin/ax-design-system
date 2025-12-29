@@ -268,6 +268,51 @@ export const typography = {
     '44': '44',
     '56': '56',
   },
+  responsive: {
+    display: 'clamp(32px, 3vw, 48px)',
+    h1: 'clamp(28px, 2.5vw, 40px)',
+    h2: 'clamp(24px, 2.2vw, 32px)',
+    h3: 'clamp(20px, 2vw, 26px)',
+    h4: 'clamp(18px, 1.8vw, 22px)',
+    body: 'clamp(14px, 1vw, 16px)',
+    small: 'clamp(12px, 0.8vw, 14px)',
+    caption: 'clamp(10px, 0.6vw, 12px)',
+  },
+};
+
+export const componentSize = {
+  xs: {
+    height: '26',
+    fontSize: '12',
+    iconSize: '14',
+  },
+  sm: {
+    height: '32',
+    fontSize: '12',
+    iconSize: '16',
+  },
+  md: {
+    height: '44',
+    fontSize: '14',
+    iconSize: '20',
+  },
+  lg: {
+    height: '56',
+    fontSize: '16',
+    iconSize: '24',
+  },
+  xl: {
+    height: '64',
+    fontSize: '16',
+    iconSize: '24',
+  },
+};
+
+export const breakpoint = {
+  sm: '640',
+  md: '768',
+  lg: '1024',
+  xl: '1280',
 };
 
 export const theme = {

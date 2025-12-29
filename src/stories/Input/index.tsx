@@ -1,6 +1,8 @@
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 
 import { useTheme } from '../../theme';
+import { componentSize, spacing } from '../../tokens';
+import { toRem } from '../../tokens/dev/helpers/units';
 import { Icon } from '../Icon';
 import { InputProps } from './types';
 
@@ -24,14 +26,6 @@ import {
 
 export type { InputProps } from './types';
 
-const iconSize = {
-  xs: 14,
-  sm: 16,
-  md: 18,
-  lg: 20,
-  xl: 22,
-};
-
 // 상태별 아이콘 매핑
 const statusIcons = {
   help: 'tabler:check' as const,
@@ -53,7 +47,7 @@ const iconButtonStyle = {
 const statusMessageStyle = {
   display: 'flex',
   alignItems: 'center',
-  gap: '4px',
+  gap: toRem(spacing[4]),
 };
 
 export const Input = ({
@@ -106,9 +100,12 @@ export const Input = ({
 
   // 2. 최종 스타일 값 결정 (우선순위: props > component theme > global theme)
   const finalSize = size ?? inputTheme.defaultSize;
-  const finalRadius = inputTheme.radius ?? global.radius.sm;
+  const finalRadius = inputTheme.radius ?? global.radius.none;
   const finalFontWeight =
     inputTheme.fontWeight ?? global.typography.fontWeight.regular;
+
+  // componentSize 토큰에서 iconSize 가져오기
+  const iconSize = Number(componentSize[finalSize].iconSize);
 
   // Label 폰트 크기 기본값 (테마가 없으면 사용)
   const defaultLabelFontSize = {
@@ -175,7 +172,7 @@ export const Input = ({
     [inputVars.labelFontSizeXl]: `${finalLabelFontSize.xl}px`,
 
     // 레이아웃
-    [inputVars.borderRadius]: `${finalRadius}px`,
+    [inputVars.borderRadius]: `${toRem(finalRadius)}`,
   });
 
   // ID 생성 (label과 input 연결용)
@@ -215,11 +212,11 @@ export const Input = ({
                   }
                 }}
               >
-                <Icon name={leftIcon} size={iconSize[finalSize]} />
+                <Icon name={leftIcon} size={iconSize} />
               </button>
             ) : (
               <div className={`${iconContainer} ${leftIconContainer}`}>
-                <Icon name={leftIcon} size={iconSize[finalSize]} />
+                <Icon name={leftIcon} size={iconSize} />
               </div>
             )}
           </>
@@ -267,11 +264,11 @@ export const Input = ({
                   }
                 }}
               >
-                <Icon name={rightIcon} size={iconSize[finalSize]} />
+                <Icon name={rightIcon} size={iconSize} />
               </button>
             ) : (
               <div className={`${iconContainer} ${rightIconContainer}`}>
-                <Icon name={rightIcon} size={iconSize[finalSize]} />
+                <Icon name={rightIcon} size={iconSize} />
               </div>
             )}
           </>

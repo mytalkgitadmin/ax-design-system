@@ -15,6 +15,7 @@ module.exports = {
     'src/tokens/design/primitives/**/*.json',
     'src/tokens/design/semantic/**/*.json',
     'src/tokens/dev/primitives/**/*.json',
+    'src/tokens/dev/semantic/**/*.json',
   ],
 
   // 커스텀 transforms와 formats 등록

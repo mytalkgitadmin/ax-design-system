@@ -1,0 +1,89 @@
+{
+  "componentSize": {
+    "xs": {
+      "height": {
+        "value": "26",
+        "type": "sizing",
+        "description": "Extra small component height (밀집 UI, 테이블)"
+      },
+      "fontSize": {
+        "value": "12",
+        "type": "number",
+        "description": "Extra small component font size"
+      },
+      "iconSize": {
+        "value": "14",
+        "type": "sizing",
+        "description": "Extra small component icon size"
+      }
+    },
+    "sm": {
+      "height": {
+        "value": "32",
+        "type": "sizing",
+        "description": "Small component height (콤팩트 UI, 툴바)"
+      },
+      "fontSize": {
+        "value": "12",
+        "type": "number",
+        "description": "Small component font size"
+      },
+      "iconSize": {
+        "value": "16",
+        "type": "sizing",
+        "description": "Small component icon size"
+      }
+    },
+    "md": {
+      "height": {
+        "value": "44",
+        "type": "sizing",
+        "description": "Medium component height (기본 크기, 44px 터치 타겟)"
+      },
+      "fontSize": {
+        "value": "14",
+        "type": "number",
+        "description": "Medium component font size"
+      },
+      "iconSize": {
+        "value": "20",
+        "type": "sizing",
+        "description": "Medium component icon size"
+      }
+    },
+    "lg": {
+      "height": {
+        "value": "56",
+        "type": "sizing",
+        "description": "Large component height (강조 CTA 버튼)"
+      },
+      "fontSize": {
+        "value": "16",
+        "type": "number",
+        "description": "Large component font size"
+      },
+      "iconSize": {
+        "value": "24",
+        "type": "sizing",
+        "description": "Large component icon size"
+      }
+    },
+    "xl": {
+      "height": {
+        "value": "64",
+        "type": "sizing",
+        "description": "Extra large component height (히어로 버튼, 랜딩 페이지)"
+      },
+      "fontSize": {
+        "value": "16",
+        "type": "number",
+        "description": "Extra large component font size"
+      },
+      "iconSize": {
+        "value": "24",
+        "type": "sizing",
+        "description": "Extra large component icon size"
+      }
+    }
+  }
+}

@@ -1,7 +1,9 @@
 import { createVar, style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
+import { componentSize, spacing, typography } from '../../tokens';
 import { fontWeight } from '../../tokens/dev/helpers/typography';
+import { toRem } from '../../tokens/dev/helpers/units';
 
 /**
  * ========================================
@@ -54,9 +56,9 @@ const borderRadiusVar = createVar();
  */
 
 export const inputWrapper = style({
-  display: 'flex',
+  display: 'inline-flex',
   flexDirection: 'column',
-  gap: '8px',
+  gap: toRem(spacing[8]),
   width: 'fit-content',
 });
 
@@ -77,7 +79,7 @@ const baseLabel = style({
   color: labelColorVar,
   display: 'flex',
   alignItems: 'center',
-  gap: '4px',
+  gap: toRem(spacing[4]),
 });
 
 // Label Recipe (size에 따라 fontSize 변경)
@@ -210,8 +212,9 @@ const baseInput = style({
 
   // 외형 (Container가 border를 담당하므로 투명)
   backgroundColor: 'transparent',
-  border: 'none',
+  border: 0,
   outline: 'none',
+  verticalAlign: 'top',
 
   // 인터랙션
   cursor: 'text',
@@ -251,24 +254,24 @@ export const inputStyle = recipe({
   variants: {
     size: {
       xl: {
-        height: '64px',
-        fontSize: '16px',
+        height: `calc(${toRem(componentSize.xl.height)} - 2px)`,
+        fontSize: `${toRem(componentSize.xl.fontSize)}`,
       },
       lg: {
-        height: '56px',
-        fontSize: '16px',
+        height: `calc(${toRem(componentSize.lg.height)} - 2px)`,
+        fontSize: `${toRem(componentSize.lg.fontSize)}`,
       },
       md: {
-        height: '44px',
-        fontSize: '14px',
+        height: `calc(${toRem(componentSize.md.height)} - 2px)`,
+        fontSize: `${toRem(componentSize.md.fontSize)}`,
       },
       sm: {
-        height: '32px',
-        fontSize: '12px',
+        height: `calc(${toRem(componentSize.sm.height)} - 2px)`,
+        fontSize: `${toRem(componentSize.sm.fontSize)}`,
       },
       xs: {
-        height: '26px',
-        fontSize: '12px',
+        height: `calc(${toRem(componentSize.xs.height)} - 2px)`,
+        fontSize: `${toRem(componentSize.xs.fontSize)}`,
       },
     },
     full: {
@@ -276,18 +279,99 @@ export const inputStyle = recipe({
         width: '100%',
       },
     },
-    // 아이콘이 있을 때 padding 조정
+    // 아이콘이 있을 때 padding 조정 (iconSize + spacing 기준)
     leftIcon: {
-      true: {
-        paddingLeft: '44px',
-      },
+      true: {},
     },
     rightIcon: {
-      true: {
-        paddingRight: '44px',
-      },
+      true: {},
     },
   },
+
+  compoundVariants: [
+    // Left Icon Padding (size별)
+    {
+      variants: { size: 'xs', leftIcon: true },
+      style: {
+        paddingLeft: toRem(
+          Number(componentSize.xs.iconSize) + Number(spacing[12]) * 2
+        ), // iconSize + 좌우 spacing
+      },
+    },
+    {
+      variants: { size: 'sm', leftIcon: true },
+      style: {
+        paddingLeft: toRem(
+          Number(componentSize.sm.iconSize) + Number(spacing[12]) * 2
+        ),
+      },
+    },
+    {
+      variants: { size: 'md', leftIcon: true },
+      style: {
+        paddingLeft: toRem(
+          Number(componentSize.md.iconSize) + Number(spacing[12]) * 2
+        ),
+      },
+    },
+    {
+      variants: { size: 'lg', leftIcon: true },
+      style: {
+        paddingLeft: toRem(
+          Number(componentSize.lg.iconSize) + Number(spacing[12]) * 2
+        ),
+      },
+    },
+    {
+      variants: { size: 'xl', leftIcon: true },
+      style: {
+        paddingLeft: toRem(
+          Number(componentSize.xl.iconSize) + Number(spacing[12]) * 2
+        ),
+      },
+    },
+    // Right Icon Padding (size별)
+    {
+      variants: { size: 'xs', rightIcon: true },
+      style: {
+        paddingRight: toRem(
+          Number(componentSize.xs.iconSize) + Number(spacing[12]) * 2
+        ),
+      },
+    },
+    {
+      variants: { size: 'sm', rightIcon: true },
+      style: {
+        paddingRight: toRem(
+          Number(componentSize.sm.iconSize) + Number(spacing[12]) * 2
+        ),
+      },
+    },
+    {
+      variants: { size: 'md', rightIcon: true },
+      style: {
+        paddingRight: toRem(
+          Number(componentSize.md.iconSize) + Number(spacing[12]) * 2
+        ),
+      },
+    },
+    {
+      variants: { size: 'lg', rightIcon: true },
+      style: {
+        paddingRight: toRem(
+          Number(componentSize.lg.iconSize) + Number(spacing[12]) * 2
+        ),
+      },
+    },
+    {
+      variants: { size: 'xl', rightIcon: true },
+      style: {
+        paddingRight: toRem(
+          Number(componentSize.xl.iconSize) + Number(spacing[12]) * 2
+        ),
+      },
+    },
+  ],
 });
 
 /**
@@ -307,11 +391,11 @@ export const iconContainer = style({
 });
 
 export const leftIconContainer = style({
-  left: '12px',
+  left: toRem(spacing[12]),
 });
 
 export const rightIconContainer = style({
-  right: '12px',
+  right: toRem(spacing[12]),
 });
 
 /**
@@ -323,25 +407,25 @@ export const rightIconContainer = style({
 
 export const helperTextStyle = style({
   fontFamily: fontFamilyVar,
-  fontSize: '12px',
+  fontSize: toRem(typography.fontSize[12]),
   color: helperTextColorVar,
 });
 
 export const successTextStyle = style({
   fontFamily: fontFamilyVar,
-  fontSize: '12px',
+  fontSize: toRem(typography.fontSize[12]), // 1.2rem
   color: successTextColorVar,
 });
 
 export const errorTextStyle = style({
   fontFamily: fontFamilyVar,
-  fontSize: '12px',
+  fontSize: toRem(typography.fontSize[12]), // 1.2rem
   color: errorTextColorVar,
 });
 
 export const warnTextStyle = style({
   fontFamily: fontFamilyVar,
-  fontSize: '12px',
+  fontSize: toRem(typography.fontSize[12]), // 1.2rem
   color: warnTextColorVar,
 });
 
