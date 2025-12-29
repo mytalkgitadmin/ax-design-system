@@ -1,7 +1,11 @@
 /**
  * Text 컴포넌트 테마
  * Text의 기본 preset과 색상 정책을 정의
+ *
+ * 모든 컬러는 토큰에서 가져옵니다.
  */
+
+import { color, theme } from '../../tokens';
 
 export type TextPreset =
   | 'display1'
@@ -35,9 +39,9 @@ export type TextTheme = {
 
 export const textTheme: TextTheme = {
   defaultPreset: 'body1',
-  defaultColor: '#2f3744',
+  defaultColor: color.text.primary, // #2f3744
   colorSchemes: {
-    brand1: '#4f7cff', // theme.brand1.default
-    brand2: '#e900af', // theme.brand2.default
+    brand1: theme.brand1.default, // #4f7cff
+    brand2: theme.brand2.default, // #e900af
   },
 };
