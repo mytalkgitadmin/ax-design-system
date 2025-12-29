@@ -3,6 +3,7 @@
  * Input의 기본 동작과 스타일 정책을 정의
  */
 
+import { rounded } from '../../tokens';
 import { colorTheme } from '../global/color';
 
 export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
@@ -40,33 +41,20 @@ export type InputTheme = {
   radius?: number; // undefined면 global.radius.sm 사용
   fontWeight?: number; // undefined면 global.typography.fontWeight.regular 사용
   labelFontSize?: InputLabelFontSize; // undefined면 기본값 사용
-
-  colorSchemes: {
-    primary: InputColorScheme;
-    secondary: InputColorScheme;
-  };
+  colorScheme: InputColorScheme;
 };
 
 export const inputTheme: InputTheme = {
   defaultSize: 'md',
-  // radius: undefined, // global.radius.sm 사용
+  radius: rounded.sm, // 기본값: sm (8px)
   // fontWeight: undefined, // global.typography.fontWeight.regular 사용
   // labelFontSize: undefined, // 기본값 사용
 
-  colorSchemes: {
-    primary: {
-      default: colorTheme.border.default, // #e3e6ee
-      hover: colorTheme.border.strong, // #c5c9d3
-      focus: colorTheme.brand.default, // #4f7cff
-      focusShadow: `${colorTheme.brand.default}80`, // #4f7cff80
-      error: colorTheme.text.negative, // #e6374f
-    },
-    secondary: {
-      default: colorTheme.border.strong, // #c5c9d3
-      hover: colorTheme.text.muted, // #a6acb7
-      focus: colorTheme.brand.strong, // #355fea
-      focusShadow: `${colorTheme.brand.strong}80`, // #355fea80
-      error: colorTheme.text.negative, // #e6374f
-    },
+  colorScheme: {
+    default: colorTheme.border.default, // #e3e6ee
+    hover: colorTheme.border.strong, // #c5c9d3
+    focus: colorTheme.brand.default, // #4f7cff
+    focusShadow: `${colorTheme.brand.default}80`, // #4f7cff80
+    error: colorTheme.text.negative, // #e6374f
   },
 };

@@ -1,38 +1,29 @@
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 
-import { useTheme } from '../../theme';
-import { componentSize, spacing } from '../../tokens';
+import { componentSize, rounded } from '../../tokens';
 import { toRem } from '../../tokens/dev/helpers/units';
+import {
+  formFieldVars,
+  FormLabel,
+  FormStatus,
+  generateFieldId,
+  useFormField,
+} from '../FormField';
 import { Icon } from '../Icon';
 import { InputProps } from './types';
 
 import {
-  errorTextStyle,
-  helperTextStyle,
   iconContainer,
   inputContainerStyle,
   inputStyle,
   inputVars,
   inputWrapper,
   inputWrapperFull,
-  labelStyle,
   leftIconContainer,
-  requiredMark,
   rightIconContainer,
-  srOnly,
-  successTextStyle,
-  warnTextStyle,
 } from './Input.css';
 
 export type { InputProps } from './types';
-
-// 상태별 아이콘 매핑
-const statusIcons = {
-  help: 'tabler:check' as const,
-  success: 'tabler:check' as const,
-  warn: 'tabler:alert-circle-filled' as const,
-  error: 'tabler:alert-circle-filled' as const,
-};
 
 // 아이콘 버튼 공통 스타일
 const iconButtonStyle = {
@@ -43,18 +34,12 @@ const iconButtonStyle = {
   padding: 0,
 };
 
-// Status 메시지 공통 스타일
-const statusMessageStyle = {
-  display: 'flex',
-  alignItems: 'center',
-  gap: toRem(spacing[4]),
-};
-
 export const Input = ({
   // Appearance
   size = 'md',
   color = 'primary',
   full = false,
+  rounded: roundedProp,
 
   // Label & Helper Text
   hiddenLabel,
@@ -94,103 +79,72 @@ export const Input = ({
   onFocus,
   onBlur,
 }: InputProps) => {
-  // 1. 테마 가져오기
-  const { global, components } = useTheme();
-  const inputTheme = components.Input;
+  // 1. 공통 Hook 사용 (테마 값 가져오기)
+  const {
+    global,
+    finalSize,
+    finalRadius,
+    finalFontWeight,
+    finalLabelFontSize,
+    finalColorScheme,
+  } = useFormField(size, color);
 
-  // 2. 최종 스타일 값 결정 (우선순위: props > component theme > global theme)
-  const finalSize = size ?? inputTheme.defaultSize;
-  const finalRadius = inputTheme.radius ?? global.radius.none;
-  const finalFontWeight =
-    inputTheme.fontWeight ?? global.typography.fontWeight.regular;
+  // 2. rounded prop이 있으면 테마 설정을 덮어쓰기
+  const actualRadius =
+    roundedProp !== undefined ? rounded[roundedProp] : finalRadius;
 
   // componentSize 토큰에서 iconSize 가져오기
   const iconSize = Number(componentSize[finalSize].iconSize);
 
-  // Label 폰트 크기 기본값 (테마가 없으면 사용)
-  const defaultLabelFontSize = {
-    xs: global.typography.fontSize.sm,
-    sm: global.typography.fontSize.sm,
-    md: global.typography.fontSize.md,
-    lg: global.typography.fontSize.lg,
-    xl: global.typography.fontSize.lg,
-  };
-  const finalLabelFontSize = inputTheme.labelFontSize ?? defaultLabelFontSize;
-
-  // 3. 컬러 스킴 결정
-  // 테마에 정의된 컬러 스킴 찾기 (primary, secondary 등)
-  const colorScheme =
-    inputTheme.colorSchemes[color as keyof typeof inputTheme.colorSchemes];
-
-  // 없으면 커스텀 컬러로 처리
-  const finalColorScheme = colorScheme ?? {
-    default: color,
-    hover: color,
-    focus: color,
-    focusShadow: `${color}80`,
-    error: global.color.text.negative,
-  };
-
   // ========================================
-  // 4. CSS Variables 주입
+  // 2. CSS Variables 주입
   // ========================================
   const vars = assignInlineVars({
-    // 텍스트 색상
+    // FormField 공통 변수
+    [formFieldVars.labelColor]: global.color.text.tertiary,
+    [formFieldVars.helperTextColor]: global.color.text.muted,
+    [formFieldVars.successTextColor]: global.color.text.positive,
+    [formFieldVars.errorTextColor]: global.color.text.negative,
+    [formFieldVars.warnTextColor]: global.color.text.warning,
+    [formFieldVars.fontFamily]: global.typography.fontFamily,
+    [formFieldVars.labelFontSizeXs]: `${toRem(finalLabelFontSize.xs)}`,
+    [formFieldVars.labelFontSizeSm]: `${toRem(finalLabelFontSize.sm)}`,
+    [formFieldVars.labelFontSizeMd]: `${toRem(finalLabelFontSize.md)}`,
+    [formFieldVars.labelFontSizeLg]: `${toRem(finalLabelFontSize.lg)}`,
+    [formFieldVars.labelFontSizeXl]: `${toRem(finalLabelFontSize.xl)}`,
+
+    // Input 전용 변수
     [inputVars.textColor]: global.color.text.secondary,
     [inputVars.placeholderColor]: global.color.text.muted,
     [inputVars.disabledTextColor]: global.color.text.disabled,
-
-    // Label 색상
-    [inputVars.labelColor]: global.color.text.tertiary,
-
-    // Container & Border 색상 (테마 컬러 스킴에서 가져옴)
     [inputVars.borderColor]: finalColorScheme.default,
     [inputVars.hoverBorderColor]: finalColorScheme.hover,
     [inputVars.focusBorderColor]: finalColorScheme.focus,
     [inputVars.focusShadowColor]: finalColorScheme.focusShadow,
     [inputVars.errorBorderColor]: finalColorScheme.error,
-
-    // Background 색상
     [inputVars.bgColor]: global.color.bg.default,
     [inputVars.disabledBgColor]: global.color.bg.disabled,
-
-    // Helper Text 색상
-    [inputVars.helperTextColor]: global.color.text.muted,
-    [inputVars.successTextColor]: global.color.text.positive,
-    [inputVars.errorTextColor]: global.color.text.negative,
-    [inputVars.warnTextColor]: global.color.text.warning,
-
-    // 타이포그래피
-    [inputVars.fontFamily]: global.typography.fontFamily,
     [inputVars.fontWeight]: String(finalFontWeight),
-
-    // Label 폰트 크기 (size별)
-    [inputVars.labelFontSizeXs]: `${finalLabelFontSize.xs}px`,
-    [inputVars.labelFontSizeSm]: `${finalLabelFontSize.sm}px`,
-    [inputVars.labelFontSizeMd]: `${finalLabelFontSize.md}px`,
-    [inputVars.labelFontSizeLg]: `${finalLabelFontSize.lg}px`,
-    [inputVars.labelFontSizeXl]: `${finalLabelFontSize.xl}px`,
-
-    // 레이아웃
-    [inputVars.borderRadius]: `${toRem(finalRadius)}`,
+    [inputVars.borderRadius]: `${toRem(actualRadius)}`,
   });
 
   // ID 생성 (label과 input 연결용)
-  const inputId = id || `input-${Math.random().toString(36).substring(2, 9)}`;
+  const inputId = generateFieldId('input', id);
 
   return (
     <div
       className={`${inputWrapper} ${full ? inputWrapperFull : ''}`}
       style={{ ...vars }}
     >
-      {/* 접근성 고려: hiddenLabel이 true면 시각적으로만 숨김 */}
-      <label
+      {/* FormLabel 컴포넌트 사용 */}
+      <FormLabel
         htmlFor={inputId}
-        className={hiddenLabel ? srOnly : labelStyle({ size: finalSize })}
+        required={required}
+        hiddenLabel={hiddenLabel}
+        size={finalSize}
       >
         {label}
-        {required && !hiddenLabel && <span className={requiredMark}>*</span>}
-      </label>
+      </FormLabel>
 
       {/* Input Container */}
       <div
@@ -275,38 +229,12 @@ export const Input = ({
         )}
       </div>
 
-      {/* Status Message  */}
-      {(() => {
-        // Helper function to render status message
-        const renderStatusMessage = (
-          className: string,
-          message: string,
-          iconName?: (typeof statusIcons)[keyof typeof statusIcons]
-        ) => (
-          <div className={className} style={statusMessageStyle}>
-            {iconName && showStatusIcon && <Icon name={iconName} size={12} />}
-            <span>{message}</span>
-          </div>
-        );
-
-        // status + statusMessage로 상태 메시지 표시
-        if (status && statusMessage) {
-          const statusClass = {
-            help: helperTextStyle,
-            success: successTextStyle,
-            warn: warnTextStyle,
-            error: errorTextStyle,
-          }[status];
-
-          return renderStatusMessage(
-            statusClass,
-            statusMessage,
-            showStatusIcon ? statusIcons[status] : undefined
-          );
-        }
-
-        return null;
-      })()}
+      {/* FormStatus 컴포넌트 사용 */}
+      <FormStatus
+        status={status}
+        message={statusMessage}
+        showIcon={showStatusIcon}
+      />
     </div>
   );
 };

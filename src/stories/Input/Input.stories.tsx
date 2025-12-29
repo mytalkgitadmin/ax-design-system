@@ -1,8 +1,14 @@
 import { useState } from 'react';
 
 import { color } from '../../tokens';
+import { ICON_TYPES } from '../Icon/types';
 import { Input } from './index';
-import { INPUT_COLOR_PRESETS, INPUT_SIZES, INPUT_TYPES } from './types';
+import {
+  INPUT_COLOR_PRESETS,
+  INPUT_ROUNDED,
+  INPUT_SIZES,
+  INPUT_TYPES,
+} from './types';
 
 import type { Meta, StoryObj } from '@storybook/react';
 
@@ -12,6 +18,7 @@ import type { Meta, StoryObj } from '@storybook/react';
  * ## 주요 기능
  * - **크기**: xs, sm, md, lg, xl (Label 폰트 크기도 자동 조정)
  * - **타입**: text, password, email, tel, number
+ * - **rounded**: none, xs, sm, md, lg, xl, full (기본값: sm)
  * - **컬러**: 시맨틱 프리셋(primary, secondary) 및 커스텀 hex/rgb
  * - **상태**: hover, focus, disabled 자동 처리
  * - **레이아웃**: full width 옵션
@@ -27,24 +34,34 @@ import type { Meta, StoryObj } from '@storybook/react';
  *
  * ## 상태 메시지
  * ```tsx
- * <Input status="help" statusMessage="도움말 메시지" />
- * <Input status="success" statusMessage="성공 메시지" />
- * <Input status="warn" statusMessage="경고 메시지" />
- * <Input status="error" statusMessage="에러 메시지" />
+ * <Input label="이름" status="help" statusMessage="도움말 메시지" />
+ * <Input label="이메일" status="success" statusMessage="성공 메시지" />
+ * <Input label="비밀번호" status="warn" statusMessage="경고 메시지" />
+ * <Input label="전화번호" status="error" statusMessage="에러 메시지" />
  *
  * // 아이콘 표시
- * <Input status="success" statusMessage="성공!" showStatusIcon />
+ * <Input label="이름" status="success" statusMessage="성공!" showStatusIcon />
  * ```
  *
  * ## 컬러 사용법
  * ```tsx
  * // 시맨틱 프리셋
- * <Input color="primary" />
- * <Input color="secondary" />
+ * <Input label="이름" color="primary" />
+ * <Input label="이메일" color="secondary" />
  *
  * // 커스텀 컬러
- * <Input color="#8facff" />
- * <Input color="rgb(143, 172, 255)" />
+ * <Input label="주소" color="#8facff" />
+ * <Input label="전화번호" color="rgb(143, 172, 255)" />
+ * ```
+ *
+ * ## Rounded 사용법
+ * ```tsx
+ * // 기본값 사용 (sm = 8px)
+ * <Input label="이름" />
+ *
+ * // rounded prop으로 덮어쓰기
+ * <Input label="이름" rounded="full" />  // 완전히 둥근 모서리
+ * <Input label="이메일" rounded="none" />  // 모서리 둥글기 없음
  * ```
  */
 const meta = {
@@ -55,6 +72,7 @@ const meta = {
   },
   tags: ['autodocs', '!dev'],
   argTypes: {
+    // Appearance
     size: {
       control: 'select',
       options: INPUT_SIZES,
@@ -85,121 +103,176 @@ const meta = {
         category: 'Appearance',
       },
     },
+    rounded: {
+      control: 'select',
+      options: INPUT_ROUNDED,
+      description: 'Border radius (테마 설정 덮어쓰기)',
+      table: {
+        category: 'Appearance',
+      },
+    },
 
-    // 레이블
+    // Content
     label: {
       control: 'text',
       description: 'Label text',
       table: {
-        category: 'Label',
+        category: 'Content',
+      },
+    },
+    placeholder: {
+      control: 'text',
+      description: 'Placeholder text',
+      table: { category: 'Content' },
+    },
+    hiddenLabel: {
+      control: 'boolean',
+      description: '시각적으로 숨김 (스크린 리더 전용)',
+      table: {
+        category: 'Content',
+      },
+    },
+
+    // State
+    disabled: {
+      control: 'boolean',
+      description: 'Disabled state',
+      table: { category: 'State' },
+    },
+    error: {
+      control: 'boolean',
+      description: 'Error state (deprecated: use status="error")',
+      table: {
+        category: 'State',
       },
     },
     required: {
       control: 'boolean',
       description: 'Required field (shows asterisk)',
       table: {
-        category: 'Label',
+        category: 'State',
       },
     },
-
-    // 보조 텍스트
     status: {
       control: 'select',
       options: ['help', 'success', 'warn', 'error'],
       description: '입력 상태 (help, success, warn, error)',
       table: {
-        category: 'HelpText',
+        category: 'State',
       },
     },
     statusMessage: {
       control: 'text',
       description: '상태 메시지',
       table: {
-        category: 'HelpText',
+        category: 'State',
       },
     },
     showStatusIcon: {
       control: 'boolean',
       description: '상태 아이콘 표시 여부',
       table: {
-        category: 'HelpText',
-      },
-    },
-    leftIcon: {
-      control: 'select',
-      description: '왼쪽 아이콘',
-      table: { category: 'Icons' },
-    },
-    rightIcon: {
-      control: 'select',
-      description: '오른쪽 아이콘',
-      table: { category: 'Icons' },
-    },
-    error: {
-      control: 'boolean',
-      description: 'Error state',
-      table: {
         category: 'State',
       },
     },
-    disabled: {
-      control: 'boolean',
-      description: 'Disabled state',
-      table: { category: 'HTML' },
+
+    // Icon
+    leftIcon: {
+      control: 'select',
+      options: [undefined, ...ICON_TYPES],
+      description: '왼쪽 아이콘',
+      table: { category: 'Icon' },
+    },
+    rightIcon: {
+      control: 'select',
+      options: [undefined, ...ICON_TYPES],
+      description: '오른쪽 아이콘',
+      table: { category: 'Icon' },
+    },
+    onLeftIconClick: {
+      control: false,
+      description: '왼쪽 아이콘 클릭 핸들러',
+      table: { category: 'Icon' },
+    },
+    onRightIconClick: {
+      control: false,
+      description: '오른쪽 아이콘 클릭 핸들러',
+      table: { category: 'Icon' },
     },
 
-    placeholder: {
-      control: 'text',
-      description: 'Placeholder text',
-      table: { category: 'HTML' },
-    },
-
-    value: {
+    // Validation
+    min: {
+      control: 'number',
+      description: 'Minimum value (type="number"일 때)',
       table: {
-        category: 'HTML',
+        category: 'Validation',
       },
     },
-    defaultValue: {
+    max: {
+      control: 'number',
+      description: 'Maximum value (type="number"일 때)',
       table: {
-        category: 'HTML',
-      },
-    },
-    id: {
-      table: {
-        category: 'HTML',
-      },
-    },
-
-    name: {
-      table: {
-        category: 'HTML',
-      },
-    },
-
-    onChange: {
-      table: {
-        category: 'HTML',
-      },
-    },
-
-    onFocus: {
-      table: {
-        category: 'HTML',
+        category: 'Validation',
       },
     },
 
-    onBlur: {
-      table: {
-        category: 'HTML',
-      },
-    },
-
+    // HTML Attributes
     type: {
       control: 'select',
       options: INPUT_TYPES,
       description: 'Input type',
       table: {
-        category: 'HTML',
+        category: 'HTML Attributes',
+      },
+    },
+    value: {
+      control: false,
+      table: {
+        category: 'HTML Attributes',
+      },
+    },
+    defaultValue: {
+      control: false,
+      table: {
+        category: 'HTML Attributes',
+      },
+    },
+    id: {
+      control: false,
+      table: {
+        category: 'HTML Attributes',
+      },
+    },
+    name: {
+      control: false,
+      table: {
+        category: 'HTML Attributes',
+      },
+    },
+    textAlign: {
+      control: false,
+      table: {
+        category: 'HTML Attributes',
+      },
+    },
+
+    // Events
+    onChange: {
+      control: false,
+      table: {
+        category: 'Events',
+      },
+    },
+    onFocus: {
+      control: false,
+      table: {
+        category: 'Events',
+      },
+    },
+    onBlur: {
+      control: false,
+      table: {
+        category: 'Events',
       },
     },
   },
@@ -207,20 +280,17 @@ const meta = {
   args: {
     size: 'md',
     color: 'primary',
-    disabled: false,
     full: false,
-    error: false,
 
     label: '레이블',
-    required: false,
     placeholder: '텍스트를 입력해 주세요',
+    hiddenLabel: false,
+
+    disabled: false,
+    error: false,
+    required: false,
 
     type: 'text',
-    hiddenLabel: false,
-    onLeftIconClick: undefined,
-    onRightIconClick: undefined,
-    min: undefined,
-    max: undefined,
     textAlign: 'left',
   },
 } satisfies Meta<typeof Input>;
@@ -246,6 +316,37 @@ export const Sizes: Story = {
       <Input label='MD' size='md' />
       <Input label='LG' size='lg' />
       <Input label='XL' size='xl' />
+    </div>
+  ),
+};
+
+/**
+ * Rounded (모서리 둥글기)
+ * 테마 설정을 덮어쓰기하여 원하는 모서리 둥글기를 적용할 수 있습니다.
+ */
+export const Rounded: Story = {
+  render: () => (
+    <div
+      style={{
+        display: 'grid',
+        gap: '16px',
+      }}
+    >
+      <Input
+        label='None (0px)'
+        rounded='none'
+        placeholder='모서리 둥글기 없음'
+      />
+      <Input label='XS (4px)' rounded='xs' placeholder='아주 작은 둥글기' />
+      <Input label='SM (8px)' rounded='sm' placeholder='작은 둥글기' />
+      <Input label='MD (12px)' rounded='md' placeholder='중간 둥글기' />
+      <Input label='LG (16px)' rounded='lg' placeholder='큰 둥글기' />
+      <Input label='XL (24px)' rounded='xl' placeholder='아주 큰 둥글기' />
+      <Input
+        label='Full (999px)'
+        rounded='full'
+        placeholder='완전히 둥근 모서리'
+      />
     </div>
   ),
 };

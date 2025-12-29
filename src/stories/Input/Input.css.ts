@@ -1,15 +1,15 @@
 import { createVar, style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
-import { componentSize, spacing, typography } from '../../tokens';
-import { fontWeight } from '../../tokens/dev/helpers/typography';
+import { componentSize, spacing } from '../../tokens';
 import { toRem } from '../../tokens/dev/helpers/units';
 
 /**
  * ========================================
- * CSS 변수 정의
+ * CSS 변수 정의 (Input 전용)
  * ========================================
- * 런타임에 Theme에서 동적으로 주입되는 CSS 변수들
+ * Input 컴포넌트에서만 사용하는 CSS 변수들
+ * Label, Helper Text는 FormField에서 관리
  */
 
 // Container & Input 색상
@@ -27,22 +27,8 @@ const textColorVar = createVar(); // 입력 텍스트 색상
 const placeholderColorVar = createVar(); // placeholder 색상
 const disabledTextColorVar = createVar(); // disabled 텍스트 색상
 
-const labelColorVar = createVar(); // label 색상
-const helperTextColorVar = createVar(); // helper text 색상
-const successTextColorVar = createVar(); // helper text 색상
-const errorTextColorVar = createVar(); // error text 색상
-const warnTextColorVar = createVar(); // warning text 색상
-
 // 타이포그래피
-const fontFamilyVar = createVar();
 const fontWeightVar = createVar();
-
-// Label 폰트 크기 (size별)
-const labelFontSizeXsVar = createVar();
-const labelFontSizeSmVar = createVar();
-const labelFontSizeMdVar = createVar();
-const labelFontSizeLgVar = createVar();
-const labelFontSizeXlVar = createVar();
 
 // 레이아웃
 const borderRadiusVar = createVar();
@@ -68,70 +54,7 @@ export const inputWrapperFull = style({
 
 /**
  * ========================================
- * 2. Label 관련 스타일
- * ========================================
- */
-
-// Label 기본 스타일
-const baseLabel = style({
-  fontFamily: fontFamilyVar,
-  fontWeight: fontWeight.semibold,
-  color: labelColorVar,
-  display: 'flex',
-  alignItems: 'center',
-  gap: toRem(spacing[4]),
-});
-
-// Label Recipe (size에 따라 fontSize 변경)
-export const labelStyle = recipe({
-  base: baseLabel,
-
-  variants: {
-    size: {
-      xs: {
-        fontSize: labelFontSizeXsVar,
-      },
-      sm: {
-        fontSize: labelFontSizeSmVar,
-      },
-      md: {
-        fontSize: labelFontSizeMdVar,
-      },
-      lg: {
-        fontSize: labelFontSizeLgVar,
-      },
-      xl: {
-        fontSize: labelFontSizeXlVar,
-      },
-    },
-  },
-
-  defaultVariants: {
-    size: 'md',
-  },
-});
-
-// 필수 입력 표시 (*)
-export const requiredMark = style({
-  color: errorTextColorVar,
-});
-
-// 접근성: 시각적으로 숨김, 스크린 리더에서는 읽힘
-export const srOnly = style({
-  position: 'absolute',
-  width: '1px',
-  height: '1px',
-  padding: '0',
-  margin: '-1px',
-  overflow: 'hidden',
-  clip: 'rect(0, 0, 0, 0)',
-  whiteSpace: 'nowrap',
-  border: '0',
-});
-
-/**
- * ========================================
- * 3. Input Container 스타일
+ * 2. Input Container 스타일
  * ========================================
  * Input 요소와 아이콘을 감싸는 컨테이너
  * Border, Background, 상태 변화를 담당
@@ -192,7 +115,7 @@ export const inputContainerStyle = recipe({
 
 /**
  * ========================================
- * 4. Input 요소 스타일
+ * 3. Input 요소 스타일
  * ========================================
  * 실제 텍스트 입력을 담당하는 input 요소
  * Border는 없고, Container가 border를 담당
@@ -200,7 +123,6 @@ export const inputContainerStyle = recipe({
 
 const baseInput = style({
   // 타이포그래피
-  fontFamily: fontFamilyVar,
   fontWeight: fontWeightVar,
   color: textColorVar,
 
@@ -376,7 +298,7 @@ export const inputStyle = recipe({
 
 /**
  * ========================================
- * 5. Icon Container 스타일
+ * 4. Icon Container 스타일
  * ========================================
  * Input 내부에 표시되는 아이콘 컨테이너
  */
@@ -400,37 +322,6 @@ export const rightIconContainer = style({
 
 /**
  * ========================================
- * 6. Helper Text 스타일
- * ========================================
- * Input 아래 표시되는 도움말, 에러, 경고 메시지
- */
-
-export const helperTextStyle = style({
-  fontFamily: fontFamilyVar,
-  fontSize: toRem(typography.fontSize[12]),
-  color: helperTextColorVar,
-});
-
-export const successTextStyle = style({
-  fontFamily: fontFamilyVar,
-  fontSize: toRem(typography.fontSize[12]), // 1.2rem
-  color: successTextColorVar,
-});
-
-export const errorTextStyle = style({
-  fontFamily: fontFamilyVar,
-  fontSize: toRem(typography.fontSize[12]), // 1.2rem
-  color: errorTextColorVar,
-});
-
-export const warnTextStyle = style({
-  fontFamily: fontFamilyVar,
-  fontSize: toRem(typography.fontSize[12]), // 1.2rem
-  color: warnTextColorVar,
-});
-
-/**
- * ========================================
  * CSS 변수 Export
  * ========================================
  * Theme에서 런타임에 주입할 CSS 변수들
@@ -450,22 +341,9 @@ export const inputVars = {
   textColor: textColorVar,
   placeholderColor: placeholderColorVar,
   disabledTextColor: disabledTextColorVar,
-  labelColor: labelColorVar,
-  helperTextColor: helperTextColorVar,
-  successTextColor: successTextColorVar,
-  errorTextColor: errorTextColorVar,
-  warnTextColor: warnTextColorVar,
 
   // 타이포그래피
-  fontFamily: fontFamilyVar,
   fontWeight: fontWeightVar,
-
-  // Label 폰트 크기 (size별)
-  labelFontSizeXs: labelFontSizeXsVar,
-  labelFontSizeSm: labelFontSizeSmVar,
-  labelFontSizeMd: labelFontSizeMdVar,
-  labelFontSizeLg: labelFontSizeLgVar,
-  labelFontSizeXl: labelFontSizeXlVar,
 
   // 레이아웃
   borderRadius: borderRadiusVar,

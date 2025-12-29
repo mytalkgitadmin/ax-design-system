@@ -3,6 +3,7 @@ import { IconType } from '../Icon';
 
 export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 export type InputType = 'text' | 'password' | 'email' | 'tel' | 'number';
+export type InputRounded = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
 
 // 시맨틱 토큰 이름 또는 커스텀 컬러 값(hex, rgb)을 모두 허용
 export type InputColorPreset = 'primary' | 'secondary';
@@ -24,6 +25,7 @@ export type InputProps = {
   size?: InputSize;
   color?: InputColor;
   full?: boolean;
+  rounded?: InputRounded; // 테마 설정을 덮어쓰기 위한 rounded 옵션
 
   // Label & Helper Text
   label: string; // 접근성을 위해 필수값
@@ -74,3 +76,12 @@ export const INPUT_TYPES: InputType[] = [
   'number',
 ];
 export const INPUT_COLOR_PRESETS: InputColorPreset[] = ['primary', 'secondary'];
+export const INPUT_ROUNDED: InputRounded[] = [
+  'none',
+  'xs',
+  'sm',
+  'md',
+  'lg',
+  'xl',
+  'full',
+];
