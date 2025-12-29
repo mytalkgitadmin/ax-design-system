@@ -6,6 +6,7 @@ import { Button } from '../Button';
 import { Icon } from '../Icon';
 import { Input } from '../Input';
 import { Text } from '../Text';
+import { Textarea } from '../Textarea';
 
 import { gap, py } from '../../tokens/dev/utils/spacing.global.css';
 
@@ -270,8 +271,12 @@ export const ProductDetailPage = () => {
           size='lg'
           color='primary'
           icon='tabler:search'
-          label='바로 구매'
+          label='검색'
         />
+      </div>
+      <div style={{ display: 'grid', gap: '4px', margin: '40px 0' }}>
+        <Textarea label='자기소개' maxLength={100} showCharacterCount />
+        <Button variant='solid' size='md' color='primary' label='입력' full />
       </div>
     </div>
   );

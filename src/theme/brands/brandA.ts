@@ -8,57 +8,66 @@ import { color } from 'storybook/theming';
 import { rounded, theme } from '../../tokens';
 import { createTheme } from '../createTheme';
 
+/**
+ * Brand A 공통 상수
+ */
+const BRAND_A_COLORS = theme.brand1; // Brand A 컬러 팔레트
+const BRAND_A_RADIUS = rounded.none; // 모든 컴포넌트에 적용되는 radius
+const FOCUS_SHADOW_OPACITY = '80'; // focus shadow 투명도 (hex)
+
+// 자주 사용되는 컬러 상태값
+const COLOR_DEFAULT = BRAND_A_COLORS.default;
+const COLOR_HOVER = BRAND_A_COLORS.subtle;
+const COLOR_ACTIVE = BRAND_A_COLORS.strong;
+const COLOR_SUBTLE = BRAND_A_COLORS.subtle;
+const COLOR_STRONG = BRAND_A_COLORS.strong;
+const COLOR_STRONGEST = BRAND_A_COLORS.strongest;
+
 export const brandATheme = createTheme({
   global: {
     color: {
       brand: {
-        default: theme.brand1.default,
-        hover: theme.brand1.subtle,
-        active: theme.brand1.strong,
-        subtle: theme.brand1.subtle,
-        strong: theme.brand1.strong,
-        strongest: theme.brand1.strongest,
+        default: COLOR_DEFAULT,
+        hover: COLOR_HOVER,
+        active: COLOR_ACTIVE,
+        subtle: COLOR_SUBTLE,
+        strong: COLOR_STRONG,
+        strongest: COLOR_STRONGEST,
       },
     },
   },
   components: {
     Button: {
-      radius: rounded.none,
+      radius: BRAND_A_RADIUS,
       colorSchemes: {
         primary: {
-          default: theme.brand1.default,
-          hover: theme.brand1.subtle,
-          active: theme.brand1.strong,
+          default: COLOR_DEFAULT,
+          hover: COLOR_HOVER,
+          active: COLOR_ACTIVE,
           text: color.inverseText,
         },
       },
     },
     Input: {
-      // labelFontSize는 선택사항 - 정의하지 않으면 global.typography.fontSize 사용
-      // labelFontSize: {
-      //   xs: 12,
-      //   sm: 13,
-      //   md: 14,
-      //   lg: 16,
-      //   xl: 16,
-      // },
-      colorSchemes: {
-        primary: {
-          // default, hover, error는 defaultTheme의 global 색상 사용
-          focus: theme.brand1.default, // Brand A의 focus 색상
-          focusShadow: `${theme.brand1.default}80`, // Brand A의 focus shadow (투명도 50%)
-        },
-        secondary: {
-          // default, hover, error는 defaultTheme의 global 색상 사용
-          focus: theme.brand1.subtle, // Brand A의 secondary focus 색상
-          focusShadow: `${theme.brand1.subtle}80`,
-        },
+      radius: BRAND_A_RADIUS,
+      colorScheme: {
+        // default, hover, error는 defaultTheme의 global 색상 사용
+        focus: COLOR_DEFAULT, // Brand A의 focus 색상
+        focusShadow: `${COLOR_DEFAULT}${FOCUS_SHADOW_OPACITY}`, // Brand A의 focus shadow
+      },
+    },
+    Textarea: {
+      radius: BRAND_A_RADIUS,
+      colorScheme: {
+        // default, hover, error는 defaultTheme의 global 색상 사용
+        focus: COLOR_DEFAULT, // Brand A의 focus 색상
+        focusShadow: `${COLOR_DEFAULT}${FOCUS_SHADOW_OPACITY}`, // Brand A의 focus shadow
       },
     },
     Text: {
       colorSchemes: {
-        brand1: theme.brand1.default, // Brand A의 primary 브랜드 컬러
-        brand2: theme.brand1.subtle, // Brand A의 secondary 브랜드 컬러
+        brand1: COLOR_DEFAULT, // Brand A의 primary 브랜드 컬러
+        brand2: COLOR_SUBTLE, // Brand A의 secondary 브랜드 컬러
       },
     },
   },

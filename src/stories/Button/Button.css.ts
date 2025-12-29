@@ -29,6 +29,7 @@ const baseButton = style({
   border: 'none',
   transition: 'all 0.2s ease',
   gap: toRem(spacing['8']), // 0.8rem
+  textDecoration: 'none',
 
   boxSizing: 'border-box',
   ':disabled': {

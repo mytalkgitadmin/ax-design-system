@@ -1,12 +1,12 @@
 /**
- * Input 컴포넌트 테마
- * Input의 기본 동작과 스타일 정책을 정의
+ * Textarea 컴포넌트 테마
+ * Textarea의 기본 동작과 스타일 정책을 정의
  */
 
 import { rounded } from '../../tokens';
 import { colorTheme } from '../global/color';
 
-export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+export type TextareaSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 /**
  * 컬러 스킴 정의
@@ -16,7 +16,7 @@ export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
  * focusShadow: 포커스 시 그림자 색상 (opacity 포함)
  * error: 에러 상태
  */
-export type InputColorScheme = {
+export type TextareaColorScheme = {
   default: string;
   hover: string;
   focus: string;
@@ -26,9 +26,9 @@ export type InputColorScheme = {
 
 /**
  * Label 폰트 크기 맵
- * Input size에 따른 Label 폰트 크기 정의
+ * Textarea size에 따른 Label 폰트 크기 정의
  */
-export type InputLabelFontSize = {
+export type TextareaLabelFontSize = {
   xs: number;
   sm: number;
   md: number;
@@ -36,15 +36,15 @@ export type InputLabelFontSize = {
   xl: number;
 };
 
-export type InputTheme = {
-  defaultSize: InputSize;
+export type TextareaTheme = {
+  defaultSize: TextareaSize;
   radius?: number; // undefined면 global.radius.sm 사용
   fontWeight?: number; // undefined면 global.typography.fontWeight.regular 사용
-  labelFontSize?: InputLabelFontSize; // undefined면 기본값 사용
-  colorScheme: InputColorScheme;
+  labelFontSize?: TextareaLabelFontSize; // undefined면 기본값 사용
+  colorScheme: TextareaColorScheme;
 };
 
-export const inputTheme: InputTheme = {
+export const textareaTheme: TextareaTheme = {
   defaultSize: 'md',
   radius: rounded.sm, // 기본값: sm (8px)
   // fontWeight: undefined, // global.typography.fontWeight.regular 사용

@@ -3,7 +3,7 @@ import React from 'react';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 
 import { useTheme } from '../../theme';
-import { componentSize } from '../../tokens';
+import { componentSize, rounded } from '../../tokens';
 import { toRem } from '../../tokens/dev/helpers/units';
 import { Icon } from '../Icon';
 import { ButtonProps } from './types';
@@ -19,6 +19,7 @@ export const Button = ({
   variant,
   color = 'primary',
   size,
+  rounded: roundedProp,
   type = 'button',
   label,
   full = false,
@@ -31,12 +32,21 @@ export const Button = ({
   const { global, components } = useTheme();
   const buttonTheme = components.Button;
 
+  // 런타임 검증: as="a"일 때 href가 필수
+  if (process.env.NODE_ENV !== 'production') {
+    if (as === 'a' && !href) {
+      console.error('Button: as="a"로 설정할 때는 href가 필수입니다.');
+    }
+  }
+
   const Component = as === 'a' ? 'a' : 'button';
 
   // 우선순위: props > component theme > global theme
   const finalSize = size ?? buttonTheme.defaultSize;
   const finalVariant = variant ?? buttonTheme.defaultVariant;
-  const finalRadius = buttonTheme.radius ?? global.radius.sm;
+  const themeRadius = buttonTheme.radius ?? global.radius.sm;
+  const actualRadius =
+    roundedProp !== undefined ? rounded[roundedProp] : themeRadius;
   const finalFontWeight =
     buttonTheme.fontWeight ?? global.typography.fontWeight.semibold;
 
@@ -64,13 +74,12 @@ export const Button = ({
     [buttonVars.textColor]: finalColorScheme.text,
     [buttonVars.fontFamily]: global.typography.fontFamily,
     [buttonVars.fontWeight]: String(finalFontWeight),
-    [buttonVars.borderRadius]: `${toRem(finalRadius)}`,
+    [buttonVars.borderRadius]: `${toRem(actualRadius)}`,
     [buttonVars.disabledBgColor]: global.color.bg.disabled,
     [buttonVars.disabledTextColor]: global.color.text.disabled,
   });
 
-  return React.createElement(Component, {
-    type: { type },
+  const commonProps = {
     className: `${buttonStyle({
       variant: finalVariant,
       size: finalSize,
@@ -80,16 +89,39 @@ export const Button = ({
       icon: !!icon,
     })}`,
     style: { ...vars },
-    onClick: onClick,
     disabled: disabled,
-    target: target,
-    href: href,
-    children: (
-      <>
-        {leftIcon && <Icon name={leftIcon} size={iconSize} />}
-        {icon ? <Icon name={icon} size={iconSize} /> : label}
-        {rightIcon && <Icon name={rightIcon} size={iconSize} />}
-      </>
-    ),
-  });
+  };
+
+  const children = (
+    <>
+      {leftIcon && <Icon name={leftIcon} size={iconSize} />}
+      {icon ? <Icon name={icon} size={iconSize} /> : label}
+      {rightIcon && <Icon name={rightIcon} size={iconSize} />}
+    </>
+  );
+
+  // a 태그로 렌더링
+  if (Component === 'a') {
+    return React.createElement(
+      'a',
+      {
+        ...commonProps,
+        href,
+        target,
+        rel: target === '_blank' ? 'noopener noreferrer' : undefined,
+      },
+      children
+    );
+  }
+
+  // button 태그로 렌더링
+  return React.createElement(
+    'button',
+    {
+      ...commonProps,
+      type,
+      onClick,
+    },
+    children
+  );
 };
