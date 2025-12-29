@@ -4,7 +4,13 @@
  * 프로젝트는 이 테마를 기반으로 커스터마이징
  */
 
-import { buttonTheme, iconTheme, inputTheme, textTheme } from './components';
+import {
+  buttonTheme,
+  iconTheme,
+  inputTheme,
+  textareaTheme,
+  textTheme,
+} from './components';
 import { globalTheme } from './global';
 
 import type { Theme } from './types';
@@ -16,5 +22,6 @@ export const defaultTheme: Theme = {
     Icon: iconTheme,
     Input: inputTheme,
     Text: textTheme,
+    Textarea: textareaTheme,
   },
 };
