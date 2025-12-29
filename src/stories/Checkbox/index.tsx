@@ -1,0 +1,158 @@
+import React, { useId } from 'react';
+
+import { assignInlineVars } from '@vanilla-extract/dynamic';
+
+import { useTheme } from '../../theme';
+import { CheckboxProps } from './types';
+
+import {
+  checkboxBox,
+  checkboxContainer,
+  checkboxInput,
+  checkboxVars,
+  checkIcon,
+  checkSvg,
+  helpText,
+  label,
+  textContainer,
+} from './Checkbox.css';
+
+export type { CheckboxProps } from './types';
+
+/**
+ * Checkbox 컴포넌트
+ *
+ * 사용자가 선택/해제할 수 있는 체크박스 컴포넌트입니다.
+ *
+ * @example
+ * ```tsx
+ * <Checkbox
+ *   label="체크박스 레이블"
+ *   helpText="체크박스에 대한 부가 설명"
+ *   checked={checked}
+ *   onChange={setChecked}
+ * />
+ * ```
+ */
+export const Checkbox = ({
+  size = 'lg',
+  checked = false,
+  disabled = false,
+  label: labelText,
+  helpText: helpTextContent,
+  onChange,
+  id,
+  name,
+  className,
+}: CheckboxProps) => {
+  const { global } = useTheme();
+  const generatedId = useId();
+  const checkboxId = id || generatedId;
+
+  // 체크박스 상태 변경 핸들러
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (!disabled && onChange) {
+      onChange(event.target.checked);
+    }
+  };
+
+  // 키보드 이벤트 핸들러 (Space/Enter로 토글)
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLLabelElement>) => {
+    if (disabled) return;
+
+    if (event.key === ' ' || event.key === 'Enter') {
+      event.preventDefault();
+      if (onChange) {
+        onChange(!checked);
+      }
+    }
+  };
+
+  // CSS Variables 주입
+  const vars = assignInlineVars({
+    [checkboxVars.fontFamily]: global.typography.fontFamily,
+    [checkboxVars.fontWeight]: String(global.typography.fontWeight.semibold),
+    [checkboxVars.borderRadius]: size === 'lg' ? '8px' : '6px',
+    [checkboxVars.primaryColor]: global.color.brand.default,
+    [checkboxVars.borderDefault]: global.color.border.default,
+    [checkboxVars.borderStrong]: global.color.border.strong,
+    [checkboxVars.bgDisabled]: global.color.bg.disabled,
+    [checkboxVars.textPrimary]: global.color.text.primary,
+    [checkboxVars.textTertiary]: global.color.text.tertiary,
+    [checkboxVars.textDisabled]: global.color.text.disabled,
+    [checkboxVars.iconDisabled]: global.color.text.disabled, // icon.disabled 대신 text.disabled 사용
+  });
+
+  // size에 따라 다른 체크 아이콘 SVG 사용
+  const checkIconSvg =
+    size === 'lg' ? (
+      // 큰 사이즈용 체크 아이콘 (13x9)
+      <svg
+        className={checkSvg}
+        width='13'
+        height='9'
+        viewBox='0 0 13 9'
+        fill='none'
+        xmlns='http://www.w3.org/2000/svg'
+      >
+        <path
+          d='M10.8196 0.21329C11.1042 -0.0711332 11.5659 -0.0710604 11.8507 0.21329C12.1354 0.498032 12.1354 0.960418 11.8507 1.24519L4.78035 8.3155C4.6436 8.45226 4.45779 8.52953 4.2644 8.52953C4.07131 8.52939 3.88586 8.45279 3.74926 8.31632L0.21329 4.78035C-0.0710473 4.49563 -0.0711463 4.03392 0.21329 3.74926C0.497998 3.46455 0.960422 3.46465 1.24519 3.74926L4.2644 6.76847L10.8196 0.21329Z'
+          fill='currentColor'
+        />
+      </svg>
+    ) : (
+      // 작은 사이즈용 체크 아이콘 (10x7)
+      <svg
+        className={checkSvg}
+        width='10'
+        height='7'
+        viewBox='0 0 10 7'
+        fill='none'
+        xmlns='http://www.w3.org/2000/svg'
+      >
+        <path
+          d='M8.65566 0.170632C8.88338 -0.0569066 9.25276 -0.0568483 9.48053 0.170632C9.70835 0.398426 9.70832 0.768335 9.48053 0.996153L3.82428 6.6524C3.71488 6.76181 3.56623 6.82362 3.41152 6.82363C3.25705 6.82352 3.10869 6.76223 2.99941 6.65305L0.170632 3.82428C-0.0568379 3.5965 -0.056917 3.22713 0.170632 2.99941C0.398399 2.77164 0.768338 2.77172 0.996153 2.99941L3.41152 5.41477L8.65566 0.170632Z'
+          fill='currentColor'
+        />
+      </svg>
+    );
+
+  return (
+    <div className={`${checkboxContainer} ${className || ''}`} style={vars}>
+      <input
+        type='checkbox'
+        id={checkboxId}
+        name={name}
+        checked={checked}
+        disabled={disabled}
+        onChange={handleChange}
+        className={checkboxInput}
+        aria-describedby={helpTextContent ? `${checkboxId}-help` : undefined}
+      />
+
+      <label
+        htmlFor={checkboxId}
+        className={checkboxBox({ size, checked, disabled })}
+        onKeyDown={handleKeyDown}
+        tabIndex={disabled ? -1 : 0}
+        role='checkbox'
+        aria-checked={checked}
+        aria-disabled={disabled}
+      >
+        <span className={checkIcon({ checked, disabled })}>{checkIconSvg}</span>
+      </label>
+
+      <div className={textContainer}>
+        <label htmlFor={checkboxId} className={label({ size, disabled })}>
+          {labelText}
+        </label>
+
+        {helpTextContent && (
+          <span id={`${checkboxId}-help`} className={helpText({ disabled })}>
+            {helpTextContent}
+          </span>
+        )}
+      </div>
+    </div>
+  );
+};
