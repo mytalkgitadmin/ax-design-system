@@ -1,7 +1,12 @@
 /**
  * Button 컴포넌트 테마
  * Button의 기본 동작과 스타일 정책을 정의
+ *
+ * 모든 컬러는 global color theme을 참조합니다.
  */
+
+import { rounded } from '../../tokens';
+import { colorTheme } from '../global/color';
 
 export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 export type ButtonVariant = 'solid' | 'outline';
@@ -35,21 +40,21 @@ export type ButtonTheme = {
 export const buttonTheme: ButtonTheme = {
   defaultSize: 'md',
   defaultVariant: 'solid',
-  // radius: undefined, // global.radius.sm 사용
+  radius: rounded.sm, // 기본값: sm (8px)
   // fontWeight: undefined, // global.typography.fontWeight.semibold 사용
 
   colorSchemes: {
     primary: {
-      default: '#4f7cff',
-      hover: '#2747be',
-      active: '#1a318b',
-      text: '#ffffff',
+      default: colorTheme.brand.default, // #4f7cff
+      hover: colorTheme.brand.hover, // #355fea (원래 #2747be였는데 일관성을 위해 변경)
+      active: colorTheme.brand.active, // #1a318b
+      text: colorTheme.text.inverse, // #ffffff
     },
     secondary: {
-      default: '#edf0f5',
-      hover: '#e3e6ee',
-      active: '#c5c9d3',
-      text: '#697180',
+      default: colorTheme.bg.gray, // #edf0f5
+      hover: colorTheme.bg.grayStrong, // #e3e6ee
+      active: colorTheme.bg.grayStrongest, // #c5c9d3
+      text: colorTheme.text.secondary, // #697180
     },
   },
 };
