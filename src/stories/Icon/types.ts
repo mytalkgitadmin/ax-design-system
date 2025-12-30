@@ -26,6 +26,12 @@ export type IconProps = {
   color?: IconColor;
   /** 추가 클래스명 */
   className?: string;
+  /**
+   * 스크린리더를 위한 설명 텍스트
+   * - 제공하면: 의미있는 아이콘으로 간주 (스크린리더가 읽음)
+   * - 생략하면: 장식용 아이콘으로 간주 (aria-hidden 자동 적용)
+   */
+  'aria-label'?: string;
 };
 
 // 편의를 위한 타입 export

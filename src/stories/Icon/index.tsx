@@ -4,7 +4,13 @@ import { IconProps } from './types';
 
 export type { IconType } from './types';
 
-export const Icon = ({ name, size, color, className }: IconProps) => {
+export const Icon = ({
+  name,
+  size,
+  color,
+  className,
+  'aria-label': ariaLabel,
+}: IconProps) => {
   const { components } = useTheme();
   const iconTheme = components.Icon;
 
@@ -31,12 +37,20 @@ export const Icon = ({ name, size, color, className }: IconProps) => {
     finalColor = presetColor ?? color;
   }
 
+  // 접근성 처리
+  // aria-label이 있으면 의미있는 아이콘 (role="img")
+  // aria-label이 없으면 장식용 아이콘 (aria-hidden)
+  const a11yProps = ariaLabel
+    ? { 'aria-label': ariaLabel, role: 'img' as const }
+    : { 'aria-hidden': true as const };
+
   return (
     <IconComponent
       width={finalSize}
       height={finalSize}
       className={className}
       style={finalColor ? { color: finalColor } : undefined}
+      {...a11yProps}
     />
   );
 };
