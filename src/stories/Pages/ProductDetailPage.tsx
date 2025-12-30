@@ -5,6 +5,7 @@ import { color } from '../../tokens';
 import { Button } from '../Button';
 import { Icon } from '../Icon';
 import { Input } from '../Input';
+import { Tabs } from '../Tabs';
 import { Text } from '../Text';
 import { Textarea } from '../Textarea';
 
@@ -59,15 +60,15 @@ export const ProductDetailPage = () => {
           alignItems: 'center',
         }}
       >
-        <Icon name='tabler:home' size={16} color={color.icon.secondary} />
+        <Icon name='Cursor' size={16} color={color.icon.secondary} />
         <Text preset='body2' as='span' color={color.text.secondary}>
           홈
         </Text>
-        <Icon name='tabler:arrow-right' size={14} color={color.icon.muted} />
+        <Icon name='ChevronRight' size={14} color={color.icon.muted} />
         <Text preset='body2' as='span' color={color.text.secondary}>
           전자기기
         </Text>
-        <Icon name='tabler:arrow-right' size={14} color={color.icon.muted} />
+        <Icon name='ChevronRight' size={14} color={color.icon.muted} />
         <Text preset='body2' as='span' color={color.text.secondary}>
           컴퓨터
         </Text>
@@ -169,7 +170,7 @@ export const ProductDetailPage = () => {
 
             <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
               <Button
-                icon='tabler:minus'
+                icon='Minus'
                 label='감소'
                 variant='outline'
                 size='md'
@@ -190,7 +191,7 @@ export const ProductDetailPage = () => {
                 }}
               />
               <Button
-                icon='tabler:plus'
+                icon='Plus'
                 label='증가'
                 variant='outline'
                 size='md'
@@ -240,24 +241,36 @@ export const ProductDetailPage = () => {
               size='lg'
               color='primary'
               label='장바구니'
-              icon='tabler:heart'
+              icon='Heart'
             />
             <Button
               size='lg'
               color='secondary'
               label='장바구니'
-              leftIcon='tabler:shopping-cart'
+              leftIcon='Bag'
             />
             <Button
               variant='solid'
               size='lg'
               color='primary'
-              leftIcon='tabler:shopping-bag'
+              leftIcon='Bag'
               label='바로 구매'
             />
           </div>
         </div>
       </div>
+
+      <Tabs
+        variant='underlined'
+        size='lg'
+        items={[
+          { label: '상품정보', value: 'tab1' },
+          { label: '리뷰', value: 'tab2' },
+          { label: '문의', value: 'tab3' },
+          { label: '교환/반품', value: 'tab4' },
+        ]}
+        justify='between'
+      />
 
       <div style={{ display: 'flex', gap: '4px', margin: '40px 0' }}>
         <Input
@@ -270,7 +283,7 @@ export const ProductDetailPage = () => {
           variant='solid'
           size='lg'
           color='primary'
-          icon='tabler:search'
+          icon='Search'
           label='검색'
         />
       </div>

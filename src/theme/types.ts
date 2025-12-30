@@ -5,6 +5,7 @@
 import type { ButtonTheme } from './components/button';
 import type { IconTheme } from './components/icon';
 import type { InputTheme } from './components/input';
+import type { TabsTheme } from './components/tabs';
 import type { TextTheme } from './components/text';
 import type { TextareaTheme } from './components/textarea';
 import type { GlobalTheme } from './global';
@@ -20,6 +21,7 @@ export type Theme = {
     Button: ButtonTheme;
     Icon: IconTheme;
     Input: InputTheme;
+    Tabs: TabsTheme;
     Text: TextTheme;
     Textarea: TextareaTheme;
   };
