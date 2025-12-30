@@ -64,6 +64,17 @@ export const brandATheme = createTheme({
         focusShadow: `${COLOR_DEFAULT}${FOCUS_SHADOW_OPACITY}`, // Brand A의 focus shadow
       },
     },
+    Tabs: {
+      radius: BRAND_A_RADIUS,
+      colorSchemes: {
+        primary: {
+          default: COLOR_DEFAULT,
+          hover: COLOR_HOVER,
+          active: COLOR_DEFAULT,
+          text: color.inverseText,
+        },
+      },
+    },
     Text: {
       colorSchemes: {
         brand1: COLOR_DEFAULT, // Brand A의 primary 브랜드 컬러

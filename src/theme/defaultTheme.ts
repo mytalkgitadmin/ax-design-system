@@ -8,6 +8,7 @@ import {
   buttonTheme,
   iconTheme,
   inputTheme,
+  tabsTheme,
   textareaTheme,
   textTheme,
 } from './components';
@@ -21,6 +22,7 @@ export const defaultTheme: Theme = {
     Button: buttonTheme,
     Icon: iconTheme,
     Input: inputTheme,
+    Tabs: tabsTheme,
     Text: textTheme,
     Textarea: textareaTheme,
   },
