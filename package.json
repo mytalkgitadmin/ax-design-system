@@ -31,6 +31,7 @@
     "@storybook/addon-docs": "^10.1.7",
     "@storybook/addon-vitest": "^10.1.7",
     "@storybook/react-vite": "^10.1.7",
+    "@svgr/cli": "^8.1.0",
     "@vanilla-extract/esbuild-plugin": "^2.3.21",
     "@vanilla-extract/vite-plugin": "^5.1.3",
     "@vitest/browser-playwright": "^4.0.15",
@@ -69,7 +70,8 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "generate:icons": "svgr --icon --typescript --out-dir src/stories/Icon/icons src/assets/icon && node scripts/generate-icon-exports.js && find src/stories/Icon/icons -name 'index.ts' -not -path '*/Icon/icons/index.ts' -delete && npm run lint -- --fix"
   },
   "engines": {
     "node": "23.11.0",
@@ -101,7 +103,6 @@
     "@vanilla-extract/recipes": "^0.5.7"
   },
   "peerDependencies": {
-    "@iconify/react": ">=6.0.0",
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0"
   }

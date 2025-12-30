@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { color } from '../../tokens';
-import { ICON_TYPES } from '../Icon/types';
+import { ICON_NAMES } from '../Icon/types';
 import { Input } from './index';
 import {
   INPUT_COLOR_PRESETS,
@@ -179,13 +179,13 @@ const meta = {
     // Icon
     leftIcon: {
       control: 'select',
-      options: [undefined, ...ICON_TYPES],
+      options: [undefined, ...ICON_NAMES],
       description: '왼쪽 아이콘',
       table: { category: 'Icon' },
     },
     rightIcon: {
       control: 'select',
-      options: [undefined, ...ICON_TYPES],
+      options: [undefined, ...ICON_NAMES],
       description: '오른쪽 아이콘',
       table: { category: 'Icon' },
     },
@@ -518,28 +518,24 @@ export const WithIcons: Story = {
         width: '300px',
       }}
     >
-      <Input
-        label='검색'
-        placeholder='검색어를 입력하세요'
-        leftIcon='tabler:search'
-      />
+      <Input label='검색' placeholder='검색어를 입력하세요' leftIcon='Search' />
       <Input
         label='이메일'
         type='email'
         placeholder='email@example.com'
-        leftIcon='tabler:mail'
+        leftIcon='Upload'
       />
       <Input
         label='전화번호'
         type='tel'
         placeholder='010-1234-5678'
-        leftIcon='tabler:phone'
+        leftIcon='Upload'
       />
       <Input
         label='URL'
         type='text'
         placeholder='https://example.com'
-        rightIcon='tabler:link'
+        rightIcon='Upload'
       />
     </div>
   ),
@@ -567,7 +563,7 @@ export const PasswordToggle: Story = {
             label='비밀번호'
             type={showPassword ? 'text' : 'password'}
             placeholder='비밀번호를 입력하세요'
-            rightIcon={showPassword ? 'tabler:eye' : 'tabler:eye-off'}
+            rightIcon={showPassword ? 'User' : 'UserFilled'}
             onRightIconClick={() => setShowPassword(!showPassword)}
             status='help'
             statusMessage='아이콘을 클릭하여 비밀번호를 표시/숨김할 수 있습니다'
@@ -577,8 +573,8 @@ export const PasswordToggle: Story = {
             label='수량'
             type='number'
             placeholder='0'
-            leftIcon='tabler:minus'
-            rightIcon='tabler:plus'
+            leftIcon='Minus'
+            rightIcon='Plus'
             value={count}
             min={0}
             max={100}
@@ -636,7 +632,7 @@ export const SignupForm: Story = {
             label='이메일'
             type='email'
             placeholder='email@example.com'
-            leftIcon='tabler:mail'
+            leftIcon='Upload'
             required
             full
             status='help'
@@ -647,7 +643,7 @@ export const SignupForm: Story = {
             label='비밀번호'
             type={showPassword ? 'text' : 'password'}
             placeholder='비밀번호 입력'
-            rightIcon={showPassword ? 'tabler:eye' : 'tabler:eye-off'}
+            rightIcon={showPassword ? 'User' : 'UserFilled'}
             onRightIconClick={() => setShowPassword(!showPassword)}
             required
             full
@@ -659,7 +655,7 @@ export const SignupForm: Story = {
             label='비밀번호 확인'
             type={showConfirmPassword ? 'text' : 'password'}
             placeholder='비밀번호 재입력'
-            rightIcon={showConfirmPassword ? 'tabler:eye' : 'tabler:eye-off'}
+            rightIcon={showConfirmPassword ? 'User' : 'UserFilled'}
             onRightIconClick={() =>
               setShowConfirmPassword(!showConfirmPassword)
             }
@@ -673,7 +669,7 @@ export const SignupForm: Story = {
             label='전화번호'
             type='tel'
             placeholder='010-1234-5678'
-            leftIcon='tabler:phone'
+            leftIcon='Upload'
             full
           />
         </div>
