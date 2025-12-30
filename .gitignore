@@ -8,3 +8,4 @@ dist
 storybook-static
 build-storybook.log
 .temp
+src/assets/icon/
