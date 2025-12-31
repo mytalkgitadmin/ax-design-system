@@ -356,20 +356,17 @@ export const WithIcon: Story = {
       style={{
         display: 'grid',
         gap: '16px',
-        gridTemplateColumns: 'auto auto auto',
+        gridTemplateColumns: 'auto auto ',
       }}
     >
-      <Button label='Download' leftIcon='Upload' />
-      <Button label='Trash' leftIcon='CircleXDuotone' />
-      <Button label='search' leftIcon='Search' />
+      <Button label='Download' leftIcon='Download' />
+      <Button label='search' rightIcon='Search' />
 
-      <Button label='Download' color='secondary' leftIcon='Upload' />
-      <Button label='Trash' color='secondary' leftIcon='CircleXDuotone' />
-      <Button label='search' color='secondary' leftIcon='Search' />
+      <Button label='Download' color='secondary' leftIcon='Download' />
+      <Button label='search' color='secondary' rightIcon='Search' />
 
-      <Button variant='outline' label='Download' leftIcon='Upload' />
-      <Button variant='outline' label='Trash' leftIcon='CircleXDuotone' />
-      <Button variant='outline' label='search' leftIcon='Search' />
+      <Button variant='outline' label='Download' leftIcon='Download' />
+      <Button variant='outline' label='search' rightIcon='Search' />
     </div>
   ),
 };
@@ -382,50 +379,38 @@ export const OnlyIcon: Story = {
       style={{
         display: 'grid',
         gap: '16px',
-        gridTemplateColumns: 'repeat(9, 1fr)',
+        gridTemplateColumns: 'repeat(6, 1fr)',
       }}
     >
       {/* sm */}
-      <Button size='sm' label='Download' icon='Upload' />
-      <Button size='sm' label='Trash' icon='CircleXDuotone' />
+      <Button size='sm' label='Download' icon='Download' />
       <Button size='sm' label='search' icon='Search' />
-      <Button size='sm' label='Download' color='secondary' icon='Upload' />
-      <Button size='sm' label='Trash' color='secondary' icon='CircleXDuotone' />
+      <Button size='sm' label='Download' color='secondary' icon='Download' />
       <Button size='sm' label='search' color='secondary' icon='Search' />
-      <Button size='sm' variant='outline' label='Download' icon='Upload' />
-      <Button size='sm' variant='outline' label='Trash' icon='CircleXDuotone' />
+      <Button size='sm' variant='outline' label='Download' icon='Download' />
       <Button size='sm' variant='outline' label='search' icon='Search' />
       {/* md */}
-      <Button label='Download' icon='Upload' />
-      <Button label='Trash' icon='CircleXDuotone' />
+      <Button label='Download' icon='Download' />
       <Button label='search' icon='Search' />
-      <Button label='Download' color='secondary' icon='Upload' />
-      <Button label='Trash' color='secondary' icon='CircleXDuotone' />
+      <Button label='Download' color='secondary' icon='Download' />
       <Button label='search' color='secondary' icon='Search' />
-      <Button variant='outline' label='Download' icon='Upload' />
-      <Button variant='outline' label='Trash' icon='CircleXDuotone' />
+      <Button variant='outline' label='Download' icon='Download' />
       <Button variant='outline' label='search' icon='Search' />
 
       {/* lg */}
-      <Button size='lg' label='Download' icon='Upload' />
-      <Button size='lg' label='Trash' icon='CircleXDuotone' />
+      <Button size='lg' label='Download' icon='Download' />
       <Button size='lg' label='search' icon='Search' />
-      <Button size='lg' label='Download' color='secondary' icon='Upload' />
-      <Button size='lg' label='Trash' color='secondary' icon='CircleXDuotone' />
+      <Button size='lg' label='Download' color='secondary' icon='Download' />
       <Button size='lg' label='search' color='secondary' icon='Search' />
-      <Button size='lg' variant='outline' label='Download' icon='Upload' />
-      <Button size='lg' variant='outline' label='Trash' icon='CircleXDuotone' />
+      <Button size='lg' variant='outline' label='Download' icon='Download' />
       <Button size='lg' variant='outline' label='search' icon='Search' />
 
       {/* xl */}
-      <Button size='xl' label='Download' icon='Upload' />
-      <Button size='xl' label='Trash' icon='CircleXDuotone' />
+      <Button size='xl' label='Download' icon='Download' />
       <Button size='xl' label='search' icon='Search' />
-      <Button size='xl' label='Download' color='secondary' icon='Upload' />
-      <Button size='xl' label='Trash' color='secondary' icon='CircleXDuotone' />
+      <Button size='xl' label='Download' color='secondary' icon='Download' />
       <Button size='xl' label='search' color='secondary' icon='Search' />
-      <Button size='xl' variant='outline' label='Download' icon='Upload' />
-      <Button size='xl' variant='outline' label='Trash' icon='CircleXDuotone' />
+      <Button size='xl' variant='outline' label='Download' icon='Download' />
       <Button size='xl' variant='outline' label='search' icon='Search' />
     </div>
   ),
@@ -491,7 +476,7 @@ export const AsLink: Story = {
           as='a'
           href='https://example.com'
           label='Download'
-          leftIcon='Upload'
+          leftIcon='Download'
         />
         <Button
           as='a'
@@ -499,12 +484,6 @@ export const AsLink: Story = {
           target='_blank'
           label='Search'
           rightIcon='Search'
-        />
-        <Button
-          as='a'
-          href='https://example.com'
-          label='Trash'
-          icon='CircleXDuotone'
         />
       </div>
     </div>

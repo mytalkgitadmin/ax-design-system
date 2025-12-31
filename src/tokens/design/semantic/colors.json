@@ -6,7 +6,7 @@
         "type": "color"
       },
       "subtle": {
-        "value": "{color.gray.50}",
+        "value": "{color.gray.100}",
         "type": "color"
       },
       "dim": {
@@ -14,7 +14,7 @@
         "type": "color"
       },
       "muted": {
-        "value": "{color.gray.100}",
+        "value": "{color.gray.150}",
         "type": "color"
       },
       "disabled": {
@@ -35,6 +35,42 @@
       },
       "gray-strongest": {
         "value": "{color.gray.400}",
+        "type": "color"
+      },
+      "mask": {
+        "value": "{color.alpha.black40}",
+        "type": "color"
+      },
+      "negative": {
+        "value": "{color.red.100}",
+        "type": "color"
+      },
+      "positive": {
+        "value": "{color.green.100}",
+        "type": "color"
+      },
+      "warning": {
+        "value": "{color.yellow.100}",
+        "type": "color"
+      },
+      "primary": {
+        "value": "{color.blue.100}",
+        "type": "color"
+      },
+      "subtler": {
+        "value": "{color.gray.50}",
+        "type": "color"
+      },
+      "darkgray": {
+        "value": "{color.gray.900}",
+        "type": "color"
+      },
+      "darkgray-soft": {
+        "value": "{color.gray.800}",
+        "type": "color"
+      },
+      "darkgray-strong": {
+        "value": "{color.gray.950}",
         "type": "color"
       }
     },
@@ -82,6 +118,14 @@
       "warning-strong": {
         "value": "{color.yellow.600}",
         "type": "color"
+      },
+      "focus": {
+        "value": "{color.gray.900}",
+        "type": "color"
+      },
+      "subtle": {
+        "value": "{color.gray.200}",
+        "type": "color"
       }
     },
     "divider": {
@@ -90,7 +134,7 @@
         "type": "color"
       },
       "soft": {
-        "value": "{color.gray.100}",
+        "value": "{color.gray.150}",
         "type": "color"
       },
       "strong": {
@@ -128,9 +172,8 @@
         "type": "color"
       },
       "link": {
-        "value": "{color.blue.700}",
-        "type": "color",
-        "description": "Brand 1의 strong 색상을 직접 참조 (brand1.strong 대신)"
+        "value": "{brand1.strong}",
+        "type": "color"
       },
       "negative": {
         "value": "{color.red.600}",

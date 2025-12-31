@@ -523,19 +523,19 @@ export const WithIcons: Story = {
         label='이메일'
         type='email'
         placeholder='email@example.com'
-        leftIcon='Upload'
+        leftIcon='Download'
       />
       <Input
         label='전화번호'
         type='tel'
         placeholder='010-1234-5678'
-        leftIcon='Upload'
+        leftIcon='Download'
       />
       <Input
         label='URL'
         type='text'
         placeholder='https://example.com'
-        rightIcon='Upload'
+        rightIcon='Download'
       />
     </div>
   ),
@@ -632,7 +632,7 @@ export const SignupForm: Story = {
             label='이메일'
             type='email'
             placeholder='email@example.com'
-            leftIcon='Upload'
+            leftIcon='Download'
             required
             full
             status='help'
@@ -669,7 +669,7 @@ export const SignupForm: Story = {
             label='전화번호'
             type='tel'
             placeholder='010-1234-5678'
-            leftIcon='Upload'
+            leftIcon='Download'
             full
           />
         </div>

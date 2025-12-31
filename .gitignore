@@ -8,4 +8,6 @@ dist
 storybook-static
 build-storybook.log
 .temp
-src/assets/icon/
+
+# Figma 원본 파일 (변환 전)
+src/figma/

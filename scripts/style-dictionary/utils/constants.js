@@ -27,7 +27,7 @@ const TOKEN_CATEGORIES = {
 
 // 파일 경로
 const PATHS = {
-  FIGMA_TOKENS: 'src/tokens/figma/tokens.json',
+  FIGMA_TOKENS: 'src/figma/tokens.json',
   OUTPUT_DIR: 'src/tokens/design',
   PRIMITIVES_DIR: 'src/tokens/design/primitives',
   SEMANTIC_DIR: 'src/tokens/design/semantic',

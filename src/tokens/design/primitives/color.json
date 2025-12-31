@@ -2,11 +2,15 @@
   "color": {
     "gray": {
       "50": {
-        "value": "#f8f9fc",
+        "value": "#fcfdff",
+        "type": "color"
+      },
+      "100": {
+        "value": "#f9fafd",
         "type": "color",
         "description": "화면 전체 배경 (Page BG)"
       },
-      "100": {
+      "150": {
         "value": "#f4f6fb",
         "type": "color",
         "description": "구분선 / 섹션 라인 / 아주 연한 Divider"
@@ -163,11 +167,11 @@
     },
     "red": {
       "50": {
-        "value": "#fff3f7",
+        "value": "#fff7f8",
         "type": "color"
       },
       "100": {
-        "value": "#ffe3e6",
+        "value": "#ffeef1",
         "type": "color"
       },
       "200": {
@@ -219,11 +223,11 @@
     },
     "green": {
       "50": {
-        "value": "#f4fbf6",
+        "value": "#f7fcf9",
         "type": "color"
       },
       "100": {
-        "value": "#e0f7e6",
+        "value": "#f1fcf4",
         "type": "color"
       },
       "200": {
@@ -357,11 +361,11 @@
     },
     "yellow": {
       "50": {
-        "value": "#fffcf4",
+        "value": "#fffdf7",
         "type": "color"
       },
       "100": {
-        "value": "#fff6df",
+        "value": "#fffaee",
         "type": "color"
       },
       "200": {

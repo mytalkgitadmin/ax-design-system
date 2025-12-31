@@ -211,7 +211,7 @@ export const tabStyle = recipe({
         size: 'lg',
       },
       style: {
-        padding: `${toRem(spacing[8])} ${toRem(spacing[42])}`,
+        padding: `${toRem(spacing[8])} ${toRem(spacing[48])}`,
       },
     },
     {

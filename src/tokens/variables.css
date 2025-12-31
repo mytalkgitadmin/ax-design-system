@@ -3,8 +3,9 @@
  */
 
 :root {
-  --gray-50: #f8f9fc;
-  --gray-100: #f4f6fb;
+  --gray-50: #fcfdff;
+  --gray-100: #f9fafd;
+  --gray-150: #f4f6fb;
   --gray-200: #edf0f5;
   --gray-300: #e3e6ee;
   --gray-400: #c5c9d3;
@@ -39,8 +40,8 @@
   --alpha-white24: rgba(255, 255, 255, 0.24);
   --alpha-white16: rgba(255, 255, 255, 0.16);
   --alpha-white8: rgba(255, 255, 255, 0.08);
-  --red-50: #fff3f7;
-  --red-100: #ffe3e6;
+  --red-50: #fff7f8;
+  --red-100: #ffeef1;
   --red-200: #ffc5cd;
   --red-300: #ffa2af;
   --red-400: #ff7a8c;
@@ -52,8 +53,8 @@
   --red-950: #4d0d18;
   --base-white: #ffffff;
   --base-black: #000000;
-  --green-50: #f4fbf6;
-  --green-100: #e0f7e6;
+  --green-50: #f7fcf9;
+  --green-100: #f1fcf4;
   --green-200: #c0eed0;
   --green-300: #96e1b4;
   --green-400: #68d093;
@@ -85,8 +86,8 @@
   --indigo-800: #330099;
   --indigo-900: #260070;
   --indigo-950: #19004a;
-  --yellow-50: #fffcf4;
-  --yellow-100: #fff6df;
+  --yellow-50: #fffdf7;
+  --yellow-100: #fffaee;
   --yellow-200: #ffedb8;
   --yellow-300: #ffe291;
   --yellow-400: #ffd363;
@@ -189,14 +190,23 @@
   --z-toast: 1700;
   --z-tooltip: 1800;
   --bg-default: var(--base-white);
-  --bg-subtle: var(--gray-50);
+  --bg-subtle: var(--gray-100);
   --bg-dim: var(--alpha-black64);
-  --bg-muted: var(--gray-100);
+  --bg-muted: var(--gray-150);
   --bg-disabled: var(--gray-300);
   --bg-inverse: var(--gray-900);
   --bg-gray: var(--gray-200);
   --bg-gray-strong: var(--gray-300);
   --bg-gray-strongest: var(--gray-400);
+  --bg-mask: var(--alpha-black40);
+  --bg-negative: var(--red-100);
+  --bg-positive: var(--green-100);
+  --bg-warning: var(--yellow-100);
+  --bg-primary: var(--blue-100);
+  --bg-subtler: var(--gray-50);
+  --bg-darkgray: var(--gray-900);
+  --bg-darkgray-soft: var(--gray-800);
+  --bg-darkgray-strong: var(--gray-950);
   --border-strong: var(--gray-400);
   --border-default: var(--gray-300);
   --border-disabled: var(--gray-300);
@@ -208,8 +218,10 @@
   --border-positive-strong: var(--green-600);
   --border-warning-soft: var(--yellow-200);
   --border-warning-strong: var(--yellow-600);
+  --border-focus: var(--gray-900);
+  --border-subtle: var(--gray-200);
   --divider-default: var(--gray-200);
-  --divider-soft: var(--gray-100);
+  --divider-soft: var(--gray-150);
   --divider-strong: var(--gray-300);
   --divider-inverse: var(--base-white);
   --text-secondary: var(--gray-700);
@@ -218,7 +230,6 @@
   --text-muted: var(--gray-500);
   --text-disabled: var(--gray-400);
   --text-inverse: var(--base-white);
-  --text-link: var(--blue-700);
   --text-negative: var(--red-600);
   --text-positive: var(--green-600);
   --text-warning: var(--yellow-600);
@@ -246,9 +257,12 @@
   --brand1-default: var(--blue-600);
   --brand1-subtle: var(--blue-500);
   --brand1-stronger: var(--blue-800);
+  --brand1-soft: var(--blue-100);
   --brand2-strongest: var(--pink-900);
   --brand2-strong: var(--pink-700);
   --brand2-default: var(--pink-600);
   --brand2-subtle: var(--pink-500);
   --brand2-stronger: var(--pink-800);
+  --brand2-soft: var(--pink-100);
+  --text-link: var(--brand1-strong);
 }
