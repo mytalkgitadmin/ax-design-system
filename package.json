@@ -61,7 +61,7 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "build": "npm run build:tokens && tsup",
-    "build:tokens": "node scripts/build-tokens.js",
+    "build:tokens": "node scripts/build-tokens.js && npm run lint:fix && npm run type-check",
     "prepublishOnly": "npm run build",
     "jira:create": "node scripts/jira/create-jira-only.js",
     "commit": "cz",
@@ -71,7 +71,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "type-check": "tsc --noEmit",
-    "generate:icons": "svgr --icon --typescript --out-dir src/stories/Icon/icons src/assets/icon && node scripts/generate-icon-exports.js && find src/stories/Icon/icons -name 'index.ts' -not -path '*/Icon/icons/index.ts' -delete && npm run lint -- --fix"
+    "generate:icons": "bash scripts/convert-icons.sh"
   },
   "engines": {
     "node": "23.11.0",

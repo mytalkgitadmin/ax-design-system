@@ -60,7 +60,7 @@ export const ProductDetailPage = () => {
           alignItems: 'center',
         }}
       >
-        <Icon name='Cursor' size={16} color={color.icon.secondary} />
+        <Icon name='ChevronRight' size={16} color={color.icon.secondary} />
         <Text preset='body2' as='span' color={color.text.secondary}>
           홈
         </Text>
