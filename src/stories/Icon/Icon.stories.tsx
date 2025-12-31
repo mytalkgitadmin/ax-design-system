@@ -60,12 +60,12 @@ import type { Meta, StoryObj } from '@storybook/react';
  *
  * ## 특별한 아이콘들
  * ### Circle Duotone/Filled 아이콘
- * `CircleErrorDuotone`, `CircleSuccessFilled` 등의 아이콘은 **고정된 색상**을 사용합니다.
+ * `CircleNegativeDuotone`, `CirclePositiveFilled` 등의 아이콘은 **고정된 색상**을 사용합니다.
  * - `color` prop이 적용되지 않습니다
  * - 디자인 시스템의 시맨틱 컬러를 사용하도록 설계됨
  * ```tsx
- * <Icon name="CircleErrorDuotone" color="primary" /> // color prop 무시됨
- * <Icon name="CircleSuccessFilled" />                // 항상 초록색
+ * <Icon name="CircleNegativeDuo" color="primary" /> // color prop 무시됨
+ * <Icon name="CirclePositiveFilled" />              // 항상 초록색
  * ```
  */
 const meta = {
@@ -294,7 +294,7 @@ export const Accessibility: Story = {
               cursor: 'pointer',
             }}
           >
-            <Icon name='Menu' size={20} aria-label='메뉴' />
+            <Icon name='Hamburger' size={20} aria-label='메뉴' />
           </div>
           <p style={{ fontSize: '12px', color: '#6c757d', margin: 0 }}>
             → 스크린리더: "검색", "닫기", "메뉴"
@@ -368,11 +368,11 @@ export const Accessibility: Story = {
         </h3>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <Icon name='CircleSuccessFilled' size={20} aria-label='성공' />
+            <Icon name='CirclePositiveFilled' size={20} aria-label='성공' />
             <span>파일 업로드가 완료되었습니다</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <Icon name='CircleErrorFilled' size={20} aria-label='오류' />
+            <Icon name='CircleNegativeFilled' size={20} aria-label='오류' />
             <span>파일 업로드에 실패했습니다</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -403,25 +403,31 @@ export const AllIcons: Story = {
     // 아이콘 이름의 접두사로 카테고리 자동 분류
     const categorizeIcons = (iconNames: IconName[]) => {
       const categories: Record<string, IconName[]> = {
-        Chevron: [],
-        Circle: [],
-        Social: [],
         Interface: [],
+        Social: [],
+        Circle: [],
+        Arrow: [],
       };
 
+      const arrowNames = ['Down', 'Up', 'Left', 'Right'];
+
       iconNames.forEach((name) => {
-        if (name.startsWith('Chevron')) {
-          categories.Chevron.push(name);
-        } else if (name.startsWith('Circle')) {
+        if (name.startsWith('Circle')) {
           categories.Circle.push(name);
-        } else if (name.startsWith('Social')) {
+        } else if (
+          name.startsWith('Chevron') ||
+          name.startsWith('Dropdown') ||
+          arrowNames.includes(name as string)
+        ) {
+          categories.Arrow.push(name);
+        } else if (name === 'Instagram') {
           categories.Social.push(name);
         } else {
           categories.Interface.push(name);
         }
       });
 
-      // 빈 카테고리 제거
+      // 빈 카테고리 제거하고 순서 유지
       return Object.entries(categories)
         .filter(([, items]) => items.length > 0)
         .map(([category, items]) => ({

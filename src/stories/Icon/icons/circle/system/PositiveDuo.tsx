@@ -1,12 +1,12 @@
 import type { SVGProps } from 'react';
-const SvgSuccessDuotone = (props: SVGProps<SVGSVGElement>) => (
+const SvgPositiveDuo = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns='http://www.w3.org/2000/svg'
     fill='none'
     viewBox='0 0 24 24'
     {...props}
   >
-    <g clipPath='url(#success-duotone_svg__a)'>
+    <g clipPath='url(#positive-duo_svg__a)'>
       <path
         fill='#F1FCF4'
         d='M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10'
@@ -17,10 +17,10 @@ const SvgSuccessDuotone = (props: SVGProps<SVGSVGElement>) => (
       />
     </g>
     <defs>
-      <clipPath id='success-duotone_svg__a'>
+      <clipPath id='positive-duo_svg__a'>
         <path fill='#fff' d='M0 0h24v24H0z' />
       </clipPath>
     </defs>
   </svg>
 );
-export { SvgSuccessDuotone as SvgComponent };
+export { SvgPositiveDuo as SvgComponent };
