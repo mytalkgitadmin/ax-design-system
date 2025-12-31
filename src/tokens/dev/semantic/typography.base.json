@@ -1,0 +1,46 @@
+{
+  "typography": {
+    "responsive": {
+      "display": {
+        "value": "clamp(32px, 3vw, 48px)",
+        "type": "fontSize",
+        "description": "공통 기본 반응형 Display 폰트 (가장 큰 제목)"
+      },
+      "h1": {
+        "value": "clamp(28px, 2.5vw, 40px)",
+        "type": "fontSize",
+        "description": "공통 기본 반응형 H1 폰트"
+      },
+      "h2": {
+        "value": "clamp(24px, 2.2vw, 32px)",
+        "type": "fontSize",
+        "description": "공통 기본 반응형 H2 폰트"
+      },
+      "h3": {
+        "value": "clamp(20px, 2vw, 26px)",
+        "type": "fontSize",
+        "description": "공통 기본 반응형 H3 폰트 (제목)"
+      },
+      "h4": {
+        "value": "clamp(18px, 1.8vw, 22px)",
+        "type": "fontSize",
+        "description": "공통 기본 반응형 H4 폰트"
+      },
+      "body": {
+        "value": "clamp(14px, 1vw, 16px)",
+        "type": "fontSize",
+        "description": "공통 기본 반응형 본문 폰트"
+      },
+      "small": {
+        "value": "clamp(12px, 0.8vw, 14px)",
+        "type": "fontSize",
+        "description": "공통 기본 반응형 작은 텍스트 폰트"
+      },
+      "caption": {
+        "value": "clamp(10px, 0.6vw, 12px)",
+        "type": "fontSize",
+        "description": "공통 기본 반응형 캡션 폰트"
+      }
+    }
+  }
+}

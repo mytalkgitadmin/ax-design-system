@@ -70,6 +70,7 @@ export const textElement = {
   label: 'label',
   span: 'span',
   div: 'div',
+  strong: 'strong',
 } as const;
 
 // 타입 export
@@ -95,7 +96,7 @@ export type TypographyPreset = {
   textAlign?: TextAlign;
   textWrap?: TextWrap;
   wordBreak?: WordBreak;
-}
+};
 
 export const typographyPresets = {
   // Display 프리셋 - 큰 제목
@@ -289,4 +290,4 @@ export type TextProps = {
   className?: string;
   style?: React.CSSProperties;
   children?: React.ReactNode;
-}
+};

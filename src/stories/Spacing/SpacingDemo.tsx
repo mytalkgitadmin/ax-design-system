@@ -1,4 +1,6 @@
+import { color, rounded, typography } from '../../tokens';
 import { spacing } from '../../tokens/dev/helpers/spacing';
+import { toRem } from '../../tokens/dev/helpers/units';
 
 export type SpacingDemoProps = {
   margin?: keyof typeof spacing;
@@ -14,7 +16,7 @@ export type SpacingDemoProps = {
   gap?: keyof typeof spacing;
   gapY?: keyof typeof spacing;
   gapX?: keyof typeof spacing;
-}
+};
 
 export const SpacingDemo = ({
   margin = 0,
@@ -57,14 +59,14 @@ export const SpacingDemo = ({
       style={{
         width: '600px',
         maxWidth: '100%',
-        backgroundColor: '#fef3c7',
-        border: hasMargin ? '1px solid #f59e0b' : 0,
-        borderRadius: '12px',
+        backgroundColor: color.yellow[100],
+        border: hasMargin ? `1px solid ${color.yellow[500]}` : 0,
+        borderRadius: toRem(rounded.md),
       }}
     >
       <div
         style={{
-          border: hasPadding ? '1px dashed #818cf8' : 0,
+          border: hasPadding ? `1px dashed ${color.indigo[400]}` : 0,
           marginTop: spacing[marginTop],
           marginRight: spacing[marginRight],
           marginBottom: spacing[marginBottom],
@@ -73,8 +75,8 @@ export const SpacingDemo = ({
           paddingRight: spacing[paddingRight],
           paddingBottom: spacing[paddingBottom],
           paddingLeft: spacing[paddingLeft],
-          backgroundColor: '#e0e7ff',
-          borderRadius: '8px',
+          backgroundColor: color.indigo[100],
+          borderRadius: toRem(rounded.sm),
         }}
       >
         <div
@@ -86,13 +88,13 @@ export const SpacingDemo = ({
             background: `
               repeating-linear-gradient(
                 -45deg,
-                #fff,
-                #fff 8px,
-                #ccc 8px,
-                #fff 9px
+                ${color.base.white},
+                ${color.base.white} 8px,
+                ${color.gray[300]} 8px,
+                ${color.base.white} 9px
               )
             `,
-            borderRadius: '8px',
+            borderRadius: toRem(rounded.sm),
           }}
         >
           {[1, 2, 3, 4, 5, 6].map((num) => (
@@ -103,12 +105,12 @@ export const SpacingDemo = ({
                 alignItems: 'center',
                 justifyContent: 'center',
                 minHeight: '100px',
-                backgroundColor: '#1e90ff',
-                border: '1px solid #0b7defff',
-                color: 'white',
-                fontSize: '24px',
+                backgroundColor: color.blue[500],
+                border: `1px solid ${color.blue[600]}`,
+                color: color.base.white,
+                fontSize: toRem(typography.fontSize[22]),
                 fontWeight: 700,
-                borderRadius: '8px',
+                borderRadius: toRem(rounded.sm),
               }}
             >
               {String(num).padStart(2, '0')}
@@ -118,4 +120,4 @@ export const SpacingDemo = ({
       </div>
     </div>
   );
-}
+};

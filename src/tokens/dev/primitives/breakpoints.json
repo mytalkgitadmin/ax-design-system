@@ -1,0 +1,24 @@
+{
+  "breakpoint": {
+    "sm": {
+      "value": "640",
+      "type": "number",
+      "description": "모바일 landscape 기준"
+    },
+    "md": {
+      "value": "768",
+      "type": "number",
+      "description": "태블릿 세로 기준"
+    },
+    "lg": {
+      "value": "1024",
+      "type": "number",
+      "description": "태블릿 가로 / 작은 데스크탑"
+    },
+    "xl": {
+      "value": "1280",
+      "type": "number",
+      "description": "데스크탑 기준"
+    }
+  }
+}

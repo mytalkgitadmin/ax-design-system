@@ -65,8 +65,20 @@ module.exports = {
       name: '🧪 Test:      테스트 (비즈니스 로직 변경 없음)',
     },
     {
-      value: '🚚 ',
+      value: '🚚 Move',
       name: '🚚 Move:      파일 및 폴더 이동',
+    },
+    {
+      value: '✏ Edit',
+      name: '✏ Edit:      간단한 수정',
+    },
+    {
+      value: '🚨 Linter',
+      name: '🚨 Linter:    린트 에러 수정',
+    },
+    {
+      value: '🔀 Merge',
+      name: '🔀 Merge:     브랜치 병합',
     },
   ],
 

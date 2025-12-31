@@ -14,7 +14,7 @@ export const color = {
     '700': '#697180',
     '800': '#4b5465',
     '900': '#2f3744',
-    '950': '#171c24'
+    '950': '#171c24',
   },
   blue: {
     '50': '#f9fbff',
@@ -27,7 +27,7 @@ export const color = {
     '700': '#355fea',
     '800': '#2747be',
     '900': '#1a318b',
-    '950': '#111f5c'
+    '950': '#111f5c',
   },
   alpha: {
     black100: '#000000',
@@ -43,7 +43,7 @@ export const color = {
     white40: '#ffffff66',
     white24: '#ffffff3d',
     white16: '#ffffff29',
-    white8: '#ffffff14'
+    white8: '#ffffff14',
   },
   red: {
     '50': '#fff3f7',
@@ -56,11 +56,11 @@ export const color = {
     '700': '#c8263d',
     '800': '#9e1d31',
     '900': '#751524',
-    '950': '#4d0d18'
+    '950': '#4d0d18',
   },
   base: {
     white: '#ffffff',
-    black: '#000000'
+    black: '#000000',
   },
   green: {
     '50': '#f4fbf6',
@@ -73,7 +73,7 @@ export const color = {
     '700': '#17824a',
     '800': '#10613a',
     '900': '#0a3f27',
-    '950': '#051f15'
+    '950': '#051f15',
   },
   pink: {
     '50': '#fef5fc',
@@ -86,7 +86,7 @@ export const color = {
     '700': '#c60095',
     '800': '#a3007a',
     '900': '#800060',
-    '950': '#5d0046'
+    '950': '#5d0046',
   },
   indigo: {
     '50': '#f5f3ff',
@@ -99,7 +99,7 @@ export const color = {
     '700': '#3c37c2',
     '800': '#330099',
     '900': '#260070',
-    '950': '#19004a'
+    '950': '#19004a',
   },
   yellow: {
     '50': '#fffcf4',
@@ -112,7 +112,7 @@ export const color = {
     '700': '#cc8a18',
     '800': '#996713',
     '900': '#66430c',
-    '950': '#3d2707'
+    '950': '#3d2707',
   },
   bg: {
     default: '#ffffff',
@@ -123,7 +123,7 @@ export const color = {
     inverse: '#2f3744',
     gray: '#edf0f5',
     grayStrong: '#e3e6ee',
-    grayStrongest: '#c5c9d3'
+    grayStrongest: '#c5c9d3',
   },
   border: {
     strong: '#c5c9d3',
@@ -136,13 +136,13 @@ export const color = {
     positiveSoft: '#c0eed0',
     positiveStrong: '#1fa45c',
     warningSoft: '#ffedb8',
-    warningStrong: '#ffb020'
+    warningStrong: '#ffb020',
   },
   divider: {
     default: '#edf0f5',
     soft: '#f4f6fb',
     strong: '#e3e6ee',
-    inverse: '#ffffff'
+    inverse: '#ffffff',
   },
   text: {
     secondary: '#697180',
@@ -154,7 +154,7 @@ export const color = {
     link: '#355fea',
     negative: '#e6374f',
     positive: '#1fa45c',
-    warning: '#ffb020'
+    warning: '#ffb020',
   },
   icon: {
     primary: '#4b5465',
@@ -168,22 +168,22 @@ export const color = {
     warning: '#ffb020',
     negativeSoft: '#ffe3e6',
     positiveSoft: '#e0f7e6',
-    warningSoft: '#fff6df'
-  }
+    warningSoft: '#fff6df',
+  },
 };
 
 export const font = {
   family: {
-    Pretendard: 'Pretendard'
+    Pretendard: 'Pretendard',
   },
   weight: {
     regular: 400,
     semibold: 600,
-    bold: 700
+    bold: 700,
   },
   size: {
-    '0': 0
-  }
+    '0': 0,
+  },
 };
 
 export const number = {
@@ -210,7 +210,7 @@ export const number = {
   '144': 144,
   '152': 152,
   '200': 200,
-  '999': 999
+  '999': 999,
 };
 
 export const rounded = {
@@ -220,7 +220,7 @@ export const rounded = {
   md: 12,
   full: 999,
   lg: 16,
-  xl: 24
+  xl: 24,
 };
 
 export const zIndex = {
@@ -235,7 +235,7 @@ export const zIndex = {
   popover: '1500',
   skipLink: '1600',
   toast: '1700',
-  tooltip: '1800'
+  tooltip: '1800',
 };
 
 export const spacing = {
@@ -244,10 +244,11 @@ export const spacing = {
   '8': '8',
   '12': '12',
   '16': '16',
+  '20': '20',
   '24': '24',
   '32': '32',
   '48': '48',
-  '64': '64'
+  '64': '64',
 };
 
 export const typography = {
@@ -265,17 +266,68 @@ export const typography = {
     '32': '32',
     '40': '40',
     '44': '44',
-    '56': '56'
-  }
+    '56': '56',
+  },
+  responsive: {
+    display: 'clamp(32px, 3vw, 48px)',
+    h1: 'clamp(28px, 2.5vw, 40px)',
+    h2: 'clamp(24px, 2.2vw, 32px)',
+    h3: 'clamp(20px, 2vw, 26px)',
+    h4: 'clamp(18px, 1.8vw, 22px)',
+    body: 'clamp(14px, 1vw, 16px)',
+    small: 'clamp(12px, 0.8vw, 14px)',
+    caption: 'clamp(10px, 0.6vw, 12px)',
+  },
+};
+
+export const componentSize = {
+  xs: {
+    height: '26',
+    fontSize: '12',
+    iconSize: '14',
+  },
+  sm: {
+    height: '32',
+    fontSize: '12',
+    iconSize: '16',
+  },
+  md: {
+    height: '44',
+    fontSize: '14',
+    iconSize: '20',
+  },
+  lg: {
+    height: '56',
+    fontSize: '16',
+    iconSize: '24',
+  },
+  xl: {
+    height: '64',
+    fontSize: '16',
+    iconSize: '24',
+  },
+};
+
+export const breakpoint = {
+  sm: '640',
+  md: '768',
+  lg: '1024',
+  xl: '1280',
 };
 
 export const theme = {
-  brand: {
+  brand1: {
     strongest: '#1a318b',
     strong: '#355fea',
     default: '#4f7cff',
     subtle: '#6f94ff',
-    stronger: '#2747be'
-  }
+    stronger: '#2747be',
+  },
+  brand2: {
+    strongest: '#800060',
+    strong: '#c60095',
+    default: '#e900af',
+    subtle: '#f159cb',
+    stronger: '#a3007a',
+  },
 };
-
