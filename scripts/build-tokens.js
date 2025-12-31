@@ -179,9 +179,16 @@ function buildTokens() {
     // 5. Semantic 토큰 분리 및 저장
     const semantics = separateSemantics(figmaTokens);
 
+    // brand 참조를 brand1로 변환
+    const transformedColors = transformTokenReferences(
+      semantics.colors,
+      /\{brand\./g,
+      '{brand1.'
+    );
+
     writeJsonFile(
       `${semanticDir}/${OUTPUT_FILES.SEMANTIC.COLORS}`,
-      semantics.colors,
+      transformedColors,
       `✅ Semantic: ${OUTPUT_FILES.SEMANTIC.COLORS} 생성 완료`
     );
 

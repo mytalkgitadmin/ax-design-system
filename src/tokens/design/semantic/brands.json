@@ -19,6 +19,10 @@
     "stronger": {
       "value": "{color.blue.800}",
       "type": "color"
+    },
+    "soft": {
+      "value": "{color.blue.100}",
+      "type": "color"
     }
   },
   "brand2": {
@@ -40,6 +44,10 @@
     },
     "stronger": {
       "value": "{color.pink.800}",
+      "type": "color"
+    },
+    "soft": {
+      "value": "{color.pink.100}",
       "type": "color"
     }
   }

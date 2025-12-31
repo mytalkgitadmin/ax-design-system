@@ -5,14 +5,16 @@
 ## 📁 디렉토리 구조
 
 ```
-src/tokens/auto/
-├─ primitives/       # 🤖 Figma 토큰에서 자동 생성
-│  ├─ color.json
-│  ├─ font.json
-│  ├─ number.json
-│  └─ rounded.json
-├─ semantic/         # 🤖 Figma 토큰에서 자동 생성
-│  └─ colors.json
+src/tokens/
+├─ design/
+│  ├─ primitives/       # 🤖 Figma 토큰에서 자동 생성
+│  │  ├─ color.json
+│  │  ├─ font.json
+│  │  ├─ number.json
+│  │  └─ rounded.json
+│  └─ semantic/         # 🤖 Figma 토큰에서 자동 생성
+│     ├─ colors.json
+│     └─ brands.json
 ├─ index.ts          # 🤖 Style Dictionary가 자동 생성
 └─ variables.css     # 🤖 Style Dictionary가 자동 생성
 ```
@@ -21,9 +23,9 @@ src/tokens/auto/
 
 ```
 1. Figma (디자이너 작업)
-   ↓ Figma Tokens 플러그인
+   ↓ Figma Tokens Studio 플러그인
 
-2. src/tokens/figma/tokens.json (자동 생성)
+2. src/figma/tokens.json (GitHub에 푸시)
    ↓ npm run build:tokens
 
 3. scripts/build-tokens.js
@@ -31,12 +33,12 @@ src/tokens/auto/
    - rounded의 type을 'number' → 'borderRadius'로 변환
    ↓
 
-4. src/tokens/auto/primitives/*.json 생성
-   src/tokens/auto/semantic/*.json 생성
+4. src/tokens/design/primitives/*.json 생성
+   src/tokens/design/semantic/*.json 생성
    ↓ Style Dictionary
 
-5. src/tokens/auto/index.ts 생성 (color, font, number, rounded)
-   src/tokens/auto/variables.css 생성 (모든 CSS 변수)
+5. src/tokens/index.ts 생성 (color, font, number, rounded)
+   src/tokens/variables.css 생성 (모든 CSS 변수)
 ```
 
 ## ⚠️ 중요 규칙
@@ -145,10 +147,11 @@ const borderRadius = `${rounded.md}px`; // '12px'
 ### CSS-in-JS (Vanilla Extract 등)
 
 ```typescript
-import { rounded } from '@/tokens/dev/rounded';
+import { rounded } from '@/tokens';
+import { toRem } from '@/tokens/dev/helpers/units';
 
 const card = style({
-  borderRadius: rounded.md, // 'var(--rounded-md)' → CSS 변수 참조
+  borderRadius: toRem(rounded.md), // '1.2rem'
 });
 ```
 
@@ -164,7 +167,7 @@ npm run build:tokens
 
 ```bash
 # Figma 토큰 확인
-cat src/tokens/figma/tokens.json
+cat src/figma/tokens.json
 
 # 빌드 스크립트 직접 실행
 node scripts/build-tokens.js
