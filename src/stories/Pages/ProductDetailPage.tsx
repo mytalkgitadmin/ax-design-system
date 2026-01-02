@@ -3,8 +3,10 @@ import { useState } from 'react';
 import { useTheme } from '../../theme';
 import { color } from '../../tokens';
 import { Button } from '../Button';
+import { CheckboxGroup } from '../Checkbox/CheckboxGroup';
 import { Icon } from '../Icon';
 import { Input } from '../Input';
+import { RadioGroup } from '../Radio/RadioGroup';
 import { Tabs } from '../Tabs';
 import { Text } from '../Text';
 import { Textarea } from '../Textarea';
@@ -31,6 +33,12 @@ export const ProductDetailPage = () => {
 
   const [quantity, setQuantity] = useState(1);
   const price = 110;
+
+  // Checkbox state
+  const [agreements, setAgreements] = useState<string[]>([]);
+
+  // Radio state
+  const [deliveryOption, setDeliveryOption] = useState('standard');
 
   const handleDecrease = () => {
     if (quantity > 1) {
@@ -290,6 +298,77 @@ export const ProductDetailPage = () => {
       <div style={{ display: 'grid', gap: '4px', margin: '40px 0' }}>
         <Textarea label='자기소개' maxLength={100} showCharacterCount />
         <Button variant='solid' size='md' color='primary' label='입력' full />
+      </div>
+
+      {/* 배송 옵션 선택 */}
+      <div
+        style={{
+          padding: '24px',
+          border: `1px solid ${color.border.default}`,
+          borderRadius: `${buttonTheme.radius ?? global.radius.sm}px`,
+          marginBottom: '24px',
+        }}
+      >
+        <RadioGroup
+          label='배송 옵션 선택'
+          name='delivery'
+          size='lg'
+          value={deliveryOption}
+          onChange={setDeliveryOption}
+          options={[
+            {
+              value: 'standard',
+              label: '일반 배송 (무료)',
+              helpText: '3-5일 소요',
+            },
+            {
+              value: 'express',
+              label: '빠른 배송 (+3,000원)',
+              helpText: '1-2일 소요',
+            },
+            {
+              value: 'dawn',
+              label: '새벽 배송 (+5,000원)',
+              helpText: '오전 7시 전 도착',
+            },
+          ]}
+        />
+      </div>
+
+      {/* 구매 전 필수 약관 동의 */}
+      <div
+        style={{
+          padding: '24px',
+          border: `1px solid ${color.border.default}`,
+          borderRadius: `${buttonTheme.radius ?? global.radius.sm}px`,
+          backgroundColor: color.bg.subtle,
+        }}
+      >
+        <CheckboxGroup
+          label='구매 전 필수 약관 동의'
+          name='agreements'
+          size='lg'
+          value={agreements}
+          onChange={setAgreements}
+          options={[
+            {
+              value: 'terms',
+              label: '[필수] 구매 조건 및 결제 진행 동의',
+              helpText:
+                '상품, 가격, 배송정보 등을 확인하였으며 구매에 동의합니다.',
+            },
+            {
+              value: 'privacy',
+              label: '[필수] 개인정보 수집 및 이용 동의',
+              helpText: '주문 및 배송을 위한 개인정보 수집에 동의합니다.',
+            },
+            {
+              value: 'marketing',
+              label: '[선택] 마케팅 정보 수신 동의',
+              helpText: '할인 쿠폰 및 이벤트 정보를 받아보실 수 있습니다.',
+            },
+          ]}
+        />
       </div>
     </div>
   );
