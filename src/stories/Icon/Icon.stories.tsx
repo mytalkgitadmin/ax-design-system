@@ -69,7 +69,7 @@ import type { Meta, StoryObj } from '@storybook/react';
  * ```
  */
 const meta = {
-  title: 'Components/Icon',
+  title: 'Foundation/Icon',
   component: Icon,
   parameters: {
     layout: 'centered',

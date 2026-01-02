@@ -8,6 +8,24 @@ import { brandBTheme } from '../src/theme/brands/brandB';
 
 const preview: Preview = {
   parameters: {
+    options: {
+      storySort: {
+        order: [
+          'Foundation',
+          ['Colors', 'Spacing', 'Rounded', 'Icon', 'Typo', 'Zindex'],
+          'Components',
+          [
+            'Button',
+            'Label',
+            'Input',
+            'Textarea',
+            'Input-Checkbox',
+            'Input-Radio',
+            'Tabs',
+          ],
+        ],
+      },
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,

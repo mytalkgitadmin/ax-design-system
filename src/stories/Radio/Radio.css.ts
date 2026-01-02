@@ -1,10 +1,11 @@
 import { createVar, style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
+import { color } from '../../tokens';
+
 // CSS 변수 정의 - 런타임에 Theme에서 주입됨
 const fontFamilyVar = createVar();
 const fontWeightVar = createVar();
-const borderRadiusVar = createVar();
 
 // 색상 변수
 const primaryColorVar = createVar();
@@ -17,8 +18,8 @@ const textTertiaryVar = createVar();
 const textDisabledVar = createVar();
 const iconDisabledVar = createVar();
 
-// 체크박스 컨테이너
-const baseCheckboxContainer = style({
+// 라디오 컨테이너
+const baseRadioContainer = style({
   display: 'flex',
   alignItems: 'flex-start',
   gap: '12px',
@@ -26,8 +27,8 @@ const baseCheckboxContainer = style({
   cursor: 'pointer',
 });
 
-export const checkboxContainer = recipe({
-  base: baseCheckboxContainer,
+export const radioContainer = recipe({
+  base: baseRadioContainer,
 
   variants: {
     labelPlacement: {
@@ -45,8 +46,8 @@ export const checkboxContainer = recipe({
   },
 });
 
-// 체크박스 input (숨김)
-export const checkboxInput = style({
+// 라디오 input (숨김)
+export const radioInput = style({
   position: 'absolute',
   width: '1px',
   height: '1px',
@@ -58,13 +59,13 @@ export const checkboxInput = style({
   border: 0,
 });
 
-// 체크박스 박스 스타일
-const baseCheckboxBox = style({
+// 라디오 박스 스타일 (원형)
+const baseRadioBox = style({
   display: 'inline-flex',
   alignItems: 'center',
   justifyContent: 'center',
   flexShrink: 0,
-  borderRadius: borderRadiusVar,
+  borderRadius: '50%', // 원형으로 만들기
   border: '1px solid',
   cursor: 'pointer',
   transition: 'all 0.2s ease',
@@ -72,8 +73,8 @@ const baseCheckboxBox = style({
   position: 'relative',
 });
 
-export const checkboxBox = recipe({
-  base: baseCheckboxBox,
+export const radioBox = recipe({
+  base: baseRadioBox,
 
   variants: {
     size: {
@@ -88,8 +89,8 @@ export const checkboxBox = recipe({
     },
     checked: {
       true: {
-        backgroundColor: primaryColorVar,
         borderColor: primaryColorVar,
+        backgroundColor: primaryColorVar,
       },
       false: {
         backgroundColor: 'transparent',
@@ -117,10 +118,10 @@ export const checkboxBox = recipe({
           '&:hover': {
             borderColor: primaryColorVar,
           },
-          [`${baseCheckboxContainer}:hover &`]: {
+          [`${baseRadioContainer}:hover &`]: {
             borderColor: primaryColorVar,
           },
-          [`${checkboxInput}:focus-visible + &`]: {
+          [`${radioInput}:focus-visible + &`]: {
             borderColor: primaryColorVar,
             boxShadow: `0 0 5px 2px ${focusShadowColorVar}`,
           },
@@ -141,44 +142,45 @@ export const checkboxBox = recipe({
   ],
 });
 
-// 체크 아이콘
-export const checkIcon = recipe({
+// 라디오 내부 점 (dot)
+export const radioDot = recipe({
   base: {
-    position: 'absolute',
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    borderRadius: '50%',
+    transition: 'all 0.2s ease',
     opacity: 0,
-    transition: 'opacity 0.2s ease',
+    transform: 'scale(0)',
   },
 
   variants: {
+    size: {
+      lg: {
+        width: '8px',
+        height: '8px',
+      },
+      md: {
+        width: '6px',
+        height: '6px',
+      },
+    },
     checked: {
       true: {
         opacity: 1,
+        transform: 'scale(1)',
       },
       false: {
         opacity: 0,
+        transform: 'scale(0)',
       },
     },
     disabled: {
       true: {
-        color: iconDisabledVar,
+        backgroundColor: iconDisabledVar,
       },
       false: {
-        color: '#ffffff',
+        backgroundColor: color.alpha.white100,
       },
     },
   },
-});
-
-// SVG 체크 아이콘
-export const checkSvg = style({
-  width: '60%',
-  height: '60%',
-  fill: 'currentColor',
 });
 
 // 텍스트 컨테이너
@@ -254,10 +256,9 @@ export const helpText = recipe({
 });
 
 // vars 객체 export
-export const checkboxVars = {
+export const radioVars = {
   fontFamily: fontFamilyVar,
   fontWeight: fontWeightVar,
-  borderRadius: borderRadiusVar,
   primaryColor: primaryColorVar,
   focusShadowColor: focusShadowColorVar,
   borderDefault: borderDefaultVar,
@@ -270,31 +271,34 @@ export const checkboxVars = {
 };
 
 // ========================================
-// CheckboxGroup 스타일
+// RadioGroup 스타일
 // ========================================
 
-// CheckboxGroup 컨테이너
-export const checkboxGroupContainer = style({
+// RadioGroup 컨테이너
+export const radioGroupContainer = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '8px',
 });
 
-// CheckboxGroup 레이블
-export const checkboxGroupLabel = style({
+// RadioGroup 레이블
+export const radioGroupLabel = style({
   fontFamily: fontFamilyVar,
   fontWeight: fontWeightVar,
   fontSize: '14px',
   lineHeight: 1.4,
   color: textPrimaryVar,
   marginBottom: '4px',
+  display: 'inline-flex',
+  alignItems: 'center',
+  gap: '4px',
 });
 
-// CheckboxGroup 아이템 래퍼 (direction에 따라 변경)
-export const checkboxGroupItems = recipe({
+// RadioGroup 아이템 래퍼 (direction에 따라 변경)
+export const radioGroupItems = recipe({
   base: {
     display: 'flex',
-    gap: '12px',
+    gap: '12px 32px',
   },
   variants: {
     direction: {

@@ -74,12 +74,11 @@ const baseInputContainer = style({
   // 상태별 스타일
   selectors: {
     // Hover: disabled나 focus가 아닐 때만
-    '&:hover:not(:has(input:disabled)):not(:has(input:focus))': {
+    '&:hover:not(:has(input:disabled)):not(:has(input:focus-visible))': {
       borderColor: hoverBorderColorVar,
     },
 
-    // Focus: input이 focus 상태일 때
-    '&:has(input:focus)': {
+    '&:has(input:focus-visible)': {
       borderColor: focusBorderColorVar,
       boxShadow: `0 0 10px 0 ${focusShadowColorVar}`,
     },
