@@ -11,3 +11,4 @@ build-storybook.log
 
 # Figma 원본 파일 (변환 전)
 src/figma/
+archive/
