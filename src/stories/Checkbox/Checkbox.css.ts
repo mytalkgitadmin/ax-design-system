@@ -1,7 +1,7 @@
 import { createVar, style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
-import { color, number, spacing, typography } from '../../tokens';
+import { componentSize, spacing, typography } from '../../tokens';
 import { toRem } from '../../tokens/dev/helpers/units';
 
 // CSS 변수 정의 - 런타임에 Theme에서 주입됨
@@ -25,7 +25,7 @@ const iconDisabledVar = createVar();
 const baseCheckboxContainer = style({
   display: 'flex',
   alignItems: 'flex-start',
-  gap: toRem(spacing[12]),
+  gap: toRem(spacing['12']),
   position: 'relative',
   cursor: 'pointer',
 });
@@ -82,12 +82,12 @@ export const checkboxBox = recipe({
   variants: {
     size: {
       lg: {
-        width: toRem(number[24]),
-        height: toRem(number[24]),
+        width: toRem(componentSize.lg.iconSize),
+        height: toRem(componentSize.lg.iconSize),
       },
       md: {
-        width: toRem(number[20]),
-        height: toRem(number[20]),
+        width: toRem(componentSize.md.iconSize),
+        height: toRem(componentSize.md.iconSize),
       },
     },
     checked: {
@@ -190,7 +190,7 @@ export const checkSvg = style({
 export const textContainer = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: toRem(spacing[4]),
+  gap: toRem(spacing['4']),
   flex: 1,
 });
 
@@ -209,11 +209,11 @@ export const label = recipe({
   variants: {
     size: {
       lg: {
-        fontSize: toRem(typography.fontSize[16]),
+        fontSize: toRem(componentSize.lg.fontSize),
         lineHeight: 1.5,
       },
       md: {
-        fontSize: toRem(typography.fontSize[14]),
+        fontSize: toRem(componentSize.md.fontSize),
         lineHeight: 1.4,
         letterSpacing: '0.14px',
       },
