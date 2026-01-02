@@ -107,6 +107,7 @@ export const Checkbox = ({
     [checkboxVars.borderRadius]: size === 'lg' ? '8px' : '6px',
     [checkboxVars.primaryColor]: global.color.brand.default,
     [checkboxVars.focusShadowColor]: global.color.brand.subtle,
+    [checkboxVars.focusOutlineColor]: `${global.color.brand.subtle}50`,
     [checkboxVars.borderDefault]: global.color.border.default,
     [checkboxVars.borderStrong]: global.color.border.strong,
     [checkboxVars.bgDisabled]: global.color.bg.disabled,

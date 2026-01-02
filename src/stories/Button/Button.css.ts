@@ -1,7 +1,7 @@
 import { createVar, style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
-import { componentSize, spacing } from '../../tokens';
+import { color, componentSize, spacing } from '../../tokens';
 import { toRem } from '../../tokens/dev/helpers/units';
 
 // CSS 변수 정의 - 런타임에 Theme에서 주입됨
@@ -15,6 +15,8 @@ const fontWeightVar = createVar();
 const borderRadiusVar = createVar();
 const disabledBgColorVar = createVar();
 const disabledTextColorVar = createVar();
+const focusShadowColorVar = createVar(); // focus 시 그림자 색상
+const focusOutlineColorVar = createVar(); // focus 시 그림자 색상
 
 const baseButton = style({
   borderRadius: borderRadiusVar,
@@ -53,6 +55,10 @@ export const buttonStyle = recipe({
         '&:active:not(:disabled)': {
           backgroundColor: activeColorVar,
         },
+        '&:focus-visible': {
+          outline: `1px solid ${color.alpha.white100}`,
+          boxShadow: `0 0 0 2px ${focusOutlineColorVar}, 0 0 5px 2px ${focusShadowColorVar}`,
+        },
         '&:disabled': {
           backgroundColor: disabledBgColorVar,
           color: disabledTextColorVar,
@@ -70,6 +76,10 @@ export const buttonStyle = recipe({
         '&:active:not(:disabled)': {
           color: activeColorVar,
           borderColor: activeColorVar,
+        },
+        '&:focus-visible': {
+          outline: `1px solid ${color.alpha.white100}`,
+          boxShadow: `0 0 0 2px ${focusOutlineColorVar}, 0 0 5px 2px ${focusShadowColorVar}`,
         },
         '&:disabled': {
           border: 'none',
@@ -136,4 +146,6 @@ export const buttonVars = {
   borderRadius: borderRadiusVar,
   disabledBgColor: disabledBgColorVar,
   disabledTextColor: disabledTextColorVar,
+  focusShadowColor: focusShadowColorVar,
+  focusOutlineColor: focusOutlineColorVar,
 };

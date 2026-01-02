@@ -1,6 +1,9 @@
 import { createVar, style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
+import { color, number, spacing, typography } from '../../tokens';
+import { toRem } from '../../tokens/dev/helpers/units';
+
 // CSS 변수 정의 - 런타임에 Theme에서 주입됨
 const fontFamilyVar = createVar();
 const fontWeightVar = createVar();
@@ -9,6 +12,7 @@ const borderRadiusVar = createVar();
 // 색상 변수
 const primaryColorVar = createVar();
 const focusShadowColorVar = createVar(); // focus 시 그림자 색상
+const focusOutlineColorVar = createVar(); // focus 시 외곽선 색상
 const borderDefaultVar = createVar();
 const borderStrongVar = createVar();
 const bgDisabledVar = createVar();
@@ -21,7 +25,7 @@ const iconDisabledVar = createVar();
 const baseCheckboxContainer = style({
   display: 'flex',
   alignItems: 'flex-start',
-  gap: '12px',
+  gap: toRem(spacing[12]),
   position: 'relative',
   cursor: 'pointer',
 });
@@ -78,12 +82,12 @@ export const checkboxBox = recipe({
   variants: {
     size: {
       lg: {
-        width: '24px',
-        height: '24px',
+        width: toRem(number[24]),
+        height: toRem(number[24]),
       },
       md: {
-        width: '20px',
-        height: '20px',
+        width: toRem(number[20]),
+        height: toRem(number[20]),
       },
     },
     checked: {
@@ -122,7 +126,8 @@ export const checkboxBox = recipe({
           },
           [`${checkboxInput}:focus-visible + &`]: {
             borderColor: primaryColorVar,
-            boxShadow: `0 0 5px 2px ${focusShadowColorVar}`,
+            outline: `1px solid ${color.alpha.white100}`,
+            boxShadow: `0 0 0 2px ${focusOutlineColorVar}, 0 0 5px 2px ${focusShadowColorVar}`,
           },
         },
       },
@@ -168,7 +173,7 @@ export const checkIcon = recipe({
         color: iconDisabledVar,
       },
       false: {
-        color: '#ffffff',
+        color: color.alpha.white100,
       },
     },
   },
@@ -185,7 +190,7 @@ export const checkSvg = style({
 export const textContainer = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: '4px',
+  gap: toRem(spacing[4]),
   flex: 1,
 });
 
@@ -198,17 +203,17 @@ export const label = recipe({
     transition: 'color 0.2s ease',
     display: 'inline-flex',
     alignItems: 'center',
-    gap: '4px',
+    gap: toRem(spacing[4]),
   },
 
   variants: {
     size: {
       lg: {
-        fontSize: '16px',
+        fontSize: toRem(typography.fontSize[16]),
         lineHeight: 1.5,
       },
       md: {
-        fontSize: '14px',
+        fontSize: toRem(typography.fontSize[14]),
         lineHeight: 1.4,
         letterSpacing: '0.14px',
       },
@@ -227,7 +232,7 @@ export const label = recipe({
 
 // Required 표시 (*)
 export const requiredMark = style({
-  color: '#EF4444',
+  color: color.red[600],
   fontSize: 'inherit',
   lineHeight: 'inherit',
 });
@@ -236,7 +241,7 @@ export const requiredMark = style({
 export const helpText = recipe({
   base: {
     fontFamily: fontFamilyVar,
-    fontSize: '13px',
+    fontSize: toRem(typography.fontSize[13]),
     lineHeight: 1.4,
     fontWeight: 400,
   },
@@ -260,6 +265,7 @@ export const checkboxVars = {
   borderRadius: borderRadiusVar,
   primaryColor: primaryColorVar,
   focusShadowColor: focusShadowColorVar,
+  focusOutlineColor: focusOutlineColorVar,
   borderDefault: borderDefaultVar,
   borderStrong: borderStrongVar,
   bgDisabled: bgDisabledVar,
@@ -277,24 +283,24 @@ export const checkboxVars = {
 export const checkboxGroupContainer = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: '8px',
+  gap: toRem(spacing[8]),
 });
 
 // CheckboxGroup 레이블
 export const checkboxGroupLabel = style({
   fontFamily: fontFamilyVar,
   fontWeight: fontWeightVar,
-  fontSize: '14px',
+  fontSize: toRem(typography.fontSize[14]),
   lineHeight: 1.4,
   color: textPrimaryVar,
-  marginBottom: '4px',
+  marginBottom: toRem(spacing[4]),
 });
 
 // CheckboxGroup 아이템 래퍼 (direction에 따라 변경)
 export const checkboxGroupItems = recipe({
   base: {
     display: 'flex',
-    gap: '12px',
+    gap: toRem(spacing[12]),
   },
   variants: {
     direction: {
