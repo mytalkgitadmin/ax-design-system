@@ -1,4 +1,4 @@
-import React, { useId } from 'react';
+import React, { useId, useState } from 'react';
 
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 
@@ -14,6 +14,7 @@ import {
   checkSvg,
   helpText,
   label,
+  requiredMark,
   textContainer,
 } from './Checkbox.css';
 
@@ -23,48 +24,79 @@ export type { CheckboxProps } from './types';
  * Checkbox 컴포넌트
  *
  * 사용자가 선택/해제할 수 있는 체크박스 컴포넌트입니다.
+ * 여러 개의 체크박스를 사용할 경우 CheckboxGroup과 함께 사용하는 것을 권장합니다.
  *
  * @example
+ * // 단독 사용
  * ```tsx
+ * import { Checkbox } from '@bemily/design-system';
+ *
+ * const [checked, setChecked] = useState(false);
+ *
  * <Checkbox
- *   label="체크박스 레이블"
+ *   label="동의합니다"
  *   helpText="체크박스에 대한 부가 설명"
  *   checked={checked}
  *   onChange={setChecked}
  * />
  * ```
+ *
+ * @example
+ * // CheckboxGroup과 함께 사용 (권장)
+ * ```tsx
+ * import { CheckboxGroup } from '@bemily/design-system';
+ *
+ * const [values, setValues] = useState<string[]>(['option1']);
+ *
+ * <CheckboxGroup
+ *   name="options"
+ *   value={values}
+ *   onChange={setValues}
+ *   options={[
+ *     { value: 'option1', label: '옵션 1' },
+ *     { value: 'option2', label: '옵션 2' },
+ *   ]}
+ * />
+ * ```
  */
 export const Checkbox = ({
   size = 'lg',
-  checked = false,
+  checked,
+  defaultChecked = false,
   disabled = false,
+  required = false,
+  labelPlacement = 'start',
   label: labelText,
   helpText: helpTextContent,
   onChange,
   id,
   name,
+  value,
   className,
 }: CheckboxProps) => {
   const { global } = useTheme();
   const generatedId = useId();
   const checkboxId = id || generatedId;
 
+  // 제어/비제어 컴포넌트 판단
+  const isControlled = checked !== undefined;
+  const [internalChecked, setInternalChecked] = useState(defaultChecked);
+  const currentChecked = isControlled ? checked : internalChecked;
+
   // 체크박스 상태 변경 핸들러
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (!disabled && onChange) {
-      onChange(event.target.checked);
-    }
-  };
-
-  // 키보드 이벤트 핸들러 (Space/Enter로 토글)
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLLabelElement>) => {
     if (disabled) return;
 
-    if (event.key === ' ' || event.key === 'Enter') {
-      event.preventDefault();
-      if (onChange) {
-        onChange(!checked);
-      }
+    const newChecked = event.target.checked;
+
+    // 비제어 컴포넌트인 경우 내부 상태 업데이트
+    if (!isControlled) {
+      setInternalChecked(newChecked);
+    }
+
+    // onChange 콜백 호출
+    if (onChange) {
+      onChange(newChecked);
     }
   };
 
@@ -74,6 +106,7 @@ export const Checkbox = ({
     [checkboxVars.fontWeight]: String(global.typography.fontWeight.semibold),
     [checkboxVars.borderRadius]: size === 'lg' ? '8px' : '6px',
     [checkboxVars.primaryColor]: global.color.brand.default,
+    [checkboxVars.focusShadowColor]: global.color.brand.subtle,
     [checkboxVars.borderDefault]: global.color.border.default,
     [checkboxVars.borderStrong]: global.color.border.strong,
     [checkboxVars.bgDisabled]: global.color.bg.disabled,
@@ -118,34 +151,36 @@ export const Checkbox = ({
     );
 
   return (
-    <div className={`${checkboxContainer} ${className || ''}`} style={vars}>
+    <label
+      htmlFor={checkboxId}
+      className={`${checkboxContainer({ labelPlacement })} ${className || ''}`}
+      style={vars}
+    >
       <input
         type='checkbox'
         id={checkboxId}
         name={name}
-        checked={checked}
+        value={value}
+        checked={currentChecked}
         disabled={disabled}
+        required={required}
         onChange={handleChange}
         className={checkboxInput}
         aria-describedby={helpTextContent ? `${checkboxId}-help` : undefined}
+        aria-required={required}
       />
 
-      <label
-        htmlFor={checkboxId}
-        className={checkboxBox({ size, checked, disabled })}
-        onKeyDown={handleKeyDown}
-        tabIndex={disabled ? -1 : 0}
-        role='checkbox'
-        aria-checked={checked}
-        aria-disabled={disabled}
-      >
-        <span className={checkIcon({ checked, disabled })}>{checkIconSvg}</span>
-      </label>
+      <div className={checkboxBox({ size, checked: currentChecked, disabled })}>
+        <span className={checkIcon({ checked: currentChecked, disabled })}>
+          {checkIconSvg}
+        </span>
+      </div>
 
       <div className={textContainer}>
-        <label htmlFor={checkboxId} className={label({ size, disabled })}>
+        <span className={label({ size, disabled })}>
           {labelText}
-        </label>
+          {required && <span className={requiredMark}>*</span>}
+        </span>
 
         {helpTextContent && (
           <span id={`${checkboxId}-help`} className={helpText({ disabled })}>
@@ -153,6 +188,6 @@ export const Checkbox = ({
           </span>
         )}
       </div>
-    </div>
+    </label>
   );
 };

@@ -8,6 +8,7 @@ const borderRadiusVar = createVar();
 
 // 색상 변수
 const primaryColorVar = createVar();
+const focusShadowColorVar = createVar(); // focus 시 그림자 색상
 const borderDefaultVar = createVar();
 const borderStrongVar = createVar();
 const bgDisabledVar = createVar();
@@ -17,11 +18,31 @@ const textDisabledVar = createVar();
 const iconDisabledVar = createVar();
 
 // 체크박스 컨테이너
-export const checkboxContainer = style({
+const baseCheckboxContainer = style({
   display: 'flex',
   alignItems: 'flex-start',
   gap: '12px',
   position: 'relative',
+  cursor: 'pointer',
+});
+
+export const checkboxContainer = recipe({
+  base: baseCheckboxContainer,
+
+  variants: {
+    labelPlacement: {
+      start: {
+        flexDirection: 'row',
+      },
+      end: {
+        flexDirection: 'row-reverse',
+      },
+    },
+  },
+
+  defaultVariants: {
+    labelPlacement: 'start',
+  },
 });
 
 // 체크박스 input (숨김)
@@ -96,6 +117,13 @@ export const checkboxBox = recipe({
           '&:hover': {
             borderColor: primaryColorVar,
           },
+          [`${baseCheckboxContainer}:hover &`]: {
+            borderColor: primaryColorVar,
+          },
+          [`${checkboxInput}:focus-visible + &`]: {
+            borderColor: primaryColorVar,
+            boxShadow: `0 0 5px 2px ${focusShadowColorVar}`,
+          },
         },
       },
     },
@@ -168,6 +196,9 @@ export const label = recipe({
     fontWeight: fontWeightVar,
     cursor: 'pointer',
     transition: 'color 0.2s ease',
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '4px',
   },
 
   variants: {
@@ -192,6 +223,13 @@ export const label = recipe({
       },
     },
   },
+});
+
+// Required 표시 (*)
+export const requiredMark = style({
+  color: '#EF4444',
+  fontSize: 'inherit',
+  lineHeight: 'inherit',
 });
 
 // 도움말 텍스트
@@ -221,6 +259,7 @@ export const checkboxVars = {
   fontWeight: fontWeightVar,
   borderRadius: borderRadiusVar,
   primaryColor: primaryColorVar,
+  focusShadowColor: focusShadowColorVar,
   borderDefault: borderDefaultVar,
   borderStrong: borderStrongVar,
   bgDisabled: bgDisabledVar,
@@ -229,3 +268,46 @@ export const checkboxVars = {
   textDisabled: textDisabledVar,
   iconDisabled: iconDisabledVar,
 };
+
+// ========================================
+// CheckboxGroup 스타일
+// ========================================
+
+// CheckboxGroup 컨테이너
+export const checkboxGroupContainer = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '8px',
+});
+
+// CheckboxGroup 레이블
+export const checkboxGroupLabel = style({
+  fontFamily: fontFamilyVar,
+  fontWeight: fontWeightVar,
+  fontSize: '14px',
+  lineHeight: 1.4,
+  color: textPrimaryVar,
+  marginBottom: '4px',
+});
+
+// CheckboxGroup 아이템 래퍼 (direction에 따라 변경)
+export const checkboxGroupItems = recipe({
+  base: {
+    display: 'flex',
+    gap: '12px',
+  },
+  variants: {
+    direction: {
+      vertical: {
+        flexDirection: 'column',
+      },
+      horizontal: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+      },
+    },
+  },
+  defaultVariants: {
+    direction: 'vertical',
+  },
+});
