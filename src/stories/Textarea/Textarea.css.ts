@@ -70,12 +70,12 @@ const baseTextareaContainer = style({
   // 상태별 스타일
   selectors: {
     // Hover: disabled나 focus가 아닐 때만
-    '&:hover:not(:has(textarea:disabled)):not(:has(textarea:focus))': {
+    '&:hover:not(:has(textarea:disabled)):not(:has(textarea:focus-visible))': {
       borderColor: hoverBorderColorVar,
     },
 
     // Focus: textarea가 focus 상태일 때
-    '&:has(textarea:focus)': {
+    '&:has(textarea:focus-visible)': {
       borderColor: focusBorderColorVar,
       boxShadow: `0 0 10px 0 ${focusShadowColorVar}`,
     },
@@ -100,7 +100,7 @@ export const textareaContainerStyle = recipe({
           '&:hover:not(:has(textarea:disabled))': {
             borderColor: focusBorderColorVar,
           },
-          '&:has(textarea:focus)': {
+          '&:has(textarea:focus-visible)': {
             borderColor: focusBorderColorVar,
           },
         },
