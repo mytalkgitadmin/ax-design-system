@@ -105,6 +105,7 @@ export const Radio = ({
     [radioVars.fontWeight]: String(global.typography.fontWeight.semibold),
     [radioVars.primaryColor]: global.color.brand.default,
     [radioVars.focusShadowColor]: global.color.brand.subtle,
+    [radioVars.focusOutlineColor]: `${global.color.brand.subtle}50`,
     [radioVars.borderDefault]: global.color.border.default,
     [radioVars.borderStrong]: global.color.border.strong,
     [radioVars.bgDisabled]: global.color.bg.disabled,
