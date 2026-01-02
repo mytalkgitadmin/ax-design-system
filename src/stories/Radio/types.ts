@@ -1,23 +1,23 @@
-// Checkbox types
+// Radio types
 
-export type CheckboxSize = 'md' | 'lg';
-export type CheckboxLabelPlacement = 'start' | 'end';
+export type RadioSize = 'md' | 'lg';
+export type RadioLabelPlacement = 'start' | 'end';
 
-export type CheckboxProps = {
+export type RadioProps = {
   /**
-   * 체크박스 크기
+   * 라디오 버튼 크기
    * @default 'lg'
    */
-  size?: CheckboxSize;
+  size?: RadioSize;
 
   /**
-   * 체크 상태 (제어 컴포넌트)
+   * 선택 상태 (제어 컴포넌트)
    * @default false
    */
   checked?: boolean;
 
   /**
-   * 기본 체크 상태 (비제어 컴포넌트)
+   * 기본 선택 상태 (비제어 컴포넌트)
    * @default false
    */
   defaultChecked?: boolean;
@@ -29,19 +29,13 @@ export type CheckboxProps = {
   disabled?: boolean;
 
   /**
-   * 필수 입력 여부
-   * @default false
-   */
-  required?: boolean;
-
-  /**
    * 라벨 위치
    * @default 'end'
    */
-  labelPlacement?: CheckboxLabelPlacement;
+  labelPlacement?: RadioLabelPlacement;
 
   /**
-   * 체크박스 레이블
+   * 라디오 버튼 레이블
    */
   label: string;
 
@@ -51,7 +45,7 @@ export type CheckboxProps = {
   helpText?: string;
 
   /**
-   * 체크 상태 변경 핸들러
+   * 선택 상태 변경 핸들러
    */
   onChange?: (checked: boolean) => void;
 
@@ -61,7 +55,7 @@ export type CheckboxProps = {
   id?: string;
 
   /**
-   * HTML name 속성
+   * HTML name 속성 (라디오 그룹화에 필수)
    */
   name?: string;
 
@@ -76,18 +70,18 @@ export type CheckboxProps = {
   className?: string;
 };
 
-// CheckboxGroup types
+// RadioGroup types
 
-export type CheckboxDirection = 'vertical' | 'horizontal';
+export type RadioDirection = 'vertical' | 'horizontal';
 
-export type CheckboxOption = {
+export type RadioOption = {
   /**
-   * 체크박스의 value
+   * 라디오 버튼의 value
    */
   value: string;
 
   /**
-   * 체크박스 레이블
+   * 라디오 버튼 레이블
    */
   label: string;
 
@@ -102,46 +96,46 @@ export type CheckboxOption = {
   disabled?: boolean;
 };
 
-export type CheckboxGroupProps = {
+export type RadioGroupProps = {
   /**
-   * CheckboxGroup 레이블
+   * RadioGroup 레이블
    */
   label?: string;
 
   /**
-   * 체크박스 크기
+   * 라디오 버튼 크기
    * @default 'lg'
    */
-  size?: CheckboxSize;
+  size?: RadioSize;
 
   /**
-   * HTML name 속성
+   * HTML name 속성 (라디오 그룹화에 필수)
    */
-  name?: string;
+  name: string;
 
   /**
-   * 현재 체크된 value 배열
+   * 현재 선택된 value
    */
-  value?: string[];
+  value?: string;
 
   /**
    * 값 변경 핸들러
    */
-  onChange?: (value: string[]) => void;
+  onChange?: (value: string) => void;
 
   /**
-   * 체크박스 배치 방향
+   * 라디오 버튼 배치 방향
    * @default 'vertical'
    */
-  direction?: CheckboxDirection;
+  direction?: RadioDirection;
 
   /**
    * options 배열 (children 대신 사용 가능)
    */
-  options?: CheckboxOption[];
+  options?: RadioOption[];
 
   /**
-   * Checkbox 컴포넌트들 (options 대신 사용 가능)
+   * Radio 컴포넌트들 (options 대신 사용 가능)
    */
   children?: React.ReactNode;
 
@@ -151,14 +145,17 @@ export type CheckboxGroupProps = {
   disabled?: boolean;
 
   /**
+   * 필수 입력 여부
+   * @default false
+   */
+  required?: boolean;
+
+  /**
    * 추가 className
    */
   className?: string;
 };
 
 // Storybook을 위한 options 배열
-export const CHECKBOX_SIZES: CheckboxSize[] = ['md', 'lg'];
-export const CHECKBOX_DIRECTIONS: CheckboxDirection[] = [
-  'vertical',
-  'horizontal',
-];
+export const RADIO_SIZES: RadioSize[] = ['md', 'lg'];
+export const RADIO_DIRECTIONS: RadioDirection[] = ['vertical', 'horizontal'];

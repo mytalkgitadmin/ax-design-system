@@ -77,6 +77,8 @@ export const Button = ({
     [buttonVars.borderRadius]: `${toRem(actualRadius)}`,
     [buttonVars.disabledBgColor]: global.color.bg.disabled,
     [buttonVars.disabledTextColor]: global.color.text.disabled,
+    [buttonVars.focusShadowColor]: global.color.brand.subtle,
+    [buttonVars.focusOutlineColor]: `${global.color.brand.subtle}50`,
   });
 
   const commonProps = {

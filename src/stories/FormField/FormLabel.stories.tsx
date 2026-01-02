@@ -70,7 +70,7 @@ const FormLabelWrapper = ({ children }: { children: ReactNode }) => {
  * ```
  */
 const meta = {
-  title: 'Components/FormField/FormLabel',
+  title: 'Components/Label',
   component: FormLabel,
   parameters: {
     layout: 'centered',

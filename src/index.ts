@@ -1,8 +1,22 @@
 // 컴포넌트 export
 export type { ButtonProps } from './stories/Button';
 export { Button } from './stories/Button';
+export { Checkbox } from './stories/Checkbox';
+export { CheckboxGroup } from './stories/Checkbox/CheckboxGroup';
+export type {
+  CheckboxGroupProps,
+  CheckboxOption,
+  CheckboxProps,
+} from './stories/Checkbox/types';
 export { Icon } from './stories/Icon';
 export type { IconProps, IconType } from './stories/Icon/types';
+export { Radio } from './stories/Radio';
+export { RadioGroup } from './stories/Radio/RadioGroup';
+export type {
+  RadioGroupProps,
+  RadioOption,
+  RadioProps,
+} from './stories/Radio/types';
 export { Text } from './stories/Text';
 export type { TextProps } from './tokens/dev/helpers/typography';
 
