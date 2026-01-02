@@ -319,8 +319,8 @@ Jira 워크플로우의 상태 전환 ID를 설정합니다:
 ```
 
 - `init`: 티켓 생성 시 초기 상태로 전환 (선택사항)
-- `start`: `#start` 명령어로 전환할 상태 ID
-- `end`: `#resolve` / `#close` 명령어로 전환할 상태 ID
+- `start`: "진행 중"으로 가는 ID
+- `end`: "완료"로 가는 ID
 
 #### Transition ID 확인 방법
 
