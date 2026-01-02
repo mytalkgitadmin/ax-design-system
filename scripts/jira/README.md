@@ -190,13 +190,6 @@ git commit -m "💄 Style: 공통 스타일 수정 FMTW-123 FMTW-124 #comment �
 git push origin feature-branch
 ```
 
-GitHub Actions가 자동으로:
-
-1. 푸시된 커밋 메시지 분석
-2. Jira 티켓 키(예: FMTW-123) 추출
-3. 명령어 파싱 및 실행
-4. Jira API를 통해 티켓 업데이트
-
 ### 스마트 커밋 도움말
 
 언제든지 `npm run commit` 명령어로 인터랙티브하게 커밋을 작성하거나, `.gitmessage` 템플릿을
@@ -386,28 +379,14 @@ gh auth login
 2. `jira-workflow-config.json` 업데이트
 3. Jira 워크플로우 설정 확인
 
-### 4. "스마트 커밋이 동작하지 않음"
-
-**확인사항:**
-
-- 커밋 메시지에 올바른 Jira 티켓 키가 포함되어 있는지 (예: `FMTW-123`)
-- 명령어 문법이 올바른지
-- GitHub Actions에서 워크플로우가 실행되었는지
-
-**디버깅:**
-
-1. GitHub Actions 탭에서 **Jira Smart Commit** 워크플로우 확인
-2. 워크플로우 로그에서 커밋 처리 내역 확인
-3. Jira 티켓에서 변경 이력 확인
-
-### 5. "Artifact 다운로드 실패"
+### 4. "Artifact 다운로드 실패"
 
 티켓 생성 후 CLI에 정보가 표시되지 않는 경우:
 
 1. GitHub Actions 워크플로우 페이지에서 직접 확인
 2. 워크플로우 Summary에서 생성된 티켓 번호 확인
 
-### 6. "PR 머지했는데 Jira가 완료되지 않음"
+### 5. "PR 머지했는데 Jira가 완료되지 않음"
 
 **확인사항:**
 
@@ -443,7 +422,6 @@ gh auth login
 ```
 scripts/jira/
 ├── create-jira-only.js           # CLI 티켓 생성 도구
-├── process-smart-commits.js      # 스마트 커밋 처리 스크립트
 ├── jira-create-config.json       # 티켓 생성 기본 설정
 ├── jira-workflow-config.json     # 워크플로우 전환 설정
 └── README.md                     # 이 문서
@@ -456,7 +434,6 @@ scripts/jira/
 ```
 .github/workflows/
 ├── create-jira-only.yml          # Jira 티켓 생성 워크플로우
-├── jira-smart-commit.yml         # 스마트 커밋 처리 워크플로우
 ├── jira-pr-merged.yml            # PR 머지 시 자동 완료 워크플로우
 └── get-jira-transitions.yml      # Transition ID 조회 워크플로우
 ```

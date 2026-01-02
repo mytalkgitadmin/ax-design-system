@@ -4,8 +4,9 @@
 
 export const color = {
   gray: {
-    '50': '#f8f9fc',
-    '100': '#f4f6fb',
+    '50': '#fcfdff',
+    '100': '#f9fafd',
+    '150': '#f4f6fb',
     '200': '#edf0f5',
     '300': '#e3e6ee',
     '400': '#c5c9d3',
@@ -46,8 +47,8 @@ export const color = {
     white8: '#ffffff14',
   },
   red: {
-    '50': '#fff3f7',
-    '100': '#ffe3e6',
+    '50': '#fff7f8',
+    '100': '#ffeef1',
     '200': '#ffc5cd',
     '300': '#ffa2af',
     '400': '#ff7a8c',
@@ -63,8 +64,8 @@ export const color = {
     black: '#000000',
   },
   green: {
-    '50': '#f4fbf6',
-    '100': '#e0f7e6',
+    '50': '#f7fcf9',
+    '100': '#f1fcf4',
     '200': '#c0eed0',
     '300': '#96e1b4',
     '400': '#68d093',
@@ -102,8 +103,8 @@ export const color = {
     '950': '#19004a',
   },
   yellow: {
-    '50': '#fffcf4',
-    '100': '#fff6df',
+    '50': '#fffdf7',
+    '100': '#fffaee',
     '200': '#ffedb8',
     '300': '#ffe291',
     '400': '#ffd363',
@@ -116,7 +117,7 @@ export const color = {
   },
   bg: {
     default: '#ffffff',
-    subtle: '#f8f9fc',
+    subtle: '#f9fafd',
     dim: '#000000a3',
     muted: '#f4f6fb',
     disabled: '#e3e6ee',
@@ -124,6 +125,15 @@ export const color = {
     gray: '#edf0f5',
     grayStrong: '#e3e6ee',
     grayStrongest: '#c5c9d3',
+    mask: '#00000066',
+    negative: '#ffeef1',
+    positive: '#f1fcf4',
+    warning: '#fffaee',
+    primary: '#eef3ff',
+    subtler: '#fcfdff',
+    darkgray: '#2f3744',
+    darkgraySoft: '#4b5465',
+    darkgrayStrong: '#171c24',
   },
   border: {
     strong: '#c5c9d3',
@@ -137,6 +147,8 @@ export const color = {
     positiveStrong: '#1fa45c',
     warningSoft: '#ffedb8',
     warningStrong: '#ffb020',
+    focus: '#2f3744',
+    subtle: '#edf0f5',
   },
   divider: {
     default: '#edf0f5',
@@ -166,9 +178,9 @@ export const color = {
     negative: '#e6374f',
     positive: '#1fa45c',
     warning: '#ffb020',
-    negativeSoft: '#ffe3e6',
-    positiveSoft: '#e0f7e6',
-    warningSoft: '#fff6df',
+    negativeSoft: '#ffeef1',
+    positiveSoft: '#f1fcf4',
+    warningSoft: '#fffaee',
   },
 };
 
@@ -322,6 +334,7 @@ export const theme = {
     default: '#4f7cff',
     subtle: '#6f94ff',
     stronger: '#2747be',
+    soft: '#eef3ff',
   },
   brand2: {
     strongest: '#800060',
@@ -329,5 +342,6 @@ export const theme = {
     default: '#e900af',
     subtle: '#f159cb',
     stronger: '#a3007a',
+    soft: '#fde6f7',
   },
 };

@@ -51,7 +51,7 @@ module.exports = {
     // 제목 끝에 마침표 금지
     'subject-full-stop': [2, 'never', '.'],
 
-    // 제목 최대 길이 (Jira 키와 스마트 커밋 명령어를 고려하여 증가)
+    // 제목 최대 길이 (Jira 키를 고려하여 증가)
     'subject-max-length': [2, 'always', 200],
 
     // 본문 최대 줄 길이
@@ -63,15 +63,15 @@ module.exports = {
     // footer 앞에 빈 줄 필수
     'footer-leading-blank': [1, 'always'],
 
-    // 헤더 최대 길이 (Jira 키와 스마트 커밋 명령어를 고려하여 증가)
+    // 헤더 최대 길이 (Jira 키를 고려하여 증가)
     'header-max-length': [2, 'always', 250],
   },
 
   // 커스텀 파서 설정 (gitmoji와 Jira 키를 타입으로 인식)
   parserPreset: {
     parserOpts: {
-      // Jira 키와 스마트 커밋 명령어를 포함한 패턴
-      // 예: ✨ Feat: 제목 FMTW-123 #comment 내용
+      // Jira 키를 포함한 패턴
+      // 예: ✨ Feat: 제목 FMTW-123
       headerPattern: new RegExp(
         `^((?:${EMOJIS})\\s+(?:${TYPE_NAMES})):\\s(.+)$`
       ),
@@ -79,7 +79,7 @@ module.exports = {
     },
   },
 
-  // 커스텀 플러그인으로 gitmoji와 Jira 스마트 커밋 체크
+  // 커스텀 플러그인으로 gitmoji와 Jira 키 체크
   plugins: [
     {
       rules: {
@@ -123,37 +123,6 @@ module.exports = {
           // Jira 키가 없어도 통과 (선택사항)
           return [true, ''];
         },
-        'smart-commit-format': (parsed) => {
-          // 스마트 커밋 명령어 패턴 (comment, time만 지원)
-          const smartCommitPattern = /#(comment|time)/i;
-          const hasSmartCommit = smartCommitPattern.test(parsed.raw);
-
-          if (hasSmartCommit) {
-            // Jira 키도 있는지 확인
-            const jiraKeyPattern = /\b([A-Z]+-\d+)\b/;
-            const hasJiraKey = jiraKeyPattern.test(parsed.raw);
-
-            if (!hasJiraKey) {
-              return [
-                false,
-                '스마트 커밋 명령어(#comment, #time 등)를 사용하려면 Jira 티켓 번호가 필요합니다 (예: FMTW-123)',
-              ];
-            }
-
-            // #comment나 #time이 있는데 내용이 없는지 확인
-            if (/#comment\s*$/i.test(parsed.raw)) {
-              return [false, '#comment 명령어 뒤에 코멘트 내용이 필요합니다'];
-            }
-            if (/#time\s*$/i.test(parsed.raw)) {
-              return [
-                false,
-                '#time 명령어 뒤에 시간이 필요합니다 (예: 2h, 30m, 2h 30m)',
-              ];
-            }
-          }
-
-          return [true, ''];
-        },
       },
     },
   ],
@@ -163,6 +132,5 @@ module.exports = {
     'gitmoji-required': [2, 'always'],
     'type-format': [2, 'always'],
     'jira-ticket-format': [2, 'always'],
-    'smart-commit-format': [2, 'always'],
   },
 };

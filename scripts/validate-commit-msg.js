@@ -26,28 +26,14 @@ const jiraKeys = commitMsg.match(jiraKeyPattern);
 if (jiraKeys) {
   const uniqueKeys = [...new Set(jiraKeys)];
   console.log(`✅ Jira 이슈 키 발견: ${uniqueKeys.join(", ")}`);
-
-  // 스마트 커밋 명령어 체크
-  const smartCommands = [];
-  if (/#comment/i.test(commitMsg)) smartCommands.push("comment");
-  if (/#time/i.test(commitMsg)) smartCommands.push("time");
-
-  if (smartCommands.length > 0) {
-    console.log(`🎯 스마트 커밋 명령어 감지: ${smartCommands.join(", ")}`);
-  }
-
   console.log("\n💡 이 커밋은 push 시 Jira에 자동으로 반영됩니다.");
   console.log(`   - 커밋 링크가 Jira 이슈에 추가됩니다`);
-  if (smartCommands.length > 0) {
-    console.log(`   - 명령어가 자동으로 실행됩니다`);
-  }
-  console.log();
+  console.log(`   - Jira 공식 연동을 통해 스마트 커밋이 처리됩니다\n`);
 } else {
   console.log("⚠️  Jira 이슈 키가 없습니다 (선택사항)\n");
-  console.log("💡 Jira Smart Commit 사용법:");
-  console.log("   git commit -m \"✨ Feat: 작업 내용 FMTW-123 #comment 코멘트\"");
-  console.log("   git commit -m \"🐛 Fix: API 연동 FMTW-456 #time 2h #comment 작업 완료\"");
-  console.log("   git commit -m \"✨ Feat: 테스트 완료 FMTW-789 #close #comment 배포 준비\"\n");
+  console.log("💡 Jira 이슈 키 포함 예시:");
+  console.log("   git commit -m \"✨ Feat: 로그인 기능 구현 FMTW-123\"");
+  console.log("   git commit -m \"🐛 Fix: API 연동 버그 수정 FMTW-456\"\n");
   console.log("📚 자세한 사용법: npm run commit (인터랙티브 CLI)\n");
 }
 

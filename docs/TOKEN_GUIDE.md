@@ -180,45 +180,51 @@ fontSize: componentSize.md.fontSize;  // 반응형 동작 안 됨!
 ## 📁 디렉토리 구조
 
 ```
-src/tokens/
-├─ figma/
-│  └─ tokens.json                    # 🤖 Figma Tokens 플러그인 자동생성
+src/
+├─ figma/                             # Figma 원본 파일 (Git 무시)
+│  ├─ tokens.json                    # 🤖 Figma Tokens Studio가 GitHub에 푸시
+│  └─ icon/                          # SVG 아이콘 원본 파일
 │
-├─ design/                            # 🤖 자동생성 (수정 금지)
-│  ├─ primitives/
-│  │  ├─ color.json                  # Figma 색상 토큰
-│  │  ├─ font.json                   # Figma 폰트 토큰
-│  │  ├─ number.json                 # Figma 숫자 값
-│  │  └─ rounded.json                # Figma 라운드 값
-│  └─ semantic/
-│     ├─ colors.json                 # 시맨틱 색상 (bg, border, text 등)
-│     └─ brands.json                 # 브랜드 색상 (brand1, brand2)
+├─ tokens/
+│  ├─ design/                         # 🤖 자동생성 (수정 금지)
+│  │  ├─ primitives/
+│  │  │  ├─ color.json               # Figma 색상 토큰
+│  │  │  ├─ font.json                # Figma 폰트 토큰
+│  │  │  ├─ number.json              # Figma 숫자 값
+│  │  │  └─ rounded.json             # Figma 라운드 값
+│  │  └─ semantic/
+│  │     ├─ colors.json              # 시맨틱 색상 (bg, border, text 등)
+│  │     └─ brands.json              # 브랜드 색상 (brand1, brand2)
+│  │
+│  ├─ dev/                            # ✏️ 수동 관리 (개발자)
+│  │  ├─ primitives/
+│  │  │  ├─ breakpoints.json         # 반응형 breakpoint
+│  │  │  ├─ componentSizes.json      # ⭐ height, fontSize, iconSize 세트
+│  │  │  ├─ spacing.json             # 여백 스케일
+│  │  │  ├─ typography.json          # 타이포그래피
+│  │  │  └─ zIndex.json              # Z-Index
+│  │  ├─ semantic/
+│  │  │  └─ typography.base.json     # ⭐ 공통 반응형 타이포그래피 (default clamp)
+│  │  ├─ helpers/
+│  │  │  ├─ spacing.ts               # spacing 유틸리티 함수
+│  │  │  ├─ typography.ts            # typography 프리셋
+│  │  │  └─ typography.css.ts        # Vanilla Extract 스타일
+│  │  └─ utils/
+│  │     ├─ rounded.global.css.ts    # HTML 클래스: .rounded-md
+│  │     ├─ spacing.global.css.ts    # HTML 클래스: .m-4, .p-8
+│  │     ├─ typography.global.css.ts # HTML 클래스: .text-lg
+│  │     └─ zIndex.global.css.ts     # HTML 클래스: .z-modal
+│  │
+│  ├─ index.ts                        # 🤖 자동생성 (수정 금지!)
+│  ├─ variables.css                   # 🤖 자동생성 (CSS 변수)
+│  │
+│  ├─ Auto-Generated-Tokens.md        # 자동생성 토큰 문서
+│  └─ Dev-Tokens.md                   # 수동관리 토큰 문서
 │
-├─ dev/                               # ✏️ 수동 관리 (개발자)
-│  ├─ primitives/
-│  │  ├─ breakpoints.json            # 반응형 breakpoint
-│  │  ├─ componentSizes.json         # ⭐ height, fontSize, iconSize 세트
-│  │  ├─ spacing.json                # 여백 스케일
-│  │  ├─ typography.json             # 타이포그래피
-│  │  └─ zIndex.json                 # Z-Index
-│  ├─ semantic/
-│  │  └─ typography.base.json        # ⭐ 공통 반응형 타이포그래피 (default clamp)
-│  ├─ helpers/
-│  │  ├─ spacing.ts                  # spacing 유틸리티 함수
-│  │  ├─ typography.ts               # typography 프리셋
-│  │  └─ typography.css.ts           # Vanilla Extract 스타일
-│  └─ utils/
-│     ├─ rounded.global.css.ts       # HTML 클래스: .rounded-md
-│     ├─ spacing.global.css.ts       # HTML 클래스: .m-4, .p-8
-│     ├─ typography.global.css.ts    # HTML 클래스: .text-lg
-│     └─ zIndex.global.css.ts        # HTML 클래스: .z-modal
-│
-├─ index.ts                           # 🤖 자동생성 (수정 금지!)
-├─ variables.css                      # 🤖 자동생성 (CSS 변수)
-│
-├─ TOKEN-GUIDE.md                     # 📖 이 문서
-├─ Auto-Generated-Tokens.md           # 자동생성 토큰 문서
-└─ Dev-Tokens.md                      # 수동관리 토큰 문서
+└─ docs/
+   ├─ TOKEN_GUIDE.md                  # 📖 이 문서
+   ├─ COMPONENT_DEVELOPMENT_GUIDE.md  # 컴포넌트 개발 가이드
+   └─ ICON_COMPONENT.md               # 아이콘 컴포넌트 가이드
 ```
 
 ---
@@ -931,9 +937,10 @@ npm run storybook
 
 ## 📚 관련 문서
 
-- [Auto-Generated-Tokens.md](./Auto-Generated-Tokens.md) - Figma 자동생성 토큰 상세
-- [Dev-Tokens.md](./Dev-Tokens.md) - 개발자 수동관리 토큰 상세
-- [Theme 시스템](../theme/README.md) - 브랜드별 테마 적용 방법
+- [Auto-Generated-Tokens.md](../src/tokens/Auto-Generated-Tokens.md) - Figma 자동생성 토큰 상세
+- [Dev-Tokens.md](../src/tokens/Dev-Tokens.md) - 개발자 수동관리 토큰 상세
+- [Theme 아키텍처](./THEME_ARCHITECTURE.md) - 브랜드별 테마 적용 방법
+- [토큰 사용 가이드](./TOKEN_USAGE_GUIDE.md) - Primitive vs Semantic 실전 사용법
 - [Style Dictionary 공식 문서](https://amzn.github.io/style-dictionary/)
 - [Vanilla Extract 공식 문서](https://vanilla-extract.style/)
 
@@ -943,4 +950,5 @@ npm run storybook
 
 | 날짜       | 변경 내용                           | 작성자 |
 | ---------- | ----------------------------------- | ------ |
-| 2024-XX-XX | 토큰 시스템 통합 가이드 초안 작성  | -      |
+| 2025-12-24 | 토큰 시스템 통합 가이드 초안 작성  | -      |
+| 2025-12-30 | docs/ 폴더로 이동 및 링크 업데이트 | -      |

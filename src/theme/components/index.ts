@@ -9,6 +9,8 @@ export type { IconTheme } from './icon';
 export { iconTheme } from './icon';
 export type { InputTheme } from './input';
 export { inputTheme } from './input';
+export type { TabsTheme } from './tabs';
+export { tabsTheme } from './tabs';
 export type { TextTheme } from './text';
 export { textTheme } from './text';
 export type { TextareaTheme } from './textarea';

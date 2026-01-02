@@ -14,10 +14,10 @@ import {
  * 상태별 아이콘 매핑
  */
 const statusIcons = {
-  help: 'tabler:check' as const,
-  success: 'tabler:check' as const,
-  warn: 'tabler:alert-circle-filled' as const,
-  error: 'tabler:alert-circle-filled' as const,
+  help: 'Check' as const,
+  success: 'CirclePositiveFilled' as const,
+  warn: 'CircleInfoFilled' as const,
+  error: 'CircleNegativeFilled' as const,
 };
 
 /**

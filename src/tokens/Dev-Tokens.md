@@ -120,8 +120,8 @@ export const spacing = {
 #### ❌ 추가하지 말아야 하는 경우
 
 1. **Figma에서 이미 제공하는 값**
-   - ❌ `rounded.md = 12` (이미 `src/tokens/auto/index.ts`에 있음)
-   - ✅ 자동 생성 토큰 사용: `import { rounded } from '@/tokens/auto'`
+   - ❌ `rounded.md = 12` (이미 `src/tokens/index.ts`에 있음)
+   - ✅ 자동 생성 토큰 사용: `import { rounded } from '@/tokens'`
 
 2. **CSS 변수 참조 래퍼**
    - ❌ `rounded.md = 'var(--rounded-md)'` (직접 사용으로 충분)
@@ -133,7 +133,7 @@ export const spacing = {
 
 ```
 [Figma 토큰]                    [개발 토큰]
-src/tokens/auto/                src/tokens/dev/
+src/tokens/                     src/tokens/dev/
   ↓                                ↓
 variables.css                   rounded.global.css.ts
 --rounded-md: 1.2rem      →     .rounded-md { border-radius: var(--rounded-md) }
@@ -144,9 +144,9 @@ rounded.md = 12           →     Storybook, 컴포넌트에서 직접 사용
 
 **핵심:**
 
-- Figma 토큰(`auto/`)이 **원천 (Single Source of Truth)**
+- Figma 토큰(`src/tokens/`)이 **원천 (Single Source of Truth)**
 - 개발 토큰(`dev/`)은 **HTML 클래스 유틸리티만 제공**
-- 숫자 값, CSS 변수는 `auto/`에서 직접 사용
+- 숫자 값, CSS 변수는 `src/tokens/`에서 직접 사용
 
 ---
 
@@ -154,8 +154,8 @@ rounded.md = 12           →     Storybook, 컴포넌트에서 직접 사용
 
 ### 새 토큰 추가 전
 
-- [ ] Figma 토큰에 이미 존재하는가? (`src/tokens/auto/index.ts` 확인)
-- [ ] CSS 변수로 대체 가능한가? (`src/tokens/auto/variables.css` 확인)
+- [ ] Figma 토큰에 이미 존재하는가? (`src/tokens/index.ts` 확인)
+- [ ] CSS 변수로 대체 가능한가? (`src/tokens/variables.css` 확인)
 - [ ] HTML 클래스가 정말 필요한가? (프로토타이핑 목적인가?)
 
 ### 추가할 때

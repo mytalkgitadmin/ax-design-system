@@ -1,5 +1,5 @@
 import { color } from '../../tokens';
-import { ICON_TYPES } from '../Icon/types';
+import { ICON_NAMES } from '../Icon/types';
 import { Button } from './index';
 import {
   BUTTON_COLOR_PRESETS,
@@ -120,19 +120,19 @@ const meta = {
     // Icon
     leftIcon: {
       control: 'select',
-      options: [undefined, ...ICON_TYPES],
+      options: [undefined, ...ICON_NAMES],
       description: '왼쪽 아이콘',
       table: { category: 'Icon' },
     },
     rightIcon: {
       control: 'select',
-      options: [undefined, ...ICON_TYPES],
+      options: [undefined, ...ICON_NAMES],
       description: '오른쪽 아이콘',
       table: { category: 'Icon' },
     },
     icon: {
       control: 'select',
-      options: [undefined, ...ICON_TYPES],
+      options: [undefined, ...ICON_NAMES],
       description: '아이콘만 있는 버튼',
       table: { category: 'Icon' },
     },
@@ -356,20 +356,17 @@ export const WithIcon: Story = {
       style={{
         display: 'grid',
         gap: '16px',
-        gridTemplateColumns: 'auto auto auto',
+        gridTemplateColumns: 'auto auto ',
       }}
     >
-      <Button label='Download' leftIcon='tabler:download' />
-      <Button label='Trash' leftIcon='tabler:trash' />
-      <Button label='search' leftIcon='tabler:search' />
+      <Button label='Download' leftIcon='Download' />
+      <Button label='search' rightIcon='Search' />
 
-      <Button label='Download' color='secondary' leftIcon='tabler:download' />
-      <Button label='Trash' color='secondary' leftIcon='tabler:trash' />
-      <Button label='search' color='secondary' leftIcon='tabler:search' />
+      <Button label='Download' color='secondary' leftIcon='Download' />
+      <Button label='search' color='secondary' rightIcon='Search' />
 
-      <Button variant='outline' label='Download' leftIcon='tabler:download' />
-      <Button variant='outline' label='Trash' leftIcon='tabler:trash' />
-      <Button variant='outline' label='search' leftIcon='tabler:search' />
+      <Button variant='outline' label='Download' leftIcon='Download' />
+      <Button variant='outline' label='search' rightIcon='Search' />
     </div>
   ),
 };
@@ -382,81 +379,39 @@ export const OnlyIcon: Story = {
       style={{
         display: 'grid',
         gap: '16px',
-        gridTemplateColumns: 'repeat(9, 1fr)',
+        gridTemplateColumns: 'repeat(6, 1fr)',
       }}
     >
       {/* sm */}
-      <Button size='sm' label='Download' icon='tabler:download' />
-      <Button size='sm' label='Trash' icon='tabler:trash' />
-      <Button size='sm' label='search' icon='tabler:search' />
-      <Button
-        size='sm'
-        label='Download'
-        color='secondary'
-        icon='tabler:download'
-      />
-      <Button size='sm' label='Trash' color='secondary' icon='tabler:trash' />
-      <Button size='sm' label='search' color='secondary' icon='tabler:search' />
-      <Button
-        size='sm'
-        variant='outline'
-        label='Download'
-        icon='tabler:download'
-      />
-      <Button size='sm' variant='outline' label='Trash' icon='tabler:trash' />
-      <Button size='sm' variant='outline' label='search' icon='tabler:search' />
+      <Button size='sm' label='Download' icon='Download' />
+      <Button size='sm' label='search' icon='Search' />
+      <Button size='sm' label='Download' color='secondary' icon='Download' />
+      <Button size='sm' label='search' color='secondary' icon='Search' />
+      <Button size='sm' variant='outline' label='Download' icon='Download' />
+      <Button size='sm' variant='outline' label='search' icon='Search' />
       {/* md */}
-      <Button label='Download' icon='tabler:download' />
-      <Button label='Trash' icon='tabler:trash' />
-      <Button label='search' icon='tabler:search' />
-      <Button label='Download' color='secondary' icon='tabler:download' />
-      <Button label='Trash' color='secondary' icon='tabler:trash' />
-      <Button label='search' color='secondary' icon='tabler:search' />
-      <Button variant='outline' label='Download' icon='tabler:download' />
-      <Button variant='outline' label='Trash' icon='tabler:trash' />
-      <Button variant='outline' label='search' icon='tabler:search' />
+      <Button label='Download' icon='Download' />
+      <Button label='search' icon='Search' />
+      <Button label='Download' color='secondary' icon='Download' />
+      <Button label='search' color='secondary' icon='Search' />
+      <Button variant='outline' label='Download' icon='Download' />
+      <Button variant='outline' label='search' icon='Search' />
 
       {/* lg */}
-      <Button size='lg' label='Download' icon='tabler:download' />
-      <Button size='lg' label='Trash' icon='tabler:trash' />
-      <Button size='lg' label='search' icon='tabler:search' />
-      <Button
-        size='lg'
-        label='Download'
-        color='secondary'
-        icon='tabler:download'
-      />
-      <Button size='lg' label='Trash' color='secondary' icon='tabler:trash' />
-      <Button size='lg' label='search' color='secondary' icon='tabler:search' />
-      <Button
-        size='lg'
-        variant='outline'
-        label='Download'
-        icon='tabler:download'
-      />
-      <Button size='lg' variant='outline' label='Trash' icon='tabler:trash' />
-      <Button size='lg' variant='outline' label='search' icon='tabler:search' />
+      <Button size='lg' label='Download' icon='Download' />
+      <Button size='lg' label='search' icon='Search' />
+      <Button size='lg' label='Download' color='secondary' icon='Download' />
+      <Button size='lg' label='search' color='secondary' icon='Search' />
+      <Button size='lg' variant='outline' label='Download' icon='Download' />
+      <Button size='lg' variant='outline' label='search' icon='Search' />
 
       {/* xl */}
-      <Button size='xl' label='Download' icon='tabler:download' />
-      <Button size='xl' label='Trash' icon='tabler:trash' />
-      <Button size='xl' label='search' icon='tabler:search' />
-      <Button
-        size='xl'
-        label='Download'
-        color='secondary'
-        icon='tabler:download'
-      />
-      <Button size='xl' label='Trash' color='secondary' icon='tabler:trash' />
-      <Button size='xl' label='search' color='secondary' icon='tabler:search' />
-      <Button
-        size='xl'
-        variant='outline'
-        label='Download'
-        icon='tabler:download'
-      />
-      <Button size='xl' variant='outline' label='Trash' icon='tabler:trash' />
-      <Button size='xl' variant='outline' label='search' icon='tabler:search' />
+      <Button size='xl' label='Download' icon='Download' />
+      <Button size='xl' label='search' icon='Search' />
+      <Button size='xl' label='Download' color='secondary' icon='Download' />
+      <Button size='xl' label='search' color='secondary' icon='Search' />
+      <Button size='xl' variant='outline' label='Download' icon='Download' />
+      <Button size='xl' variant='outline' label='search' icon='Search' />
     </div>
   ),
 };
@@ -521,20 +476,14 @@ export const AsLink: Story = {
           as='a'
           href='https://example.com'
           label='Download'
-          leftIcon='tabler:download'
+          leftIcon='Download'
         />
         <Button
           as='a'
           href='https://example.com'
           target='_blank'
           label='Search'
-          rightIcon='tabler:search'
-        />
-        <Button
-          as='a'
-          href='https://example.com'
-          label='Trash'
-          icon='tabler:trash'
+          rightIcon='Search'
         />
       </div>
     </div>
