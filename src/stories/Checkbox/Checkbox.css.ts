@@ -1,7 +1,7 @@
 import { createVar, style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
-import { componentSize, spacing, typography } from '../../tokens';
+import { color, componentSize, spacing, typography } from '../../tokens';
 import { toRem } from '../../tokens/dev/helpers/units';
 
 // CSS 변수 정의 - 런타임에 Theme에서 주입됨
