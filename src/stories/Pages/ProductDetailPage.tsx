@@ -4,9 +4,9 @@ import { useTheme } from '../../theme';
 import { color, spacing } from '../../tokens';
 import { toRem } from '../../tokens/dev/helpers/units';
 import { Badge } from '../Badge';
+import { BreadCrumb } from '../BreadCrumb';
 import { Button } from '../Button';
 import { CheckboxGroup } from '../Checkbox/CheckboxGroup';
-import { Icon } from '../Icon';
 import { Input } from '../Input';
 import { RadioGroup } from '../Radio/RadioGroup';
 import { Tabs } from '../Tabs';
@@ -62,27 +62,15 @@ export const ProductDetailPage = () => {
       }}
     >
       {/* 브레드크럼 */}
-      <nav
-        style={{
-          display: 'flex',
-          gap: '8px',
-          marginBottom: '32px',
-          alignItems: 'center',
-        }}
-      >
-        <Icon name='ChevronRight' size={16} color={color.icon.secondary} />
-        <Text preset='body2' as='span' color={color.text.secondary}>
-          홈
-        </Text>
-        <Icon name='ChevronRight' size={14} color={color.icon.muted} />
-        <Text preset='body2' as='span' color={color.text.secondary}>
-          전자기기
-        </Text>
-        <Icon name='ChevronRight' size={14} color={color.icon.muted} />
-        <Text preset='body2' as='span' color={color.text.secondary}>
-          컴퓨터
-        </Text>
-      </nav>
+      <BreadCrumb
+        items={[
+          { label: 'HOME', href: '#' },
+          { label: '베스트', href: '#' },
+          { label: '응원봉', href: '#' },
+          { label: '악세사리', href: '#' },
+          { label: '스티커', href: '#' },
+        ]}
+      />
 
       <div
         style={{
