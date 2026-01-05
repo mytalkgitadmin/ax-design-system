@@ -1,6 +1,8 @@
 // 컴포넌트 export
 export type { BadgeProps } from './stories/Badge';
 export { Badge } from './stories/Badge';
+export type { BreadCrumbItem, BreadCrumbProps } from './stories/BreadCrumb';
+export { BreadCrumb } from './stories/BreadCrumb';
 export type { ButtonProps } from './stories/Button';
 export { Button } from './stories/Button';
 export { Checkbox } from './stories/Checkbox';
@@ -20,6 +22,8 @@ export type {
   RadioProps,
 } from './stories/Radio/types';
 export { Text } from './stories/Text';
+export type { ThumbnailProps } from './stories/Thumbnail';
+export { Thumbnail } from './stories/Thumbnail';
 export type { TextProps } from './tokens/dev/helpers/typography';
 
 // 토큰 export

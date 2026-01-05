@@ -85,5 +85,8 @@ export const brandBTheme = createTheme({
         brand2: COLOR_SUBTLE, // Brand B의 secondary 브랜드 컬러
       },
     },
+    Thumbnail: {
+      radius: BRAND_B_RADIUS, // Brand B는 모든 컴포넌트에 rounded.lg 적용
+    },
   },
 });
