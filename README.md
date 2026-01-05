@@ -232,24 +232,27 @@ design-system/
 
 ```bash
 # 프로젝트 루트에 .npmrc 파일 생성
-echo "@bemily:registry=https://nexus.danalentertainment.com/repository/npm-bemily/" > .npmrc
+cat > .npmrc << 'EOF'
+@bemily:registry=https://nexus.danalentertainment.com/repository/npm-bemily/
+//nexus.danalentertainment.com/repository/npm-bemily/:_auth=${NEXUS_AUTH_TOKEN}
+EOF
 ```
 
-#### 2. Nexus 인증 (최초 1회만)
+> 💡 `.npmrc` 파일은 `.gitignore`에 추가하여 커밋되지 않도록 주의하세요
+
+#### 2. Nexus 인증 토큰 설정 (최초 1회만)
 
 ```bash
-# npm login 실행 (최초 1회만)
-npm login --registry=https://nexus.danalentertainment.com/repository/npm-bemily/
+# ~/.zshrc 또는 ~/.bashrc에 추가
+export NEXUS_AUTH_TOKEN="인증_토큰"
 
-# 관리자에게 받은 계정 정보 입력
-# Username: [username]
-# Password: [password]
-# Email: [email]
+# 설정 적용
+source ~/.zshrc  # 또는 source ~/.bashrc
 ```
 
-> 💡 **계정 정보는 관리자에게 문의하세요**
+> 💡 **인증 토큰은 관리자에게 문의하세요**
 >
-> 💡 `npm login`은 한 번만 실행하면 되며, 인증 정보는 `~/.npmrc`에 자동 저장됩니다
+> 💡 환경변수는 한 번만 설정하면 모든 프로젝트에서 사용 가능합니다
 
 #### 3. 패키지 설치
 
@@ -315,19 +318,19 @@ const bodyStyle = typographyPresets.body1;
 
 ### 배포 전 준비
 
-#### 1. Nexus 인증 (최초 1회만)
+#### 1. Nexus 인증 토큰 설정 (최초 1회만)
 
 ```bash
-# npm login 실행
-npm login --registry=https://nexus.danalentertainment.com/repository/npm-bemily/
+# ~/.zshrc 또는 ~/.bashrc에 추가
+export NEXUS_AUTH_TOKEN="인증_토큰"
 
-# 관리자 계정 정보 입력
-# Username: [username]
-# Password: [password]
-# Email: [email]
+# 설정 적용
+source ~/.zshrc  # 또는 source ~/.bashrc
 ```
 
-> 💡 인증 정보는 `~/.npmrc`에 자동 저장되며, 이후 배포 시 별도 설정 불필요
+> 💡 **인증 토큰은 관리자에게 문의하세요**
+>
+> 💡 환경변수는 한 번만 설정하면 이후 배포 시 별도 설정 불필요
 
 ### 배포 프로세스
 
