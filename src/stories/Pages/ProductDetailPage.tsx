@@ -12,6 +12,7 @@ import { RadioGroup } from '../Radio/RadioGroup';
 import { Tabs } from '../Tabs';
 import { Text } from '../Text';
 import { Textarea } from '../Textarea';
+import { Thumbnail } from '../Thumbnail';
 
 import { gap, py } from '../../tokens/dev/utils/spacing.global.css';
 
@@ -30,7 +31,6 @@ import { gap, py } from '../../tokens/dev/utils/spacing.global.css';
  */
 export const ProductDetailPage = () => {
   const { global, components } = useTheme();
-  const textTheme = components.Text;
   const buttonTheme = components.Button;
 
   const [quantity, setQuantity] = useState(1);
@@ -93,36 +93,12 @@ export const ProductDetailPage = () => {
       >
         {/* 왼쪽: 상품 이미지 영역 */}
         <div>
-          <div
-            style={{
-              background: color.bg.muted,
-              borderRadius: `${buttonTheme.radius ?? global.radius.sm}px`,
-              aspectRatio: '1',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginBottom: '16px',
-              position: 'relative',
-            }}
-          ></div>
+          <Thumbnail />
 
           {/* 썸네일 이미지 */}
-          <div style={{ display: 'flex', gap: '12px' }}>
+          <div style={{ display: 'flex', gap: '12px', marginTop: '12px' }}>
             {[1, 2, 3, 4].map((i) => (
-              <div
-                key={i}
-                style={{
-                  width: '80px',
-                  height: '80px',
-                  background: color.bg.muted,
-                  borderRadius: `${buttonTheme.radius ?? global.radius.sm}px`,
-                  border:
-                    i === 1
-                      ? `2px solid ${textTheme.colorSchemes.brand1}`
-                      : 'none',
-                  cursor: 'pointer',
-                }}
-              />
+              <Thumbnail key={i} width={56} />
             ))}
           </div>
         </div>
