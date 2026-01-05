@@ -98,6 +98,11 @@ export const textStyle = recipe({
         textUnderlineOffset: toRem(spacing[4]),
       },
     },
+    through: {
+      true: {
+        textDecoration: 'line-through',
+      },
+    },
   },
 
   defaultVariants: {
