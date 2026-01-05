@@ -21,6 +21,8 @@ export type {
   RadioOption,
   RadioProps,
 } from './stories/Radio/types';
+export type { TableColumn, TableProps, TableRow } from './stories/Table';
+export { Table } from './stories/Table';
 export { Text } from './stories/Text';
 export type { ThumbnailProps } from './stories/Thumbnail';
 export { Thumbnail } from './stories/Thumbnail';
