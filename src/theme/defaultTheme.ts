@@ -11,6 +11,7 @@ import {
   tabsTheme,
   textareaTheme,
   textTheme,
+  thumbnailTheme,
 } from './components';
 import { globalTheme } from './global';
 
@@ -25,5 +26,6 @@ export const defaultTheme: Theme = {
     Tabs: tabsTheme,
     Text: textTheme,
     Textarea: textareaTheme,
+    Thumbnail: thumbnailTheme,
   },
 };

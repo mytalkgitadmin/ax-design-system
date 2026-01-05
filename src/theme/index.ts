@@ -9,6 +9,7 @@ export type {
   ColorScheme,
   IconTheme,
   TextTheme,
+  ThumbnailTheme,
 } from './components';
 export type {
   ColorTheme,

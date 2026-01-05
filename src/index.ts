@@ -22,6 +22,8 @@ export type {
   RadioProps,
 } from './stories/Radio/types';
 export { Text } from './stories/Text';
+export type { ThumbnailProps } from './stories/Thumbnail';
+export { Thumbnail } from './stories/Thumbnail';
 export type { TextProps } from './tokens/dev/helpers/typography';
 
 // 토큰 export
