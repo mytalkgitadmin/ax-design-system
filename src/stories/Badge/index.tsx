@@ -13,7 +13,7 @@ export const Badge = ({
   label,
   color = 'primary',
   variant = 'solid',
-  rounded = 'full',
+  rounded = 'xs',
   leftIcon,
   rightIcon,
 }: BadgeProps) => {
