@@ -21,6 +21,7 @@ jobs:
       - name: Configure npm for Nexus
         run: |
           echo "@bemily:registry=https://nexus.danalentertainment.com/repository/npm-bemily/" > .npmrc
+          echo "registry=https://nexus.danalentertainment.com/repository/npm-bemily/" >> .npmrc
           echo "//nexus.danalentertainment.com/repository/npm-bemily/:_auth=${{ secrets.NEXUS_AUTH_TOKEN }}" >> .npmrc
 
       - name: Install dependencies
