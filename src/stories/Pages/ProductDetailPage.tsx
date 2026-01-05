@@ -1,7 +1,9 @@
 import { useState } from 'react';
 
 import { useTheme } from '../../theme';
-import { color } from '../../tokens';
+import { color, spacing } from '../../tokens';
+import { toRem } from '../../tokens/dev/helpers/units';
+import { Badge } from '../Badge';
 import { Button } from '../Button';
 import { CheckboxGroup } from '../Checkbox/CheckboxGroup';
 import { Icon } from '../Icon';
@@ -126,8 +128,19 @@ export const ProductDetailPage = () => {
         </div>
 
         {/* 오른쪽: 상품 정보 및 구매 영역 */}
+
         <div>
-          {/* [!] 뱃지 - 타임특가*/}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: `${toRem(spacing[8])}`,
+            }}
+          >
+            <Badge label='이달의 베스트 3위' leftIcon='Heart' variant='soft' />
+            <Badge label='무료배송' variant='soft' color='green' />
+            <Badge label='특가' color='muted' />
+          </div>
           <Text preset='label1' color='brand1'>
             스토어명 Apple
           </Text>
