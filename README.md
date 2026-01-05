@@ -231,16 +231,35 @@ design-system/
 다른 프로젝트에서 이 패키지를 설치하려면 먼저 `.npmrc` 파일을 생성해야 합니다:
 
 ```bash
+# 프로젝트 루트에 .npmrc 파일 생성
 echo "@bemily:registry=https://nexus.danalentertainment.com/repository/npm-bemily/" > .npmrc
 ```
 
-#### 2. 패키지 설치
+#### 2. Nexus 인증 (최초 1회만)
+
+```bash
+# npm login 실행 (최초 1회만)
+npm login --registry=https://nexus.danalentertainment.com/repository/npm-bemily/
+
+# 관리자에게 받은 계정 정보 입력
+# Username: [username]
+# Password: [password]
+# Email: [email]
+```
+
+> 💡 **계정 정보는 관리자에게 문의하세요**
+>
+> 💡 `npm login`은 한 번만 실행하면 되며, 인증 정보는 `~/.npmrc`에 자동 저장됩니다
+
+#### 3. 패키지 설치
 
 ```bash
 npm install @bemily/design-system
+# 또는
+yarn add @bemily/design-system
 ```
 
-#### 3. CSS 파일 import (필수)
+#### 4. CSS 파일 import (필수)
 
 앱의 최상단에서 한 번만 import 하세요:
 
@@ -249,7 +268,7 @@ npm install @bemily/design-system
 import '@bemily/design-system/styles.css';
 ```
 
-#### 4. 사용 예시
+#### 5. 사용 예시
 
 ```typescript
 import { Button, Text, Icon, theme } from '@bemily/design-system';
@@ -296,20 +315,19 @@ const bodyStyle = typographyPresets.body1;
 
 ### 배포 전 준비
 
-#### 1. 환경변수 설정
-
-Nexus 인증을 위한 환경변수를 설정합니다:
+#### 1. Nexus 인증 (최초 1회만)
 
 ```bash
-# Base64 인코딩
-echo -n 'username:password' | base64
+# npm login 실행
+npm login --registry=https://nexus.danalentertainment.com/repository/npm-bemily/
 
-# 환경변수 설정 (~/.zshrc 또는 ~/.bashrc에 추가)
-export NEXUS_AUTH_TOKEN="인코딩된_토큰"
-
-# 설정 적용
-source ~/.zshrc
+# 관리자 계정 정보 입력
+# Username: [username]
+# Password: [password]
+# Email: [email]
 ```
+
+> 💡 인증 정보는 `~/.npmrc`에 자동 저장되며, 이후 배포 시 별도 설정 불필요
 
 ### 배포 프로세스
 
