@@ -22,9 +22,6 @@ jobs:
         run: |
           echo "@bemily:registry=https://nexus.danalentertainment.com/repository/npm-bemily/" > .npmrc
           echo "//nexus.danalentertainment.com/repository/npm-bemily/:_auth=${{ secrets.NEXUS_AUTH_TOKEN }}" >> .npmrc
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NEXUS_AUTH_TOKEN }}
-
       - name: Install dependencies
         run: npm ci
 
@@ -32,9 +29,7 @@ jobs:
         run: npm run build
 
       - name: Publish to Nexus
-        run: npm publish --registry=https://nexus.danalentertainment.com/repository/npm-bemily/
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NEXUS_AUTH_TOKEN }}
+        run: npm publish
 
       - name: Deployment Summary
         if: success()
