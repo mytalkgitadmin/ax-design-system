@@ -1,4 +1,6 @@
 // 컴포넌트 export
+export type { BadgeProps } from './stories/Badge';
+export { Badge } from './stories/Badge';
 export type { ButtonProps } from './stories/Button';
 export { Button } from './stories/Button';
 export { Checkbox } from './stories/Checkbox';

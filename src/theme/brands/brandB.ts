@@ -21,7 +21,9 @@ const COLOR_HOVER = BRAND_B_COLORS.subtle;
 const COLOR_ACTIVE = BRAND_B_COLORS.strong;
 const COLOR_SUBTLE = BRAND_B_COLORS.subtle;
 const COLOR_STRONG = BRAND_B_COLORS.strong;
+const COLOR_STRONGER = BRAND_B_COLORS.stronger;
 const COLOR_STRONGEST = BRAND_B_COLORS.strongest;
+const COLOR_SOFT = BRAND_B_COLORS.soft;
 
 export const brandBTheme = createTheme({
   global: {
@@ -32,7 +34,9 @@ export const brandBTheme = createTheme({
         active: COLOR_ACTIVE,
         subtle: COLOR_SUBTLE,
         strong: COLOR_STRONG,
+        stronger: COLOR_STRONGER,
         strongest: COLOR_STRONGEST,
+        soft: COLOR_SOFT,
       },
     },
   },
