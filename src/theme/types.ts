@@ -8,6 +8,7 @@ import type { InputTheme } from './components/input';
 import type { TabsTheme } from './components/tabs';
 import type { TextTheme } from './components/text';
 import type { TextareaTheme } from './components/textarea';
+import type { ThumbnailTheme } from './components/thumbnail';
 import type { GlobalTheme } from './global';
 
 /**
@@ -24,6 +25,7 @@ export type Theme = {
     Tabs: TabsTheme;
     Text: TextTheme;
     Textarea: TextareaTheme;
+    Thumbnail: ThumbnailTheme;
   };
 };
 

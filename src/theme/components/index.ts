@@ -15,3 +15,5 @@ export type { TextTheme } from './text';
 export { textTheme } from './text';
 export type { TextareaTheme } from './textarea';
 export { textareaTheme } from './textarea';
+export type { ThumbnailTheme } from './thumbnail';
+export { thumbnailTheme } from './thumbnail';

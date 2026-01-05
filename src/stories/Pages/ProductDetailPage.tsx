@@ -4,14 +4,15 @@ import { useTheme } from '../../theme';
 import { color, spacing } from '../../tokens';
 import { toRem } from '../../tokens/dev/helpers/units';
 import { Badge } from '../Badge';
+import { BreadCrumb } from '../BreadCrumb';
 import { Button } from '../Button';
 import { CheckboxGroup } from '../Checkbox/CheckboxGroup';
-import { Icon } from '../Icon';
 import { Input } from '../Input';
 import { RadioGroup } from '../Radio/RadioGroup';
 import { Tabs } from '../Tabs';
 import { Text } from '../Text';
 import { Textarea } from '../Textarea';
+import { Thumbnail } from '../Thumbnail';
 
 import { gap, py } from '../../tokens/dev/utils/spacing.global.css';
 
@@ -30,7 +31,6 @@ import { gap, py } from '../../tokens/dev/utils/spacing.global.css';
  */
 export const ProductDetailPage = () => {
   const { global, components } = useTheme();
-  const textTheme = components.Text;
   const buttonTheme = components.Button;
 
   const [quantity, setQuantity] = useState(1);
@@ -62,27 +62,15 @@ export const ProductDetailPage = () => {
       }}
     >
       {/* 브레드크럼 */}
-      <nav
-        style={{
-          display: 'flex',
-          gap: '8px',
-          marginBottom: '32px',
-          alignItems: 'center',
-        }}
-      >
-        <Icon name='ChevronRight' size={16} color={color.icon.secondary} />
-        <Text preset='body2' as='span' color={color.text.secondary}>
-          홈
-        </Text>
-        <Icon name='ChevronRight' size={14} color={color.icon.muted} />
-        <Text preset='body2' as='span' color={color.text.secondary}>
-          전자기기
-        </Text>
-        <Icon name='ChevronRight' size={14} color={color.icon.muted} />
-        <Text preset='body2' as='span' color={color.text.secondary}>
-          컴퓨터
-        </Text>
-      </nav>
+      <BreadCrumb
+        items={[
+          { label: 'HOME', href: '#' },
+          { label: '베스트', href: '#' },
+          { label: '응원봉', href: '#' },
+          { label: '악세사리', href: '#' },
+          { label: '스티커', href: '#' },
+        ]}
+      />
 
       <div
         style={{
@@ -93,36 +81,12 @@ export const ProductDetailPage = () => {
       >
         {/* 왼쪽: 상품 이미지 영역 */}
         <div>
-          <div
-            style={{
-              background: color.bg.muted,
-              borderRadius: `${buttonTheme.radius ?? global.radius.sm}px`,
-              aspectRatio: '1',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginBottom: '16px',
-              position: 'relative',
-            }}
-          ></div>
+          <Thumbnail />
 
           {/* 썸네일 이미지 */}
-          <div style={{ display: 'flex', gap: '12px' }}>
+          <div style={{ display: 'flex', gap: '12px', marginTop: '12px' }}>
             {[1, 2, 3, 4].map((i) => (
-              <div
-                key={i}
-                style={{
-                  width: '80px',
-                  height: '80px',
-                  background: color.bg.muted,
-                  borderRadius: `${buttonTheme.radius ?? global.radius.sm}px`,
-                  border:
-                    i === 1
-                      ? `2px solid ${textTheme.colorSchemes.brand1}`
-                      : 'none',
-                  cursor: 'pointer',
-                }}
-              />
+              <Thumbnail key={i} width={56} />
             ))}
           </div>
         </div>
