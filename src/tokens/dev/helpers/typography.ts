@@ -283,6 +283,7 @@ export type TextProps = {
 
   // 추가 옵션
   underline?: boolean;
+  through?: boolean;
   truncate?: boolean | number; // true or 1: 1줄 말줄임, 2 이상: 다중 라인 말줄임
 
   // HTML 태그

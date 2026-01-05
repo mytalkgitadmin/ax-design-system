@@ -23,6 +23,7 @@ export const Text = ({
   textWrap,
   wordBreak,
   underline = false,
+  through = false,
   truncate = false,
   as,
   className,
@@ -90,6 +91,7 @@ export const Text = ({
     ...(textWrap && { textWrap }),
     ...(wordBreak && { wordBreak }),
     ...(underline && { underline: true }),
+    ...(through && { through: true }),
   });
 
   return React.createElement(
