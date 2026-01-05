@@ -262,13 +262,56 @@ yarn add @bemily/design-system
 import '@bemily/design-system/styles.css';
 ```
 
-#### 4. 사용 예시
+#### 4. ThemeProvider로 앱 감싸기 (권장)
+
+테마 시스템을 사용하려면 앱을 `ThemeProvider`로 감싸야 합니다:
 
 ```typescript
-import { Button, Text, Icon, theme } from '@bemily/design-system';
-import '@bemily/design-system/styles.css'; // CSS import
+// App.tsx 또는 main.tsx
+import { ThemeProvider } from '@bemily/design-system';
+import '@bemily/design-system/styles.css';
 
 function App() {
+  return (
+    <ThemeProvider>
+      {/* 앱 컴포넌트들 */}
+    </ThemeProvider>
+  );
+}
+```
+
+**커스텀 테마 사용:**
+
+```typescript
+import { ThemeProvider, createTheme } from '@bemily/design-system';
+
+// 커스텀 테마 생성
+const customTheme = createTheme({
+  global: {
+    color: {
+      primary: '#FF5722',
+    },
+  },
+});
+
+function App() {
+  return (
+    <ThemeProvider theme={customTheme}>
+      {/* 앱 컴포넌트들 */}
+    </ThemeProvider>
+  );
+}
+```
+
+#### 5. 사용 예시
+
+```typescript
+import { Button, Text, Icon, useTheme } from '@bemily/design-system';
+
+function MyComponent() {
+  // 테마 사용 (선택사항)
+  const theme = useTheme();
+
   return (
     <div>
       <Button label="클릭하세요" variant="solid" color="primary" />
@@ -284,6 +327,8 @@ function App() {
 - **Button**: 다양한 스타일의 버튼 컴포넌트
 - **Text**: 타이포그래피 시스템 기반 텍스트 컴포넌트
 - **Icon**: Iconify 아이콘 래퍼 컴포넌트
+- **ThemeProvider**: 테마 시스템을 위한 Context Provider
+- **useTheme**: 현재 테마에 접근하기 위한 Hook
 
 ### 사용 가능한 토큰
 
