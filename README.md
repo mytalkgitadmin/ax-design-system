@@ -234,27 +234,18 @@ design-system/
 # 프로젝트 루트에 .npmrc 파일 생성
 cat > .npmrc << 'EOF'
 @bemily:registry=https://nexus.danalentertainment.com/repository/npm-bemily/
-//nexus.danalentertainment.com/repository/npm-bemily/:_auth=${NEXUS_AUTH_TOKEN}
+registry=https://registry.npmjs.org/
 EOF
 ```
 
-> 💡 `.npmrc` 파일은 `.gitignore`에 추가하여 커밋되지 않도록 주의하세요
+**각 설정의 역할:**
 
-#### 2. Nexus 인증 토큰 설정 (최초 1회만)
+- 1번째 줄: `@bemily` 스코프 패키지는 Nexus에서 가져오기
+- 2번째 줄: 일반 패키지(react, typescript 등)는 공개 npm에서 가져오기
 
-```bash
-# ~/.zshrc 또는 ~/.bashrc에 추가
-export NEXUS_AUTH_TOKEN="인증_토큰"
+> 💡 Nexus가 익명 읽기 권한으로 설정되어 있어 인증 없이 패키지를 설치할 수 있습니다
 
-# 설정 적용
-source ~/.zshrc  # 또는 source ~/.bashrc
-```
-
-> 💡 **인증 토큰은 관리자에게 문의하세요**
->
-> 💡 환경변수는 한 번만 설정하면 모든 프로젝트에서 사용 가능합니다
-
-#### 3. 패키지 설치
+#### 2. 패키지 설치
 
 ```bash
 npm install @bemily/design-system
@@ -262,7 +253,7 @@ npm install @bemily/design-system
 yarn add @bemily/design-system
 ```
 
-#### 4. CSS 파일 import (필수)
+#### 3. CSS 파일 import (필수)
 
 앱의 최상단에서 한 번만 import 하세요:
 
@@ -271,7 +262,7 @@ yarn add @bemily/design-system
 import '@bemily/design-system/styles.css';
 ```
 
-#### 5. 사용 예시
+#### 4. 사용 예시
 
 ```typescript
 import { Button, Text, Icon, theme } from '@bemily/design-system';
