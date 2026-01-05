@@ -15,7 +15,9 @@ export type ColorTheme = {
     active: string;
     subtle: string;
     strong: string;
+    stronger: string;
     strongest: string;
+    soft: string;
   };
   text: {
     primary: string;
@@ -54,7 +56,9 @@ export const colorTheme: ColorTheme = {
     active: color.blue['900'], // #1a318b
     subtle: color.blue['500'], // #6f94ff
     strong: color.blue['700'], // #355fea
+    stronger: color.blue['800'], // #2747be
     strongest: color.blue['900'], // #1a318b
+    soft: color.blue['100'], // #eef3ff
   },
   text: {
     primary: color.text.primary, // #2f3744
