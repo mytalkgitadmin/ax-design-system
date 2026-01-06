@@ -1,14 +1,16 @@
 import { useState } from 'react';
 
 import { useTheme } from '../../theme';
-import { color, spacing } from '../../tokens';
+import { color, rounded, spacing } from '../../tokens';
 import { toRem } from '../../tokens/dev/helpers/units';
 import { Badge } from '../Badge';
 import { BreadCrumb } from '../BreadCrumb';
 import { Button } from '../Button';
 import { CheckboxGroup } from '../Checkbox/CheckboxGroup';
+import { Icon } from '../Icon';
 import { Input } from '../Input';
 import { RadioGroup } from '../Radio/RadioGroup';
+import { Table } from '../Table';
 import { Tabs } from '../Tabs';
 import { Text } from '../Text';
 import { Textarea } from '../Textarea';
@@ -34,7 +36,7 @@ export const ProductDetailPage = () => {
   const buttonTheme = components.Button;
 
   const [quantity, setQuantity] = useState(1);
-  const price = 110;
+  const price = 9999999;
 
   // Checkbox state
   const [agreements, setAgreements] = useState<string[]>([]);
@@ -56,8 +58,8 @@ export const ProductDetailPage = () => {
     <div
       style={{
         maxWidth: '1200px',
+        width: 'calc(100% - 40px)',
         margin: '0 auto',
-        padding: '40px 20px',
         fontFamily: 'system-ui, -apple-system, sans-serif',
       }}
     >
@@ -75,8 +77,8 @@ export const ProductDetailPage = () => {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: '60px',
+          gridTemplateColumns: '68fr 48fr',
+          gap: '40px',
         }}
       >
         {/* 왼쪽: 상품 이미지 영역 */}
@@ -95,49 +97,113 @@ export const ProductDetailPage = () => {
 
         <div>
           <div
+            style={{ display: 'flex', flexDirection: 'column' }}
+            className={`${gap[12]}`}
+          >
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: `${toRem(spacing[8])}`,
+              }}
+            >
+              <Badge
+                label='이달의 베스트 3위'
+                leftIcon='Heart'
+                variant='soft'
+              />
+              <Badge label='무료배송' variant='soft' color='green' />
+              <Badge label='특가' color='muted' />
+            </div>
+
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}
+            >
+              <div
+                style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
+              >
+                <Thumbnail
+                  width={16}
+                  src='https://mockmind-api.uifaces.co/content/human/222.jpg'
+                  rounded='full'
+                />
+                <Text preset='subTitle3'>Artist</Text>
+                <Icon name='ChevronRight' size={12} />
+              </div>
+
+              <div
+                style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
+              >
+                <Button
+                  size='xs'
+                  label='0'
+                  leftIcon='Heart'
+                  color='secondary'
+                />
+                <Button
+                  size='xs'
+                  label='공유'
+                  leftIcon='Share'
+                  color='secondary'
+                />
+              </div>
+            </div>
+
+            <Text preset='title3'>
+              [노베라 단독 특전] 아일릿(ILLIT)_03.스티커팩 _ILLIT 3rd MINI ALBUM
+              'bomb' POP-UP STORE Merch.
+            </Text>
+            <Text preset='subTitle3' as='p' color={color.text.secondary}>
+              결제일 기준 2-3일 이내 출고 예정
+            </Text>
+
+            <div>
+              <Text color={color.text.disabled} through>
+                9,999,999원
+              </Text>
+            </div>
+            <div style={{ display: 'flex' }} className={`${gap[8]}`}>
+              {/* 할인률 */}
+              <Text preset='title4' as='p' color={color.text.negative}>
+                10%
+              </Text>
+
+              {/* 가격 */}
+              <Text preset='title4' as='p'>
+                {(price * quantity).toLocaleString()}
+                <Text preset='title4' as='span' color={color.text.secondary}>
+                  원
+                </Text>
+              </Text>
+            </div>
+          </div>
+          <div
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: `${toRem(spacing[8])}`,
+              justifyContent: 'space-between',
+              backgroundColor: color.bg.subtle,
+              padding: `${toRem(spacing[16])} ${toRem(spacing[24])}`,
+              borderRadius: rounded.sm,
+              margin: `${toRem(spacing[24])} 0`,
             }}
           >
-            <Badge label='이달의 베스트 3위' leftIcon='Heart' variant='soft' />
-            <Badge label='무료배송' variant='soft' color='green' />
-            <Badge label='특가' color='muted' />
+            <div>
+              <Text preset='subTitle3' color={color.text.secondary}>
+                [노베라 단독 특전] 아일릿(ILLIT) 20% 할인 쿠폰
+              </Text>
+              <Text preset='caption1' color={color.text.secondary}>
+                쿠폰 사용 시 100,000원
+              </Text>
+            </div>
+            <Button label='쿠폰받기' color='secondary' size='sm' />
           </div>
-          <Text preset='label1' color='brand1'>
-            스토어명 Apple
-          </Text>
 
-          <Text preset='title2'>상품명 2025 맥북 프로 14 M3 PRO</Text>
-
-          {/* 원가 */}
-          <Text preset='title2' as='p'>
-            2,390,000원
-          </Text>
-
-          {/* 할인률 */}
-          <Text preset='title2' as='p' color='brand1'>
-            10%
-          </Text>
-
-          {/* 가격 */}
-          <Text preset='title2' as='p'>
-            {(price * quantity).toLocaleString()}
-            <Text preset='body2' as='span'>
-              원
-            </Text>
-          </Text>
-
-          {/* 배송비 */}
-          <Text preset='body1' as='p'>
-            배송비
-            <Text preset='body1' as='strong'>
-              3,000원
-            </Text>
-          </Text>
-
-          {/* [!] 셀렉트 - 옵션 */}
+          {/* select */}
 
           {/* 수량 선택 */}
           <div
@@ -194,6 +260,18 @@ export const ProductDetailPage = () => {
             </div>
           </div>
 
+          {/* 아코디언 */}
+          <Text preset='label1' as='p' className={py[16]}>
+            상품정보
+          </Text>
+          <Text
+            preset='label1'
+            as='p'
+            style={{ borderTop: `1px solid ${color.divider.default}` }}
+            className={py[16]}
+          >
+            배송
+          </Text>
           {/* 총 상품 금액 */}
           <div
             style={{
@@ -204,148 +282,187 @@ export const ProductDetailPage = () => {
             }}
             className={py[24]}
           >
-            <Text as='span'>총 수량 {quantity}개</Text>
+            <Text preset='label1' as='span'>
+              총 상품금액
+            </Text>
 
-            <Text preset='title2' color='brand1'>
+            <Text preset='title5'>
               {(price * quantity).toLocaleString()}
               <Text as='span'>원</Text>
             </Text>
           </div>
-
           {/* 구매 버튼 */}
           <div
             style={{
-              display: 'flex',
-              alignItems: 'center',
-              overflow: 'hidden',
+              display: 'grid',
+              gridTemplateColumns: '56px auto',
             }}
-            className={gap[4]}
+            className={gap[12]}
           >
+            <Button size='lg' color='secondary' label='장바구니' icon='Bag' />
             <Button
-              variant='outline'
+              variant='solid'
               size='lg'
               color='primary'
-              label='장바구니'
-              icon='Heart'
+              label='구매하기'
+              full
             />
-            <Button
+          </div>
+        </div>
+
+        <div>
+          <Tabs
+            variant='underlined'
+            size='lg'
+            items={[
+              { label: '상품정보', value: 'tab1' },
+              { label: '리뷰', value: 'tab2' },
+              { label: '문의', value: 'tab3' },
+              { label: '교환/반품', value: 'tab4' },
+            ]}
+            justify='between'
+          />
+
+          <Table
+            caption='상품 주요 정보'
+            columns={[
+              { key: 'label1', bgColor: true, width: '15%', align: 'center' },
+              { key: 'value1', width: '35%' },
+              { key: 'label2', bgColor: true, width: '15%', align: 'center' },
+              { key: 'value2', width: '35%' },
+            ]}
+            data={[
+              {
+                label1: '상품번호',
+                value1: '3',
+                label2: '상품구분',
+                value2: '컴퓨터/노트북',
+              },
+              {
+                label1: '모델명',
+                value1: 'Z1C80003C',
+                label2: '브랜드',
+                value2: '홍소인',
+              },
+              {
+                label1: '제조사',
+                value1: 'Apple',
+                label2: 'KC 인증',
+                value2: 'KC 인증 있음',
+              },
+              {
+                label1: '원산지',
+                value1: '수입',
+                label2: '미성년자 구매',
+                value2: '가능',
+              },
+              {
+                label1: '제조일자',
+                value1: '2023.12.12.',
+                label2: '유효일자',
+                value2: '2024.05.10.',
+              },
+            ]}
+          />
+
+          <div style={{ display: 'flex', gap: '4px', margin: '40px 0' }}>
+            <Input
               size='lg'
-              color='secondary'
-              label='장바구니'
-              leftIcon='Bag'
+              placeholder='검색어를 입력하세요'
+              label='검색'
+              hiddenLabel
             />
             <Button
               variant='solid'
               size='lg'
               color='primary'
-              leftIcon='Bag'
-              label='바로 구매'
+              icon='Search'
+              label='검색'
+            />
+          </div>
+          <div style={{ display: 'grid', gap: '4px', margin: '40px 0' }}>
+            <Textarea label='자기소개' maxLength={100} showCharacterCount />
+            <Button
+              variant='solid'
+              size='md'
+              color='primary'
+              label='입력'
+              full
+            />
+          </div>
+
+          {/* 배송 옵션 선택 */}
+          <div
+            style={{
+              padding: '24px',
+              border: `1px solid ${color.border.default}`,
+              borderRadius: `${buttonTheme.radius ?? global.radius.sm}px`,
+              marginBottom: '24px',
+            }}
+          >
+            <RadioGroup
+              label='배송 옵션 선택'
+              name='delivery'
+              size='lg'
+              value={deliveryOption}
+              onChange={setDeliveryOption}
+              options={[
+                {
+                  value: 'standard',
+                  label: '일반 배송 (무료)',
+                  helpText: '3-5일 소요',
+                },
+                {
+                  value: 'express',
+                  label: '빠른 배송 (+3,000원)',
+                  helpText: '1-2일 소요',
+                },
+                {
+                  value: 'dawn',
+                  label: '새벽 배송 (+5,000원)',
+                  helpText: '오전 7시 전 도착',
+                },
+              ]}
+            />
+          </div>
+
+          {/* 구매 전 필수 약관 동의 */}
+          <div
+            style={{
+              padding: '24px',
+              border: `1px solid ${color.border.default}`,
+              borderRadius: `${buttonTheme.radius ?? global.radius.sm}px`,
+              backgroundColor: color.bg.subtle,
+            }}
+          >
+            <CheckboxGroup
+              label='구매 전 필수 약관 동의'
+              name='agreements'
+              size='lg'
+              value={agreements}
+              onChange={setAgreements}
+              options={[
+                {
+                  value: 'terms',
+                  label: '[필수] 구매 조건 및 결제 진행 동의',
+                  helpText:
+                    '상품, 가격, 배송정보 등을 확인하였으며 구매에 동의합니다.',
+                },
+                {
+                  value: 'privacy',
+                  label: '[필수] 개인정보 수집 및 이용 동의',
+                  helpText: '주문 및 배송을 위한 개인정보 수집에 동의합니다.',
+                },
+                {
+                  value: 'marketing',
+                  label: '[선택] 마케팅 정보 수신 동의',
+                  helpText: '할인 쿠폰 및 이벤트 정보를 받아보실 수 있습니다.',
+                },
+              ]}
             />
           </div>
         </div>
-      </div>
-
-      <Tabs
-        variant='underlined'
-        size='lg'
-        items={[
-          { label: '상품정보', value: 'tab1' },
-          { label: '리뷰', value: 'tab2' },
-          { label: '문의', value: 'tab3' },
-          { label: '교환/반품', value: 'tab4' },
-        ]}
-        justify='between'
-      />
-
-      <div style={{ display: 'flex', gap: '4px', margin: '40px 0' }}>
-        <Input
-          size='lg'
-          placeholder='검색어를 입력하세요'
-          label='검색'
-          hiddenLabel
-        />
-        <Button
-          variant='solid'
-          size='lg'
-          color='primary'
-          icon='Search'
-          label='검색'
-        />
-      </div>
-      <div style={{ display: 'grid', gap: '4px', margin: '40px 0' }}>
-        <Textarea label='자기소개' maxLength={100} showCharacterCount />
-        <Button variant='solid' size='md' color='primary' label='입력' full />
-      </div>
-
-      {/* 배송 옵션 선택 */}
-      <div
-        style={{
-          padding: '24px',
-          border: `1px solid ${color.border.default}`,
-          borderRadius: `${buttonTheme.radius ?? global.radius.sm}px`,
-          marginBottom: '24px',
-        }}
-      >
-        <RadioGroup
-          label='배송 옵션 선택'
-          name='delivery'
-          size='lg'
-          value={deliveryOption}
-          onChange={setDeliveryOption}
-          options={[
-            {
-              value: 'standard',
-              label: '일반 배송 (무료)',
-              helpText: '3-5일 소요',
-            },
-            {
-              value: 'express',
-              label: '빠른 배송 (+3,000원)',
-              helpText: '1-2일 소요',
-            },
-            {
-              value: 'dawn',
-              label: '새벽 배송 (+5,000원)',
-              helpText: '오전 7시 전 도착',
-            },
-          ]}
-        />
-      </div>
-
-      {/* 구매 전 필수 약관 동의 */}
-      <div
-        style={{
-          padding: '24px',
-          border: `1px solid ${color.border.default}`,
-          borderRadius: `${buttonTheme.radius ?? global.radius.sm}px`,
-          backgroundColor: color.bg.subtle,
-        }}
-      >
-        <CheckboxGroup
-          label='구매 전 필수 약관 동의'
-          name='agreements'
-          size='lg'
-          value={agreements}
-          onChange={setAgreements}
-          options={[
-            {
-              value: 'terms',
-              label: '[필수] 구매 조건 및 결제 진행 동의',
-              helpText:
-                '상품, 가격, 배송정보 등을 확인하였으며 구매에 동의합니다.',
-            },
-            {
-              value: 'privacy',
-              label: '[필수] 개인정보 수집 및 이용 동의',
-              helpText: '주문 및 배송을 위한 개인정보 수집에 동의합니다.',
-            },
-            {
-              value: 'marketing',
-              label: '[선택] 마케팅 정보 수신 동의',
-              helpText: '할인 쿠폰 및 이벤트 정보를 받아보실 수 있습니다.',
-            },
-          ]}
-        />
+        <div></div>
       </div>
     </div>
   );
