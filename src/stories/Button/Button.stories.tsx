@@ -14,37 +14,52 @@ import type { Meta, StoryObj } from '@storybook/react';
 /**
  * Button 컴포넌트는 사용자 액션을 트리거하는 기본 버튼입니다.
  *
- * ## 주요 기능
- * - **variant**: solid, outline
- * - **size**: xs, sm, md, lg, xl
- * - **rounded**: none, xs, sm, md, lg, xl, full (기본값: sm)
- * - **시맨틱 컬러 프리셋**: primary, secondary
- * - **커스텀 hex/rgb 컬러** 지원
- * - **hover/active 상태** 자동 처리
- * - **전체 너비 옵션** (full)
- * - **Tabler 아이콘** 지원
+ * ## Props
  *
- * ## 컬러 사용법
- * ### 시맨틱 토큰 (권장)
+ * | Prop | Type |
+ * |------|------|
+ * | `label` | `string` |
+ * | `variant` | `solid` \| `outline` |
+ * | `size` | `xs` \| `sm` \| `md` \| `lg` \| `xl` |
+ * | `color` | `primary` \| `secondary` \| `string` (hex/rgb) |
+ * | `rounded` | `none` \| `xs` \| `sm` \| `md` \| `lg` \| `xl` \| `full` |
+ * | `full` | `boolean` |
+ * | `disabled` | `boolean` |
+ * | `leftIcon` | `IconType` |
+ * | `rightIcon` | `IconType` |
+ * | `icon` | `IconType` (아이콘 전용 버튼) |
+ * | `type` | `button` \| `submit` \| `reset` |
+ * | `as` | `button` \| `a` |
+ * | `href` | `string` (as="a"일 때 필수) |
+ * | `target` | `_blank` \| `_self` |
+ * | `onClick` | `() => void` |
+ *
+ * ## 사용 예시
+ *
  * ```tsx
- * <Button color="primary" label="Primary" />
- * <Button color="secondary" label="Secondary" />
- * ```
+ * import { Button } from '@bemily/design-system';
  *
- * ### 커스텀 컬러
- * ```tsx
- * <Button color="#8facff" label="Custom Blue" />
- * <Button color="rgb(143, 172, 255)" label="Custom RGB" />
- * ```
+ * // 기본 사용
+ * <Button label="클릭" />
+ * <Button label="Primary" color="primary" variant="solid" />
  *
- * ## Rounded 사용법
- * ```tsx
- * // 기본값 사용 (sm = 8px)
- * <Button label="Button" />
+ * // 사이즈 및 스타일
+ * <Button label="작은 버튼" size="sm" />
+ * <Button label="큰 버튼" size="lg" />
+ * <Button label="Outline" variant="outline" />
  *
- * // rounded prop으로 덮어쓰기
- * <Button label="Button" rounded="full" />  // 완전히 둥근 모서리
- * <Button label="Button" rounded="none" />  // 모서리 둥글기 없음
+ * // 아이콘 포함
+ * <Button label="다운로드" leftIcon="Download" />
+ * <Button icon="Search" /> // 아이콘 전용
+ *
+ * // 커스텀 컬러
+ * <Button label="Custom" color="#8facff" />
+ *
+ * // 링크로 사용
+ * <Button label="Go" as="a" href="https://example.com" />
+ *
+ * // 전체 너비
+ * <Button label="전체 너비" full />
  * ```
  */
 const meta = {

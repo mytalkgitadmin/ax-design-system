@@ -10,36 +10,50 @@ import type { Meta, StoryObj } from '@storybook/react';
 /**
  * Checkbox 컴포넌트는 사용자가 선택/해제할 수 있는 체크박스입니다.
  *
- * ## 주요 기능
- * - size: md (20px), lg (24px)
- * - 체크/미체크 상태
- * - disabled 상태
- * - required: 필수 입력 표시 (*)
- * - labelPlacement: 라벨 위치 제어 (start/end)
- * - defaultChecked: 비제어 컴포넌트 지원
- * - 레이블 및 부가 설명 텍스트 지원
- * - 접근성 준수 (키보드 네비게이션, ARIA 속성)
+ * ## Props
  *
- * ## 사용법
+ * | Prop | Type |
+ * |------|------|
+ * | `label` | `string` (required) |
+ * | `size` | `md` \| `lg` |
+ * | `checked` | `boolean` |
+ * | `defaultChecked` | `boolean` |
+ * | `disabled` | `boolean` |
+ * | `required` | `boolean` |
+ * | `labelPlacement` | `start` \| `end` |
+ * | `helpText` | `string` |
+ * | `onChange` | `(checked: boolean) => void` |
+ * | `id` | `string` |
+ * | `name` | `string` |
+ * | `value` | `string` |
+ *
+ * ## 사용 예시
+ *
  * ```tsx
- * // 제어 컴포넌트 (controlled)
+ * import { Checkbox, CheckboxGroup } from '@bemily/design-system';
+ *
+ * // 제어 컴포넌트
  * const [checked, setChecked] = useState(false);
- *
- * <Checkbox
- *   label="체크박스 레이블"
- *   helpText="체크박스 레이블에 대한 부가 설명"
- *   checked={checked}
- *   onChange={setChecked}
- *   required
- * />
- * ```
- *
- * ```tsx
- * // 비제어 컴포넌트 (uncontrolled)
  * <Checkbox
  *   label="동의합니다"
- *   defaultChecked={true}
- *   labelPlacement="start"
+ *   checked={checked}
+ *   onChange={setChecked}
+ * />
+ *
+ * // 비제어 컴포넌트
+ * <Checkbox label="약관 동의" defaultChecked={true} />
+ *
+ * // CheckboxGroup으로 여러 옵션 관리
+ * const [values, setValues] = useState<string[]>([]);
+ * <CheckboxGroup
+ *   label="관심사"
+ *   name="interests"
+ *   value={values}
+ *   onChange={setValues}
+ *   options={[
+ *     { value: 'design', label: '디자인' },
+ *     { value: 'dev', label: '개발' },
+ *   ]}
  * />
  * ```
  */
@@ -134,7 +148,6 @@ type Story = StoryObj<typeof meta>;
 const DefaultCheckbox = (args: CheckboxProps) => {
   const [checked, setChecked] = useState(args.checked || false);
 
-  // args.checked가 변경되면 state도 업데이트
   React.useEffect(() => {
     setChecked(args.checked || false);
   }, [args.checked]);

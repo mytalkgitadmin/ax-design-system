@@ -9,24 +9,29 @@ import type { Meta, StoryObj } from '@storybook/react';
 /**
  * Radio 컴포넌트는 사용자가 여러 옵션 중 하나를 선택할 수 있는 라디오 버튼입니다.
  *
- * ## 주요 기능
- * - size: md (20px), lg (24px)
- * - 선택/미선택 상태
- * - disabled 상태
- * - labelPlacement: 라벨 위치 제어 (start/end)
- * - defaultChecked: 비제어 컴포넌트 지원
- * - 레이블 및 부가 설명 텍스트 지원
- * - 접근성 준수 (키보드 네비게이션, ARIA 속성)
+ * ## Props
  *
- * ## 중요: RadioGroup 사용 권장
- * Radio 컴포넌트는 일반적으로 **RadioGroup**과 함께 사용하는 것을 권장합니다.
- * RadioGroup에서 required 속성을 지원합니다.
+ * | Prop | Type |
+ * |------|------|
+ * | `label` | `string` (required) |
+ * | `size` | `md` \| `lg` |
+ * | `checked` | `boolean` |
+ * | `defaultChecked` | `boolean` |
+ * | `disabled` | `boolean` |
+ * | `labelPlacement` | `start` \| `end` |
+ * | `helpText` | `string` |
+ * | `onChange` | `(checked: boolean) => void` |
+ * | `id` | `string` |
+ * | `name` | `string` (required for grouping) |
+ * | `value` | `string` |
  *
- * ## 사용법
+ * ## 사용 예시
+ *
  * ```tsx
- * // RadioGroup과 함께 사용 (권장)
- * const [value, setValue] = useState('option1');
+ * import { Radio, RadioGroup } from '@bemily/design-system';
  *
+ * // RadioGroup 사용 (권장)
+ * const [value, setValue] = useState('option1');
  * <RadioGroup
  *   name="options"
  *   label="옵션 선택"
@@ -38,19 +43,15 @@ import type { Meta, StoryObj } from '@storybook/react';
  *     { value: 'option2', label: '옵션 2' },
  *   ]}
  * />
- * ```
  *
- * ```tsx
  * // 단독 사용
  * const [selected, setSelected] = useState('option1');
- *
  * <Radio
  *   name="option"
  *   value="option1"
- *   label="라디오 레이블"
+ *   label="옵션 1"
  *   checked={selected === 'option1'}
  *   onChange={() => setSelected('option1')}
- *   labelPlacement="start"
  * />
  * ```
  */
@@ -146,14 +147,12 @@ type Story = StoryObj<typeof meta>;
 const DefaultRadio = (args: RadioProps) => {
   const [checked, setChecked] = useState(args.checked || false);
 
-  // args.checked가 변경되면 state도 업데이트
   React.useEffect(() => {
     setChecked(args.checked || false);
   }, [args.checked]);
 
   return <Radio {...args} checked={checked} onChange={setChecked} />;
 };
-
 const AllStatesDemo = () => {
   const [selectedLg, setSelectedLg] = useState('checked');
   const [selectedMd, setSelectedMd] = useState('checked');
