@@ -10,6 +10,7 @@ import { CheckboxGroup } from '../Checkbox/CheckboxGroup';
 import { Icon } from '../Icon';
 import { Input } from '../Input';
 import { RadioGroup } from '../Radio/RadioGroup';
+import { Select } from '../Select';
 import { Table } from '../Table';
 import { Tabs } from '../Tabs';
 import { Text } from '../Text';
@@ -203,51 +204,87 @@ export const ProductDetailPage = () => {
             <Button label='쿠폰받기' color='secondary' size='sm' />
           </div>
 
-          {/* select */}
-
+          <Select
+            text='옵션을 선택해 주세요'
+            options={[
+              {
+                value: '1',
+                label: '[옵션1] Product1',
+                thumbnail: '',
+                disabled: true,
+              },
+              {
+                value: '2',
+                label: '[옵션2] Product2',
+                thumbnail: '',
+              },
+              {
+                value: '3',
+                label: '[옵션3] Product3',
+                thumbnail: '',
+              },
+              {
+                value: '4',
+                label: '[옵션4] Product4',
+                thumbnail: '',
+              },
+            ]}
+          />
           {/* 수량 선택 */}
+
           <div
             style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              borderTop: `1px solid ${color.divider.default}`,
+              backgroundColor: color.bg.subtle,
+              padding: `${toRem(spacing[16])} ${toRem(spacing[24])}`,
+              borderRadius: rounded.sm,
+              margin: `${toRem(spacing[24])} 0`,
             }}
-            className={py[24]}
           >
-            <Text preset='body1' weight='semibold' as='span'>
+            <Text preset='subTitle3' weight='semibold' as='span'>
               상품 금액
             </Text>
-
-            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-              <Button
-                icon='Minus'
-                label='감소'
-                variant='outline'
-                size='md'
-                onClick={handleDecrease}
-                disabled={quantity <= 1}
-              />
-              <input
-                type='number'
-                value={quantity}
-                readOnly
-                style={{
-                  width: '60px',
-                  textAlign: 'center',
-                  fontSize: '16px',
-                  border: `1px solid ${color.border.default}`,
-                  borderRadius: `${buttonTheme.radius ?? global.radius.sm}px`,
-                  padding: '8px',
-                }}
-              />
-              <Button
-                icon='Plus'
-                label='증가'
-                variant='outline'
-                size='md'
-                onClick={handleIncrease}
-              />
+            {/*  handleDecrease */}
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                // borderTop: `1px solid ${color.divider.default}`,
+              }}
+              className={py[24]}
+            >
+              <div
+                style={{ display: 'flex', gap: '8px', alignItems: 'center' }}
+              >
+                <Button
+                  icon='Minus'
+                  label='감소'
+                  variant='outline'
+                  size='md'
+                  onClick={handleDecrease}
+                  disabled={quantity <= 1}
+                />
+                <input
+                  type='number'
+                  value={quantity}
+                  readOnly
+                  style={{
+                    width: '60px',
+                    textAlign: 'center',
+                    fontSize: '16px',
+                    border: `1px solid ${color.border.default}`,
+                    borderRadius: `${buttonTheme.radius ?? global.radius.sm}px`,
+                    padding: '8px',
+                  }}
+                />
+                <Button
+                  icon='Plus'
+                  label='증가'
+                  variant='outline'
+                  size='md'
+                  onClick={handleIncrease}
+                />
+              </div>
 
               <Text
                 preset='body1'
@@ -259,7 +296,6 @@ export const ProductDetailPage = () => {
               </Text>
             </div>
           </div>
-
           {/* 아코디언 */}
           <Text preset='label1' as='p' className={py[16]}>
             상품정보

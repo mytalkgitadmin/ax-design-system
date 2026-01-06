@@ -19,6 +19,7 @@ const preview: Preview = {
             'Label',
             'Input',
             'Textarea',
+            'Select',
             'Input-Checkbox',
             'Input-Radio',
             'Tabs',
