@@ -13,6 +13,7 @@ import { Icon } from '../Icon';
 import { Input } from '../Input';
 import { RadioGroup } from '../Radio/RadioGroup';
 import { Select } from '../Select';
+import { Stepper } from '../Stepper';
 import { Table } from '../Table';
 import { Tabs } from '../Tabs';
 import { Text } from '../Text';
@@ -46,16 +47,6 @@ export const ProductDetailPage = () => {
 
   // Radio state
   const [deliveryOption, setDeliveryOption] = useState('standard');
-
-  const handleDecrease = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
-    }
-  };
-
-  const handleIncrease = () => {
-    setQuantity(quantity + 1);
-  };
 
   return (
     <Flex
@@ -223,36 +214,12 @@ export const ProductDetailPage = () => {
             </Text>
             {/*  handleDecrease */}
             <Flex justify='between' align='center' className={py[24]}>
-              <Flex gap='8' align='center'>
-                <Button
-                  icon='Minus'
-                  label='감소'
-                  variant='outline'
-                  size='md'
-                  onClick={handleDecrease}
-                  disabled={quantity <= 1}
-                />
-                <input
-                  type='number'
-                  value={quantity}
-                  readOnly
-                  style={{
-                    width: '60px',
-                    textAlign: 'center',
-                    fontSize: '16px',
-                    border: `1px solid ${color.border.default}`,
-                    borderRadius: `${buttonTheme.radius ?? global.radius.sm}px`,
-                    padding: '8px',
-                  }}
-                />
-                <Button
-                  icon='Plus'
-                  label='증가'
-                  variant='outline'
-                  size='md'
-                  onClick={handleIncrease}
-                />
-              </Flex>
+              <Stepper
+                value={quantity}
+                onChange={(val) => setQuantity(val ?? 1)}
+                min={1}
+                max={10}
+              />
 
               <Text
                 preset='body1'
@@ -295,16 +262,22 @@ export const ProductDetailPage = () => {
             </Text>
           </Flex>
           {/* 구매 버튼 */}
-          <Grid columns='2' gap='12'>
-            <Button size='lg' color='secondary' label='장바구니' icon='Bag' />
+          <Flex gap='12'>
+            <Button
+              size='lg'
+              color='secondary'
+              label='장바구니'
+              icon='Bag'
+              style={{ flex: 0 }}
+            />
             <Button
               variant='solid'
               size='lg'
               color='primary'
               label='구매하기'
-              full
+              style={{ flex: 1 }}
             />
-          </Grid>
+          </Flex>
         </Flex>
 
         <div>
@@ -460,6 +433,13 @@ export const ProductDetailPage = () => {
           </Flex>
         </div>
       </Grid>
+
+      <div>
+        <Stepper defaultValue={1} />
+        <Button label='button' />
+        <Input label='input' hiddenLabel />
+        <Select options={[]} />
+      </div>
     </Flex>
   );
 };
