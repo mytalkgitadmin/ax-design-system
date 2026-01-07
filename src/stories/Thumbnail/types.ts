@@ -25,6 +25,8 @@ export type ThumbnailProps = {
 
   /** 모서리 둥글기 (테마 설정을 덮어쓰기 위한 옵션) */
   rounded?: ThumbnailRounded;
+  style?: React.CSSProperties;
+  className?: string;
 };
 
 export const THUMBNAIL_ROUNDED: ThumbnailRounded[] = [
