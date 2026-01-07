@@ -1,3 +1,7 @@
+// CSS import (빌드 시 dist/index.css에 포함됨)
+import './tokens/variables.css';
+import './styles/globals.css';
+
 // 컴포넌트 export
 export type { BadgeProps } from './stories/Badge';
 export { Badge } from './stories/Badge';
