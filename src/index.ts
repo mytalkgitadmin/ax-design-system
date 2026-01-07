@@ -36,6 +36,8 @@ export { typographyPresets } from './tokens/dev/helpers/typography';
 
 // Theme export
 export type {
+  brandATheme,
+  brandBTheme,
   ButtonTheme,
   ColorScheme,
   ColorTheme,
