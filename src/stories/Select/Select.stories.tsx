@@ -16,58 +16,59 @@ import type { Meta, StoryObj } from '@storybook/react';
 /**
  * Select 컴포넌트는 사용자가 여러 옵션 중 하나를 선택할 수 있는 드롭다운 선택 필드입니다.
  *
- * ## 주요 기능
- * - **크기**: xs, sm, md, lg, xl (Label 폰트 크기도 자동 조정)
- * - **rounded**: none, xs, sm, md, lg, xl, full (기본값: sm)
- * - **컬러**: 시맨틱 프리셋(primary, secondary) 및 커스텀 hex/rgb
- * - **상태**: hover, focus, disabled, error 자동 처리
- * - **레이아웃**: full width 옵션
+ * ## Props
  *
- * ## Label & 접근성
- * - **label**: 접근성을 위해 제공 권장
- * - **required**: 필수 입력 표시 (*)
- * - **hiddenLabel**: 시각적으로 숨기고 스크린 리더만 읽음
+ * | Prop | Type |
+ * |------|------|
+ * | `label` | `string` |
+ * | `size` | `xs` \| `sm` \| `md` \| `lg` \| `xl` |
+ * | `color` | `primary` \| `secondary` \| `string` (hex/rgb) |
+ * | `rounded` | `none` \| `xs` \| `sm` \| `md` \| `lg` \| `xl` \| `full` |
+ * | `full` | `boolean` |
+ * | `disabled` | `boolean` |
+ * | `required` | `boolean` |
+ * | `text` | `string` (placeholder) |
+ * | `hiddenLabel` | `boolean` |
+ * | `status` | `help` \| `success` \| `warn` \| `error` |
+ * | `statusMessage` | `string` |
+ * | `showStatusIcon` | `boolean` |
+ * | `leadingIcon` | `IconType` |
+ * | `trailingIcon` | `IconType` |
+ * | `showCaret` | `boolean` |
+ * | `placement` | `bottom` \| `top` |
+ * | `options` | `SelectOption[]` (required) |
+ * | `value` | `string` \| `number` |
+ * | `onChange` | `(value: string \| number) => void` |
+ * | `onToggle` | `(isOpen: boolean) => void` |
  *
- * ## 아이콘
- * - **leadingIcon**: 왼쪽 아이콘 표시
- * - **trailingIcon**: 오른쪽 아이콘 표시 (caret 이전)
- * - **showCaret**: caret 아이콘 표시 여부 (기본: true)
+ * ## 사용 예시
  *
- * ## 드롭다운
- * - **placement**: 드롭다운 위치 (bottom, top) - 기본값: bottom
- * - **options**: 옵션 목록 (value, label, disabled, icon, thumbnail)
- *
- * ## 상태 메시지
  * ```tsx
- * <Select label="옵션" options={options} status="help" statusMessage="도움말 메시지" />
- * <Select label="옵션" options={options} status="success" statusMessage="성공 메시지" />
- * <Select label="옵션" options={options} status="warn" statusMessage="경고 메시지" />
- * <Select label="옵션" options={options} status="error" statusMessage="에러 메시지" />
+ * import { Select } from '@bemily/design-system';
  *
- * // 아이콘 표시
- * <Select label="옵션" options={options} status="success" statusMessage="성공!" showStatusIcon />
+ * const options = [
+ *   { value: '1', label: '옵션 1' },
+ *   { value: '2', label: '옵션 2' },
+ *   { value: '3', label: '옵션 3' },
+ * ];
+ *
+ * // 기본 사용
+ * <Select label="옵션 선택" options={options} />
+ *
+ * // 제어 컴포넌트
+ * const [value, setValue] = useState('');
+ * <Select label="카테고리" options={options} value={value} onChange={setValue} />
+ *
+ * // 상태 메시지
+ * <Select label="옵션" options={options} status="error" statusMessage="필수 항목입니다" />
+ *
+ * // 아이콘 포함
+ * <Select label="검색" options={options} leadingIcon="Search" />
+ *
+ * // 드롭다운 위치
+ * <Select label="옵션" options={options} placement="top" />
  * ```
- *
- * ## 컬러 사용법
- * ```tsx
- * // 시맨틱 프리셋
- * <Select label="옵션" options={options} color="primary" />
- * <Select label="옵션" options={options} color="secondary" />
- *
- * // 커스텀 컬러
- * <Select label="옵션" options={options} color="#8facff" />
- * <Select label="옵션" options={options} color="rgb(143, 172, 255)" />
- * ```
- *
- * ## Rounded 사용법
- * ```tsx
- * // 기본값 사용 (sm = 8px)
- * <Select label="옵션" options={options} />
- *
- * // rounded prop으로 덮어쓰기
- * <Select label="옵션" options={options} rounded="full" />  // 완전히 둥근 모서리
- * <Select label="옵션" options={options} rounded="none" />  // 모서리 둥글기 없음
- * ```
+
  */
 const meta = {
   title: 'Components/Select',
@@ -313,7 +314,6 @@ const meta = {
     required: false,
 
     showCaret: true,
-    // placement: 기본값 없음 (자동 계산)
   },
 } satisfies Meta<typeof Select>;
 
@@ -358,7 +358,6 @@ export const Sizes: Story = {
 
 /**
  * Rounded (모서리 둥글기)
- * 테마 설정을 덮어쓰기하여 원하는 모서리 둥글기를 적용할 수 있습니다.
  */
 export const Rounded: Story = {
   args: {
@@ -445,8 +444,7 @@ export const State: Story = {
 };
 
 /**
- * 컬러 (Color Variants)
- * 시맨틱 프리셋 또는 커스텀 컬러를 사용할 수 있습니다.
+ * 컬러 바리에이션
  */
 export const ColorVariants: Story = {
   args: {
@@ -539,7 +537,6 @@ export const FullWidth: Story = {
 
 /**
  * 상태 메시지
- * status와 statusMessage를 사용하여 다양한 피드백 제공
  */
 export const StatusMessages: Story = {
   args: {
@@ -781,143 +778,6 @@ export const DisabledOptions: Story = {
           options={optionsWithDisabled}
           status='help'
           statusMessage='비활성화된 옵션은 선택할 수 없습니다'
-        />
-      </div>
-    );
-  },
-};
-
-/**
- * 종합 예제 - 회원가입 폼
- */
-export const SignupForm: Story = {
-  args: {
-    options: productOptions,
-  },
-  render: () => {
-    const SignupFormComponent = () => {
-      const countryOptions: SelectOption[] = [
-        { value: 'kr', label: '대한민국' },
-        { value: 'us', label: '미국' },
-        { value: 'jp', label: '일본' },
-        { value: 'cn', label: '중국' },
-      ];
-
-      const genderOptions: SelectOption[] = [
-        { value: 'male', label: '남성' },
-        { value: 'female', label: '여성' },
-        { value: 'other', label: '기타' },
-      ];
-
-      const jobOptions: SelectOption[] = [
-        { value: 'dev', label: '개발자', icon: 'User' },
-        { value: 'designer', label: '디자이너', icon: 'User' },
-        { value: 'pm', label: '프로젝트 매니저', icon: 'User' },
-        { value: 'other', label: '기타', icon: 'User' },
-      ];
-
-      return (
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '20px',
-            width: '400px',
-            padding: '24px',
-            border: '1px solid #e3e6ee',
-            borderRadius: '8px',
-          }}
-        >
-          <h3 style={{ margin: '0 0 8px 0' }}>회원가입</h3>
-
-          <Select
-            label='국가'
-            options={countryOptions}
-            required
-            full
-            status='help'
-            statusMessage='거주 국가를 선택해주세요'
-            leadingIcon='Download'
-          />
-
-          <Select
-            label='성별'
-            options={genderOptions}
-            required
-            full
-            status='help'
-            statusMessage='성별을 선택해주세요'
-          />
-
-          <Select
-            label='직업'
-            options={jobOptions}
-            required
-            full
-            status='help'
-            statusMessage='현재 직업을 선택해주세요'
-          />
-
-          <Select
-            label='관심 분야'
-            options={productOptions}
-            full
-            status='error'
-            statusMessage='필수 항목입니다'
-          />
-        </div>
-      );
-    };
-
-    return <SignupFormComponent />;
-  },
-};
-
-/**
- * 썸네일이 포함된 옵션
- */
-export const WithThumbnails: Story = {
-  args: {
-    options: productOptions,
-  },
-  render: () => {
-    const productOptionsWithThumbnails: SelectOption[] = [
-      {
-        value: '1',
-        label: '[옵션1] Product1',
-        thumbnail: '',
-        disabled: true,
-      },
-      {
-        value: '2',
-        label: '[옵션2] Product2',
-        thumbnail: '',
-      },
-      {
-        value: '3',
-        label: '[옵션3] Product3',
-        thumbnail: '',
-      },
-      {
-        value: '4',
-        label: '[옵션4] Product4',
-        thumbnail: '',
-      },
-    ];
-
-    return (
-      <div
-        style={{
-          display: 'grid',
-          gap: '16px',
-          width: '400px',
-          height: '600px',
-        }}
-      >
-        <Select
-          label='제품 선택'
-          text='옵션을 선택해 주세요'
-          options={productOptionsWithThumbnails}
         />
       </div>
     );

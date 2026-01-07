@@ -48,14 +48,22 @@ const FormLabelWrapper = ({ children }: { children: ReactNode }) => {
 /**
  * FormLabel 컴포넌트는 Input, Textarea 등 폼 요소의 레이블을 표시하는 공통 컴포넌트입니다.
  *
- * ## 주요 기능
- * - **크기**: xs, sm, md, lg, xl - 폰트 크기 자동 조정
- * - **필수 표시**: required prop으로 별표(*) 자동 추가
- * - **접근성**: hiddenLabel로 시각적으로 숨기고 스크린 리더만 읽도록 설정
- * - **연결**: htmlFor로 입력 필드와 자동 연결
+ * ## Props
+ *
+ * | Prop | Type |
+ * |------|------|
+ * | `htmlFor` | `string` (required) |
+ * | `children` | `ReactNode` (required) |
+ * | `size` | `xs` \| `sm` \| `md` \| `lg` \| `xl` |
+ * | `required` | `boolean` |
+ * | `hiddenLabel` | `boolean` |
+ * | `className` | `string` |
  *
  * ## 사용 예시
+ *
  * ```tsx
+ * import { FormLabel } from '@bemily/design-system';
+ *
  * // 기본 사용
  * <FormLabel htmlFor="email">이메일</FormLabel>
  *
@@ -149,7 +157,6 @@ type Story = StoryObj<typeof meta>;
 
 /**
  * 기본 FormLabel
- * 스토리북 컨트롤을 사용해서 props를 변경해보세요!
  */
 export const Primary: Story = {
   render: (args) => (
@@ -157,17 +164,10 @@ export const Primary: Story = {
       <FormLabel {...args} />
     </FormLabelWrapper>
   ),
-  args: {
-    size: 'md',
-    required: false,
-    hiddenLabel: false,
-    htmlFor: 'example-input',
-    children: '레이블',
-  },
 };
 
 /**
- * 다양한 크기의 FormLabel
+ * 다양한 크기
  * 필수 입력 표시
  * required prop을 사용하면 별표(*)가 자동으로 추가됩니다
  */
