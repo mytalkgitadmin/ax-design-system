@@ -31,6 +31,9 @@ type ButtonBaseProps = {
   icon?: IconType;
   leftIcon?: IconType;
   rightIcon?: IconType;
+
+  style?: React.CSSProperties;
+  className?: string;
 };
 
 // Button 태그로 렌더링될 때
