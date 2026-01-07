@@ -46,6 +46,7 @@ export const inputWrapper = style({
   flexDirection: 'column',
   gap: toRem(spacing[8]),
   width: 'fit-content',
+  verticalAlign: 'middle',
 });
 
 export const inputWrapperFull = style({
@@ -64,6 +65,7 @@ const baseInputContainer = style({
   position: 'relative',
   display: 'inline-flex',
   alignItems: 'center',
+  boxSizing: 'border-box',
 
   // 외형
   borderRadius: borderRadiusVar,
@@ -96,6 +98,23 @@ export const inputContainerStyle = recipe({
   base: baseInputContainer,
 
   variants: {
+    size: {
+      xl: {
+        height: toRem(componentSize.xl.height),
+      },
+      lg: {
+        height: toRem(componentSize.lg.height),
+      },
+      md: {
+        height: toRem(componentSize.md.height),
+      },
+      sm: {
+        height: toRem(componentSize.sm.height),
+      },
+      xs: {
+        height: toRem(componentSize.xs.height),
+      },
+    },
     error: {
       true: {
         borderColor: errorBorderColorVar,
@@ -130,6 +149,7 @@ const baseInput = style({
   alignItems: 'center',
   padding: '0 1em',
   boxSizing: 'border-box',
+  height: '100%',
 
   // 외형 (Container가 border를 담당하므로 투명)
   backgroundColor: 'transparent',
@@ -175,23 +195,18 @@ export const inputStyle = recipe({
   variants: {
     size: {
       xl: {
-        height: `calc(${toRem(componentSize.xl.height)} - 2px)`,
         fontSize: `${toRem(componentSize.xl.fontSize)}`,
       },
       lg: {
-        height: `calc(${toRem(componentSize.lg.height)} - 2px)`,
         fontSize: `${toRem(componentSize.lg.fontSize)}`,
       },
       md: {
-        height: `calc(${toRem(componentSize.md.height)} - 2px)`,
         fontSize: `${toRem(componentSize.md.fontSize)}`,
       },
       sm: {
-        height: `calc(${toRem(componentSize.sm.height)} - 2px)`,
         fontSize: `${toRem(componentSize.sm.fontSize)}`,
       },
       xs: {
-        height: `calc(${toRem(componentSize.xs.height)} - 2px)`,
         fontSize: `${toRem(componentSize.xs.fontSize)}`,
       },
     },
