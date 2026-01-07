@@ -15,53 +15,53 @@ import type { Meta, StoryObj } from '@storybook/react';
 /**
  * Input 컴포넌트는 사용자로부터 텍스트 입력을 받는 기본 입력 필드입니다.
  *
- * ## 주요 기능
- * - **크기**: xs, sm, md, lg, xl (Label 폰트 크기도 자동 조정)
- * - **타입**: text, password, email, tel, number
- * - **rounded**: none, xs, sm, md, lg, xl, full (기본값: sm)
- * - **컬러**: 시맨틱 프리셋(primary, secondary) 및 커스텀 hex/rgb
- * - **상태**: hover, focus, disabled 자동 처리
- * - **레이아웃**: full width 옵션
+ * ## Props
  *
- * ## Label & 접근성
- * - **label** (필수): 접근성을 위해 항상 제공해야 합니다
- * - **required**: 필수 입력 표시 (*)
- * - **hiddenLabel**: 시각적으로 숨기고 스크린 리더만 읽음
+ * | Prop | Type |
+ * |------|------|
+ * | `label` | `string` (required) |
+ * | `size` | `xs` \| `sm` \| `md` \| `lg` \| `xl` |
+ * | `type` | `text` \| `password` \| `email` \| `tel` \| `number` |
+ * | `color` | `primary` \| `secondary` \| `string` (hex/rgb) |
+ * | `rounded` | `none` \| `xs` \| `sm` \| `md` \| `lg` \| `xl` \| `full` |
+ * | `full` | `boolean` |
+ * | `disabled` | `boolean` |
+ * | `required` | `boolean` |
+ * | `placeholder` | `string` |
+ * | `hiddenLabel` | `boolean` |
+ * | `leftIcon` | `IconType` |
+ * | `rightIcon` | `IconType` |
+ * | `onLeftIconClick` | `() => void` |
+ * | `onRightIconClick` | `() => void` |
+ * | `status` | `help` \| `success` \| `warn` \| `error` |
+ * | `statusMessage` | `string` |
+ * | `showStatusIcon` | `boolean` |
+ * | `value` | `string` \| `number` |
+ * | `onChange` | `(e: ChangeEvent<HTMLInputElement>) => void` |
  *
- * ## 아이콘
- * - **leftIcon / rightIcon**: 좌/우측 아이콘 표시
- * - **onLeftIconClick / onRightIconClick**: 아이콘을 클릭 가능하게 만듦
+ * ## 사용 예시
  *
- * ## 상태 메시지
  * ```tsx
- * <Input label="이름" status="help" statusMessage="도움말 메시지" />
- * <Input label="이메일" status="success" statusMessage="성공 메시지" />
- * <Input label="비밀번호" status="warn" statusMessage="경고 메시지" />
- * <Input label="전화번호" status="error" statusMessage="에러 메시지" />
+ * import { Input } from '@bemily/design-system';
  *
- * // 아이콘 표시
- * <Input label="이름" status="success" statusMessage="성공!" showStatusIcon />
- * ```
+ * // 기본 사용
+ * <Input label="이름" placeholder="이름을 입력하세요" />
  *
- * ## 컬러 사용법
- * ```tsx
- * // 시맨틱 프리셋
- * <Input label="이름" color="primary" />
- * <Input label="이메일" color="secondary" />
+ * // 다양한 타입
+ * <Input label="이메일" type="email" placeholder="email@example.com" />
+ * <Input label="비밀번호" type="password" />
+ * <Input label="전화번호" type="tel" />
  *
- * // 커스텀 컬러
- * <Input label="주소" color="#8facff" />
- * <Input label="전화번호" color="rgb(143, 172, 255)" />
- * ```
+ * // 상태 메시지
+ * <Input label="이메일" status="error" statusMessage="유효하지 않은 이메일입니다" />
+ * <Input label="이름" status="success" statusMessage="사용 가능합니다" showStatusIcon />
  *
- * ## Rounded 사용법
- * ```tsx
- * // 기본값 사용 (sm = 8px)
- * <Input label="이름" />
+ * // 아이콘 포함
+ * <Input label="검색" leftIcon="Search" placeholder="검색어 입력" />
+ * <Input label="비밀번호" type="password" rightIcon="Eye" onRightIconClick={togglePassword} />
  *
- * // rounded prop으로 덮어쓰기
- * <Input label="이름" rounded="full" />  // 완전히 둥근 모서리
- * <Input label="이메일" rounded="none" />  // 모서리 둥글기 없음
+ * // 전체 너비
+ * <Input label="주소" full placeholder="주소를 입력하세요" />
  * ```
  */
 const meta = {

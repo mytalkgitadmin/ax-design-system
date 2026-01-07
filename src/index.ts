@@ -21,6 +21,10 @@ export type {
   RadioOption,
   RadioProps,
 } from './stories/Radio/types';
+export { Select } from './stories/Select';
+export type { SelectOption, SelectProps } from './stories/Select/types';
+export type { TableColumn, TableProps, TableRow } from './stories/Table';
+export { Table } from './stories/Table';
 export { Text } from './stories/Text';
 export type { ThumbnailProps } from './stories/Thumbnail';
 export { Thumbnail } from './stories/Thumbnail';
@@ -32,6 +36,8 @@ export { typographyPresets } from './tokens/dev/helpers/typography';
 
 // Theme export
 export type {
+  brandATheme,
+  brandBTheme,
   ButtonTheme,
   ColorScheme,
   ColorTheme,

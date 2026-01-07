@@ -26,5 +26,6 @@ export { defaultTheme } from './defaultTheme';
 export { createTheme } from './createTheme';
 
 // Provider & Hook
+export { brandATheme, brandBTheme } from './brands';
 export type { ThemeProviderProps } from './ThemeProvider';
 export { ThemeProvider, useTheme } from './ThemeProvider';

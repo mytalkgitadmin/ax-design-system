@@ -7,20 +7,32 @@ import type { Meta, StoryObj } from '@storybook/react';
 /**
  * Badge 컴포넌트는 상태, 카테고리, 또는 레이블을 표시하는 작은 배지입니다.
  *
- * ## 주요 기능
- * - **variant**: solid, outline, soft
- * - **color**:
- *   - solid: primary, green, red, yellow, muted, neutral-emphasis, neutral-disabled (7가지)
- *   - outline/soft: primary, green, red, yellow (4가지)
- * - **rounded**: none, xs, md, full (기본값: full)
- * - **Tabler 아이콘** 지원 (왼쪽/오른쪽)
+ * ## Props
+ *
+ * | Prop | Type |
+ * |------|------|
+ * | `label` | `string` |
+ * | `variant` | `solid` \| `outline` \| `soft` |
+ * | `color` | `primary` \| `green` \| `red` \| `yellow` \| `muted` \| `neutral-emphasis` \| `neutral-disabled` |
+ * | `rounded` | `none` \| `xs` \| `md` \| `full` |
+ * | `leftIcon` | `IconType` |
+ * | `rightIcon` | `IconType` |
  *
  * ## 사용 예시
+ *
  * ```tsx
+ * import { Badge } from '@bemily/design-system';
+ *
+ * // 기본 사용
  * <Badge label="텍스트" color="primary" variant="solid" />
+ *
+ * // 다양한 스타일
  * <Badge label="성공" color="green" variant="soft" />
  * <Badge label="에러" color="red" variant="outline" />
+ *
+ * // 아이콘 포함
  * <Badge label="알림" color="primary" leftIcon="Bell" />
+ * <Badge label="다운로드" color="green" rightIcon="Download" />
  * ```
  */
 const meta = {
@@ -92,7 +104,7 @@ type Story = StoryObj<typeof meta>;
 export const Primary: Story = {};
 
 /**
- * 모든 색상 조합 (Grid)
+ * 모든 색상 조합
  */
 export const AllColorCombinations: Story = {
   render: () => (
@@ -131,7 +143,7 @@ export const AllColorCombinations: Story = {
 };
 
 /**
- * Rounded (모서리 둥글기)
+ * Rounded
  */
 export const Rounded: Story = {
   render: () => (

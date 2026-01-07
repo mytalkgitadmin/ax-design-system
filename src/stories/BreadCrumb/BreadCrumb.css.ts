@@ -22,6 +22,7 @@ export const breadCrumbContainer = style({
   fontSize: toRem(typography.fontSize[14]),
   listStyle: 'none',
   gap: toRem(spacing[4]),
+  padding: 0,
 });
 
 // BreadCrumb 아이템 기본 스타일
