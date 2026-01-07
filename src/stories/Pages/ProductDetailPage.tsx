@@ -7,6 +7,8 @@ import { Badge } from '../Badge';
 import { BreadCrumb } from '../BreadCrumb';
 import { Button } from '../Button';
 import { CheckboxGroup } from '../Checkbox/CheckboxGroup';
+import { Flex } from '../Flex';
+import { Grid } from '../Grid';
 import { Icon } from '../Icon';
 import { Input } from '../Input';
 import { RadioGroup } from '../Radio/RadioGroup';
@@ -17,7 +19,7 @@ import { Text } from '../Text';
 import { Textarea } from '../Textarea';
 import { Thumbnail } from '../Thumbnail';
 
-import { gap, py } from '../../tokens/dev/utils/spacing.global.css';
+import { py } from '../../tokens/dev/utils/spacing.global.css';
 
 /**
  * 실제 상품 상세 페이지와 유사한 레이아웃으로 디자인 시스템 컴포넌트들을 테스트합니다.
@@ -56,7 +58,8 @@ export const ProductDetailPage = () => {
   };
 
   return (
-    <div
+    <Flex
+      direction='column'
       style={{
         maxWidth: '1200px',
         width: 'calc(100% - 40px)',
@@ -75,39 +78,24 @@ export const ProductDetailPage = () => {
         ]}
       />
 
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '68fr 48fr',
-          gap: '40px',
-        }}
-      >
+      <Grid columns='68fr 48fr' gap='32'>
         {/* 왼쪽: 상품 이미지 영역 */}
-        <div>
+        <Flex direction='column' gap='12'>
           <Thumbnail />
 
           {/* 썸네일 이미지 */}
-          <div style={{ display: 'flex', gap: '12px', marginTop: '12px' }}>
+          <Flex gap='12'>
             {[1, 2, 3, 4].map((i) => (
               <Thumbnail key={i} width={56} />
             ))}
-          </div>
-        </div>
+          </Flex>
+        </Flex>
 
         {/* 오른쪽: 상품 정보 및 구매 영역 */}
 
-        <div>
-          <div
-            style={{ display: 'flex', flexDirection: 'column' }}
-            className={`${gap[12]}`}
-          >
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: `${toRem(spacing[8])}`,
-              }}
-            >
+        <Flex direction='column'>
+          <Flex direction='column' gap='12'>
+            <Flex align='center' gap='8'>
               <Badge
                 label='이달의 베스트 3위'
                 leftIcon='Heart'
@@ -115,18 +103,10 @@ export const ProductDetailPage = () => {
               />
               <Badge label='무료배송' variant='soft' color='green' />
               <Badge label='특가' color='muted' />
-            </div>
+            </Flex>
 
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-              }}
-            >
-              <div
-                style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
-              >
+            <Flex align='center' justify='between'>
+              <Flex align='center' gap='8'>
                 <Thumbnail
                   width={16}
                   src='https://mockmind-api.uifaces.co/content/human/222.jpg'
@@ -134,11 +114,9 @@ export const ProductDetailPage = () => {
                 />
                 <Text preset='subTitle3'>Artist</Text>
                 <Icon name='ChevronRight' size={12} />
-              </div>
+              </Flex>
 
-              <div
-                style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
-              >
+              <Flex align='center' gap='8'>
                 <Button
                   size='xs'
                   label='0'
@@ -151,8 +129,8 @@ export const ProductDetailPage = () => {
                   leftIcon='Share'
                   color='secondary'
                 />
-              </div>
-            </div>
+              </Flex>
+            </Flex>
 
             <Text preset='title3'>
               [노베라 단독 특전] 아일릿(ILLIT)_03.스티커팩 _ILLIT 3rd MINI ALBUM
@@ -167,7 +145,7 @@ export const ProductDetailPage = () => {
                 9,999,999원
               </Text>
             </div>
-            <div style={{ display: 'flex' }} className={`${gap[8]}`}>
+            <Flex gap='8'>
               {/* 할인률 */}
               <Text preset='title4' as='p' color={color.text.negative}>
                 10%
@@ -180,29 +158,28 @@ export const ProductDetailPage = () => {
                   원
                 </Text>
               </Text>
-            </div>
-          </div>
-          <div
+            </Flex>
+          </Flex>
+          <Flex
+            align='center'
+            justify='between'
             style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
               backgroundColor: color.bg.subtle,
               padding: `${toRem(spacing[16])} ${toRem(spacing[24])}`,
               borderRadius: rounded.sm,
               margin: `${toRem(spacing[24])} 0`,
             }}
           >
-            <div>
+            <Flex direction='column'>
               <Text preset='subTitle3' color={color.text.secondary}>
                 [노베라 단독 특전] 아일릿(ILLIT) 20% 할인 쿠폰
               </Text>
               <Text preset='caption1' color={color.text.secondary}>
                 쿠폰 사용 시 100,000원
               </Text>
-            </div>
+            </Flex>
             <Button label='쿠폰받기' color='secondary' size='sm' />
-          </div>
+          </Flex>
 
           <Select
             text='옵션을 선택해 주세요'
@@ -232,7 +209,8 @@ export const ProductDetailPage = () => {
           />
           {/* 수량 선택 */}
 
-          <div
+          <Flex
+            direction='column'
             style={{
               backgroundColor: color.bg.subtle,
               padding: `${toRem(spacing[16])} ${toRem(spacing[24])}`,
@@ -244,18 +222,8 @@ export const ProductDetailPage = () => {
               상품 금액
             </Text>
             {/*  handleDecrease */}
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                // borderTop: `1px solid ${color.divider.default}`,
-              }}
-              className={py[24]}
-            >
-              <div
-                style={{ display: 'flex', gap: '8px', alignItems: 'center' }}
-              >
+            <Flex justify='between' align='center' className={py[24]}>
+              <Flex gap='8' align='center'>
                 <Button
                   icon='Minus'
                   label='감소'
@@ -284,7 +252,7 @@ export const ProductDetailPage = () => {
                   size='md'
                   onClick={handleIncrease}
                 />
-              </div>
+              </Flex>
 
               <Text
                 preset='body1'
@@ -294,8 +262,8 @@ export const ProductDetailPage = () => {
               >
                 {(price * quantity).toLocaleString()}원
               </Text>
-            </div>
-          </div>
+            </Flex>
+          </Flex>
           {/* 아코디언 */}
           <Text preset='label1' as='p' className={py[16]}>
             상품정보
@@ -309,11 +277,10 @@ export const ProductDetailPage = () => {
             배송
           </Text>
           {/* 총 상품 금액 */}
-          <div
+          <Flex
+            justify='between'
+            align='center'
             style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
               borderTop: `1px solid ${color.divider.default}`,
             }}
             className={py[24]}
@@ -326,15 +293,9 @@ export const ProductDetailPage = () => {
               {(price * quantity).toLocaleString()}
               <Text as='span'>원</Text>
             </Text>
-          </div>
+          </Flex>
           {/* 구매 버튼 */}
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: '56px auto',
-            }}
-            className={gap[12]}
-          >
+          <Grid columns='2' gap='12'>
             <Button size='lg' color='secondary' label='장바구니' icon='Bag' />
             <Button
               variant='solid'
@@ -343,8 +304,8 @@ export const ProductDetailPage = () => {
               label='구매하기'
               full
             />
-          </div>
-        </div>
+          </Grid>
+        </Flex>
 
         <div>
           <Tabs
@@ -401,7 +362,7 @@ export const ProductDetailPage = () => {
             ]}
           />
 
-          <div style={{ display: 'flex', gap: '4px', margin: '40px 0' }}>
+          <Flex gap='4' style={{ margin: '40px 0' }}>
             <Input
               size='lg'
               placeholder='검색어를 입력하세요'
@@ -415,8 +376,8 @@ export const ProductDetailPage = () => {
               icon='Search'
               label='검색'
             />
-          </div>
-          <div style={{ display: 'grid', gap: '4px', margin: '40px 0' }}>
+          </Flex>
+          <Flex direction='column' gap='4' style={{ margin: '40px 0' }}>
             <Textarea label='자기소개' maxLength={100} showCharacterCount />
             <Button
               variant='solid'
@@ -425,10 +386,10 @@ export const ProductDetailPage = () => {
               label='입력'
               full
             />
-          </div>
+          </Flex>
 
           {/* 배송 옵션 선택 */}
-          <div
+          <Flex
             style={{
               padding: '24px',
               border: `1px solid ${color.border.default}`,
@@ -460,10 +421,10 @@ export const ProductDetailPage = () => {
                 },
               ]}
             />
-          </div>
+          </Flex>
 
           {/* 구매 전 필수 약관 동의 */}
-          <div
+          <Flex
             style={{
               padding: '24px',
               border: `1px solid ${color.border.default}`,
@@ -496,10 +457,9 @@ export const ProductDetailPage = () => {
                 },
               ]}
             />
-          </div>
+          </Flex>
         </div>
-        <div></div>
-      </div>
-    </div>
+      </Grid>
+    </Flex>
   );
 };
