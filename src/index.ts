@@ -12,6 +12,8 @@ export type {
   CheckboxOption,
   CheckboxProps,
 } from './stories/Checkbox/types';
+export type { FlexProps } from './stories/Flex';
+export { Flex } from './stories/Flex';
 export { Icon } from './stories/Icon';
 export type { IconProps, IconType } from './stories/Icon/types';
 export { Radio } from './stories/Radio';
