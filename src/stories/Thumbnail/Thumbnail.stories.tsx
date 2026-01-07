@@ -16,6 +16,8 @@ import type { Meta, StoryObj } from '@storybook/react';
  * | `color` | `brand` \| `gray` |
  * | `ratio` | `1` \| `16:9` \| `1.618:1` |
  * | `rounded` | `none` \| `xs` \| `sm` \| `md` \| `lg` \| `xl` \| `full` |
+ * | `style` | `React.CSSProperties` |
+ * | `className` | `string` |
  *
  * ## 사용 예시
  *
