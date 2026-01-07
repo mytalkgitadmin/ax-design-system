@@ -31,6 +31,8 @@ export type {
 } from './stories/Radio/types';
 export { Select } from './stories/Select';
 export type { SelectOption, SelectProps } from './stories/Select/types';
+export type { StepperProps } from './stories/Stepper';
+export { Stepper } from './stories/Stepper';
 export type { TableColumn, TableProps, TableRow } from './stories/Table';
 export { Table } from './stories/Table';
 export { Text } from './stories/Text';

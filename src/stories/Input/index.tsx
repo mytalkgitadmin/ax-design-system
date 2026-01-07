@@ -148,7 +148,10 @@ export const Input = ({
 
       {/* Input Container */}
       <div
-        className={inputContainerStyle({ error: error || status === 'error' })}
+        className={inputContainerStyle({
+          size: finalSize,
+          error: error || status === 'error',
+        })}
       >
         {/* left Icon */}
         {leftIcon && (

@@ -28,6 +28,8 @@ export const Button = ({
   as,
   href,
   target,
+  style,
+  className,
 }: ButtonProps) => {
   const { global, components } = useTheme();
   const buttonTheme = components.Button;
@@ -89,8 +91,8 @@ export const Button = ({
       leftIcon: !!leftIcon,
       rightIcon: !!rightIcon,
       icon: !!icon,
-    })}`,
-    style: { ...vars },
+    })}${className ? ` ${className}` : ''}`,
+    style: { ...vars, ...style },
     disabled: disabled,
   };
 
