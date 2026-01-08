@@ -122,7 +122,7 @@ export const color = {
     muted: '#f4f6fb',
     disabled: '#e3e6ee',
     inverse: '#2f3744',
-    gray: '#edf0f5',
+    gray: '#f4f6fb',
     grayStrong: '#e3e6ee',
     grayStrongest: '#c5c9d3',
     mask: '#00000066',
@@ -203,6 +203,7 @@ export const number = {
   '1': 1,
   '2': 2,
   '4': 4,
+  '6': 6,
   '8': 8,
   '10': 10,
   '12': 12,
@@ -227,12 +228,23 @@ export const number = {
 
 export const rounded = {
   none: 0,
-  xs: 4,
+  xs: 6,
   sm: 8,
   md: 12,
   full: 999,
   lg: 16,
   xl: 24,
+  xxs: 4,
+};
+
+export const shadow = {
+  subtle: '0px 0px 1px 0px #171c2414, 0px 1px 2px 0px #171c241f',
+  default:
+    '0px 0px 1px 0px #171c2414, 0px 1px 4px 0px #171c2414, 0px 2px 8px 0px #171c241f',
+  raised:
+    '0px 0px 4px 0px #171c2414, 0px 4px 8px 0px #171c2414, 0px 6px 12px 0px #171c241f',
+  overlay:
+    '0px 0px 24px 0px #171c241f, 0px 4px 8px 0px #171c2414, 0px 6px 12px 0px #171c241f',
 };
 
 export const zIndex = {

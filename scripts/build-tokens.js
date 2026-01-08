@@ -53,7 +53,23 @@ function separatePrimitives(primitiveTokens) {
     number: primitiveTokens.number
       ? processTokens(primitiveTokens.number.unit)
       : {},
+    shadow: primitiveTokens.Semantic?.Shadow
+      ? lowercaseKeys(processTokens(primitiveTokens.Semantic.Shadow))
+      : {},
   };
+}
+
+/**
+ * 객체의 키를 소문자로 변환
+ * @param {Object} obj
+ * @returns {Object}
+ */
+function lowercaseKeys(obj) {
+  const result = {};
+  Object.keys(obj).forEach((key) => {
+    result[key.toLowerCase()] = obj[key];
+  });
+  return result;
 }
 
 /**
@@ -140,6 +156,11 @@ function savePrimitiveTokens(primitives, outputDir) {
       category: TOKEN_CATEGORIES.NUMBER,
       fileName: OUTPUT_FILES.PRIMITIVES.NUMBER,
       data: primitives.number,
+    },
+    {
+      category: TOKEN_CATEGORIES.SHADOW,
+      fileName: OUTPUT_FILES.PRIMITIVES.SHADOW,
+      data: primitives.shadow,
     },
   ];
 

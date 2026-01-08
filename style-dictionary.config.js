@@ -6,8 +6,14 @@
  * - CSS: Tailwind 스타일의 CSS 변수로 export
  */
 
-const { roundedToBorderRadius, tailwindNaming } = require('./scripts/style-dictionary/transforms');
-const { typescriptNestedObject } = require('./scripts/style-dictionary/formats');
+const {
+  roundedToBorderRadius,
+  tailwindNaming,
+  shadowToCss,
+} = require('./scripts/style-dictionary/transforms');
+const {
+  typescriptNestedObject,
+} = require('./scripts/style-dictionary/formats');
 
 module.exports = {
   // 토큰 소스 파일
@@ -23,6 +29,7 @@ module.exports = {
     transforms: {
       'attribute/rounded-to-border-radius': roundedToBorderRadius,
       'name/css/tailwind': tailwindNaming,
+      'value/shadow-to-css': shadowToCss,
     },
     formats: {
       'typescript/nested-object': typescriptNestedObject,
@@ -33,7 +40,12 @@ module.exports = {
   platforms: {
     // TypeScript 파일 생성
     ts: {
-      transformGroup: 'js',
+      transforms: [
+        'attribute/cti',
+        'size/rem',
+        'color/hex',
+        'value/shadow-to-css',
+      ],
       buildPath: 'src/tokens/',
       files: [
         {
@@ -53,6 +65,7 @@ module.exports = {
         'html/icon',
         'size/rem',
         'color/css',
+        'value/shadow-to-css',
       ],
       buildPath: 'src/tokens/',
       files: [

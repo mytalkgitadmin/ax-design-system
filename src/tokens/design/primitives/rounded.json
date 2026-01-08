@@ -5,7 +5,7 @@
       "type": "number"
     },
     "xs": {
-      "value": "{number.4}",
+      "value": "{number.6}",
       "type": "number"
     },
     "sm": {
@@ -26,6 +26,10 @@
     },
     "xl": {
       "value": "{number.24}",
+      "type": "number"
+    },
+    "xxs": {
+      "value": "{number.4}",
       "type": "number"
     }
   }
