@@ -3,6 +3,13 @@ import './tokens/variables.css';
 import './styles/globals.css';
 
 // 컴포넌트 export
+export type { AccordionItemData, AccordionProps } from './stories/Accordion';
+export {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from './stories/Accordion';
 export type { BadgeProps } from './stories/Badge';
 export { Badge } from './stories/Badge';
 export type { BreadCrumbItem, BreadCrumbProps } from './stories/BreadCrumb';

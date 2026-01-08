@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useTheme } from '../../theme';
 import { color, rounded, spacing } from '../../tokens';
 import { toRem } from '../../tokens/dev/helpers/units';
+import { Accordion } from '../Accordion';
 import { Badge } from '../Badge';
 import { BreadCrumb } from '../BreadCrumb';
 import { Button } from '../Button';
@@ -171,7 +172,6 @@ export const ProductDetailPage = () => {
             </Flex>
             <Button label='쿠폰받기' color='secondary' size='sm' />
           </Flex>
-
           <Select
             text='옵션을 선택해 주세요'
             options={[
@@ -199,7 +199,6 @@ export const ProductDetailPage = () => {
             ]}
           />
           {/* 수량 선택 */}
-
           <Flex
             direction='column'
             style={{
@@ -232,17 +231,25 @@ export const ProductDetailPage = () => {
             </Flex>
           </Flex>
           {/* 아코디언 */}
-          <Text preset='label1' as='p' className={py[16]}>
-            상품정보
-          </Text>
-          <Text
-            preset='label1'
-            as='p'
-            style={{ borderTop: `1px solid ${color.divider.default}` }}
-            className={py[16]}
-          >
-            배송
-          </Text>
+          <Accordion
+            type='multiple'
+            size='lg'
+            items={[
+              {
+                value: '1',
+                category: '상품정보',
+                content: '상품정보 내용',
+              },
+
+              {
+                value: '2',
+                category: '배송',
+                content: '배송 내용',
+              },
+            ]}
+            defaultValue='shipping'
+          />
+
           {/* 총 상품 금액 */}
           <Flex
             justify='between'
