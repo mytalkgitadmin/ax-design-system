@@ -23,7 +23,7 @@ import type { Meta, StoryObj } from '@storybook/react';
  * | `size` | `xs` \| `sm` \| `md` \| `lg` \| `xl` |
  * | `type` | `text` \| `password` \| `email` \| `tel` \| `number` |
  * | `color` | `primary` \| `secondary` \| `string` (hex/rgb) |
- * | `rounded` | `none` \| `xs` \| `sm` \| `md` \| `lg` \| `xl` \| `full` |
+ * | `rounded` | `none` \| `xs` \| `sm` \| `md` \| `lg` \| `xl` |
  * | `full` | `boolean` |
  * | `disabled` | `boolean` |
  * | `required` | `boolean` |
@@ -342,11 +342,6 @@ export const Rounded: Story = {
       <Input label='MD (12px)' rounded='md' placeholder='중간 둥글기' />
       <Input label='LG (16px)' rounded='lg' placeholder='큰 둥글기' />
       <Input label='XL (24px)' rounded='xl' placeholder='아주 큰 둥글기' />
-      <Input
-        label='Full (999px)'
-        rounded='full'
-        placeholder='완전히 둥근 모서리'
-      />
     </div>
   ),
 };

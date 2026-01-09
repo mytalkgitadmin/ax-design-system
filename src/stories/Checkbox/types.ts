@@ -1,6 +1,7 @@
 // Checkbox types
+import { ComponentSize } from '../../types/component';
 
-export type CheckboxSize = 'md' | 'lg';
+export type CheckboxSize = Extract<ComponentSize, 'md' | 'lg'>;
 export type CheckboxLabelPlacement = 'start' | 'end';
 
 export type CheckboxProps = {

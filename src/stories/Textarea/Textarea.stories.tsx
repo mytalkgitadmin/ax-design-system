@@ -20,7 +20,7 @@ import type { Meta, StoryObj } from '@storybook/react';
  * | `label` | `string` (required) |
  * | `size` | `xs` \| `sm` \| `md` \| `lg` \| `xl` |
  * | `color` | `primary` \| `secondary` \| `string` (hex/rgb) |
- * | `rounded` | `none` \| `xs` \| `sm` \| `md` \| `lg` \| `xl` \| `full` |
+ * | `rounded` | `none` \| `xs` \| `sm` \| `md` \| `lg` \| `xl` |
  * | `full` | `boolean` |
  * | `disabled` | `boolean` |
  * | `required` | `boolean` |

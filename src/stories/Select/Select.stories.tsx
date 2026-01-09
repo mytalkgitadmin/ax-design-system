@@ -23,7 +23,7 @@ import type { Meta, StoryObj } from '@storybook/react';
  * | `label` | `string` |
  * | `size` | `xs` \| `sm` \| `md` \| `lg` \| `xl` |
  * | `color` | `primary` \| `secondary` \| `string` (hex/rgb) |
- * | `rounded` | `none` \| `xs` \| `sm` \| `md` \| `lg` \| `xl` \| `full` |
+ * | `rounded` | `none` \| `xs` \| `sm` \| `md` \| `lg` \| `xl` |
  * | `full` | `boolean` |
  * | `disabled` | `boolean` |
  * | `required` | `boolean` |
@@ -404,12 +404,6 @@ export const Rounded: Story = {
         label='XL (24px)'
         rounded='xl'
         text='아주 큰 둥글기'
-        options={productOptions}
-      />
-      <Select
-        label='Full (999px)'
-        rounded='full'
-        text='완전히 둥근 모서리'
         options={productOptions}
       />
     </div>

@@ -1,7 +1,7 @@
 import { createVar, keyframes, style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
-import { color, componentSize, spacing, zIndex } from '../../tokens';
+import { color, componentSize, shadow, spacing, zIndex } from '../../tokens';
 import { toRem } from '../../tokens/dev/helpers/units';
 
 /**
@@ -257,7 +257,7 @@ const baseDropdown = style({
   backgroundColor: bgColorVar,
   borderRadius: borderRadiusVar,
   border: `1px solid ${borderColorVar}`,
-  boxShadow: `0 4px 12px ${color.alpha.black16}`,
+  boxShadow: shadow.raised,
 });
 
 export const dropdownStyle = recipe({

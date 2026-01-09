@@ -46,6 +46,7 @@ export { Text } from './stories/Text';
 export type { ThumbnailProps } from './stories/Thumbnail';
 export { Thumbnail } from './stories/Thumbnail';
 export type { TextProps } from './tokens/dev/helpers/typography';
+export * from './types/component';
 
 // 토큰 export
 export { color, font, number, spacing, theme } from './tokens';
