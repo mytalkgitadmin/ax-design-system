@@ -11,11 +11,11 @@ import type { Meta, StoryObj } from '@storybook/react';
  * - 실제 사용 케이스에서의 동작 검증
  *
  * ## 페이지 종류
- * - **ProductDetail**: 상품 상세 페이지 (e-커머스)
+ * - **ProductDetail**: 상품 상세 페이지 (e-커머스 사용 예제)
  * - 추후 추가 예정: 로그인, 대시보드, 설정 페이지 등
  */
 const meta = {
-  title: 'Pages/Examples',
+  title: 'Examples/E-commerce',
   parameters: {
     layout: 'fullscreen',
   },
