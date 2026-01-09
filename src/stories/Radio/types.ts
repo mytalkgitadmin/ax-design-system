@@ -1,6 +1,7 @@
 // Radio types
+import { ComponentSize } from '../../types/component';
 
-export type RadioSize = 'md' | 'lg';
+export type RadioSize = Extract<ComponentSize, 'md' | 'lg'>;
 export type RadioLabelPlacement = 'start' | 'end';
 
 export type RadioProps = {
