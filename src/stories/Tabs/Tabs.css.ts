@@ -67,7 +67,9 @@ export const tabsContainerStyle = recipe({
         justifyContent: 'space-between',
 
         '& > button': {
+          flexBasis: 0,
           flexGrow: 1,
+          padding: 0,
         },
       },
       around: { justifyContent: 'space-around' },
