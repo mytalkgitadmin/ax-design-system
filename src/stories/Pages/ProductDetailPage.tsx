@@ -7,6 +7,7 @@ import { Accordion } from '../Accordion';
 import { Badge } from '../Badge';
 import { BreadCrumb } from '../BreadCrumb';
 import { Button } from '../Button';
+import { Carousel } from '../Carousel';
 import { CheckboxGroup } from '../Checkbox/CheckboxGroup';
 import { Flex } from '../Flex';
 import { Grid } from '../Grid';
@@ -72,16 +73,81 @@ export const ProductDetailPage = () => {
 
       <Grid columns='68fr 48fr' gap='32'>
         {/* 왼쪽: 상품 이미지 영역 */}
-        <Flex direction='column' gap='12'>
-          <Thumbnail />
-
-          {/* 썸네일 이미지 */}
-          <Flex gap='12'>
-            {[1, 2, 3, 4].map((i) => (
-              <Thumbnail key={i} width={56} />
-            ))}
-          </Flex>
-        </Flex>
+        <Carousel
+          items={[
+            {
+              id: '1',
+              src: 'https://picsum.photos/seed/carousel1/800/450',
+              alt: '샘플 이미지 1',
+              thumbnail: 'https://picsum.photos/seed/carousel1/100/100',
+              content: <div>슬라이드 1 - 아름다운 풍경</div>,
+            },
+            {
+              id: '2',
+              src: 'https://picsum.photos/seed/carousel2/800/450',
+              alt: '샘플 이미지 2',
+              thumbnail: 'https://picsum.photos/seed/carousel2/100/100',
+              content: <div>슬라이드 2 - 멋진 장면</div>,
+            },
+            {
+              id: '3',
+              src: 'https://picsum.photos/seed/carousel3/800/450',
+              alt: '샘플 이미지 3',
+              thumbnail: 'https://picsum.photos/seed/carousel3/100/100',
+              content: <div>슬라이드 3 - 환상적인 뷰</div>,
+            },
+            {
+              id: '4',
+              src: 'https://picsum.photos/seed/carousel4/800/450',
+              alt: '샘플 이미지 4',
+              thumbnail: 'https://picsum.photos/seed/carousel4/100/100',
+              content: <div>슬라이드 4 - 놀라운 순간</div>,
+            },
+            {
+              id: '5',
+              src: 'https://picsum.photos/seed/carousel5/800/450',
+              alt: '샘플 이미지 5',
+              thumbnail: 'https://picsum.photos/seed/carousel5/100/100',
+              content: <div>슬라이드 5 - 특별한 기억</div>,
+            },
+            {
+              id: '6',
+              src: 'https://picsum.photos/seed/carousel1/800/450',
+              alt: '샘플 이미지 1',
+              thumbnail: 'https://picsum.photos/seed/carousel1/100/100',
+              content: <div>슬라이드 1 - 아름다운 풍경</div>,
+            },
+            {
+              id: '7',
+              src: 'https://picsum.photos/seed/carousel2/800/450',
+              alt: '샘플 이미지 2',
+              thumbnail: 'https://picsum.photos/seed/carousel2/100/100',
+              content: <div>슬라이드 2 - 멋진 장면</div>,
+            },
+            {
+              id: '8',
+              src: 'https://picsum.photos/seed/carousel3/800/450',
+              alt: '샘플 이미지 3',
+              thumbnail: 'https://picsum.photos/seed/carousel3/100/100',
+              content: <div>슬라이드 3 - 환상적인 뷰</div>,
+            },
+            {
+              id: '9',
+              src: 'https://picsum.photos/seed/carousel4/800/450',
+              alt: '샘플 이미지 4',
+              thumbnail: 'https://picsum.photos/seed/carousel4/100/100',
+              content: <div>슬라이드 4 - 놀라운 순간</div>,
+            },
+            {
+              id: '10',
+              src: 'https://picsum.photos/seed/carousel5/800/450',
+              alt: '샘플 이미지 5',
+              thumbnail: 'https://picsum.photos/seed/carousel5/100/100',
+              content: <div>슬라이드 5 - 특별한 기억</div>,
+            },
+          ]}
+          spaceBetween={[24, 8]}
+        />
 
         {/* 오른쪽: 상품 정보 및 구매 영역 */}
 

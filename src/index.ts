@@ -16,6 +16,8 @@ export type { BreadCrumbItem, BreadCrumbProps } from './stories/BreadCrumb';
 export { BreadCrumb } from './stories/BreadCrumb';
 export type { ButtonProps } from './stories/Button';
 export { Button } from './stories/Button';
+export type { CarouselItem, CarouselProps } from './stories/Carousel';
+export { Carousel } from './stories/Carousel';
 export { Checkbox } from './stories/Checkbox';
 export { CheckboxGroup } from './stories/Checkbox/CheckboxGroup';
 export type {
