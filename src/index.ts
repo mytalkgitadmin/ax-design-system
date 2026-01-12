@@ -10,6 +10,10 @@ export {
   AccordionItem,
   AccordionTrigger,
 } from './stories/Accordion';
+export type { AvatarProps } from './stories/Avatar';
+export { Avatar } from './stories/Avatar';
+export type { AvatarGroupProps } from './stories/Avatar/AvatarGroup';
+export { AvatarGroup } from './stories/Avatar/AvatarGroup';
 export type { BadgeProps } from './stories/Badge';
 export { Badge } from './stories/Badge';
 export type { BreadCrumbItem, BreadCrumbProps } from './stories/BreadCrumb';
