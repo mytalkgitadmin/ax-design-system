@@ -1,35 +1,31 @@
 import { style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
-import { color, componentSize, font, rounded } from '../../tokens';
+import { color, font, rounded } from '../../tokens';
 import { toRem } from '../../tokens/dev/helpers/units';
 
-// Avatar 크기 정의 - componentSize 토큰 사용
+// Avatar 크기 정의 (디자이너 스펙)
+// xs: 20px, sm: 24px, md: 32px, lg: 48px
 export const avatarSizes = {
   xs: {
-    size: componentSize.xs.height,
-    fontSize: componentSize.xs.fontSize,
-    iconSize: componentSize.xs.iconSize,
+    size: '20',
+    fontSize: '10',
+    iconSize: '10',
   },
   sm: {
-    size: componentSize.sm.height,
-    fontSize: componentSize.sm.fontSize,
-    iconSize: componentSize.sm.iconSize,
+    size: '24',
+    fontSize: '12',
+    iconSize: '12',
   },
   md: {
-    size: componentSize.md.height,
-    fontSize: componentSize.md.fontSize,
-    iconSize: componentSize.md.iconSize,
+    size: '32',
+    fontSize: '14',
+    iconSize: '16',
   },
   lg: {
-    size: componentSize.lg.height,
-    fontSize: componentSize.lg.fontSize,
-    iconSize: componentSize.lg.iconSize,
-  },
-  xl: {
-    size: componentSize.xl.height,
-    fontSize: componentSize.xl.fontSize,
-    iconSize: componentSize.xl.iconSize,
+    size: '48',
+    fontSize: '18',
+    iconSize: '24',
   },
 };
 
@@ -47,16 +43,15 @@ const baseAvatar = style({
   boxSizing: 'border-box', // border/box-shadow를 크기에 포함
   lineHeight: 0, // inline-flex의 line-height 영향 제거
   verticalAlign: 'middle',
+
+  ':hover': {
+    transform: 'scale(1.1)',
+  },
 });
 
 // Interactive 스타일 (클릭 가능한 경우)
 export const interactiveAvatar = style({
   cursor: 'pointer',
-
-  ':hover': {
-    opacity: 0.8,
-    transform: 'scale(1.05)',
-  },
 
   ':active': {
     transform: 'scale(0.95)',
@@ -68,7 +63,7 @@ export const avatarImageStyle = style({
   width: '100%',
   height: '100%',
   objectFit: 'cover',
-  borderRadius: toRem(rounded.full),
+  borderRadius: 'inherit',
   boxSizing: 'border-box', // border를 크기에 포함
 });
 
@@ -98,11 +93,6 @@ export const avatarStyle = recipe({
         width: toRem(avatarSizes.lg.size),
         height: toRem(avatarSizes.lg.size),
         fontSize: toRem(avatarSizes.lg.fontSize),
-      },
-      xl: {
-        width: toRem(avatarSizes.xl.size),
-        height: toRem(avatarSizes.xl.size),
-        fontSize: toRem(avatarSizes.xl.fontSize),
       },
     },
 
@@ -186,7 +176,7 @@ export const avatarStyle = recipe({
             left: 0,
             width: '100%',
             height: '100%',
-            borderRadius: toRem(rounded.full),
+            borderRadius: 'inherit',
             boxShadow: `inset 0 0 0 1px ${color.border.thumbnail}`,
           },
         },

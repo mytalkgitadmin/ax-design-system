@@ -13,6 +13,9 @@ import {
 
 export type { AvatarGroupProps } from './types';
 
+import { rounded as roundedTokens } from '../../tokens';
+import { toRem } from '../../tokens/dev/helpers/units';
+
 export const AvatarGroup = ({
   avatars,
   max = 3,
@@ -32,6 +35,7 @@ export const AvatarGroup = ({
     height: `${avatarSize.size}px`,
     fontSize: `${avatarSize.fontSize}px`,
     border: `${borderWidth}px solid ${borderColor}`,
+    borderRadius: toRem(roundedTokens[rounded]),
   };
 
   // spacing이 제공된 경우 커스텀 스타일 적용
@@ -65,10 +69,14 @@ export const AvatarGroup = ({
             className={avatarGroupItem}
             style={{
               ...(index > 0 ? itemStyle : undefined),
-              ...shadowStyle,
             }}
           >
-            <Avatar {...avatarProps} size={size} rounded={rounded} />
+            <Avatar
+              {...avatarProps}
+              size={size}
+              rounded={rounded}
+              style={shadowStyle}
+            />
           </div>
         );
       })}
