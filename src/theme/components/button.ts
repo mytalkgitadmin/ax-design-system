@@ -5,11 +5,11 @@
  * 모든 컬러는 global color theme을 참조합니다.
  */
 
-import { rounded } from '../../tokens';
+import { color, rounded } from '../../tokens';
 import { colorTheme } from '../global/color';
 
 export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-export type ButtonVariant = 'solid' | 'outline';
+export type ButtonVariant = 'solid' | 'outline' | 'ghost';
 
 /**
  * 컬러 스킴 정의
@@ -25,6 +25,19 @@ export type ColorScheme = {
   text: string;
 };
 
+/**
+ * Ghost 버튼 컬러 스킴
+ * textDefault, textHover, textActive: 텍스트 색상 상태별
+ * bgHover, bgActive: 배경 색상 (기본은 transparent)
+ */
+export type GhostColorScheme = {
+  textDefault: string;
+  textHover: string;
+  textActive: string;
+  bgHover: string;
+  bgActive: string;
+};
+
 export type ButtonTheme = {
   defaultSize: ButtonSize;
   defaultVariant: ButtonVariant;
@@ -34,6 +47,13 @@ export type ButtonTheme = {
   colorSchemes: {
     primary: ColorScheme;
     secondary: ColorScheme;
+    tertiary: ColorScheme;
+  };
+
+  // Ghost variant 별도 관리
+  ghostSchemes: {
+    primary: GhostColorScheme;
+    secondary: GhostColorScheme;
   };
 };
 
@@ -45,16 +65,40 @@ export const buttonTheme: ButtonTheme = {
 
   colorSchemes: {
     primary: {
-      default: colorTheme.brand.default, // #4f7cff
-      hover: colorTheme.brand.hover, // #355fea (원래 #2747be였는데 일관성을 위해 변경)
-      active: colorTheme.brand.active, // #1a318b
-      text: colorTheme.text.inverse, // #ffffff
+      default: colorTheme.brand.default,
+      hover: colorTheme.brand.stronger,
+      active: colorTheme.brand.strongest,
+      text: colorTheme.text.inverse,
     },
     secondary: {
-      default: colorTheme.bg.gray, // #edf0f5
-      hover: colorTheme.bg.grayStrong, // #e3e6ee
-      active: colorTheme.bg.grayStrongest, // #c5c9d3
-      text: colorTheme.text.secondary, // #697180
+      default: color.bg.darkgray,
+      hover: color.bg.darkgraySoft,
+      active: color.bg.darkgrayStrong,
+      text: color.text.inverse, // #ffffff
+    },
+    tertiary: {
+      default: color.bg.gray,
+      hover: color.bg.grayStrong,
+      active: color.bg.grayStrongest,
+      text: color.text.muted, // outline에서 사용
+    },
+  },
+
+  // Ghost 버튼 색상 설정
+  ghostSchemes: {
+    primary: {
+      textDefault: colorTheme.brand.default,
+      textHover: colorTheme.brand.stronger,
+      textActive: colorTheme.brand.strongest,
+      bgHover: colorTheme.brand.soft, // 매우 연한 브랜드 색
+      bgActive: colorTheme.brand.subtle, // 연한 브랜드 색
+    },
+    secondary: {
+      textDefault: colorTheme.brand.default,
+      textHover: colorTheme.brand.stronger,
+      textActive: colorTheme.brand.strongest,
+      bgHover: color.bg.gray, // 회색 배경
+      bgActive: color.bg.grayStrong, // 진한 회색 배경
     },
   },
 };

@@ -68,6 +68,10 @@ export const Button = ({
   // componentSize 토큰에서 iconSize 가져오기
   const iconSize = Number(componentSize[finalSize].iconSize);
 
+  // Ghost 버튼용 색상 스킴 가져오기
+  const ghostPrimaryScheme = buttonTheme.ghostSchemes.primary;
+  const ghostSecondaryScheme = buttonTheme.ghostSchemes.secondary;
+
   // CSS Variables 주입
   const vars = assignInlineVars({
     [buttonVars.defaultColor]: finalColorScheme.default,
@@ -81,12 +85,25 @@ export const Button = ({
     [buttonVars.disabledTextColor]: global.color.text.disabled,
     [buttonVars.focusShadowColor]: global.color.brand.subtle,
     [buttonVars.focusOutlineColor]: `${global.color.brand.subtle}50`,
+    // Ghost 버튼용 색상 (theme에서 가져옴)
+    [buttonVars.ghostDefaultColor]: ghostPrimaryScheme.textDefault,
+    [buttonVars.ghostHoverColor]: ghostPrimaryScheme.textHover,
+    [buttonVars.ghostActiveColor]: ghostPrimaryScheme.textActive,
+    // Ghost Primary 배경색
+    [buttonVars.ghostPrimaryHoverBg]: ghostPrimaryScheme.bgHover,
+    [buttonVars.ghostPrimaryActiveBg]: ghostPrimaryScheme.bgActive,
+    // Ghost Secondary 배경색
+    [buttonVars.ghostSecondaryHoverBg]: ghostSecondaryScheme.bgHover,
+    [buttonVars.ghostSecondaryActiveBg]: ghostSecondaryScheme.bgActive,
   });
 
   const commonProps = {
     className: `${buttonStyle({
       variant: finalVariant,
       size: finalSize,
+      color: ['primary', 'secondary', 'tertiary'].includes(color)
+        ? (color as 'primary' | 'secondary' | 'tertiary')
+        : undefined,
       full,
       leftIcon: !!leftIcon,
       rightIcon: !!rightIcon,

@@ -19,9 +19,9 @@ import type { Meta, StoryObj } from '@storybook/react';
  * | Prop | Type |
  * |------|------|
  * | `label` | `string` |
- * | `variant` | `solid` \| `outline` |
+ * | `variant` | `solid` \| `outline` \| `ghost` |
  * | `size` | `xs` \| `sm` \| `md` \| `lg` \| `xl` |
- * | `color` | `primary` \| `secondary` \| `string` (hex/rgb) |
+ * | `color` | `primary` \| `secondary` \| `tertiary` \| `string` (hex/rgb) |
  * | `rounded` | `none` \| `xs` \| `sm` \| `md` \| `lg` \| `xl` \| `full` |
  * | `full` | `boolean` |
  * | `disabled` | `boolean` |
@@ -46,7 +46,9 @@ import type { Meta, StoryObj } from '@storybook/react';
  * // 사이즈 및 스타일
  * <Button label="작은 버튼" size="sm" />
  * <Button label="큰 버튼" size="lg" />
+ * <Button label="큰 버튼" size="lg" />
  * <Button label="Outline" variant="outline" />
+ * <Button label="Ghost" variant="ghost" />
  *
  * // 아이콘 포함
  * <Button label="다운로드" leftIcon="Download" />
@@ -74,7 +76,7 @@ const meta = {
     variant: {
       control: 'select',
       options: BUTTON_VARIANTS,
-      description: 'Button variant (solid, outline)',
+      description: 'Button variant (solid, outline, ghost)',
       table: {
         category: 'Appearance',
       },
@@ -225,53 +227,983 @@ export const SemanticColors: Story = {
     >
       <Button variant='solid' size='md' color='primary' label='Primary' />
       <Button variant='solid' size='md' color='secondary' label='Secondary' />
+      <Button variant='solid' size='md' color='tertiary' label='Tertiary' />
       <Button variant='outline' size='md' color='primary' label='Outline' />
+      <Button variant='ghost' size='md' color='primary' label='Ghost' />
     </div>
   ),
 };
 
 /**
- * 버튼 사이즈
+ * Ghost 버튼 - 배경이 투명하고 hover 시 은은한 배경색이 나타납니다.
+ */
+export const Ghost: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+      <Button variant='ghost' color='primary' label='Ghost Primary' />
+      <Button variant='ghost' color='secondary' label='Ghost Secondary' />
+    </div>
+  ),
+};
+
+/**
+ * 버튼 사이즈 - 각 사이즈별로 solid, outline, ghost variant를 보여줍니다.
  */
 export const Sizes: Story = {
   render: () => (
-    <div
-      style={{
-        display: 'grid',
-        gap: '16px',
-        gridTemplateColumns: '40px repeat(3, 1fr)',
-        placeItems: 'center start',
-      }}
-    >
-      <p></p>
-      <p>solid-primary</p>
-      <p>solid-secondary</p>
-      <p>outline-primary</p>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '48px' }}>
+      {/* XS Size */}
+      <div>
+        <h3 style={{ marginBottom: '16px', fontSize: '18px', fontWeight: 600 }}>
+          XS (26px)
+        </h3>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          {/* Solid */}
+          <div>
+            <p style={{ marginBottom: '8px', fontSize: '14px', color: '#888' }}>
+              Solid
+            </p>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+              <Button
+                variant='solid'
+                size='xs'
+                color='primary'
+                label='Primary'
+              />
+              <Button
+                variant='solid'
+                size='xs'
+                color='secondary'
+                label='Secondary'
+              />
+              <Button
+                variant='solid'
+                size='xs'
+                color='tertiary'
+                label='Tertiary'
+              />
+              <Button
+                variant='solid'
+                size='xs'
+                color='primary'
+                label='Icon'
+                leftIcon='Download'
+              />
+              <Button
+                variant='solid'
+                size='xs'
+                color='secondary'
+                label='Icon'
+                leftIcon='Download'
+              />
+              <Button
+                variant='solid'
+                size='xs'
+                color='tertiary'
+                label='Icon'
+                leftIcon='Download'
+              />
+              <Button
+                variant='solid'
+                size='xs'
+                color='primary'
+                label='Button'
+                icon='Search'
+              />
+              <Button
+                variant='solid'
+                size='xs'
+                color='secondary'
+                label='Button'
+                icon='Search'
+              />
+              <Button
+                variant='solid'
+                size='xs'
+                color='tertiary'
+                label='Button'
+                icon='Search'
+              />
+            </div>
+          </div>
+          {/* Outline */}
+          <div>
+            <p style={{ marginBottom: '8px', fontSize: '14px', color: '#888' }}>
+              Outline
+            </p>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+              <Button
+                variant='outline'
+                size='xs'
+                color='primary'
+                label='Primary'
+              />
+              <Button
+                variant='outline'
+                size='xs'
+                color='secondary'
+                label='Secondary'
+              />
+              <Button
+                variant='outline'
+                size='xs'
+                color='tertiary'
+                label='Tertiary'
+              />
+              <Button
+                variant='outline'
+                size='xs'
+                color='primary'
+                label='Icon'
+                leftIcon='Download'
+              />
+              <Button
+                variant='outline'
+                size='xs'
+                color='secondary'
+                label='Icon'
+                leftIcon='Download'
+              />
+              <Button
+                variant='outline'
+                size='xs'
+                color='tertiary'
+                label='Icon'
+                leftIcon='Download'
+              />
+              <Button
+                variant='outline'
+                size='xs'
+                color='primary'
+                label='Button'
+                icon='Search'
+              />
+              <Button
+                variant='outline'
+                size='xs'
+                color='secondary'
+                label='Button'
+                icon='Search'
+              />
+              <Button
+                variant='outline'
+                size='xs'
+                color='tertiary'
+                label='Button'
+                icon='Search'
+              />
+            </div>
+          </div>
+          {/* Ghost */}
+          <div>
+            <p style={{ marginBottom: '8px', fontSize: '14px', color: '#888' }}>
+              Ghost
+            </p>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+              <Button
+                variant='ghost'
+                size='xs'
+                color='primary'
+                label='Primary'
+              />
+              <Button
+                variant='ghost'
+                size='xs'
+                color='secondary'
+                label='Secondary'
+              />
+              <Button
+                variant='ghost'
+                size='xs'
+                color='primary'
+                label='Icon'
+                leftIcon='Download'
+              />
+              <Button
+                variant='ghost'
+                size='xs'
+                color='secondary'
+                label='Icon'
+                leftIcon='Download'
+              />
+              <Button
+                variant='ghost'
+                size='xs'
+                color='primary'
+                label='Button'
+                icon='Search'
+              />
+              <Button
+                variant='ghost'
+                size='xs'
+                color='secondary'
+                label='Button'
+                icon='Search'
+              />
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <p>xs</p>
-      <Button variant='solid' size='xs' color='primary' label='Button' />
-      <Button variant='solid' size='xs' color='secondary' label='Button' />
-      <Button variant='outline' size='xs' color='primary' label='Button' />
+      {/* SM Size */}
+      <div>
+        <h3 style={{ marginBottom: '16px', fontSize: '18px', fontWeight: 600 }}>
+          SM (32px)
+        </h3>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div>
+            <p style={{ marginBottom: '8px', fontSize: '14px', color: '#888' }}>
+              Solid
+            </p>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+              <Button
+                variant='solid'
+                size='sm'
+                color='primary'
+                label='Primary'
+              />
+              <Button
+                variant='solid'
+                size='sm'
+                color='secondary'
+                label='Secondary'
+              />
+              <Button
+                variant='solid'
+                size='sm'
+                color='tertiary'
+                label='Tertiary'
+              />
+              <Button
+                variant='solid'
+                size='sm'
+                color='primary'
+                label='Icon'
+                leftIcon='Download'
+              />
+              <Button
+                variant='solid'
+                size='sm'
+                color='secondary'
+                label='Icon'
+                leftIcon='Download'
+              />
+              <Button
+                variant='solid'
+                size='sm'
+                color='tertiary'
+                label='Icon'
+                leftIcon='Download'
+              />
+              <Button
+                variant='solid'
+                size='sm'
+                color='primary'
+                label='Button'
+                icon='Search'
+              />
+              <Button
+                variant='solid'
+                size='sm'
+                color='secondary'
+                label='Button'
+                icon='Search'
+              />
+              <Button
+                variant='solid'
+                size='sm'
+                color='tertiary'
+                label='Button'
+                icon='Search'
+              />
+            </div>
+          </div>
+          <div>
+            <p style={{ marginBottom: '8px', fontSize: '14px', color: '#888' }}>
+              Outline
+            </p>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+              <Button
+                variant='outline'
+                size='sm'
+                color='primary'
+                label='Primary'
+              />
+              <Button
+                variant='outline'
+                size='sm'
+                color='secondary'
+                label='Secondary'
+              />
+              <Button
+                variant='outline'
+                size='sm'
+                color='tertiary'
+                label='Tertiary'
+              />
+              <Button
+                variant='outline'
+                size='sm'
+                color='primary'
+                label='Icon'
+                leftIcon='Download'
+              />
+              <Button
+                variant='outline'
+                size='sm'
+                color='secondary'
+                label='Icon'
+                leftIcon='Download'
+              />
+              <Button
+                variant='outline'
+                size='sm'
+                color='tertiary'
+                label='Icon'
+                leftIcon='Download'
+              />
+              <Button
+                variant='outline'
+                size='sm'
+                color='primary'
+                label='Button'
+                icon='Search'
+              />
+              <Button
+                variant='outline'
+                size='sm'
+                color='secondary'
+                label='Button'
+                icon='Search'
+              />
+              <Button
+                variant='outline'
+                size='sm'
+                color='tertiary'
+                label='Button'
+                icon='Search'
+              />
+            </div>
+          </div>
+          <div>
+            <p style={{ marginBottom: '8px', fontSize: '14px', color: '#888' }}>
+              Ghost
+            </p>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+              <Button
+                variant='ghost'
+                size='sm'
+                color='primary'
+                label='Primary'
+              />
+              <Button
+                variant='ghost'
+                size='sm'
+                color='secondary'
+                label='Secondary'
+              />
+              <Button
+                variant='ghost'
+                size='sm'
+                color='primary'
+                label='Icon'
+                leftIcon='Download'
+              />
+              <Button
+                variant='ghost'
+                size='sm'
+                color='secondary'
+                label='Icon'
+                leftIcon='Download'
+              />
+              <Button
+                variant='ghost'
+                size='sm'
+                color='primary'
+                label='Button'
+                icon='Search'
+              />
+              <Button
+                variant='ghost'
+                size='sm'
+                color='secondary'
+                label='Button'
+                icon='Search'
+              />
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <p>sm</p>
-      <Button variant='solid' size='sm' color='primary' label='Button' />
-      <Button variant='solid' size='sm' color='secondary' label='Button' />
-      <Button variant='outline' size='sm' color='primary' label='Button' />
+      {/* MD Size */}
+      <div>
+        <h3 style={{ marginBottom: '16px', fontSize: '18px', fontWeight: 600 }}>
+          MD (44px)
+        </h3>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div>
+            <p style={{ marginBottom: '8px', fontSize: '14px', color: '#888' }}>
+              Solid
+            </p>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+              <Button
+                variant='solid'
+                size='md'
+                color='primary'
+                label='Primary'
+              />
+              <Button
+                variant='solid'
+                size='md'
+                color='secondary'
+                label='Secondary'
+              />
+              <Button
+                variant='solid'
+                size='md'
+                color='tertiary'
+                label='Tertiary'
+              />
+              <Button
+                variant='solid'
+                size='md'
+                color='primary'
+                label='Icon'
+                leftIcon='Download'
+              />
+              <Button
+                variant='solid'
+                size='md'
+                color='secondary'
+                label='Icon'
+                leftIcon='Download'
+              />
+              <Button
+                variant='solid'
+                size='md'
+                color='tertiary'
+                label='Icon'
+                leftIcon='Download'
+              />
+              <Button
+                variant='solid'
+                size='md'
+                color='primary'
+                label='Button'
+                icon='Search'
+              />
+              <Button
+                variant='solid'
+                size='md'
+                color='secondary'
+                label='Button'
+                icon='Search'
+              />
+              <Button
+                variant='solid'
+                size='md'
+                color='tertiary'
+                label='Button'
+                icon='Search'
+              />
+            </div>
+          </div>
+          <div>
+            <p style={{ marginBottom: '8px', fontSize: '14px', color: '#888' }}>
+              Outline
+            </p>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+              <Button
+                variant='outline'
+                size='md'
+                color='primary'
+                label='Primary'
+              />
+              <Button
+                variant='outline'
+                size='md'
+                color='secondary'
+                label='Secondary'
+              />
+              <Button
+                variant='outline'
+                size='md'
+                color='tertiary'
+                label='Tertiary'
+              />
+              <Button
+                variant='outline'
+                size='md'
+                color='primary'
+                label='Icon'
+                leftIcon='Download'
+              />
+              <Button
+                variant='outline'
+                size='md'
+                color='secondary'
+                label='Icon'
+                leftIcon='Download'
+              />
+              <Button
+                variant='outline'
+                size='md'
+                color='tertiary'
+                label='Icon'
+                leftIcon='Download'
+              />
+              <Button
+                variant='outline'
+                size='md'
+                color='primary'
+                label='Button'
+                icon='Search'
+              />
+              <Button
+                variant='outline'
+                size='md'
+                color='secondary'
+                label='Button'
+                icon='Search'
+              />
+              <Button
+                variant='outline'
+                size='md'
+                color='tertiary'
+                label='Button'
+                icon='Search'
+              />
+            </div>
+          </div>
+          <div>
+            <p style={{ marginBottom: '8px', fontSize: '14px', color: '#888' }}>
+              Ghost
+            </p>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+              <Button
+                variant='ghost'
+                size='md'
+                color='primary'
+                label='Primary'
+              />
+              <Button
+                variant='ghost'
+                size='md'
+                color='secondary'
+                label='Secondary'
+              />
+              <Button
+                variant='ghost'
+                size='md'
+                color='primary'
+                label='Icon'
+                leftIcon='Download'
+              />
+              <Button
+                variant='ghost'
+                size='md'
+                color='secondary'
+                label='Icon'
+                leftIcon='Download'
+              />
+              <Button
+                variant='ghost'
+                size='md'
+                color='primary'
+                label='Button'
+                icon='Search'
+              />
+              <Button
+                variant='ghost'
+                size='md'
+                color='secondary'
+                label='Button'
+                icon='Search'
+              />
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <p>md</p>
-      <Button variant='solid' size='md' color='primary' label='Button' />
-      <Button variant='solid' size='md' color='secondary' label='Button' />
-      <Button variant='outline' size='md' color='primary' label='Button' />
+      {/* LG Size */}
+      <div>
+        <h3 style={{ marginBottom: '16px', fontSize: '18px', fontWeight: 600 }}>
+          LG (56px)
+        </h3>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div>
+            <p style={{ marginBottom: '8px', fontSize: '14px', color: '#888' }}>
+              Solid
+            </p>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+              <Button
+                variant='solid'
+                size='lg'
+                color='primary'
+                label='Primary'
+              />
+              <Button
+                variant='solid'
+                size='lg'
+                color='secondary'
+                label='Secondary'
+              />
+              <Button
+                variant='solid'
+                size='lg'
+                color='tertiary'
+                label='Tertiary'
+              />
+              <Button
+                variant='solid'
+                size='lg'
+                color='primary'
+                label='Icon'
+                leftIcon='Download'
+              />
+              <Button
+                variant='solid'
+                size='lg'
+                color='secondary'
+                label='Icon'
+                leftIcon='Download'
+              />
+              <Button
+                variant='solid'
+                size='lg'
+                color='tertiary'
+                label='Icon'
+                leftIcon='Download'
+              />
+              <Button
+                variant='solid'
+                size='lg'
+                color='primary'
+                label='Button'
+                icon='Search'
+              />
+              <Button
+                variant='solid'
+                size='lg'
+                color='secondary'
+                label='Button'
+                icon='Search'
+              />
+              <Button
+                variant='solid'
+                size='lg'
+                color='tertiary'
+                label='Button'
+                icon='Search'
+              />
+            </div>
+          </div>
+          <div>
+            <p style={{ marginBottom: '8px', fontSize: '14px', color: '#888' }}>
+              Outline
+            </p>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+              <Button
+                variant='outline'
+                size='lg'
+                color='primary'
+                label='Primary'
+              />
+              <Button
+                variant='outline'
+                size='lg'
+                color='secondary'
+                label='Secondary'
+              />
+              <Button
+                variant='outline'
+                size='lg'
+                color='tertiary'
+                label='Tertiary'
+              />
+              <Button
+                variant='outline'
+                size='lg'
+                color='primary'
+                label='Icon'
+                leftIcon='Download'
+              />
+              <Button
+                variant='outline'
+                size='lg'
+                color='secondary'
+                label='Icon'
+                leftIcon='Download'
+              />
+              <Button
+                variant='outline'
+                size='lg'
+                color='tertiary'
+                label='Icon'
+                leftIcon='Download'
+              />
+              <Button
+                variant='outline'
+                size='lg'
+                color='primary'
+                label='Button'
+                icon='Search'
+              />
+              <Button
+                variant='outline'
+                size='lg'
+                color='secondary'
+                label='Button'
+                icon='Search'
+              />
+              <Button
+                variant='outline'
+                size='lg'
+                color='tertiary'
+                label='Button'
+                icon='Search'
+              />
+            </div>
+          </div>
+          <div>
+            <p style={{ marginBottom: '8px', fontSize: '14px', color: '#888' }}>
+              Ghost
+            </p>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+              <Button
+                variant='ghost'
+                size='lg'
+                color='primary'
+                label='Primary'
+              />
+              <Button
+                variant='ghost'
+                size='lg'
+                color='secondary'
+                label='Secondary'
+              />
+              <Button
+                variant='ghost'
+                size='lg'
+                color='primary'
+                label='Icon'
+                leftIcon='Download'
+              />
+              <Button
+                variant='ghost'
+                size='lg'
+                color='secondary'
+                label='Icon'
+                leftIcon='Download'
+              />
+              <Button
+                variant='ghost'
+                size='lg'
+                color='primary'
+                label='Button'
+                icon='Search'
+              />
+              <Button
+                variant='ghost'
+                size='lg'
+                color='secondary'
+                label='Button'
+                icon='Search'
+              />
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <p>lg</p>
-      <Button variant='solid' size='lg' color='primary' label='Button' />
-      <Button variant='solid' size='lg' color='secondary' label='Button' />
-      <Button variant='outline' size='lg' color='primary' label='Button' />
-
-      <p>xl</p>
-      <Button variant='solid' size='xl' color='primary' label='Button' />
-      <Button variant='solid' size='xl' color='secondary' label='Button' />
-      <Button variant='outline' size='xl' color='primary' label='Button' />
+      {/* XL Size */}
+      <div>
+        <h3 style={{ marginBottom: '16px', fontSize: '18px', fontWeight: 600 }}>
+          XL (64px)
+        </h3>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div>
+            <p style={{ marginBottom: '8px', fontSize: '14px', color: '#888' }}>
+              Solid
+            </p>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+              <Button
+                variant='solid'
+                size='xl'
+                color='primary'
+                label='Primary'
+              />
+              <Button
+                variant='solid'
+                size='xl'
+                color='secondary'
+                label='Secondary'
+              />
+              <Button
+                variant='solid'
+                size='xl'
+                color='tertiary'
+                label='Tertiary'
+              />
+              <Button
+                variant='solid'
+                size='xl'
+                color='primary'
+                label='Icon'
+                leftIcon='Download'
+              />
+              <Button
+                variant='solid'
+                size='xl'
+                color='secondary'
+                label='Icon'
+                leftIcon='Download'
+              />
+              <Button
+                variant='solid'
+                size='xl'
+                color='tertiary'
+                label='Icon'
+                leftIcon='Download'
+              />
+              <Button
+                variant='solid'
+                size='xl'
+                color='primary'
+                label='Button'
+                icon='Search'
+              />
+              <Button
+                variant='solid'
+                size='xl'
+                color='secondary'
+                label='Button'
+                icon='Search'
+              />
+              <Button
+                variant='solid'
+                size='xl'
+                color='tertiary'
+                label='Button'
+                icon='Search'
+              />
+            </div>
+          </div>
+          <div>
+            <p style={{ marginBottom: '8px', fontSize: '14px', color: '#888' }}>
+              Outline
+            </p>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+              <Button
+                variant='outline'
+                size='xl'
+                color='primary'
+                label='Primary'
+              />
+              <Button
+                variant='outline'
+                size='xl'
+                color='secondary'
+                label='Secondary'
+              />
+              <Button
+                variant='outline'
+                size='xl'
+                color='tertiary'
+                label='Tertiary'
+              />
+              <Button
+                variant='outline'
+                size='xl'
+                color='primary'
+                label='Icon'
+                leftIcon='Download'
+              />
+              <Button
+                variant='outline'
+                size='xl'
+                color='secondary'
+                label='Icon'
+                leftIcon='Download'
+              />
+              <Button
+                variant='outline'
+                size='xl'
+                color='tertiary'
+                label='Icon'
+                leftIcon='Download'
+              />
+              <Button
+                variant='outline'
+                size='xl'
+                color='primary'
+                label='Button'
+                icon='Search'
+              />
+              <Button
+                variant='outline'
+                size='xl'
+                color='secondary'
+                label='Button'
+                icon='Search'
+              />
+              <Button
+                variant='outline'
+                size='xl'
+                color='tertiary'
+                label='Button'
+                icon='Search'
+              />
+            </div>
+          </div>
+          <div>
+            <p style={{ marginBottom: '8px', fontSize: '14px', color: '#888' }}>
+              Ghost
+            </p>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+              <Button
+                variant='ghost'
+                size='xl'
+                color='primary'
+                label='Primary'
+              />
+              <Button
+                variant='ghost'
+                size='xl'
+                color='secondary'
+                label='Secondary'
+              />
+              <Button
+                variant='ghost'
+                size='xl'
+                color='primary'
+                label='Icon'
+                leftIcon='Download'
+              />
+              <Button
+                variant='ghost'
+                size='xl'
+                color='secondary'
+                label='Icon'
+                leftIcon='Download'
+              />
+              <Button
+                variant='ghost'
+                size='xl'
+                color='primary'
+                label='Button'
+                icon='Search'
+              />
+              <Button
+                variant='ghost'
+                size='xl'
+                color='secondary'
+                label='Button'
+                icon='Search'
+              />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 };
@@ -336,6 +1268,13 @@ export const Disabled: Story = {
         size='md'
         color='primary'
         label='Outline'
+        disabled
+      />
+      <Button
+        variant='ghost'
+        size='md'
+        color='primary'
+        label='Ghost'
         disabled
       />
     </div>
@@ -427,6 +1366,10 @@ export const OnlyIcon: Story = {
       <Button size='xl' label='search' color='secondary' icon='Search' />
       <Button size='xl' variant='outline' label='Download' icon='Download' />
       <Button size='xl' variant='outline' label='search' icon='Search' />
+
+      {/* Ghost */}
+      <Button size='xl' variant='ghost' label='Download' icon='Download' />
+      <Button size='xl' variant='ghost' label='search' icon='Search' />
     </div>
   ),
 };

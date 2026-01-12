@@ -16,7 +16,16 @@ const borderRadiusVar = createVar();
 const disabledBgColorVar = createVar();
 const disabledTextColorVar = createVar();
 const focusShadowColorVar = createVar(); // focus 시 그림자 색상
-const focusOutlineColorVar = createVar(); // focus 시 그림자 색상
+const focusOutlineColorVar = createVar(); // focus 시 outline 색상
+const ghostDefaultColorVar = createVar(); // ghost default 시 텍스트 색상
+const ghostHoverColorVar = createVar(); // ghost hover 시 텍스트 색상
+const ghostActiveColorVar = createVar(); // ghost active 시 텍스트 색상
+// Ghost Primary 배경색
+const ghostPrimaryHoverBgVar = createVar();
+const ghostPrimaryActiveBgVar = createVar();
+// Ghost Secondary 배경색
+const ghostSecondaryHoverBgVar = createVar();
+const ghostSecondaryActiveBgVar = createVar();
 
 const baseButton = style({
   borderRadius: borderRadiusVar,
@@ -87,6 +96,33 @@ export const buttonStyle = recipe({
           color: disabledTextColorVar,
         },
       },
+      ghost: {
+        backgroundColor: 'transparent',
+        color: textColorVar, // default는 compound variant에서 설정
+        border: 'none',
+
+        '&:hover:not(:disabled)': {
+          backgroundColor: color.alpha.black8,
+          color: textColorVar, // hover는 compound variant에서 설정
+        },
+        '&:active:not(:disabled)': {
+          backgroundColor: color.alpha.black16,
+          color: textColorVar, // active는 compound variant에서 설정
+        },
+        '&:focus-visible': {
+          outline: `1px solid ${color.alpha.white100}`,
+          boxShadow: `0 0 0 2px ${focusOutlineColorVar}, 0 0 5px 2px ${focusShadowColorVar}`,
+        },
+        '&:disabled': {
+          backgroundColor: 'transparent',
+          color: disabledTextColorVar,
+        },
+      },
+    },
+    color: {
+      primary: {},
+      secondary: {},
+      tertiary: {},
     },
     size: {
       xl: {
@@ -132,6 +168,87 @@ export const buttonStyle = recipe({
       },
     },
   },
+
+  compoundVariants: [
+    // Solid Tertiary - text color override
+    {
+      variants: { variant: 'solid', color: 'tertiary' },
+      style: {
+        color: color.text.secondary, // default text
+        selectors: {
+          '&:active:not(:disabled)': {
+            color: color.text.primary, // active text
+          },
+        },
+      },
+    },
+
+    // Outline Tertiary - text and border color states
+    {
+      variants: { variant: 'outline', color: 'tertiary' },
+      style: {
+        color: color.text.muted, // default text
+        borderColor: color.bg.gray, // default border
+        selectors: {
+          '&:hover:not(:disabled)': {
+            color: color.text.tertiary,
+            borderColor: color.bg.grayStrong,
+          },
+          '&:active:not(:disabled)': {
+            color: color.text.tertiary,
+            borderColor: color.bg.grayStrongest,
+          },
+          '&:disabled': {
+            backgroundColor: color.bg.muted,
+          },
+        },
+      },
+    },
+
+    // Ghost Primary - uses CSS variables for runtime theme support
+    {
+      variants: { variant: 'ghost', color: 'primary' },
+      style: {
+        color: ghostDefaultColorVar, // ghost default 색상
+        selectors: {
+          '&:hover:not(:disabled)': {
+            backgroundColor: ghostPrimaryHoverBgVar, // theme에서 주입
+            color: ghostHoverColorVar, // theme에서 주입됨
+          },
+          '&:active:not(:disabled)': {
+            backgroundColor: ghostPrimaryActiveBgVar, // theme에서 주입
+            color: ghostActiveColorVar, // theme에서 주입됨
+          },
+        },
+      },
+    },
+    // Ghost Secondary - uses CSS variables for runtime theme support
+    {
+      variants: { variant: 'ghost', color: 'secondary' },
+      style: {
+        color: ghostDefaultColorVar, // ghost default 색상
+        selectors: {
+          '&:hover:not(:disabled)': {
+            backgroundColor: ghostSecondaryHoverBgVar, // gray 배경
+            color: ghostHoverColorVar, // theme에서 주입됨
+          },
+          '&:active:not(:disabled)': {
+            backgroundColor: ghostSecondaryActiveBgVar, // gray 배경
+            color: ghostActiveColorVar, // theme에서 주입됨
+          },
+        },
+      },
+    },
+    {
+      variants: { variant: 'ghost', color: 'tertiary' },
+      style: {
+        selectors: {
+          '&:hover:not(:disabled)': { backgroundColor: color.gray['50'] },
+          '&:active:not(:disabled)': { backgroundColor: color.gray['100'] },
+        },
+      },
+    },
+  ],
 });
 
 // vars 객체 export
@@ -148,4 +265,11 @@ export const buttonVars = {
   disabledTextColor: disabledTextColorVar,
   focusShadowColor: focusShadowColorVar,
   focusOutlineColor: focusOutlineColorVar,
+  ghostDefaultColor: ghostDefaultColorVar,
+  ghostHoverColor: ghostHoverColorVar,
+  ghostActiveColor: ghostActiveColorVar,
+  ghostPrimaryHoverBg: ghostPrimaryHoverBgVar,
+  ghostPrimaryActiveBg: ghostPrimaryActiveBgVar,
+  ghostSecondaryHoverBg: ghostSecondaryHoverBgVar,
+  ghostSecondaryActiveBg: ghostSecondaryActiveBgVar,
 };
