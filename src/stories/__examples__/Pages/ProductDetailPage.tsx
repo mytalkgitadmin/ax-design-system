@@ -4,6 +4,7 @@ import { useTheme } from '../../../theme';
 import { color, rounded, spacing, zIndex } from '../../../tokens';
 import { toRem } from '../../../tokens/dev/helpers/units';
 import { Accordion } from '../../Accordion';
+import { Avatar } from '../../Avatar';
 import { Badge } from '../../Badge';
 import { BreadCrumb } from '../../BreadCrumb';
 import { Button } from '../../Button';
@@ -19,7 +20,6 @@ import { Table } from '../../Table';
 import { Tabs } from '../../Tabs';
 import { Text } from '../../Text';
 import { Textarea } from '../../Textarea';
-import { Thumbnail } from '../../Thumbnail';
 import { StickyPurchaseBar } from '../StickyPurchaseBar';
 
 import { py } from '../../../tokens/dev/utils/spacing.global.css';
@@ -158,10 +158,11 @@ export const ProductDetailPage = () => {
 
               <Flex align='center' justify='between'>
                 <Flex align='center' gap='8'>
-                  <Thumbnail
-                    width={16}
+                  <Avatar
+                    size='xs'
+                    type='image'
                     src='https://mockmind-api.uifaces.co/content/human/222.jpg'
-                    rounded='full'
+                    alt='Artist'
                   />
                   <Text preset='subTitle3'>Artist</Text>
                   <Icon name='ChevronRight' size={12} />

@@ -2,7 +2,8 @@ import { useCallback, useMemo, useState } from 'react';
 
 import { color } from '../../tokens';
 import { Icon } from '../Icon';
-import { AvatarProps } from './types';
+import { AvatarProps, AvatarSize } from './types';
+import { getColorVariantFromText, getInitials } from './utils';
 
 import {
   avatarImageStyle,
@@ -13,72 +14,71 @@ import {
 
 export type { AvatarProps } from './types';
 
-// 텍스트를 기반으로 색상 variant를 선택하는 함수
-const getColorVariantFromText = (
-  text: string
-): 'blue' | 'green' | 'red' | 'yellow' | 'indigo' | 'pink' | 'gray' => {
-  const colors = [
-    'blue',
-    'green',
-    'red',
-    'yellow',
-    'indigo',
-    'pink',
-    'gray',
-  ] as const;
-
-  // 빈 문자열 처리
-  if (!text) return 'gray';
-
-  // 간단한 해시 함수 (문자열을 숫자로 변환)
-  let hash = 0;
-  for (let i = 0; i < text.length; i++) {
-    hash = text.charCodeAt(i) + ((hash << 5) - hash);
-  }
-
-  // 해시 값을 색상 배열 인덱스로 변환
-  const index = Math.abs(hash) % colors.length;
-  return colors[index];
+// 내부 구현을 위한 포괄적 Props 타입 (never 타입 제약 우회)
+type AvatarInternalProps = {
+  as?: React.ElementType; // Component
+  size?: AvatarSize;
+  rounded?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
+  className?: string;
+  style?: React.CSSProperties;
+  title?: string;
+  'aria-label'?: string;
+  onClick?: () => void;
+  type?: 'image' | 'text' | 'empty';
+  src?: string;
+  alt?: string;
+  text?: string;
+  name?: string;
+  href?: string;
 };
 
-// 이름에서 첫 1-2글자 추출
-const getInitials = (name: string): string => {
-  const trimmed = name.trim();
-  if (!trimmed) return '';
+export const Avatar = (props: AvatarProps) => {
+  const {
+    as: Component = 'div',
+    size = 'md',
+    type,
+    rounded = 'full',
+    className,
+    style,
+    title,
+    'aria-label': ariaLabel,
+    onClick,
+    src,
+    alt = 'Avatar',
+    text,
+    name,
+  } = props as unknown as AvatarInternalProps;
 
-  // 한글인 경우 첫 2글자, 영문인 경우 첫 1-2글자
-  const words = trimmed.split(' ');
-  if (words.length > 1) {
-    // 여러 단어인 경우 각 단어의 첫 글자
-    return words
-      .slice(0, 2)
-      .map((w) => w[0])
-      .join('')
-      .toUpperCase();
-  }
-  // 한 단어인 경우 첫 2글자
-  return trimmed.slice(0, 2);
-};
-
-export const Avatar = ({
-  size = 'md',
-  type = 'empty',
-  rounded = 'full',
-  src,
-  alt = 'Avatar',
-  text,
-  name,
-  onClick,
-  className,
-  title,
-  'aria-label': ariaLabel,
-}: AvatarProps) => {
   const [imageError, setImageError] = useState(false);
-  const iconSize = Number(avatarSizes[size].iconSize);
+  const iconSize = Number(avatarSizes[size as AvatarSize].iconSize);
 
-  // 키보드 이벤트 핸들러 - 중복 제거
+  // 최종 표시 타입 결정
+  const finalType = useMemo(() => {
+    // 1. 이미지를 강제했거나, src가 있고 에러가 없는 경우
+    if ((type === 'image' || (!type && src)) && !imageError) {
+      return 'image';
+    }
+
+    // 2. Explicit Empty
+    if (type === 'empty') {
+      return 'empty';
+    }
+
+    // 3. Text Fallback
+    // - Explicit Text
+    // - Image Failed (implicit or explicit) AND has text/name
+    // - No Type AND has text/name
+    if (type === 'text' || text || name) {
+      return 'text';
+    }
+
+    // 4. Default to Empty
+    return 'empty';
+  }, [type, src, imageError, text, name]);
+
+  // 키보드 이벤트 핸들러
   const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent<HTMLDivElement>) => {
+    (e: React.KeyboardEvent<HTMLElement>) => {
       if (onClick && (e.key === 'Enter' || e.key === ' ')) {
         e.preventDefault();
         onClick();
@@ -87,84 +87,75 @@ export const Avatar = ({
     [onClick]
   );
 
-  // Interactive 클래스 추가
-  const combinedClassName = useMemo(() => {
-    const classes = [className, onClick ? interactiveAvatar : ''];
-    return classes.filter(Boolean).join(' ');
-  }, [className, onClick]);
+  // 컨텐츠에 따라 최종 스타일/속성 조정
+  const { finalClassName, finalAriaLabel, displayText } = useMemo(() => {
+    let computedVariant = undefined;
+    let label = ariaLabel;
+    let dText = '';
 
-  // Accessibility 속성 - aria-label 중복 제거
-  const accessibilityProps = useMemo(() => {
-    const props: Record<string, string> = {};
+    if (finalType === 'text') {
+      dText =
+        (src && imageError && name ? getInitials(name) : text) ||
+        (name ? getInitials(name) : '');
 
-    if (title) {
-      props.title = title;
+      if (dText) {
+        computedVariant = getColorVariantFromText(dText);
+        if (!label) label = name ? `${name}의 프로필` : '사용자 프로필';
+      }
+    } else if (finalType === 'image') {
+      if (!label) label = name ? `${name}의 프로필 사진` : '프로필 사진';
+    } else {
+      // Empty
+      if (!label) label = '사용자 프로필';
     }
 
-    // aria-label은 여기서만 설정
-    if (ariaLabel) {
-      props['aria-label'] = ariaLabel;
-    }
+    return {
+      finalClassName: avatarStyle({
+        size,
+        rounded,
+        type: finalType === 'text' && !computedVariant ? 'empty' : finalType,
+        colorVariant: computedVariant,
+      }),
+      finalAriaLabel: label,
+      displayText: dText,
+    };
+  }, [finalType, size, rounded, src, imageError, name, text, ariaLabel]);
 
-    return props;
-  }, [title, ariaLabel]);
-
-  // 공통 container props
-  const getContainerProps = (defaultAriaLabel?: string) => ({
-    onClick,
-    role: onClick ? 'button' : 'img',
-    tabIndex: onClick ? 0 : undefined,
-    onKeyDown: onClick ? handleKeyDown : undefined,
-    'aria-label': ariaLabel || defaultAriaLabel,
-    ...accessibilityProps,
-  });
-
-  // Image 타입 - 로드 실패 시 name을 사용해 text로 fallback
-  if (type === 'image' && src && !imageError) {
-    const imgAlt = alt || name || 'Avatar';
-
-    return (
-      <div
-        className={`${avatarStyle({ size, rounded, type: 'image' })} ${combinedClassName}`}
-        {...getContainerProps(name ? `${name}의 프로필 사진` : '프로필 사진')}
-      >
+  // 렌더링 컨텐츠 결정
+  const renderContent = () => {
+    if (finalType === 'image' && src) {
+      const imgAlt = alt || name || 'Avatar';
+      return (
         <img
           src={src}
           alt={imgAlt}
           className={avatarImageStyle}
-          onError={() => {
-            // 이미지 로드 실패 시 fallback으로 전환
-            // name이나 text가 있으면 text 타입으로, 없으면 empty 타입으로
-            setImageError(true);
-          }}
+          onError={() => setImageError(true)}
         />
-      </div>
-    );
-  }
+      );
+    }
 
-  // Image 로드 실패 후 fallback 또는 Text 타입
-  if ((type === 'image' && imageError && name) || (type === 'text' && text)) {
-    const displayText =
-      type === 'image' && imageError && name ? getInitials(name) : text || '';
-    const colorVariant = getColorVariantFromText(displayText);
+    if (finalType === 'text' && displayText) {
+      return displayText;
+    }
 
-    return (
-      <div
-        className={`${avatarStyle({ size, rounded, colorVariant, type: 'text' })} ${combinedClassName}`}
-        {...getContainerProps(name ? `${name}의 프로필` : '사용자 프로필')}
-      >
-        {displayText}
-      </div>
-    );
-  }
+    // empty (or text fallback fail)
+    return <Icon name='UserFilled' size={iconSize} color={color.icon.muted} />;
+  };
 
-  // Empty 타입 (기본) - 이미지 로드 실패했지만 name/text 없을 때도 여기로
-  return (
-    <div
-      className={`${avatarStyle({ size, rounded, type: 'empty' })} ${combinedClassName}`}
-      {...getContainerProps('사용자 프로필')}
-    >
-      <Icon name='UserFilled' size={iconSize} color={color.icon.muted} />
-    </div>
-  );
+  const containerProps = {
+    className: `${finalClassName} ${className || ''} ${
+      onClick ? interactiveAvatar : ''
+    }`,
+    onClick,
+    role: onClick && Component !== 'button' ? 'button' : undefined,
+    tabIndex: onClick && Component !== 'button' ? 0 : undefined,
+    onKeyDown: onClick && Component !== 'button' ? handleKeyDown : undefined,
+    'aria-label': finalAriaLabel,
+    ...(Component === 'button' ? { type: 'button' } : {}),
+    ...(title ? { title } : {}),
+    ...(style ? { style } : {}),
+  } as const;
+
+  return <Component {...containerProps}>{renderContent()}</Component>;
 };

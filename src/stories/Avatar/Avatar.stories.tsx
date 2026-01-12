@@ -8,109 +8,60 @@ import type { Meta, StoryObj } from '@storybook/react';
  * Avatar 컴포넌트는 사용자 프로필을 표시하는 데 사용됩니다.
  * 이미지, 텍스트(이니셜), 빈 상태의 세 가지 타입을 지원합니다.
  *
- * ## Props
+ * ## Props (웹 접근성 & 시맨틱)
  *
- * ### Avatar
+ * 이 컴포넌트는 **웹 접근성(A11y)**과 **시맨틱 마크업**을 위해 엄격한 타입을 적용합니다.
  *
- * | Prop | Type |
- * |------|------|
- * | `size` | `xs` \| `sm` \| `md` \| `lg` \| `xl` |
- * | `type` | `empty` \| `text` \| `image` |
- * | `rounded` | `none` \| `xs` \| `sm` \| `md` \| `lg` \| `xl` \| `full` |
- * | `src` | `string` |
- * | `alt` | `string` |
- * | `text` | `string` |
- * | `name` | `string` |
- * | `onClick` | `() => void` |
- * | `title` | `string` |
- * | `aria-label` | `string` |
+ * ### 1. Image Type
+ * 이미지를 표시할 때는 `src`와 `alt`가 **필수**입니다.
  *
- * ### AvatarGroup
+ * | Prop | Type | Required | Description |
+ * |------|------|----------|-------------|
+ * | `type` | `'image'` | Optional | 생략 시 `src`가 있으면 자동 감지됩니다. |
+ * | `src` | `string` | **Yes** | 이미지 경로 |
+ * | `alt` | `string` | **Yes** | 이미지 대체 텍스트 (스크린리더용) |
+ * | `name` | `string` | Optional | 이미지 로드 실패 시 Fallback으로 표시될 이름 |
  *
- * | Prop | Type |
- * |------|------|
- * | `avatars` | `AvatarProps[]` (required) |
- * | `max` | `number` |
- * | `size` | `xs` \| `sm` \| `md` \| `lg` \| `xl` |
- * | `rounded` | `none` \| `xs` \| `sm` \| `md` \| `lg` \| `xl` \| `full` |
- * | `spacing` | `number` (px) |
- * | `borderWidth` | `number` (px, default: 3) |
- * | `borderColor` | `string` (hex/rgb, default: white) |
+ * ### 2. Text Type
+ * 텍스트(이니셜)를 표시할 때는 `text` 또는 `name` 중 하나가 **필수**입니다.
  *
- * ## 크기 시스템
+ * | Prop | Type | Required | Description |
+ * |------|------|----------|-------------|
+ * | `type` | `'text'` | Optional | 생략 시 `text`/`name`이 있으면 자동 감지됩니다. |
+ * | `text` | `string` | **Yes*** | 표시할 텍스트 (1-2글자 권장). `name`이 있으면 생략 가능. |
+ * | `name` | `string` | **Yes*** | 사용자 이름. `text`가 없을 때 이니셜 생성용. |
  *
- * Avatar는 componentSize 토큰을 사용합니다 (Button, Input과 동일):
- * - **xs**: 26px (밀집 UI, 테이블)
- * - **sm**: 32px (콤팩트 UI, 툴바)
- * - **md**: 44px (기본 크기, 44px 터치 타겟)
- * - **lg**: 56px (강조 UI)
- * - **xl**: 64px (히어로 섹션, 랜딩 페이지)
+ * ### 3. Interactive (Button/Link)
+ * `as` prop에 따라 추가적인 필수 속성이 요구됩니다.
+ *
+ * | Prop | Type | Required | Description |
+ * |------|------|----------|-------------|
+ * | `as` | `'button'` | - | 버튼으로 렌더링 |
+ * | `onClick` | `func` | **Yes** | `as="button"`일 때 필수 |
+ * | `as` | `'a'` | - | 링크로 렌더링 |
+ * | `href` | `string` | **Yes** | `as="a"`일 때 필수 |
+ *
+ * ---
+ *
+ * ### Common Props
+ *
+ * | Prop | Type | Description |
+ * |------|------|-------------|
+ * | `size` | `xs` \| `sm` \| `md` \| `lg` | 크기 설정 (기본: `md`) |
+ * | `rounded` | `none`...`full` | 둥근 모서리 (기본: `full`) |
+ * | `title` | `string` | 툴팁 텍스트 |
  *
  * ## 사용 예시
  *
  * ```tsx
- * import { Avatar, AvatarGroup } from '@bemily/design-system';
+ * // ✅ Image (alt 필수)
+ * <Avatar src="url" alt="홍길동" />
  *
- * // 기본 사용 (Empty)
- * <Avatar />
+ * // ✅ Text (text 또는 name 필수)
+ * <Avatar name="홍길동" />
  *
- * // 텍스트 (이니셜)
- * <Avatar type="text" text="홍" />
- * <Avatar type="text" text="김철수" /> // 자동으로 "김철" 추출
- *
- * // 이미지
- * <Avatar type="image" src="https://..." alt="프로필" />
- *
- * // 크기 조절 (componentSize 토큰)
- * <Avatar size="xl" /> // 64px (히어로 섹션)
- *
- * // 둥근 모서리 변경
- * <Avatar rounded="lg" /> // 사각형에 가까운 형태
- * <Avatar rounded="none" /> // 완전한 사각형
- *
- * // 이미지 로드 실패 시 자동 fallback
- * <Avatar type="image" src="broken.jpg" name="홍길동" /> // "홍길" 표시
- *
- * // Interactive (클릭 가능)
- * <Avatar
- *   type="image"
- *   src="..."
- *   onClick={() => navigate('/profile')}
- *   title="프로필 보기"
- * />
- *
- * // AvatarGroup (여러 사용자)
- * <AvatarGroup
- *   max={3}
- *   size="md"
- *   avatars={[
- *     { type: 'image', src: '...', name: '홍길동' },
- *     { type: 'text', text: '김' },
- *     { type: 'empty' },
- *     // 나머지는 +1로 표시됨
- *   ]}
- * />
- *
- * // AvatarGroup 테두리 커스터마이징
- * <AvatarGroup
- *   borderWidth={0}  // 투명 테두리 (권장 - 배경색 변경에 유연)
- *   avatars={[
- *     { type: 'image', src: '...', name: '홍길동' },
- *     { type: 'text', text: '김' },
- *     { type: 'empty' },
- *   ]}
- * />
- *
- * // 또는 배경색 매칭 (배경색마다 설정 필요)
- * <AvatarGroup
- *   borderWidth={2}
- *   borderColor="#f0f0f0"  // 배경색과 동일
- *   avatars={[
- *     { type: 'image', src: '...', name: '홍길동' },
- *     { type: 'text', text: '김' },
- *     { type: 'empty' },
- *   ]}
- * />
+ * // ✅ Interactive (onClick 필수)
+ * <Avatar as="button" onClick={handleClick} name="Click Me" />
  * ```
  */
 const meta = {
@@ -121,97 +72,74 @@ const meta = {
   },
   tags: ['autodocs', '!dev'],
   argTypes: {
-    // Appearance
     size: {
       control: 'select',
       options: AVATAR_SIZES,
       description: 'Avatar 크기',
-      table: {
-        category: 'Appearance',
-        defaultValue: { summary: 'md' },
-      },
+      table: { category: 'Appearance', defaultValue: { summary: 'md' } },
     },
     type: {
       control: 'select',
       options: AVATAR_TYPES,
-      description: 'Avatar 타입',
-      table: {
-        category: 'Appearance',
-        defaultValue: { summary: 'empty' },
-      },
+      description: 'Avatar 타입 (자동 감지됨)',
+      table: { category: 'Appearance' },
     },
     rounded: {
       control: 'select',
       options: AVATAR_ROUNDED,
-      description: '둥근 모서리 (full=원형, md/lg/xl=사각형)',
-      table: {
-        category: 'Appearance',
-        defaultValue: { summary: 'full' },
-      },
+      description: '둥근 모서리',
+      table: { category: 'Appearance', defaultValue: { summary: 'full' } },
     },
-
-    // Content
     src: {
       control: 'text',
-      description: '이미지 URL (type="image"일 때)',
-      table: {
-        category: 'Content',
-      },
+      description: '이미지 URL (**필수**: Image 타입일 때 `alt`와 함께 사용)',
+      table: { category: 'Content' },
     },
     alt: {
       control: 'text',
-      description: '이미지 대체 텍스트',
-      table: {
-        category: 'Content',
-        defaultValue: { summary: 'Avatar' },
-      },
+      description: '대체 텍스트 (**필수**: `src`가 있을 때)',
+      table: { category: 'Accessibility' },
     },
     text: {
       control: 'text',
-      description: '표시할 텍스트 (type="text"일 때, 1-2글자)',
-      table: {
-        category: 'Content',
-      },
+      description:
+        '표시 텍스트 (**필수**: Text 타입일 때 `name`이 없으면 필수)',
+      table: { category: 'Content' },
     },
     name: {
       control: 'text',
-      description: '사용자 이름 (이미지 로드 실패 시 첫 글자 사용)',
-      table: {
-        category: 'Content',
-      },
+      description:
+        '사용자 이름 (Image 실패 시 Fallback, Text 타입 시 이니셜 생성)',
+      table: { category: 'Content' },
     },
-
-    // Interaction
+    as: {
+      control: false,
+      description: '렌더링할 HTML 태그 (`button`, `a`, `div` 등)',
+      table: { category: 'Polymorphic' },
+    },
     onClick: {
       control: false,
-      description: '클릭 이벤트 핸들러',
-      table: {
-        category: 'Interaction',
-      },
+      description: '클릭 이벤트 (**필수**: `as="button"`일 때)',
+      table: { category: 'Interaction' },
+    },
+    href: {
+      control: false,
+      description: '링크 URL (**필수**: `as="a"`일 때)',
+      table: { category: 'Interaction' },
     },
     title: {
       control: 'text',
-      description: '호버 시 툴팁',
-      table: {
-        category: 'Interaction',
-      },
+      description: '툴팁 텍스트',
+      table: { category: 'Interaction' },
     },
-
-    // Accessibility
     'aria-label': {
       control: 'text',
-      description: '스크린리더용 레이블',
-      table: {
-        category: 'Accessibility',
-      },
+      description: '접근성 레이블 (기본값: name 또는 "프로필")',
+      table: { category: 'Accessibility' },
     },
-
-    // Unused in stories
     className: {
       control: false,
-      table: {
-        category: 'Others',
-      },
+      table: { category: 'Others' },
     },
   },
 
@@ -250,7 +178,11 @@ export const Types: Story = {
         <p style={{ marginTop: '8px', fontSize: '14px' }}>Text</p>
       </div>
       <div style={{ textAlign: 'center' }}>
-        <Avatar type='image' src='https://i.pravatar.cc/150?img=1' />
+        <Avatar
+          type='image'
+          src='https://i.pravatar.cc/150?img=1'
+          alt='사용자 프로필'
+        />
         <p style={{ marginTop: '8px', fontSize: '14px' }}>Image</p>
       </div>
     </div>
@@ -259,7 +191,7 @@ export const Types: Story = {
 
 /**
  * Avatar 크기
- * componentSize 토큰을 따릅니다.
+ * Avatar 전용 스펙(20-48px)을 따릅니다.
  */
 export const Sizes: Story = {
   render: () => (
@@ -272,23 +204,19 @@ export const Sizes: Story = {
     >
       <div style={{ textAlign: 'center' }}>
         <Avatar size='xs' type='text' text='XS' />
-        <p style={{ marginTop: '8px', fontSize: '12px' }}>xs (26px)</p>
+        <p style={{ marginTop: '8px', fontSize: '12px' }}>xs (20px)</p>
       </div>
       <div style={{ textAlign: 'center' }}>
         <Avatar size='sm' type='text' text='SM' />
-        <p style={{ marginTop: '8px', fontSize: '12px' }}>sm (32px)</p>
+        <p style={{ marginTop: '8px', fontSize: '12px' }}>sm (24px)</p>
       </div>
       <div style={{ textAlign: 'center' }}>
         <Avatar size='md' type='text' text='MD' />
-        <p style={{ marginTop: '8px', fontSize: '12px' }}>md (44px)</p>
+        <p style={{ marginTop: '8px', fontSize: '12px' }}>md (32px)</p>
       </div>
       <div style={{ textAlign: 'center' }}>
         <Avatar size='lg' type='text' text='LG' />
-        <p style={{ marginTop: '8px', fontSize: '12px' }}>lg (56px)</p>
-      </div>
-      <div style={{ textAlign: 'center' }}>
-        <Avatar size='xl' type='text' text='XL' />
-        <p style={{ marginTop: '8px', fontSize: '12px' }}>xl (64px)</p>
+        <p style={{ marginTop: '8px', fontSize: '12px' }}>lg (48px)</p>
       </div>
     </div>
   ),
@@ -302,10 +230,9 @@ export const Rounded: Story = {
   render: () => (
     <div
       style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(4, 1fr)',
-        gap: '24px 16px',
-        placeItems: 'center',
+        display: 'flex',
+        gap: '24px',
+        alignItems: 'center',
       }}
     >
       <div style={{ textAlign: 'center' }}>
@@ -314,7 +241,7 @@ export const Rounded: Story = {
       </div>
       <div style={{ textAlign: 'center' }}>
         <Avatar type='text' text='XS' rounded='xs' size='lg' />
-        <p style={{ marginTop: '8px', fontSize: '14px' }}>xs (4px)</p>
+        <p style={{ marginTop: '8px', fontSize: '14px' }}>xs (6px)</p>
       </div>
       <div style={{ textAlign: 'center' }}>
         <Avatar type='text' text='SM' rounded='sm' size='lg' />
@@ -350,20 +277,16 @@ export const TextColors: Story = {
     <div
       style={{
         display: 'flex',
-        gap: '16px',
-        flexWrap: 'wrap',
-        alignItems: 'center',
+        gap: '24px',
       }}
     >
-      <Avatar type='text' text='홍' name='홍길동' />
-      <Avatar type='text' text='김' name='김철수' />
-      <Avatar type='text' text='박' name='박영희' />
-      <Avatar type='text' text='이' name='이민호' />
-      <Avatar type='text' text='정' name='정수진' />
-      <Avatar type='text' text='최' name='최유리' />
-      <Avatar type='text' text='강' name='강민수' />
-      <Avatar type='text' text='JD' name='John Doe' />
-      <Avatar type='text' text='AB' name='Anna Brown' />
+      <Avatar type='text' text='A' />
+      <Avatar type='text' text='B' />
+      <Avatar type='text' text='C' />
+      <Avatar type='text' text='D' />
+      <Avatar type='text' text='E' />
+      <Avatar type='text' text='F' />
+      <Avatar type='text' text='G' />
     </div>
   ),
 };
@@ -378,18 +301,25 @@ export const Interactive: Story = {
     <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
       <Avatar
         type='image'
+        as='button'
         src='https://i.pravatar.cc/150?img=1'
+        alt='사용자 프로필'
         onClick={() => alert('Avatar 클릭!')}
         title='클릭하여 프로필 보기'
       />
       <Avatar
         type='text'
+        as='button'
         text='홍'
         onClick={() => alert('홍길동 프로필')}
         name='홍길동'
         title='홍길동'
       />
-      <Avatar onClick={() => alert('기본 프로필')} title='기본 사용자' />
+      <Avatar
+        as='button'
+        onClick={() => alert('기본 프로필')}
+        title='기본 사용자'
+      />
     </div>
   ),
 };
@@ -409,16 +339,30 @@ export const ImageErrorFallback: Story = {
           type='image'
           src='https://i.pravatar.cc/150?img=1'
           name='홍길동'
+          alt='홍길동'
         />
       </div>
       <div>
         <p style={{ marginBottom: '8px', fontSize: '14px', color: '#666' }}>
-          잘못된 이미지 URL → 자동으로 name의 첫 글자로 전환
+          잘못된 이미지 URL → name이 있으면 텍스트(이니셜), 없으면 Empty로 자동
+          전환
         </p>
         <div style={{ display: 'flex', gap: '16px' }}>
-          <Avatar type='image' src='broken-url.jpg' name='홍길동' />
-          <Avatar type='image' src='invalid.png' name='Kim Min Ho' />
-          <Avatar type='image' src='error.jpg' name='박영희' />
+          <Avatar
+            type='image'
+            src='broken-url.jpg'
+            name='홍길동'
+            alt='홍길동'
+          />
+          <Avatar
+            type='image'
+            src='invalid.png'
+            name='Kim Min Ho'
+            alt='Kim Min Ho'
+          />
+          <Avatar type='image' src='invalid.png' name='Abcd' alt='abcd' />
+          <Avatar type='image' src='error.jpg' name='박영희' alt='박영희' />
+          <Avatar type='image' src='error.jpg' alt='박영희' />
         </div>
       </div>
     </div>
@@ -443,26 +387,31 @@ export const Group: Story = {
               type: 'image',
               src: 'https://i.pravatar.cc/150?img=1',
               name: '홍길동',
+              alt: '홍길동',
             },
             {
               type: 'image',
               src: 'https://i.pravatar.cc/150?img=2',
               name: '김철수',
+              alt: '김철수',
             },
             {
               type: 'image',
               src: 'https://i.pravatar.cc/150?img=3',
               name: '박영희',
+              alt: '박영희',
             },
             {
               type: 'image',
               src: 'https://i.pravatar.cc/150?img=4',
               name: '이민호',
+              alt: '이민호',
             },
             {
               type: 'image',
               src: 'https://i.pravatar.cc/150?img=5',
               name: '정수진',
+              alt: '정수진',
             },
           ]}
         />
@@ -479,6 +428,7 @@ export const Group: Story = {
               type: 'image',
               src: 'https://i.pravatar.cc/150?img=1',
               name: '홍길동',
+              alt: '홍길동',
             },
             { type: 'text', text: '김', name: '김철수' },
             { type: 'empty' },
@@ -487,6 +437,7 @@ export const Group: Story = {
               type: 'image',
               src: 'https://i.pravatar.cc/150?img=3',
               name: '이민호',
+              alt: '이민호',
             },
             { type: 'text', text: 'JD', name: 'John Doe' },
           ]}
@@ -495,7 +446,7 @@ export const Group: Story = {
 
       <div>
         <p style={{ marginBottom: '12px', fontSize: '14px', fontWeight: 600 }}>
-          크기 조절 (componentSize 토큰)
+          크기 조절 (xs, sm, md, lg)
         </p>
         <div
           style={{
@@ -545,16 +496,6 @@ export const Group: Story = {
               { type: 'text', text: 'D' },
             ]}
           />
-          <AvatarGroup
-            size='xl'
-            max={3}
-            avatars={[
-              { type: 'text', text: 'A' },
-              { type: 'text', text: 'B' },
-              { type: 'text', text: 'C' },
-              { type: 'text', text: 'D' },
-            ]}
-          />
         </div>
       </div>
 
@@ -570,10 +511,18 @@ export const Group: Story = {
             <AvatarGroup
               spacing={4}
               avatars={[
-                { type: 'image', src: 'https://i.pravatar.cc/150?img=1' },
+                {
+                  type: 'image',
+                  src: 'https://i.pravatar.cc/150?img=1',
+                  alt: 'User 1',
+                },
                 { type: 'text', text: '김' },
                 { type: 'empty' },
-                { type: 'image', src: 'https://i.pravatar.cc/150?img=2' },
+                {
+                  type: 'image',
+                  src: 'https://i.pravatar.cc/150?img=2',
+                  alt: 'User 2',
+                },
               ]}
             />
           </div>
@@ -584,10 +533,18 @@ export const Group: Story = {
             <AvatarGroup
               spacing={12}
               avatars={[
-                { type: 'image', src: 'https://i.pravatar.cc/150?img=1' },
+                {
+                  type: 'image',
+                  src: 'https://i.pravatar.cc/150?img=1',
+                  alt: 'User 1',
+                },
                 { type: 'text', text: '김' },
                 { type: 'empty' },
-                { type: 'image', src: 'https://i.pravatar.cc/150?img=2' },
+                {
+                  type: 'image',
+                  src: 'https://i.pravatar.cc/150?img=2',
+                  alt: 'User 2',
+                },
               ]}
             />
           </div>
@@ -615,10 +572,18 @@ export const Group: Story = {
                 <AvatarGroup
                   borderWidth={0}
                   avatars={[
-                    { type: 'image', src: 'https://i.pravatar.cc/150?img=1' },
+                    {
+                      type: 'image',
+                      src: 'https://i.pravatar.cc/150?img=1',
+                      alt: 'User 1',
+                    },
                     { type: 'text', text: '김' },
                     { type: 'empty' },
-                    { type: 'image', src: 'https://i.pravatar.cc/150?img=2' },
+                    {
+                      type: 'image',
+                      src: 'https://i.pravatar.cc/150?img=2',
+                      alt: 'User 2',
+                    },
                   ]}
                 />
               </div>
@@ -641,10 +606,18 @@ export const Group: Story = {
                 <AvatarGroup
                   borderColor='white'
                   avatars={[
-                    { type: 'image', src: 'https://i.pravatar.cc/150?img=1' },
+                    {
+                      type: 'image',
+                      src: 'https://i.pravatar.cc/150?img=1',
+                      alt: 'User 1',
+                    },
                     { type: 'text', text: '김' },
                     { type: 'empty' },
-                    { type: 'image', src: 'https://i.pravatar.cc/150?img=2' },
+                    {
+                      type: 'image',
+                      src: 'https://i.pravatar.cc/150?img=2',
+                      alt: 'User 2',
+                    },
                   ]}
                 />
               </div>
@@ -658,10 +631,18 @@ export const Group: Story = {
                 <AvatarGroup
                   borderColor='#f0f0f0'
                   avatars={[
-                    { type: 'image', src: 'https://i.pravatar.cc/150?img=1' },
+                    {
+                      type: 'image',
+                      src: 'https://i.pravatar.cc/150?img=1',
+                      alt: 'User 1',
+                    },
                     { type: 'text', text: '김' },
                     { type: 'empty' },
-                    { type: 'image', src: 'https://i.pravatar.cc/150?img=2' },
+                    {
+                      type: 'image',
+                      src: 'https://i.pravatar.cc/150?img=2',
+                      alt: 'User 2',
+                    },
                   ]}
                 />
               </div>
@@ -685,10 +666,18 @@ export const Group: Story = {
                 <AvatarGroup
                   borderColor='#333'
                   avatars={[
-                    { type: 'image', src: 'https://i.pravatar.cc/150?img=1' },
+                    {
+                      type: 'image',
+                      src: 'https://i.pravatar.cc/150?img=1',
+                      alt: 'User 1',
+                    },
                     { type: 'text', text: '김' },
                     { type: 'empty' },
-                    { type: 'image', src: 'https://i.pravatar.cc/150?img=2' },
+                    {
+                      type: 'image',
+                      src: 'https://i.pravatar.cc/150?img=2',
+                      alt: 'User 2',
+                    },
                   ]}
                 />
               </div>
@@ -728,17 +717,20 @@ export const RealWorldExample: Story = {
               type: 'image',
               src: 'https://i.pravatar.cc/150?img=1',
               name: '홍길동',
+              alt: '홍길동',
             },
             {
               type: 'image',
               src: 'https://i.pravatar.cc/150?img=2',
               name: '김철수',
+              alt: '김철수',
             },
             { type: 'text', text: '박영', name: '박영희' },
             {
               type: 'image',
               src: 'https://i.pravatar.cc/150?img=4',
               name: '이민호',
+              alt: '이민호',
             },
             { type: 'text', text: '정', name: '정수진' },
             { type: 'empty' },
@@ -747,6 +739,7 @@ export const RealWorldExample: Story = {
               type: 'image',
               src: 'https://i.pravatar.cc/150?img=5',
               name: '강민수',
+              alt: '강민수',
             },
           ]}
         />
@@ -803,6 +796,7 @@ export const RealWorldExample: Story = {
               type: 'image',
               src: 'https://i.pravatar.cc/150?img=1',
               name: '홍길동',
+              alt: '홍길동',
               onClick: () => alert('홍길동 프로필 페이지'),
               title: '홍길동 프로필 보기',
             },

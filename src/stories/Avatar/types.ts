@@ -1,45 +1,74 @@
 // Avatar types
+import {
+  COMPONENT_ROUNDED,
+  COMPONENT_SIZES,
+  ComponentRounded,
+  ComponentSize,
+} from '../../types/component';
 
-export type AvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+import type { ElementType } from 'react';
 
+// AvatarSize (xl 제외)
+export type AvatarSize = Exclude<ComponentSize, 'xl'>;
 export type AvatarType = 'empty' | 'text' | 'image';
+export type AvatarRounded = ComponentRounded;
 
-export type AvatarRounded = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
-
-export type AvatarProps = {
-  /** Avatar 크기 */
+// 기본 Props
+type AvatarBaseProps = {
   size?: AvatarSize;
-
-  /** Avatar 타입 */
-  type?: AvatarType;
-
-  /** 둥근 모서리 */
   rounded?: AvatarRounded;
-
-  /** 이미지 URL (type='image'일 때 사용) */
-  src?: string;
-
-  /** 대체 텍스트 (type='image'일 때 사용) */
-  alt?: string;
-
-  /** 표시할 텍스트 (type='text'일 때 사용, 보통 1-2글자) */
-  text?: string;
-
-  /** 사용자 이름 (이미지 로드 실패 시 첫 글자를 text로 사용) */
-  name?: string;
-
-  /** 클릭 이벤트 핸들러 (Interactive) */
-  onClick?: () => void;
-
-  /** 추가 CSS 클래스명 */
   className?: string;
-
-  /** 호버 시 표시할 툴팁 텍스트 */
+  style?: React.CSSProperties;
   title?: string;
-
-  /** 스크린리더용 레이블 */
   'aria-label'?: string;
+} & (
+  | {
+      as?: 'button';
+      onClick: () => void; // button일 땐 onClick 필수
+      href?: never;
+    }
+  | {
+      as?: 'a';
+      href: string; // a 태그일 땐 href 필수
+      target?: '_blank' | '_self' | '_parent' | '_top';
+      onClick?: () => void;
+    }
+  | {
+      as?: Exclude<ElementType, 'button' | 'a'>;
+      onClick?: () => void;
+      href?: never;
+    }
+);
+
+// 1. Image 타입: src가 있으면 image로 간주 (alt 필수)
+type AvatarImageProps = AvatarBaseProps & {
+  type?: 'image'; // 생략 가능 (src가 있으면 자동 감지)
+  src: string;
+  alt: string; // 웹 접근성 필수
+  text?: never;
+  name?: string; // 로드 실패 시 fallback용
 };
+
+// 2. Text 타입: src 불가, text나 name 필수
+type AvatarTextProps = AvatarBaseProps & {
+  type?: 'text'; // 생략 가능 (text/name이 있으면 자동 감지)
+  src?: never;
+  text?: string;
+  name?: string;
+  alt?: never;
+};
+
+// 3. Empty 타입: src, text, name 불가
+type AvatarEmptyProps = AvatarBaseProps & {
+  type?: 'empty'; // 생략 가능
+  src?: never;
+  alt?: never;
+  text?: never;
+  name?: never;
+};
+
+// 최종 AvatarProps
+export type AvatarProps = AvatarImageProps | AvatarTextProps | AvatarEmptyProps;
 
 // AvatarGroup types
 
@@ -67,16 +96,8 @@ export type AvatarGroupProps = {
 };
 
 // Storybook을 위한 options 배열
-export const AVATAR_SIZES: AvatarSize[] = ['xs', 'sm', 'md', 'lg', 'xl'];
-
+export const AVATAR_SIZES: AvatarSize[] = COMPONENT_SIZES.filter(
+  (size) => size !== 'xl'
+) as AvatarSize[];
 export const AVATAR_TYPES: AvatarType[] = ['empty', 'text', 'image'];
-
-export const AVATAR_ROUNDED: AvatarRounded[] = [
-  'none',
-  'xs',
-  'sm',
-  'md',
-  'lg',
-  'xl',
-  'full',
-];
+export const AVATAR_ROUNDED: AvatarRounded[] = COMPONENT_ROUNDED;

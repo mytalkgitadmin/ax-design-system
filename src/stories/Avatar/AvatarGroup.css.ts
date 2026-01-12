@@ -11,12 +11,15 @@ export const avatarGroupContainer = style({
 
 export const avatarGroupItem = style({
   position: 'relative',
-  borderRadius: '50%',
+
   boxSizing: 'border-box', // box-shadow/border를 크기에 포함
 
   selectors: {
     '&:not(:first-child)': {
       marginLeft: toRem(-8),
+    },
+    '&:hover': {
+      zIndex: 10,
     },
   },
 });
@@ -29,8 +32,9 @@ export const avatarGroupMore = style({
   backgroundColor: color.gray[200],
   color: color.text.secondary,
   fontWeight: font.weight.semibold,
-  borderRadius: '50%',
+
   position: 'relative',
+  userSelect: 'none',
 
   selectors: {
     '&:not(:first-child)': {
