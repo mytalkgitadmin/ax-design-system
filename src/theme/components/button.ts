@@ -23,6 +23,7 @@ export type ColorScheme = {
   hover: string;
   active: string;
   text: string;
+  bgHover?: string;
 };
 
 /**
@@ -74,6 +75,7 @@ export const buttonTheme: ButtonTheme = {
       hover: color.bg.darkgraySoft,
       active: color.bg.darkgrayStrong,
       text: color.text.inverse,
+      bgHover: color.bg.gray,
     },
     tertiary: {
       default: color.bg.gray,
