@@ -15,8 +15,13 @@ const fontWeightVar = createVar();
 const borderRadiusVar = createVar();
 const disabledBgColorVar = createVar();
 const disabledTextColorVar = createVar();
-const focusShadowColorVar = createVar(); // focus 시 그림자 색상
-const focusOutlineColorVar = createVar(); // focus 시 그림자 색상
+const focusShadowColorVar = createVar();
+const focusOutlineColorVar = createVar();
+const ghostDefaultColorVar = createVar();
+const ghostHoverColorVar = createVar();
+const ghostActiveColorVar = createVar();
+const ghostHoverBgColorVar = createVar();
+const ghostActiveBgColorVar = createVar();
 
 const baseButton = style({
   borderRadius: borderRadiusVar,
@@ -30,7 +35,7 @@ const baseButton = style({
   cursor: 'pointer',
   border: 'none',
   transition: 'all 0.2s ease',
-  gap: toRem(spacing['8']), // 0.8rem
+  gap: toRem(spacing['8']),
   textDecoration: 'none',
 
   boxSizing: 'border-box',
@@ -87,6 +92,33 @@ export const buttonStyle = recipe({
           color: disabledTextColorVar,
         },
       },
+      ghost: {
+        backgroundColor: 'transparent',
+        color: ghostDefaultColorVar,
+        border: 'none',
+
+        '&:hover:not(:disabled)': {
+          backgroundColor: ghostHoverBgColorVar,
+          color: ghostHoverColorVar,
+        },
+        '&:active:not(:disabled)': {
+          backgroundColor: ghostActiveBgColorVar,
+          color: ghostActiveColorVar,
+        },
+        '&:focus-visible': {
+          outline: `1px solid ${color.alpha.white100}`,
+          boxShadow: `0 0 0 2px ${focusOutlineColorVar}, 0 0 5px 2px ${focusShadowColorVar}`,
+        },
+        '&:disabled': {
+          backgroundColor: 'transparent',
+          color: disabledTextColorVar,
+        },
+      },
+    },
+    color: {
+      primary: {},
+      secondary: {},
+      tertiary: {},
     },
     size: {
       xl: {
@@ -132,9 +164,42 @@ export const buttonStyle = recipe({
       },
     },
   },
+
+  compoundVariants: [
+    {
+      variants: { variant: 'solid', color: 'tertiary' },
+      style: {
+        color: color.text.secondary,
+        selectors: {
+          '&:active:not(:disabled)': {
+            color: color.text.primary,
+          },
+        },
+      },
+    },
+    {
+      variants: { variant: 'outline', color: 'tertiary' },
+      style: {
+        color: color.text.muted,
+        borderColor: color.bg.gray,
+        selectors: {
+          '&:hover:not(:disabled)': {
+            color: color.text.tertiary,
+            borderColor: color.bg.grayStrong,
+          },
+          '&:active:not(:disabled)': {
+            color: color.text.tertiary,
+            borderColor: color.bg.grayStrongest,
+          },
+          '&:disabled': {
+            backgroundColor: color.bg.muted,
+          },
+        },
+      },
+    },
+  ],
 });
 
-// vars 객체 export
 export const buttonVars = {
   defaultColor: defaultColorVar,
   hoverColor: hoverColorVar,
@@ -148,4 +213,9 @@ export const buttonVars = {
   disabledTextColor: disabledTextColorVar,
   focusShadowColor: focusShadowColorVar,
   focusOutlineColor: focusOutlineColorVar,
+  ghostDefaultColor: ghostDefaultColorVar,
+  ghostHoverColor: ghostHoverColorVar,
+  ghostActiveColor: ghostActiveColorVar,
+  ghostHoverBgColor: ghostHoverBgColorVar,
+  ghostActiveBgColor: ghostActiveBgColorVar,
 };

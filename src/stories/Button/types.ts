@@ -9,7 +9,7 @@ import {
 } from '../../types/component';
 import { IconType } from '../Icon';
 
-export type ButtonVariant = 'solid' | 'outline';
+export type ButtonVariant = 'solid' | 'outline' | 'ghost';
 export type ButtonSize = ComponentSize;
 export type ButtonType = 'button' | 'submit';
 export type ButtonRounded = ComponentRounded;
@@ -66,7 +66,7 @@ type ButtonAsLink = ButtonBaseProps & {
 export type ButtonProps = ButtonAsButton | ButtonAsLink;
 
 // Storybook을 위한 options 배열
-export const BUTTON_VARIANTS: ButtonVariant[] = ['solid', 'outline'];
+export const BUTTON_VARIANTS: ButtonVariant[] = ['solid', 'outline', 'ghost'];
 export const BUTTON_SIZES: ButtonSize[] = COMPONENT_SIZES;
 export const BUTTON_TYPES: ButtonType[] = ['button', 'submit'];
 export const BUTTON_COLOR_PRESETS: ButtonColorPreset[] =

@@ -170,12 +170,14 @@ export const ProductDetailPage = () => {
 
                 <Flex align='center' gap='8'>
                   <Button
+                    variant='ghost'
                     size='xs'
                     label='0'
                     leftIcon='Heart'
                     color='secondary'
                   />
                   <Button
+                    variant='ghost'
                     size='xs'
                     label='공유'
                     leftIcon='Share'

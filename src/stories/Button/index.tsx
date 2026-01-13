@@ -65,10 +65,23 @@ export const Button = ({
     text: color,
   };
 
-  // componentSize 토큰에서 iconSize 가져오기
   const iconSize = Number(componentSize[finalSize].iconSize);
 
-  // CSS Variables 주입
+  const ghostColorKey = ['primary', 'secondary', 'tertiary'].includes(color)
+    ? (color as 'primary' | 'secondary' | 'tertiary')
+    : 'primary';
+
+  const ghostScheme =
+    ghostColorKey === 'primary'
+      ? {
+          textDefault: global.color.brand.default,
+          textHover: global.color.brand.stronger,
+          textActive: global.color.brand.strongest,
+          bgHover: global.color.brand.soft,
+          bgActive: global.color.brand.soft,
+        }
+      : buttonTheme.ghostSchemes[ghostColorKey];
+
   const vars = assignInlineVars({
     [buttonVars.defaultColor]: finalColorScheme.default,
     [buttonVars.hoverColor]: finalColorScheme.hover,
@@ -81,12 +94,20 @@ export const Button = ({
     [buttonVars.disabledTextColor]: global.color.text.disabled,
     [buttonVars.focusShadowColor]: global.color.brand.subtle,
     [buttonVars.focusOutlineColor]: `${global.color.brand.subtle}50`,
+    [buttonVars.ghostDefaultColor]: ghostScheme.textDefault,
+    [buttonVars.ghostHoverColor]: ghostScheme.textHover,
+    [buttonVars.ghostActiveColor]: ghostScheme.textActive,
+    [buttonVars.ghostHoverBgColor]: ghostScheme.bgHover,
+    [buttonVars.ghostActiveBgColor]: ghostScheme.bgActive,
   });
 
   const commonProps = {
     className: `${buttonStyle({
       variant: finalVariant,
       size: finalSize,
+      color: ['primary', 'secondary', 'tertiary'].includes(color)
+        ? (color as 'primary' | 'secondary' | 'tertiary')
+        : undefined,
       full,
       leftIcon: !!leftIcon,
       rightIcon: !!rightIcon,
