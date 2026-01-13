@@ -140,14 +140,14 @@ export const typographyPresets = {
   title4: {
     size: 22,
     weight: 'semibold',
-    lineHeight: 'tight',
+    lineHeight: 'relaxed',
     letterSpacing: 'normal',
     element: 'h5',
   },
   title5: {
     size: 20,
     weight: 'semibold',
-    lineHeight: 'tight',
+    lineHeight: 'relaxed',
     letterSpacing: 'normal',
     element: 'h6',
   },
@@ -171,7 +171,7 @@ export const typographyPresets = {
     size: 14,
     weight: 'semibold',
     lineHeight: 'normal',
-    letterSpacing: 'wide',
+    letterSpacing: 'normal',
     element: 'h5',
   },
 
@@ -201,28 +201,28 @@ export const typographyPresets = {
     size: 13,
     weight: 'regular',
     lineHeight: 'normal',
-    letterSpacing: 'wide',
+    letterSpacing: 'normal',
     element: 'p',
   },
 
   // Caption 프리셋 - 작은 텍스트
   label1: {
-    size: 15,
-    weight: 'regular',
-    lineHeight: 'normal',
+    size: 16,
+    weight: 'semibold',
+    lineHeight: 'relaxed',
     letterSpacing: 'normal',
     element: 'label',
   },
   label2: {
     size: 14,
-    weight: 'regular',
+    weight: 'semibold',
     lineHeight: 'normal',
     letterSpacing: 'wide',
     element: 'label',
   },
   label3: {
     size: 13,
-    weight: 'regular',
+    weight: 'semibold',
     lineHeight: 'normal',
     letterSpacing: 'wide',
     element: 'label',
@@ -237,10 +237,33 @@ export const typographyPresets = {
     element: 'span',
   },
   caption2: {
-    size: 12,
+    size: 11,
     weight: 'regular',
     lineHeight: 'normal',
     letterSpacing: 'wide',
+    element: 'span',
+  },
+
+  // Commerce Presets - 쇼핑몰 전용
+  productTitle: {
+    size: 26,
+    weight: 'bold',
+    lineHeight: 'normal',
+    letterSpacing: 'normal',
+    element: 'h2',
+  },
+  productPrice: {
+    size: 26,
+    weight: 'bold',
+    lineHeight: 'tight',
+    letterSpacing: 'normal',
+    element: 'span',
+  },
+  productPriceSmall: {
+    size: 22,
+    weight: 'bold',
+    lineHeight: 'tight',
+    letterSpacing: 'normal',
     element: 'span',
   },
 } as const satisfies Record<string, TypographyPreset>;

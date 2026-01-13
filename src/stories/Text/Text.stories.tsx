@@ -323,6 +323,35 @@ export const Presets: Story = {
         <Text preset='caption1' />
         <Text preset='caption2' />
       </div>
+
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '10px',
+          borderTop: '1px solid #eee',
+          padding: '20px 0',
+        }}
+      >
+        <h4 style={{ fontSize: '12px', color: '#999', margin: 0 }}>Commerce</h4>
+        <Text preset='productTitle'>Product Title</Text>
+        <div>
+          <Text preset='productPrice'>29,900</Text>
+          <Text preset='productPrice' as='span' style={{ fontSize: '16px' }}>
+            원
+          </Text>
+        </div>
+        <div>
+          <Text preset='productPriceSmall'>29,900</Text>
+          <Text
+            preset='productPriceSmall'
+            as='span'
+            style={{ fontSize: '14px' }}
+          >
+            원
+          </Text>
+        </div>
+      </div>
     </div>
   ),
 };

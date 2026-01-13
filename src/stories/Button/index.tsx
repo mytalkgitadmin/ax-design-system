@@ -94,6 +94,7 @@ export const Button = ({
     [buttonVars.disabledTextColor]: global.color.text.disabled,
     [buttonVars.focusShadowColor]: global.color.brand.subtle,
     [buttonVars.focusOutlineColor]: `${global.color.brand.subtle}50`,
+    [buttonVars.outlineHoverBgColor]: finalColorScheme.bgHover ?? 'transparent',
     [buttonVars.ghostDefaultColor]: ghostScheme.textDefault,
     [buttonVars.ghostHoverColor]: ghostScheme.textHover,
     [buttonVars.ghostActiveColor]: ghostScheme.textActive,

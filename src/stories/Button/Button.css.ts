@@ -17,6 +17,7 @@ const disabledBgColorVar = createVar();
 const disabledTextColorVar = createVar();
 const focusShadowColorVar = createVar();
 const focusOutlineColorVar = createVar();
+const outlineHoverBgColorVar = createVar();
 const ghostDefaultColorVar = createVar();
 const ghostHoverColorVar = createVar();
 const ghostActiveColorVar = createVar();
@@ -75,6 +76,7 @@ export const buttonStyle = recipe({
         border: `1px solid ${defaultColorVar}`,
 
         '&:hover:not(:disabled)': {
+          backgroundColor: outlineHoverBgColorVar,
           color: hoverColorVar,
           borderColor: hoverColorVar,
         },
@@ -213,6 +215,7 @@ export const buttonVars = {
   disabledTextColor: disabledTextColorVar,
   focusShadowColor: focusShadowColorVar,
   focusOutlineColor: focusOutlineColorVar,
+  outlineHoverBgColor: outlineHoverBgColorVar,
   ghostDefaultColor: ghostDefaultColorVar,
   ghostHoverColor: ghostHoverColorVar,
   ghostActiveColor: ghostActiveColorVar,
