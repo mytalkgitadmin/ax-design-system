@@ -22,7 +22,6 @@ import { Text } from '../../Text';
 import { Textarea } from '../../Textarea';
 import { StickyPurchaseBar } from '../StickyPurchaseBar';
 
-import { py } from '../../../tokens/dev/utils/spacing.global.css';
 import * as styles from './ProductDetailPage.css';
 import detailImage from '../assets/detail.jpg';
 import thumbnailImage from '../assets/thumbnail.jpg';
@@ -186,7 +185,7 @@ export const ProductDetailPage = () => {
                 </Flex>
               </Flex>
 
-              <Text preset='title3'>
+              <Text preset='productTitle'>
                 [노베라 단독 특전] 아일릿(ILLIT)_03.스티커팩 _ILLIT 3rd MINI
                 ALBUM 'bomb' POP-UP STORE Merch.
               </Text>
@@ -199,19 +198,46 @@ export const ProductDetailPage = () => {
                   9,999,999원
                 </Text>
               </div>
-              <Flex gap='8'>
+              <Flex gap='8' align='center'>
                 {/* 할인률 */}
-                <Text preset='title4' as='p' color={color.text.negative}>
+                <Text
+                  preset='productPriceSmall'
+                  as='p'
+                  color={color.text.negative}
+                >
                   10%
                 </Text>
 
                 {/* 가격 */}
-                <Text preset='title4' as='p'>
+                <Text preset='productPriceSmall' as='p'>
                   {(price * quantity).toLocaleString()}
-                  <Text preset='title4' as='span' color={color.text.secondary}>
+                  <Text preset='productPriceSmall' as='span'>
                     원
                   </Text>
                 </Text>
+              </Flex>
+              {/* 최대 혜택가 */}
+              <Flex gap='4' align='center' justify='between'>
+                <Flex gap='4' align='center'>
+                  <Text
+                    preset='productPrice'
+                    as='p'
+                    color={color.text.negative}
+                  >
+                    8,899,999원
+                  </Text>
+                  <Text preset='body2' as='span' color={color.text.secondary}>
+                    최대혜택가
+                  </Text>
+                </Flex>
+
+                <Button
+                  variant='ghost'
+                  size='sm'
+                  label='자세히'
+                  color='secondary'
+                  rightIcon='ChevronDown'
+                />
               </Flex>
             </Flex>
             <Flex
@@ -232,7 +258,7 @@ export const ProductDetailPage = () => {
                   쿠폰 사용 시 100,000원
                 </Text>
               </Flex>
-              <Button label='쿠폰받기' color='secondary' size='sm' />
+              <Button label='쿠폰받기' color='tertiary' size='sm' />
             </Flex>
             <Select
               text='옵션을 선택해 주세요'
@@ -263,7 +289,7 @@ export const ProductDetailPage = () => {
 
             {/* 데스크탑: 수량 선택 및 구매 옵션 */}
             <div className={styles.desktopOnly}>
-              {/* 수량 선택 */}
+              {/* 수량 선택 (Selected Option Card) */}
               <Flex
                 direction='column'
                 style={{
@@ -273,11 +299,18 @@ export const ProductDetailPage = () => {
                   margin: `${toRem(spacing[24])} 0`,
                 }}
               >
-                <Text preset='subTitle3' weight='semibold' as='span'>
-                  상품 금액
-                </Text>
-                {/*  handleDecrease */}
-                <Flex justify='between' align='center' className={py[24]}>
+                <Flex
+                  justify='between'
+                  align='start'
+                  style={{ marginBottom: toRem(spacing[16]) }}
+                >
+                  <Text preset='body2' color={color.text.secondary}>
+                    상품명/옵션명
+                  </Text>
+                  <Icon name='X' size={20} color={color.text.secondary} />
+                </Flex>
+
+                <Flex justify='between' align='center'>
                   <Stepper
                     value={quantity}
                     onChange={(val) => setQuantity(val ?? 1)}
@@ -286,8 +319,8 @@ export const ProductDetailPage = () => {
                   />
 
                   <Text
-                    preset='body1'
-                    weight='semibold'
+                    preset='title5'
+                    weight='bold'
                     as='span'
                     style={{ marginLeft: '16px' }}
                   >
@@ -315,37 +348,58 @@ export const ProductDetailPage = () => {
                 defaultValue='shipping'
               />
 
-              {/* 총 상품 금액 */}
+              {/* 할인 내역 */}
               <Flex
-                justify='between'
-                align='center'
+                direction='column'
+                gap='8'
                 style={{
+                  margin: `0 0 ${toRem(spacing[16])} 0`,
                   borderTop: `1px solid ${color.divider.default}`,
+                  paddingTop: toRem(spacing[16]),
                 }}
-                className={py[24]}
               >
-                <Text preset='label1' as='span'>
-                  총 상품금액
-                </Text>
+                <Flex justify='between'>
+                  <Text preset='body2' color={color.text.secondary}>
+                    특가 할인
+                  </Text>
+                  <Text preset='body2' color={color.text.secondary}>
+                    -1,000,000원
+                  </Text>
+                </Flex>
+                <Flex justify='between'>
+                  <Text preset='body2' color={color.text.secondary}>
+                    쿠폰 할인
+                  </Text>
+                  <Text preset='body2' color={color.text.secondary}>
+                    -100,000원
+                  </Text>
+                </Flex>
 
-                <Text preset='title5'>
-                  {(price * quantity).toLocaleString()}
-                  <Text as='span'>원</Text>
-                </Text>
+                {/* 총 상품 금액 */}
+                <Flex justify='between' align='center'>
+                  <Text preset='label1' as='span'>
+                    총 상품금액
+                  </Text>
+
+                  <Text preset='title5'>
+                    {(price * quantity).toLocaleString()}
+                    <Text as='span'>원</Text>
+                  </Text>
+                </Flex>
               </Flex>
               {/* 구매 버튼 */}
               <Flex gap='12'>
                 <Button
                   size='lg'
-                  color='secondary'
-                  label='장바구니'
+                  color='tertiary'
                   icon='Bag'
-                  style={{ flex: 0 }}
+                  label='장바구니'
+                  style={{ flex: 0, minWidth: '56px', padding: 0 }}
                 />
                 <Button
                   variant='solid'
                   size='lg'
-                  color='primary'
+                  color='secondary'
                   label='구매하기'
                   style={{ flex: 1 }}
                 />
@@ -372,6 +426,15 @@ export const ProductDetailPage = () => {
 
           <img src={detailImage} alt='' style={{ maxWidth: '100%' }} />
 
+          <Button
+            label='상품정보 더보기'
+            size='lg'
+            color='secondary'
+            variant='outline'
+            rightIcon='ChevronDown'
+            className='my-24'
+            full
+          />
           <Table
             caption='상품 주요 정보'
             columns={[
@@ -569,7 +632,6 @@ export const ProductDetailPage = () => {
             {/* 스크롤 가능한 옵션 영역 */}
             <div
               style={{
-                overflowY: 'auto',
                 padding: toRem(spacing[24]),
                 flex: 1,
               }}
@@ -640,7 +702,7 @@ export const ProductDetailPage = () => {
               <div style={{ display: 'flex', gap: toRem(spacing[8]) }}>
                 <Button
                   size='lg'
-                  color='secondary'
+                  color='tertiary'
                   label='장바구니'
                   icon='Bag'
                   onClick={() => {
@@ -652,7 +714,7 @@ export const ProductDetailPage = () => {
                 <Button
                   variant='solid'
                   size='lg'
-                  color='primary'
+                  color='secondary'
                   label='구매하기'
                   onClick={() => {
                     console.warn('구매하기');

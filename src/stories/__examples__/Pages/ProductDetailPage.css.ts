@@ -38,7 +38,6 @@ export const infoSection = style({
   top: '36px',
   alignSelf: 'flex-start', // Grid 내에서 상단 정렬
   maxHeight: '100vh', // 뷰포트 높이를 넘지 않도록
-  overflowY: 'auto', // 내용이 많을 경우 스크롤
 
   [media.down('md')]: {
     // 모바일에서는 스티키 해제

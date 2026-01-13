@@ -27,7 +27,7 @@ export const StickyPurchaseBar = ({
         <div className={styles.buttonRow}>
           <Button
             size='lg'
-            color='secondary'
+            color='tertiary'
             label='장바구니'
             icon='Bag'
             onClick={onCartClick}
@@ -36,7 +36,7 @@ export const StickyPurchaseBar = ({
           <Button
             variant='solid'
             size='lg'
-            color='primary'
+            color='secondary'
             label='구매하기'
             onClick={onPurchaseClick}
             style={{ flex: 1 }}
