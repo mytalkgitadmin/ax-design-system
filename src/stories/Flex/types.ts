@@ -4,7 +4,15 @@ import type React from 'react';
 // Flex Component Types
 // --------------------------------------------------
 
-export type FlexElement = 'div' | 'section' | 'article' | 'span';
+export type FlexElement =
+  | 'div'
+  | 'section'
+  | 'article'
+  | 'span'
+  | 'header'
+  | 'footer'
+  | 'nav'
+  | 'main';
 export type FlexDirection = 'row' | 'column' | 'row-reverse' | 'column-reverse';
 export type FlexJustify =
   | 'start'

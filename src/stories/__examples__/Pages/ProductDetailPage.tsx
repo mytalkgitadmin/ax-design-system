@@ -83,6 +83,32 @@ export const ProductDetailPage = () => {
 
   return (
     <Flex direction='column' className={styles.pageContainer}>
+      <Flex as='header' justify='between' align='center'>
+        <Flex gap='8' align='center'>
+          <h1>Novera</h1>
+        </Flex>
+        <Flex align='center'>
+          <Button
+            label='검색'
+            icon='Search'
+            variant='ghost'
+            color='secondary'
+          />
+          <Button
+            label='마이페이지'
+            icon='User'
+            variant='ghost'
+            color='secondary'
+          />
+          <Button
+            label='장바구니'
+            icon='Bag'
+            variant='ghost'
+            color='secondary'
+          />
+        </Flex>
+      </Flex>
+
       {/* 브레드크럼 */}
       <div className={styles.breadcrumbWrapper}>
         <BreadCrumb
