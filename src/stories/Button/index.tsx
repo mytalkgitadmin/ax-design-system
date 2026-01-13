@@ -65,14 +65,23 @@ export const Button = ({
     text: color,
   };
 
-  // componentSize 토큰에서 iconSize 가져오기
   const iconSize = Number(componentSize[finalSize].iconSize);
 
-  // Ghost 버튼용 색상 스킴 가져오기
-  const ghostPrimaryScheme = buttonTheme.ghostSchemes.primary;
-  const ghostSecondaryScheme = buttonTheme.ghostSchemes.secondary;
+  const ghostColorKey = ['primary', 'secondary', 'tertiary'].includes(color)
+    ? (color as 'primary' | 'secondary' | 'tertiary')
+    : 'primary';
 
-  // CSS Variables 주입
+  const ghostScheme =
+    ghostColorKey === 'primary'
+      ? {
+          textDefault: global.color.brand.default,
+          textHover: global.color.brand.stronger,
+          textActive: global.color.brand.strongest,
+          bgHover: global.color.brand.soft,
+          bgActive: global.color.brand.soft,
+        }
+      : buttonTheme.ghostSchemes[ghostColorKey];
+
   const vars = assignInlineVars({
     [buttonVars.defaultColor]: finalColorScheme.default,
     [buttonVars.hoverColor]: finalColorScheme.hover,
@@ -85,16 +94,11 @@ export const Button = ({
     [buttonVars.disabledTextColor]: global.color.text.disabled,
     [buttonVars.focusShadowColor]: global.color.brand.subtle,
     [buttonVars.focusOutlineColor]: `${global.color.brand.subtle}50`,
-    // Ghost 버튼용 색상 (theme에서 가져옴)
-    [buttonVars.ghostDefaultColor]: ghostPrimaryScheme.textDefault,
-    [buttonVars.ghostHoverColor]: ghostPrimaryScheme.textHover,
-    [buttonVars.ghostActiveColor]: ghostPrimaryScheme.textActive,
-    // Ghost Primary 배경색
-    [buttonVars.ghostPrimaryHoverBg]: ghostPrimaryScheme.bgHover,
-    [buttonVars.ghostPrimaryActiveBg]: ghostPrimaryScheme.bgActive,
-    // Ghost Secondary 배경색
-    [buttonVars.ghostSecondaryHoverBg]: ghostSecondaryScheme.bgHover,
-    [buttonVars.ghostSecondaryActiveBg]: ghostSecondaryScheme.bgActive,
+    [buttonVars.ghostDefaultColor]: ghostScheme.textDefault,
+    [buttonVars.ghostHoverColor]: ghostScheme.textHover,
+    [buttonVars.ghostActiveColor]: ghostScheme.textActive,
+    [buttonVars.ghostHoverBgColor]: ghostScheme.bgHover,
+    [buttonVars.ghostActiveBgColor]: ghostScheme.bgActive,
   });
 
   const commonProps = {

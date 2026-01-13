@@ -41,8 +41,8 @@ export type GhostColorScheme = {
 export type ButtonTheme = {
   defaultSize: ButtonSize;
   defaultVariant: ButtonVariant;
-  radius?: number; // undefined면 global.radius.sm 사용
-  fontWeight?: number; // undefined면 global.typography.fontWeight.semibold 사용
+  radius?: number;
+  fontWeight?: number;
 
   colorSchemes: {
     primary: ColorScheme;
@@ -50,18 +50,17 @@ export type ButtonTheme = {
     tertiary: ColorScheme;
   };
 
-  // Ghost variant 별도 관리
   ghostSchemes: {
     primary: GhostColorScheme;
     secondary: GhostColorScheme;
+    tertiary: GhostColorScheme;
   };
 };
 
 export const buttonTheme: ButtonTheme = {
   defaultSize: 'md',
   defaultVariant: 'solid',
-  radius: rounded.sm, // 기본값: sm (8px)
-  // fontWeight: undefined, // global.typography.fontWeight.semibold 사용
+  radius: rounded.sm,
 
   colorSchemes: {
     primary: {
@@ -74,31 +73,37 @@ export const buttonTheme: ButtonTheme = {
       default: color.bg.darkgray,
       hover: color.bg.darkgraySoft,
       active: color.bg.darkgrayStrong,
-      text: color.text.inverse, // #ffffff
+      text: color.text.inverse,
     },
     tertiary: {
       default: color.bg.gray,
       hover: color.bg.grayStrong,
       active: color.bg.grayStrongest,
-      text: color.text.muted, // outline에서 사용
+      text: color.text.muted,
     },
   },
 
-  // Ghost 버튼 색상 설정
   ghostSchemes: {
     primary: {
       textDefault: colorTheme.brand.default,
       textHover: colorTheme.brand.stronger,
       textActive: colorTheme.brand.strongest,
-      bgHover: colorTheme.brand.soft, // 매우 연한 브랜드 색
-      bgActive: colorTheme.brand.subtle, // 연한 브랜드 색
+      bgHover: colorTheme.brand.soft,
+      bgActive: colorTheme.brand.soft,
     },
     secondary: {
-      textDefault: colorTheme.brand.default,
-      textHover: colorTheme.brand.stronger,
-      textActive: colorTheme.brand.strongest,
-      bgHover: color.bg.gray, // 회색 배경
-      bgActive: color.bg.grayStrong, // 진한 회색 배경
+      textDefault: color.text.secondary,
+      textHover: color.text.primary,
+      textActive: color.text.primary,
+      bgHover: color.bg.gray,
+      bgActive: color.bg.gray,
+    },
+    tertiary: {
+      textDefault: color.text.muted,
+      textHover: color.text.tertiary,
+      textActive: color.text.tertiary,
+      bgHover: color.bg.gray,
+      bgActive: color.bg.gray,
     },
   },
 };
