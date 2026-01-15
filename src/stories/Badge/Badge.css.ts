@@ -1,8 +1,14 @@
 import { createVar, style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
-import { color, componentSize, font, rounded, spacing } from '../../tokens';
-import { toRem } from '../../tokens/dev/helpers/units';
+import {
+  color,
+  componentSize,
+  font,
+  rounded,
+  spacing,
+  toRem,
+} from '../../tokens';
 
 // Badge CSS Variables
 export const badgeVars = {
@@ -16,8 +22,8 @@ const baseBadge = style({
   display: 'inline-flex',
   alignItems: 'center',
   justifyContent: 'center',
-  gap: toRem(spacing['4']),
-  padding: `0 ${toRem(spacing[8])}`,
+  gap: spacing[4],
+  padding: `0 ${spacing[8]}`,
   fontWeight: font.weight.semibold,
   height: toRem(componentSize.xs.height),
   minWidth: toRem(componentSize.xs.height),

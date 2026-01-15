@@ -1,7 +1,6 @@
 import { style } from '@vanilla-extract/css';
 
 import { color, shadow, spacing, zIndex } from '../../../tokens';
-import { toRem } from '../../../tokens/dev/helpers/units';
 import { media } from '../../../utils/media';
 
 export const stickyBar = style({
@@ -11,7 +10,7 @@ export const stickyBar = style({
   right: 0,
   backgroundColor: color.bg.default,
   borderTop: `1px solid ${color.divider.default}`,
-  padding: toRem(spacing[16]),
+  padding: spacing[16],
   zIndex: Number(zIndex.sticky),
   boxShadow: shadow.overlay,
   display: 'none',
@@ -30,6 +29,6 @@ export const stickyContent = style({
 
 export const buttonRow = style({
   display: 'flex',
-  gap: toRem(spacing[8]),
+  gap: spacing[8],
   width: '100%',
 });

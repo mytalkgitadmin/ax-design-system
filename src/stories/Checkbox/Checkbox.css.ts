@@ -1,8 +1,7 @@
 import { createVar, style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
-import { color, componentSize, spacing, typography } from '../../tokens';
-import { toRem } from '../../tokens/dev/helpers/units';
+import { color, componentSize, spacing, toRem, typography } from '../../tokens';
 
 // CSS 변수 정의 - 런타임에 Theme에서 주입됨
 const fontFamilyVar = createVar();
@@ -25,7 +24,7 @@ const iconDisabledVar = createVar();
 const baseCheckboxContainer = style({
   display: 'flex',
   alignItems: 'flex-start',
-  gap: toRem(spacing['12']),
+  gap: spacing[12],
   position: 'relative',
   cursor: 'pointer',
 });
@@ -190,7 +189,7 @@ export const checkSvg = style({
 export const textContainer = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: toRem(spacing['4']),
+  gap: spacing[4],
   flex: 1,
 });
 
@@ -203,7 +202,7 @@ export const label = recipe({
     transition: 'color 0.2s ease',
     display: 'inline-flex',
     alignItems: 'center',
-    gap: toRem(spacing[4]),
+    gap: spacing[4],
   },
 
   variants: {
@@ -283,7 +282,7 @@ export const checkboxVars = {
 export const checkboxGroupContainer = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: toRem(spacing[8]),
+  gap: spacing[8],
 });
 
 // CheckboxGroup 레이블
@@ -293,14 +292,14 @@ export const checkboxGroupLabel = style({
   fontSize: toRem(typography.fontSize[14]),
   lineHeight: 1.4,
   color: textPrimaryVar,
-  marginBottom: toRem(spacing[4]),
+  marginBottom: spacing[4],
 });
 
 // CheckboxGroup 아이템 래퍼 (direction에 따라 변경)
 export const checkboxGroupItems = recipe({
   base: {
     display: 'flex',
-    gap: toRem(spacing[12]),
+    gap: spacing[12],
   },
   variants: {
     direction: {

@@ -1,8 +1,7 @@
 import { createVar, style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
-import { componentSize, spacing } from '../../tokens';
-import { toRem } from '../../tokens/dev/helpers/units';
+import { componentSize, spacing, toRem } from '../../tokens';
 
 /**
  * ========================================
@@ -44,7 +43,7 @@ const borderRadiusVar = createVar();
 export const inputWrapper = style({
   display: 'inline-flex',
   flexDirection: 'column',
-  gap: toRem(spacing[8]),
+  gap: spacing[8],
   width: 'fit-content',
   verticalAlign: 'middle',
 });
@@ -327,11 +326,11 @@ export const iconContainer = style({
 });
 
 export const leftIconContainer = style({
-  left: toRem(spacing[12]),
+  left: spacing[12],
 });
 
 export const rightIconContainer = style({
-  right: toRem(spacing[12]),
+  right: spacing[12],
 });
 
 /**

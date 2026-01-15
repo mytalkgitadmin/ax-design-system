@@ -1,9 +1,8 @@
 import { createVar, style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
-import { spacing, typography } from '../../tokens';
+import { spacing, toRem, typography } from '../../tokens';
 import { fontWeight } from '../../tokens/dev/helpers/typography';
-import { toRem } from '../../tokens/dev/helpers/units';
 
 /**
  * ========================================
@@ -42,7 +41,7 @@ const baseLabel = style({
   color: labelColorVar,
   display: 'flex',
   alignItems: 'center',
-  gap: toRem(spacing[4]),
+  gap: spacing[4],
 });
 
 // Label Recipe (size에 따라 fontSize 변경)

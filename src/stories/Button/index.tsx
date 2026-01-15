@@ -3,8 +3,7 @@ import React from 'react';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 
 import { useTheme } from '../../theme';
-import { componentSize, rounded } from '../../tokens';
-import { toRem } from '../../tokens/dev/helpers/units';
+import { componentSize, rounded, toRem } from '../../tokens';
 import { Icon } from '../Icon';
 import { ButtonProps } from './types';
 

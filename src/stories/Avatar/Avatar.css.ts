@@ -1,8 +1,7 @@
 import { style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
-import { color, font, rounded } from '../../tokens';
-import { toRem } from '../../tokens/dev/helpers/units';
+import { color, font, rounded, toRem } from '../../tokens';
 
 // Avatar 크기 정의 (디자이너 스펙)
 // xs: 20px, sm: 24px, md: 32px, lg: 48px

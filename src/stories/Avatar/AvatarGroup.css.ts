@@ -1,7 +1,6 @@
 import { style } from '@vanilla-extract/css';
 
-import { color, font } from '../../tokens';
-import { toRem } from '../../tokens/dev/helpers/units';
+import { color, font, toRem } from '../../tokens';
 
 export const avatarGroupContainer = style({
   display: 'flex',

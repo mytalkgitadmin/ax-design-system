@@ -1,8 +1,7 @@
 import { createVar, style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
-import { componentSize, font } from '../../tokens';
-import { toRem } from '../../tokens/dev/helpers/units';
+import { componentSize, font, toRem } from '../../tokens';
 
 /**
  * ========================================

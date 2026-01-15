@@ -1,8 +1,7 @@
 import { createVar, style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
-import { color, rounded } from '../../tokens';
-import { toRem } from '../../tokens/dev/helpers/units';
+import { color, rounded, toRem } from '../../tokens';
 
 export const thumbnailVars = {
   iconColor: createVar(),

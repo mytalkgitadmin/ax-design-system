@@ -1,4 +1,3 @@
-import { color } from '../../tokens';
 import { Avatar } from './index';
 import { AvatarGroupProps } from './types';
 
@@ -13,8 +12,7 @@ import {
 
 export type { AvatarGroupProps } from './types';
 
-import { rounded as roundedTokens } from '../../tokens';
-import { toRem } from '../../tokens/dev/helpers/units';
+import { color, rounded as roundedTokens, toRem } from '../../tokens';
 
 export const AvatarGroup = ({
   avatars,

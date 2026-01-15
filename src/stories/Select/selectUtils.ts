@@ -1,7 +1,6 @@
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 
-import { color } from '../../tokens';
-import { toRem } from '../../tokens/dev/helpers/units';
+import { color, toRem } from '../../tokens';
 import { formFieldVars } from '../FormField';
 
 import type { GlobalTheme } from '../../theme/global';

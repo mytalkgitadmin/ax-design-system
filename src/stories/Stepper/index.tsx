@@ -3,8 +3,12 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 
 import { useTheme } from '../../theme';
-import * as tokens from '../../tokens';
-import { toRem } from '../../tokens/dev/helpers/units';
+import {
+  color as colorTokens,
+  componentSize,
+  rounded,
+  toRem,
+} from '../../tokens';
 import { Icon } from '../Icon';
 import { StepperProps } from './types';
 
@@ -40,7 +44,7 @@ export const Stepper = ({
   const finalSize = size;
   const finalRadius =
     roundedProp !== undefined
-      ? tokens.rounded[roundedProp]
+      ? rounded[roundedProp]
       : (inputTheme.radius ?? global.radius.sm);
   const finalFontWeight =
     inputTheme.fontWeight ?? global.typography.fontWeight.regular;
@@ -183,7 +187,7 @@ export const Stepper = ({
         ? currentValue
         : Number(currentValue || 0)) >= max);
 
-  const iconSize = Number(tokens.componentSize[finalSize].iconSize);
+  const iconSize = Number(componentSize[finalSize].iconSize);
 
   // 5. CSS Variables 주입
   const vars = assignInlineVars({
@@ -196,10 +200,10 @@ export const Stepper = ({
 
     [stepperVars.textColor]: global.color.text.secondary,
     [stepperVars.disabledTextColor]: global.color.text.disabled,
-    [stepperVars.iconColor]: tokens.color.icon.secondary,
+    [stepperVars.iconColor]: colorTokens.icon.secondary,
     [stepperVars.iconHoverColor]: finalColorScheme.focus,
     [stepperVars.iconActiveColor]: finalColorScheme.focus,
-    [stepperVars.iconDisabledColor]: tokens.color.icon.disabled,
+    [stepperVars.iconDisabledColor]: colorTokens.icon.disabled,
 
     [stepperVars.buttonHoverBgColor]: global.color.bg.subtle,
     [stepperVars.buttonActiveBgColor]: global.color.bg.muted,

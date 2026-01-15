@@ -23,6 +23,9 @@ const typescriptNestedObject = ({ dictionary }) => {
     output += `export const ${safeName} = ${stringifyObject(value)};\n\n`;
   });
 
+  // Re-export helpers
+  output += `export * from './dev/helpers/units';\n`;
+
   return output;
 };
 

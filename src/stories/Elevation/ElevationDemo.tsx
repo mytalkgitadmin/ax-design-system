@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
-import { color, shadow, typography } from '../../tokens';
-import { toRem } from '../../tokens/dev/helpers/units';
+import { color, shadow, toRem, typography } from '../../tokens';
 
 export type ElevationDemoProps = {
   elevation?: keyof typeof shadow;

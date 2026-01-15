@@ -1,8 +1,7 @@
 import { createVar, style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
-import { color, componentSize, font, spacing } from '../../tokens';
-import { toRem } from '../../tokens/dev/helpers/units';
+import { color, componentSize, font, spacing, toRem } from '../../tokens';
 
 // CSS 변수 정의
 const textColorVar = createVar();
@@ -54,7 +53,7 @@ const baseHeader = style({
     '&:focus-visible': {
       outline: 'none',
       boxShadow: `0 0 0 1px ${focusOutlineColorVar}, 0 0 5px 1px ${focusShadowColorVar}`,
-      borderRadius: `${toRem(spacing[4])}`,
+      borderRadius: spacing[4],
       position: 'relative',
     },
     '&:disabled': {
@@ -73,19 +72,19 @@ export const accordionHeader = recipe({
       sm: {
         height: toRem(componentSize.sm.height),
         fontSize: toRem(componentSize.sm.fontSize),
-        gap: toRem(spacing[8]),
+        gap: spacing[8],
         padding: '0 0.5em',
       },
       md: {
         height: toRem(componentSize.md.height),
         fontSize: toRem(componentSize.md.fontSize),
-        gap: toRem(spacing[8]),
+        gap: spacing[8],
         padding: '0 0.5em',
       },
       lg: {
         height: toRem(componentSize.lg.height),
         fontSize: toRem(componentSize.lg.fontSize),
-        gap: toRem(spacing[12]),
+        gap: spacing[12],
         padding: '0 0.5em',
       },
     },
@@ -108,7 +107,7 @@ export const textArea = style({
   flex: 1,
   display: 'flex',
   alignItems: 'center',
-  gap: toRem(spacing[32]),
+  gap: spacing[32],
   minWidth: 0, // text overflow 방지
 });
 
