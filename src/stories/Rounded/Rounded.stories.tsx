@@ -59,7 +59,7 @@ import type { Meta, StoryObj } from '@storybook/react';
  * ```typescript
  * // Vanilla Extract
  * export const card = style({
- *   borderRadius: 'var(--rounded-md)',  // 1.2rem
+ *   borderRadius: 'var(--rounded-md)',  // 12px
  * });
  *
  * // styled-components

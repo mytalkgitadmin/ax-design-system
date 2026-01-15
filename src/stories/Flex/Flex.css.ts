@@ -67,15 +67,14 @@ export const flexStyle = recipe({
     },
     gap: {
       '0': { gap: 0 },
-      '4': { gap: toRem(spacing['4']) }, // 0.4rem
-      '8': { gap: toRem(spacing['8']) }, // 0.8rem
-      '12': { gap: toRem(spacing['12']) }, // 1.2rem
-      '16': { gap: toRem(spacing['16']) }, // 1.6rem
-      '20': { gap: toRem(spacing['20']) }, // 2.0rem
-      '24': { gap: toRem(spacing['24']) }, // 2.4rem
-      '32': { gap: toRem(spacing['32']) }, // 3.2rem
-      '48': { gap: toRem(spacing['48']) }, // 4.8rem
-      '64': { gap: toRem(spacing['64']) }, // 6.4rem
+      '4': { gap: toRem(spacing['4']) },
+      '8': { gap: toRem(spacing['8']) },
+      '12': { gap: toRem(spacing['12']) },
+      '16': { gap: toRem(spacing['16']) },
+      '24': { gap: toRem(spacing['24']) },
+      '32': { gap: toRem(spacing['32']) },
+      '48': { gap: toRem(spacing['48']) },
+      '64': { gap: toRem(spacing['64']) },
     },
   },
 

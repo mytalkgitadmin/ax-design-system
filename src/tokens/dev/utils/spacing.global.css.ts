@@ -87,13 +87,12 @@ export const columnGap = styleVariants(spacingTokens.spacing, (value) => ({
   columnGap: value,
 }));
 
-// Inset Spacing utilities
-export const inset = styleVariants(spacingTokens.insetSpacing, (value) => ({
-  paddingTop: value.y,
-  paddingBottom: value.y,
-  paddingLeft: value.x,
-  paddingRight: value.x,
-}));
+// TODO: Inset Spacing 기능 추가 필요
+// - spacing.ts에 insetSpacing 토큰 정의 필요
+// - 형태: { x: string, y: string } - 2축 spacing (예: { x: '1rem', y: '0.5rem' })
+// - 사용 예: export const inset = styleVariants(spacingTokens.insetSpacing, (value) => ({
+//     padding: `${value.y} ${value.x}`,
+//   }));
 
 // ===== HTML 글로벌 클래스 =====
 

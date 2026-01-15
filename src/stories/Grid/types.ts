@@ -18,17 +18,7 @@ export type GridColumns =
   | 'auto-fit'
   | (string & {});
 export type GridRows = '1' | '2' | '3' | '4' | '5' | '6' | 'auto';
-export type GridGap =
-  | '0'
-  | '4'
-  | '8'
-  | '12'
-  | '16'
-  | '20'
-  | '24'
-  | '32'
-  | '48'
-  | '64';
+export type GridGap = '0' | '4' | '8' | '12' | '16' | '24' | '32' | '48' | '64';
 export type GridAutoFlow = 'row' | 'column' | 'row-dense' | 'column-dense';
 export type GridAlign = 'start' | 'center' | 'end' | 'stretch';
 export type GridJustify =
@@ -81,7 +71,6 @@ export const GRID_GAPS: GridGap[] = [
   '8',
   '12',
   '16',
-  '20',
   '24',
   '32',
   '48',

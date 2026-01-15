@@ -10,7 +10,7 @@ import type { Meta, StoryObj } from '@storybook/react';
  *
  * - **8px 기반** 스케일 체계
  * - **숫자는 픽셀 단위** 기준 (실제 값은 rem으로 변환)
- * - 예: `spacing[16]` → `1.6rem` (16px)
+ * - 예: `spacing[16]` → `1rem` (16px)
  *
  * ## ✅ 사용 원칙
  *

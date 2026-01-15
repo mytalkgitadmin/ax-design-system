@@ -110,14 +110,14 @@ export const rounded = {
   /* Font */
   --family-pretendard: 'Pretendard Variable', sans-serif;
 
-  /* Rounded */
+  /* Rounded (16px 기준: 1rem = 16px) */
   --rounded-none: 0;
-  --rounded-xs: 0.4rem;
-  --rounded-sm: 0.8rem;
-  --rounded-md: 1.2rem;
-  --rounded-lg: 1.6rem;
-  --rounded-xl: 2.4rem;
-  --rounded-full: 99.9rem;
+  --rounded-xs: 0.25rem;
+  --rounded-sm: 0.5rem;
+  --rounded-md: 0.75rem;
+  --rounded-lg: 1rem;
+  --rounded-xl: 1.5rem;
+  --rounded-full: 62.4375rem;
 }
 ```
 
@@ -151,7 +151,7 @@ import { rounded } from '@/tokens';
 import { toRem } from '@/tokens/dev/helpers/units';
 
 const card = style({
-  borderRadius: toRem(rounded.md), // '1.2rem'
+  borderRadius: toRem(rounded.md), // '0.75rem'
 });
 ```
 

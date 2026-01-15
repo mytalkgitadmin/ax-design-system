@@ -1,24 +1,25 @@
 /**
  * Typography Scales
  * CSS 레벨에서 관리하는 타이포그래피 스케일
- * 피그마 토큰(font.json)과 분리하여 개발용으로 관리
+ *
  */
+import { toRem } from './units';
 
 export const fontSize = {
-  56: '5.6rem',
-  44: '4.4rem',
-  40: '4.0rem',
-  32: '3.2rem',
-  26: '2.6rem',
-  22: '2.2rem',
-  20: '2.0rem',
-  18: '1.8rem',
-  16: '1.6rem',
-  15: '1.5rem',
-  14: '1.4rem',
-  13: '1.3rem',
-  12: '1.2rem',
-  11: '1.1rem',
+  56: toRem(56),
+  44: toRem(44),
+  40: toRem(40),
+  32: toRem(32),
+  26: toRem(26),
+  22: toRem(22),
+  20: toRem(20),
+  18: toRem(18),
+  16: toRem(16),
+  15: toRem(15),
+  14: toRem(14),
+  13: toRem(13),
+  12: toRem(12),
+  11: toRem(11),
 } as const;
 
 export const lineHeight = {
@@ -28,9 +29,9 @@ export const lineHeight = {
 } as const;
 
 export const letterSpacing = {
-  tight: '-0.1rem',
+  tight: `-${toRem(1)}`, // -1px
   normal: '0',
-  wide: '0.1rem',
+  wide: toRem(1), // 1px
 } as const;
 
 export const fontWeight = {
