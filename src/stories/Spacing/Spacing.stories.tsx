@@ -1,4 +1,4 @@
-import { spacing } from '../../tokens/dev/helpers/spacing';
+import { spacing } from '../../tokens';
 import { SpacingDemo } from './SpacingDemo';
 
 import type { Meta, StoryObj } from '@storybook/react';
@@ -112,78 +112,78 @@ type Story = StoryObj<typeof meta>;
 export const Interactive: Story = {
   render: (args) => <SpacingDemo {...args} />,
   args: {
-    margin: 16,
-    padding: 16,
-    gap: 16,
+    margin: '16',
+    padding: '16',
+    gap: '16',
   },
   argTypes: {
     margin: {
       control: { type: 'select' },
-      options: Object.keys(spacing).map(Number),
+      options: Object.keys(spacing),
       description: '모든 방향의 외부 여백 일괄 적용 (margin)',
     },
     marginTop: {
       control: { type: 'select' },
-      options: Object.keys(spacing).map(Number),
+      options: Object.keys(spacing),
       description: '상단 외부 여백 (margin-top) - margin 값을 오버라이드',
       table: { category: 'margin (개별)' },
     },
     marginRight: {
       control: { type: 'select' },
-      options: Object.keys(spacing).map(Number),
+      options: Object.keys(spacing),
       description: '우측 외부 여백 (margin-right) - margin 값을 오버라이드',
       table: { category: 'margin (개별)' },
     },
     marginBottom: {
       control: { type: 'select' },
-      options: Object.keys(spacing).map(Number),
+      options: Object.keys(spacing),
       description: '하단 외부 여백 (margin-bottom) - margin 값을 오버라이드',
       table: { category: 'margin (개별)' },
     },
     marginLeft: {
       control: { type: 'select' },
-      options: Object.keys(spacing).map(Number),
+      options: Object.keys(spacing),
       description: '좌측 외부 여백 (margin-left) - margin 값을 오버라이드',
       table: { category: 'margin (개별)' },
     },
     padding: {
       control: { type: 'select' },
-      options: Object.keys(spacing).map(Number),
+      options: Object.keys(spacing),
       description: '모든 방향의 내부 여백 일괄 적용 (padding)',
     },
     paddingTop: {
       control: { type: 'select' },
-      options: Object.keys(spacing).map(Number),
+      options: Object.keys(spacing),
       description: '상단 내부 여백 (padding-top) - padding 값을 오버라이드',
       table: { category: 'padding (개별)' },
     },
     paddingRight: {
       control: { type: 'select' },
-      options: Object.keys(spacing).map(Number),
+      options: Object.keys(spacing),
       description: '우측 내부 여백 (padding-right) - padding 값을 오버라이드',
       table: { category: 'padding (개별)' },
     },
     paddingBottom: {
       control: { type: 'select' },
-      options: Object.keys(spacing).map(Number),
+      options: Object.keys(spacing),
       description: '하단 내부 여백 (padding-bottom) - padding 값을 오버라이드',
       table: { category: 'padding (개별)' },
     },
     paddingLeft: {
       control: { type: 'select' },
-      options: Object.keys(spacing).map(Number),
+      options: Object.keys(spacing),
       description: '좌측 내부 여백 (padding-left) - padding 값을 오버라이드',
       table: { category: 'padding (개별)' },
     },
     gapY: {
       control: { type: 'select' },
-      options: Object.keys(spacing).map(Number),
+      options: Object.keys(spacing),
       description: 'Grid의 세로 간격 (gap-y / row-gap)',
       table: { category: 'gap (개별)' },
     },
     gapX: {
       control: { type: 'select' },
-      options: Object.keys(spacing).map(Number),
+      options: Object.keys(spacing),
       description: 'Grid의 가로 간격 (gap-x / column-gap)',
       table: { category: 'gap (개별)' },
     },

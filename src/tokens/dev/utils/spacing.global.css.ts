@@ -8,82 +8,82 @@
  */
 import { globalStyle, styleVariants } from '@vanilla-extract/css';
 
-import * as spacingTokens from '../helpers/spacing';
+import { spacing } from '../../index';
 
 // ===== CSS 모듈 방식 (기존) =====
 
 // Margin utilities
-export const m = styleVariants(spacingTokens.spacing, (value) => ({
+export const m = styleVariants(spacing, (value) => ({
   margin: value,
 }));
 
-export const mt = styleVariants(spacingTokens.spacing, (value) => ({
+export const mt = styleVariants(spacing, (value) => ({
   marginTop: value,
 }));
 
-export const mr = styleVariants(spacingTokens.spacing, (value) => ({
+export const mr = styleVariants(spacing, (value) => ({
   marginRight: value,
 }));
 
-export const mb = styleVariants(spacingTokens.spacing, (value) => ({
+export const mb = styleVariants(spacing, (value) => ({
   marginBottom: value,
 }));
 
-export const ml = styleVariants(spacingTokens.spacing, (value) => ({
+export const ml = styleVariants(spacing, (value) => ({
   marginLeft: value,
 }));
 
-export const mx = styleVariants(spacingTokens.spacing, (value) => ({
+export const mx = styleVariants(spacing, (value) => ({
   marginLeft: value,
   marginRight: value,
 }));
 
-export const my = styleVariants(spacingTokens.spacing, (value) => ({
+export const my = styleVariants(spacing, (value) => ({
   marginTop: value,
   marginBottom: value,
 }));
 
 // Padding utilities
-export const p = styleVariants(spacingTokens.spacing, (value) => ({
+export const p = styleVariants(spacing, (value) => ({
   padding: value,
 }));
 
-export const pt = styleVariants(spacingTokens.spacing, (value) => ({
+export const pt = styleVariants(spacing, (value) => ({
   paddingTop: value,
 }));
 
-export const pr = styleVariants(spacingTokens.spacing, (value) => ({
+export const pr = styleVariants(spacing, (value) => ({
   paddingRight: value,
 }));
 
-export const pb = styleVariants(spacingTokens.spacing, (value) => ({
+export const pb = styleVariants(spacing, (value) => ({
   paddingBottom: value,
 }));
 
-export const pl = styleVariants(spacingTokens.spacing, (value) => ({
+export const pl = styleVariants(spacing, (value) => ({
   paddingLeft: value,
 }));
 
-export const px = styleVariants(spacingTokens.spacing, (value) => ({
+export const px = styleVariants(spacing, (value) => ({
   paddingLeft: value,
   paddingRight: value,
 }));
 
-export const py = styleVariants(spacingTokens.spacing, (value) => ({
+export const py = styleVariants(spacing, (value) => ({
   paddingTop: value,
   paddingBottom: value,
 }));
 
 // Gap utilities (Flexbox/Grid)
-export const gap = styleVariants(spacingTokens.spacing, (value) => ({
+export const gap = styleVariants(spacing, (value) => ({
   gap: value,
 }));
 
-export const rowGap = styleVariants(spacingTokens.spacing, (value) => ({
+export const rowGap = styleVariants(spacing, (value) => ({
   rowGap: value,
 }));
 
-export const columnGap = styleVariants(spacingTokens.spacing, (value) => ({
+export const columnGap = styleVariants(spacing, (value) => ({
   columnGap: value,
 }));
 
@@ -96,50 +96,48 @@ export const columnGap = styleVariants(spacingTokens.spacing, (value) => ({
 
 // ===== HTML 글로벌 클래스 =====
 
-type SpacingKey = keyof typeof spacingTokens.spacing;
-const spacingSizes = Object.keys(
-  spacingTokens.spacing
-) as unknown as SpacingKey[];
+type SpacingKey = keyof typeof spacing;
+const spacingSizes = Object.keys(spacing) as SpacingKey[];
 
 // Margin - 전체 .m-{size}
 spacingSizes.forEach((size) => {
-  globalStyle(`.m-${size}`, {
-    margin: spacingTokens.spacing[size],
+  globalStyle(`.m-${String(size)}`, {
+    margin: spacing[size],
   });
 });
 
 // Margin Top .mt-{size}
 spacingSizes.forEach((size) => {
-  globalStyle(`.mt-${size}`, {
-    marginTop: spacingTokens.spacing[size],
+  globalStyle(`.mt-${String(size)}`, {
+    marginTop: spacing[size],
   });
 });
 
 // Margin Right .mr-{size}
 spacingSizes.forEach((size) => {
-  globalStyle(`.mr-${size}`, {
-    marginRight: spacingTokens.spacing[size],
+  globalStyle(`.mr-${String(size)}`, {
+    marginRight: spacing[size],
   });
 });
 
 // Margin Bottom .mb-{size}
 spacingSizes.forEach((size) => {
-  globalStyle(`.mb-${size}`, {
-    marginBottom: spacingTokens.spacing[size],
+  globalStyle(`.mb-${String(size)}`, {
+    marginBottom: spacing[size],
   });
 });
 
 // Margin Left .ml-{size}
 spacingSizes.forEach((size) => {
-  globalStyle(`.ml-${size}`, {
-    marginLeft: spacingTokens.spacing[size],
+  globalStyle(`.ml-${String(size)}`, {
+    marginLeft: spacing[size],
   });
 });
 
 // Margin X .mx-{size}
 spacingSizes.forEach((size) => {
-  const value = spacingTokens.spacing[size];
-  globalStyle(`.mx-${size}`, {
+  const value = spacing[size];
+  globalStyle(`.mx-${String(size)}`, {
     marginLeft: value,
     marginRight: value,
   });
@@ -147,8 +145,8 @@ spacingSizes.forEach((size) => {
 
 // Margin Y .my-{size}
 spacingSizes.forEach((size) => {
-  const value = spacingTokens.spacing[size];
-  globalStyle(`.my-${size}`, {
+  const value = spacing[size];
+  globalStyle(`.my-${String(size)}`, {
     marginTop: value,
     marginBottom: value,
   });
@@ -156,43 +154,43 @@ spacingSizes.forEach((size) => {
 
 // Padding - 전체 .p-{size}
 spacingSizes.forEach((size) => {
-  globalStyle(`.p-${size}`, {
-    padding: spacingTokens.spacing[size],
+  globalStyle(`.p-${String(size)}`, {
+    padding: spacing[size],
   });
 });
 
 // Padding Top .pt-{size}
 spacingSizes.forEach((size) => {
-  globalStyle(`.pt-${size}`, {
-    paddingTop: spacingTokens.spacing[size],
+  globalStyle(`.pt-${String(size)}`, {
+    paddingTop: spacing[size],
   });
 });
 
 // Padding Right .pr-{size}
 spacingSizes.forEach((size) => {
-  globalStyle(`.pr-${size}`, {
-    paddingRight: spacingTokens.spacing[size],
+  globalStyle(`.pr-${String(size)}`, {
+    paddingRight: spacing[size],
   });
 });
 
 // Padding Bottom .pb-{size}
 spacingSizes.forEach((size) => {
-  globalStyle(`.pb-${size}`, {
-    paddingBottom: spacingTokens.spacing[size],
+  globalStyle(`.pb-${String(size)}`, {
+    paddingBottom: spacing[size],
   });
 });
 
 // Padding Left .pl-{size}
 spacingSizes.forEach((size) => {
-  globalStyle(`.pl-${size}`, {
-    paddingLeft: spacingTokens.spacing[size],
+  globalStyle(`.pl-${String(size)}`, {
+    paddingLeft: spacing[size],
   });
 });
 
 // Padding X .px-{size}
 spacingSizes.forEach((size) => {
-  const value = spacingTokens.spacing[size];
-  globalStyle(`.px-${size}`, {
+  const value = spacing[size];
+  globalStyle(`.px-${String(size)}`, {
     paddingLeft: value,
     paddingRight: value,
   });
@@ -200,8 +198,8 @@ spacingSizes.forEach((size) => {
 
 // Padding Y .py-{size}
 spacingSizes.forEach((size) => {
-  const value = spacingTokens.spacing[size];
-  globalStyle(`.py-${size}`, {
+  const value = spacing[size];
+  globalStyle(`.py-${String(size)}`, {
     paddingTop: value,
     paddingBottom: value,
   });
@@ -209,21 +207,21 @@ spacingSizes.forEach((size) => {
 
 // Gap .gap-{size}
 spacingSizes.forEach((size) => {
-  globalStyle(`.gap-${size}`, {
-    gap: spacingTokens.spacing[size],
+  globalStyle(`.gap-${String(size)}`, {
+    gap: spacing[size],
   });
 });
 
 // Row Gap .row-gap-{size}
 spacingSizes.forEach((size) => {
-  globalStyle(`.row-gap-${size}`, {
-    rowGap: spacingTokens.spacing[size],
+  globalStyle(`.row-gap-${String(size)}`, {
+    rowGap: spacing[size],
   });
 });
 
 // Column Gap .column-gap-{size}
 spacingSizes.forEach((size) => {
-  globalStyle(`.column-gap-${size}`, {
-    columnGap: spacingTokens.spacing[size],
+  globalStyle(`.column-gap-${String(size)}`, {
+    columnGap: spacing[size],
   });
 });

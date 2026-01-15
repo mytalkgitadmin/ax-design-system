@@ -1,5 +1,11 @@
-import { color, rounded, spacing, typography, zIndex } from '../../tokens';
-import { toRem } from '../../tokens/dev/helpers/units';
+import {
+  color,
+  rounded,
+  spacing,
+  toRem,
+  typography,
+  zIndex,
+} from '../../tokens';
 
 export type ZIndexDemoProps = {
   level?: keyof typeof zIndex;
@@ -82,7 +88,7 @@ export const ZIndexDemo = ({ level = 'base' }: ZIndexDemoProps) => {
       style={{
         backgroundColor: color.gray[100],
         borderRadius: toRem(rounded.sm),
-        padding: toRem(spacing[12]),
+        padding: spacing[12],
         position: 'relative',
         height: '300px',
         width: '800px',
@@ -169,7 +175,7 @@ export const LayerStack = () => {
     <div
       style={{
         display: 'flex',
-        gap: toRem(spacing[4]),
+        gap: spacing[4],
         alignItems: 'flex-end',
       }}
     >

@@ -1,7 +1,6 @@
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 
-import { componentSize, rounded } from '../../tokens';
-import { toRem } from '../../tokens/dev/helpers/units';
+import { componentSize, rounded, toRem } from '../../tokens';
 import {
   formFieldVars,
   FormLabel,

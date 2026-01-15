@@ -13,7 +13,7 @@ import {
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { useTheme } from '../../theme';
-import { toRem } from '../../tokens/dev/helpers/units';
+import { toRem } from '../../tokens';
 import { Icon } from '../Icon';
 import { Thumbnail } from '../Thumbnail';
 import { CarouselProps } from './types';

@@ -1,8 +1,7 @@
 import { useState } from 'react';
 
 import { useTheme } from '../../../theme';
-import { color, rounded, spacing, zIndex } from '../../../tokens';
-import { toRem } from '../../../tokens/dev/helpers/units';
+import { color, rounded, spacing, toRem, zIndex } from '../../../tokens';
 import { Accordion } from '../../Accordion';
 import { Avatar } from '../../Avatar';
 import { Badge } from '../../Badge';
@@ -271,9 +270,9 @@ export const ProductDetailPage = () => {
               justify='between'
               style={{
                 backgroundColor: color.bg.subtle,
-                padding: `${toRem(spacing[16])} ${toRem(spacing[24])}`,
+                padding: `${spacing[16]} ${spacing[24]}`,
                 borderRadius: rounded.sm,
-                margin: `${toRem(spacing[24])} 0`,
+                margin: `${spacing[24]} 0`,
               }}
             >
               <Flex direction='column'>
@@ -320,15 +319,15 @@ export const ProductDetailPage = () => {
                 direction='column'
                 style={{
                   backgroundColor: color.bg.subtle,
-                  padding: `${toRem(spacing[16])} ${toRem(spacing[24])}`,
+                  padding: `${spacing[16]} ${spacing[24]}`,
                   borderRadius: rounded.sm,
-                  margin: `${toRem(spacing[24])} 0`,
+                  margin: `${spacing[24]} 0`,
                 }}
               >
                 <Flex
                   justify='between'
                   align='start'
-                  style={{ marginBottom: toRem(spacing[16]) }}
+                  style={{ marginBottom: spacing[16] }}
                 >
                   <Text preset='body2' color={color.text.secondary}>
                     상품명/옵션명
@@ -379,9 +378,9 @@ export const ProductDetailPage = () => {
                 direction='column'
                 gap='8'
                 style={{
-                  margin: `0 0 ${toRem(spacing[16])} 0`,
+                  margin: `0 0 ${spacing[16]} 0`,
                   borderTop: `1px solid ${color.divider.default}`,
-                  paddingTop: toRem(spacing[16]),
+                  paddingTop: spacing[16],
                 }}
               >
                 <Flex justify='between'>
@@ -641,7 +640,7 @@ export const ProductDetailPage = () => {
               justify='between'
               align='center'
               style={{
-                padding: toRem(spacing[16]),
+                padding: spacing[16],
                 borderBottom: `1px solid ${color.divider.soft}`,
               }}
             >
@@ -658,16 +657,16 @@ export const ProductDetailPage = () => {
             {/* 스크롤 가능한 옵션 영역 */}
             <div
               style={{
-                padding: toRem(spacing[24]),
+                padding: spacing[24],
                 flex: 1,
               }}
             >
               {/* 옵션 선택 */}
-              <div style={{ marginBottom: toRem(spacing[20]) }}>
+              <div style={{ marginBottom: spacing[20] }}>
                 <Text
                   preset='body2'
                   weight='semibold'
-                  style={{ marginBottom: toRem(spacing[8]) }}
+                  style={{ marginBottom: spacing[8] }}
                 >
                   옵션
                 </Text>
@@ -686,7 +685,7 @@ export const ProductDetailPage = () => {
                 <Text
                   preset='body2'
                   weight='semibold'
-                  style={{ marginBottom: toRem(spacing[8]) }}
+                  style={{ marginBottom: spacing[8] }}
                 >
                   수량
                 </Text>
@@ -703,7 +702,7 @@ export const ProductDetailPage = () => {
             <div
               style={{
                 borderTop: `1px solid ${color.divider.soft}`,
-                padding: toRem(spacing[16]),
+                padding: spacing[16],
                 backgroundColor: color.bg.default,
               }}
             >
@@ -711,7 +710,7 @@ export const ProductDetailPage = () => {
               <Flex
                 justify='between'
                 align='center'
-                style={{ marginBottom: toRem(spacing[12]) }}
+                style={{ marginBottom: spacing[12] }}
               >
                 <Text preset='body2' color={color.text.secondary}>
                   총 상품금액
@@ -725,7 +724,7 @@ export const ProductDetailPage = () => {
               </Flex>
 
               {/* 구매 버튼 */}
-              <div style={{ display: 'flex', gap: toRem(spacing[8]) }}>
+              <div style={{ display: 'flex', gap: spacing[8] }}>
                 <Button
                   size='lg'
                   color='tertiary'

@@ -1,8 +1,7 @@
 import { style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
-import { color, font, spacing, typography } from '../../tokens';
-import { toRem } from '../../tokens/dev/helpers/units';
+import { color, font, spacing, toRem, typography } from '../../tokens';
 
 export const tableStyle = style({
   width: '100%',
@@ -54,7 +53,7 @@ export const cellStyle = recipe({
 });
 
 export const captionStyle = style({
-  padding: `${toRem(spacing[12])} 0`,
+  padding: `${spacing[12]} 0`,
   fontSize: toRem(typography.fontSize[14]),
   fontWeight: font.weight.semibold,
   textAlign: 'left',

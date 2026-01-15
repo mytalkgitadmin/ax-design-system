@@ -2,8 +2,7 @@ import { useEffect, useMemo, useRef } from 'react';
 
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 
-import { rounded } from '../../tokens';
-import { toRem } from '../../tokens/dev/helpers/units';
+import { rounded, toRem } from '../../tokens';
 import {
   formFieldVars,
   FormLabel,

@@ -1,7 +1,6 @@
 import { recipe } from '@vanilla-extract/recipes';
 
 import { spacing } from '../../tokens';
-import { toRem } from '../../tokens/dev/helpers/units';
 
 export const flexStyle = recipe({
   base: {
@@ -67,14 +66,14 @@ export const flexStyle = recipe({
     },
     gap: {
       '0': { gap: 0 },
-      '4': { gap: toRem(spacing['4']) },
-      '8': { gap: toRem(spacing['8']) },
-      '12': { gap: toRem(spacing['12']) },
-      '16': { gap: toRem(spacing['16']) },
-      '24': { gap: toRem(spacing['24']) },
-      '32': { gap: toRem(spacing['32']) },
-      '48': { gap: toRem(spacing['48']) },
-      '64': { gap: toRem(spacing['64']) },
+      '4': { gap: spacing[4] },
+      '8': { gap: spacing[8] },
+      '12': { gap: spacing[12] },
+      '16': { gap: spacing[16] },
+      '24': { gap: spacing[24] },
+      '32': { gap: spacing[32] },
+      '48': { gap: spacing[48] },
+      '64': { gap: spacing[64] },
     },
   },
 

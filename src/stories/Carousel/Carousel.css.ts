@@ -1,7 +1,6 @@
 import { createVar, globalStyle, style } from '@vanilla-extract/css';
 
-import { color, spacing } from '../../tokens';
-import { toRem } from '../../tokens/dev/helpers/units';
+import { color, spacing, toRem } from '../../tokens';
 
 // CSS Variables
 export const carouselVars = {
@@ -142,9 +141,9 @@ globalStyle(
 );
 
 export const navButtonPrev = style({
-  left: toRem(spacing[4]),
+  left: spacing[4],
 });
 
 export const navButtonNext = style({
-  right: toRem(spacing[4]),
+  right: spacing[4],
 });

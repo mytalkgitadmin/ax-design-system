@@ -1,8 +1,7 @@
 import { createVar, style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
-import { color, font, spacing, typography } from '../../tokens';
-import { toRem } from '../../tokens/dev/helpers/units';
+import { color, font, spacing, toRem, typography } from '../../tokens';
 
 // CSS Variables for theme colors
 const brandDefaultVar = createVar();
@@ -21,7 +20,7 @@ export const breadCrumbContainer = style({
   alignItems: 'center',
   fontSize: toRem(typography.fontSize[14]),
   listStyle: 'none',
-  gap: toRem(spacing[4]),
+  gap: spacing[4],
   padding: 0,
 });
 
@@ -29,12 +28,12 @@ export const breadCrumbContainer = style({
 const baseBreadCrumbItem = style({
   display: 'inline-flex',
   alignItems: 'center',
-  gap: toRem(spacing[4]),
-  padding: `${toRem(spacing[4])} ${toRem(spacing[8])}`,
+  gap: spacing[4],
+  padding: `${spacing[4]} ${spacing[8]}`,
   textDecoration: 'none',
   cursor: 'pointer',
   transition: 'all 0.2s ease',
-  borderRadius: toRem(spacing[4]),
+  borderRadius: spacing[4],
   color: color.text.secondary,
 
   // Hover 상태 - 테마 컬러 적용

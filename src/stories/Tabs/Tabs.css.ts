@@ -1,9 +1,8 @@
 import { createVar, style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
-import { color, componentSize, spacing } from '../../tokens';
+import { color, componentSize, spacing, toRem } from '../../tokens';
 import { fontWeight } from '../../tokens/dev/helpers/typography';
-import { toRem } from '../../tokens/dev/helpers/units';
 
 // CSS 변수 정의 - 런타임에 Theme에서 주입됨
 const defaultColorVar = createVar();
@@ -19,7 +18,7 @@ const borderColorVar = createVar(); // underlined variant 하단 보더 색상
 // Tabs 컨테이너 기본 스타일
 const baseTabsContainer = style({
   display: 'flex',
-  gap: toRem(spacing['8']), // 탭 간 간격
+  gap: spacing[8], // 탭 간 간격
   position: 'relative',
   boxSizing: 'border-box',
   width: '100%',
@@ -88,7 +87,7 @@ export const tabsContainerStyle = recipe({
       // rounded: 배경색 있는 둥근 탭
       rounded: {
         borderRadius: borderRadiusVar,
-        gap: toRem(spacing[8]),
+        gap: spacing[8],
       },
     },
   },
@@ -102,7 +101,7 @@ export const tabStyle = recipe({
     variant: {
       // none: 텍스트만, 활성 시 색상 변경
       none: {
-        padding: `${toRem(spacing[8])} ${toRem(spacing[16])}`,
+        padding: `${spacing[8]} ${spacing[16]}`,
         selectors: {
           '&:hover:not(:disabled)': {
             color: hoverColorVar,
@@ -112,7 +111,7 @@ export const tabStyle = recipe({
 
       // underlined: 하단 언더라인 스타일
       underlined: {
-        padding: `${toRem(spacing['12'])} ${toRem(spacing['20'])}`,
+        padding: `${spacing[12]} ${spacing[20]}`,
         color: color.text.primary,
         selectors: {
           '&:hover:not(:disabled)': {
@@ -190,7 +189,7 @@ export const tabStyle = recipe({
         size: 'lg',
       },
       style: {
-        padding: `${toRem(spacing[8])} ${toRem(spacing[16])}`,
+        padding: `${spacing[8]} ${spacing[16]}`,
       },
     },
     {
@@ -198,14 +197,14 @@ export const tabStyle = recipe({
         variant: 'none',
         size: 'md',
       },
-      style: { padding: `${toRem(spacing[4])} ${toRem(spacing[16])}` },
+      style: { padding: `${spacing[4]} ${spacing[16]}` },
     },
     {
       variants: {
         variant: 'none',
         size: 'sm',
       },
-      style: { padding: `${toRem(spacing[8])} ${toRem(spacing[8])}` },
+      style: { padding: `${spacing[8]} ${spacing[8]}` },
     },
     {
       variants: {
@@ -213,7 +212,7 @@ export const tabStyle = recipe({
         size: 'lg',
       },
       style: {
-        padding: `${toRem(spacing[8])} ${toRem(spacing[48])}`,
+        padding: `${spacing[8]} ${spacing[48]}`,
       },
     },
     {
@@ -221,14 +220,14 @@ export const tabStyle = recipe({
         variant: 'underlined',
         size: 'md',
       },
-      style: { padding: `${toRem(spacing[4])} ${toRem(spacing[8])}` },
+      style: { padding: `${spacing[4]} ${spacing[8]}` },
     },
     {
       variants: {
         variant: 'underlined',
         size: 'sm',
       },
-      style: { padding: `${toRem(spacing[4])} ${toRem(spacing[4])}` },
+      style: { padding: `${spacing[4]} ${spacing[4]}` },
     },
     // rounded + active: 배경색을 활성 색상으로, 텍스트는 흰색
     {
@@ -252,7 +251,7 @@ export const tabStyle = recipe({
         size: 'lg',
       },
       style: {
-        padding: `${toRem(spacing[12])} ${toRem(spacing[20])}`,
+        padding: `${spacing[12]} ${spacing[20]}`,
       },
     },
     {
@@ -260,14 +259,14 @@ export const tabStyle = recipe({
         variant: 'rounded',
         size: 'md',
       },
-      style: { padding: `${toRem(spacing[12])} ${toRem(spacing[16])}` },
+      style: { padding: `${spacing[12]} ${spacing[16]}` },
     },
     {
       variants: {
         variant: 'rounded',
         size: 'sm',
       },
-      style: { padding: `${toRem(spacing[8])} ${toRem(spacing[12])}` },
+      style: { padding: `${spacing[8]} ${spacing[12]}` },
     },
   ],
 });

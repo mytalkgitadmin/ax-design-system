@@ -3,8 +3,7 @@ import { useState } from 'react';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 
 import { useTheme } from '../../theme';
-import { rounded } from '../../tokens';
-import { toRem } from '../../tokens/dev/helpers/units';
+import { rounded, toRem } from '../../tokens';
 import { TabsProps } from './types';
 
 import { tabsContainerStyle, tabStyle, tabsVars } from './Tabs.css';

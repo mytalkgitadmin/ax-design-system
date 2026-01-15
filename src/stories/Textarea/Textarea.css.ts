@@ -1,8 +1,7 @@
 import { createVar, style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
-import { componentSize, spacing } from '../../tokens';
-import { toRem } from '../../tokens/dev/helpers/units';
+import { componentSize, spacing, toRem } from '../../tokens';
 
 /**
  * ========================================
@@ -44,7 +43,7 @@ const borderRadiusVar = createVar();
 export const textareaWrapper = style({
   display: 'inline-flex',
   flexDirection: 'column',
-  gap: toRem(spacing[8]),
+  gap: spacing[8],
   width: '100%',
 });
 
@@ -125,7 +124,7 @@ const baseTextarea = style({
 
   // 레이아웃
   display: 'block', // inline-flex → block 변경 (rows 속성 정상 작동)
-  padding: `${toRem(spacing[12])} ${toRem(spacing[16])}`, // 상하 12px, 좌우 16px (em → 고정값)
+  padding: `${spacing[12]} ${spacing[16]}`, // 상하 12px, 좌우 16px (em → 고정값)
   boxSizing: 'border-box',
   width: '100%', // 기본 너비: 100% (부모 컨테이너에 맞춤)
   resize: 'none',
@@ -187,7 +186,7 @@ export const textareaStyle = recipe({
 // 내부 카운터 (inside-left, inside-right)
 export const characterCountInside = style({
   position: 'absolute',
-  bottom: toRem(spacing[8]),
+  bottom: spacing[8],
   fontSize: '0.875em', // 부모 폰트 크기의 87.5%
   color: textColorVar,
   opacity: 0.8,
@@ -197,7 +196,7 @@ export const characterCountInside = style({
 
   // 배경 추가 (텍스트와 겹칠 때 가독성 확보)
   backgroundColor: bgColorVar,
-  padding: `${toRem(spacing[4])} ${toRem(spacing[8])}`,
+  padding: `${spacing[4]} ${spacing[8]}`,
   borderRadius: toRem(4),
   backdropFilter: 'blur(4px)',
 });
@@ -205,14 +204,14 @@ export const characterCountInside = style({
 export const characterCountInsideLeft = style([
   characterCountInside,
   {
-    left: toRem(spacing[12]),
+    left: spacing[12],
   },
 ]);
 
 export const characterCountInsideRight = style([
   characterCountInside,
   {
-    right: toRem(spacing[12]),
+    right: spacing[12],
   },
 ]);
 
@@ -220,7 +219,7 @@ export const characterCountInsideRight = style([
 export const characterCountWrapper = style({
   display: 'flex',
   alignItems: 'center',
-  gap: toRem(spacing[8]),
+  gap: spacing[8],
   fontSize: '0.875em',
   color: textColorVar,
   opacity: 0.7,

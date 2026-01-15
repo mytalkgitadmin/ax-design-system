@@ -3,7 +3,6 @@ import { recipe } from '@vanilla-extract/recipes';
 
 import { font, spacing } from '../../tokens';
 import * as typography from '../../tokens/dev/helpers/typography';
-import { toRem } from '../../tokens/dev/helpers/units';
 
 // CSS 변수 정의
 const textColorVar = createVar();
@@ -95,7 +94,7 @@ export const textStyle = recipe({
     underline: {
       true: {
         textDecoration: 'underline',
-        textUnderlineOffset: toRem(spacing[4]),
+        textUnderlineOffset: spacing[4],
       },
     },
     through: {

@@ -1,7 +1,6 @@
 import { style } from '@vanilla-extract/css';
 
-import { spacing } from '../../../tokens';
-import { toRem } from '../../../tokens/dev/helpers/units';
+import { spacing, toRem } from '../../../tokens';
 import { media } from '../../../utils/media';
 
 export const pageContainer = style({
@@ -18,11 +17,11 @@ export const pageContainer = style({
 export const mainGrid = style({
   display: 'grid',
   gridTemplateColumns: '68fr 48fr',
-  gap: toRem(spacing[32]),
+  gap: spacing[32],
 
   [media.down('md')]: {
     gridTemplateColumns: '1fr',
-    gap: toRem(spacing[24]),
+    gap: spacing[24],
   },
 });
 

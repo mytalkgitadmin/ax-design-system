@@ -1,8 +1,7 @@
 import { createVar, style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
-import { color, componentSize, spacing } from '../../tokens';
-import { toRem } from '../../tokens/dev/helpers/units';
+import { color, componentSize, spacing, toRem } from '../../tokens';
 
 // CSS 변수 정의 - 런타임에 Theme에서 주입됨
 const defaultColorVar = createVar();
@@ -36,7 +35,7 @@ const baseButton = style({
   cursor: 'pointer',
   border: 'none',
   transition: 'all 0.2s ease',
-  gap: toRem(spacing['8']),
+  gap: spacing[8],
   textDecoration: 'none',
 
   boxSizing: 'border-box',
@@ -126,27 +125,27 @@ export const buttonStyle = recipe({
       xl: {
         height: `${toRem(componentSize.xl.height)}`,
         fontSize: `${toRem(componentSize.xl.fontSize)}`,
-        padding: `0 ${toRem(spacing[32])}`,
+        padding: `0 ${spacing[32]}`,
       },
       lg: {
         height: `${toRem(componentSize.lg.height)}`,
         fontSize: `${toRem(componentSize.lg.fontSize)}`,
-        padding: `0 ${toRem(spacing[24])}`,
+        padding: `0 ${spacing[24]}`,
       },
       md: {
         height: `${toRem(componentSize.md.height)}`,
         fontSize: `${toRem(componentSize.md.fontSize)}`,
-        padding: `0 ${toRem(spacing[20])}`,
+        padding: `0 ${spacing[20]}`,
       },
       sm: {
         height: `${toRem(componentSize.sm.height)}`,
         fontSize: `${toRem(componentSize.sm.fontSize)}`,
-        padding: `0 ${toRem(spacing[12])}`,
+        padding: `0 ${spacing[12]}`,
       },
       xs: {
         height: `${toRem(componentSize.xs.height)}`,
         fontSize: `${toRem(componentSize.xs.fontSize)}`,
-        padding: `0 ${toRem(spacing[8])}`,
+        padding: `0 ${spacing[8]}`,
       },
     },
     full: {
