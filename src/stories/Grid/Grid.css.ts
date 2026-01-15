@@ -1,7 +1,6 @@
 import { recipe } from '@vanilla-extract/recipes';
 
 import { spacing } from '../../tokens';
-import { toRem } from '../../tokens/dev/helpers/units';
 
 export const gridStyle = recipe({
   base: {
@@ -33,39 +32,36 @@ export const gridStyle = recipe({
     },
     gap: {
       '0': { gap: 0 },
-      '4': { gap: toRem(spacing['4']) }, // 0.4rem
-      '8': { gap: toRem(spacing['8']) }, // 0.8rem
-      '12': { gap: toRem(spacing['12']) }, // 1.2rem
-      '16': { gap: toRem(spacing['16']) }, // 1.6rem
-      '20': { gap: toRem(spacing['20']) }, // 2.0rem
-      '24': { gap: toRem(spacing['24']) }, // 2.4rem
-      '32': { gap: toRem(spacing['32']) }, // 3.2rem
-      '48': { gap: toRem(spacing['48']) }, // 4.8rem
-      '64': { gap: toRem(spacing['64']) }, // 6.4rem
+      '4': { gap: spacing['4'] },
+      '8': { gap: spacing['8'] },
+      '12': { gap: spacing['12'] },
+      '16': { gap: spacing['16'] },
+      '24': { gap: spacing['24'] },
+      '32': { gap: spacing['32'] },
+      '48': { gap: spacing['48'] },
+      '64': { gap: spacing['64'] },
     },
     columnGap: {
       '0': { columnGap: 0 },
-      '4': { columnGap: toRem(spacing['4']) },
-      '8': { columnGap: toRem(spacing['8']) },
-      '12': { columnGap: toRem(spacing['12']) },
-      '16': { columnGap: toRem(spacing['16']) },
-      '20': { columnGap: toRem(spacing['20']) },
-      '24': { columnGap: toRem(spacing['24']) },
-      '32': { columnGap: toRem(spacing['32']) },
-      '48': { columnGap: toRem(spacing['48']) },
-      '64': { columnGap: toRem(spacing['64']) },
+      '4': { columnGap: spacing['4'] },
+      '8': { columnGap: spacing['8'] },
+      '12': { columnGap: spacing['12'] },
+      '16': { columnGap: spacing['16'] },
+      '24': { columnGap: spacing['24'] },
+      '32': { columnGap: spacing['32'] },
+      '48': { columnGap: spacing['48'] },
+      '64': { columnGap: spacing['64'] },
     },
     rowGap: {
       '0': { rowGap: 0 },
-      '4': { rowGap: toRem(spacing['4']) },
-      '8': { rowGap: toRem(spacing['8']) },
-      '12': { rowGap: toRem(spacing['12']) },
-      '16': { rowGap: toRem(spacing['16']) },
-      '20': { rowGap: toRem(spacing['20']) },
-      '24': { rowGap: toRem(spacing['24']) },
-      '32': { rowGap: toRem(spacing['32']) },
-      '48': { rowGap: toRem(spacing['48']) },
-      '64': { rowGap: toRem(spacing['64']) },
+      '4': { rowGap: spacing['4'] },
+      '8': { rowGap: spacing['8'] },
+      '12': { rowGap: spacing['12'] },
+      '16': { rowGap: spacing['16'] },
+      '24': { rowGap: spacing['24'] },
+      '32': { rowGap: spacing['32'] },
+      '48': { rowGap: spacing['48'] },
+      '64': { rowGap: spacing['64'] },
     },
     autoFlow: {
       row: { gridAutoFlow: 'row' },

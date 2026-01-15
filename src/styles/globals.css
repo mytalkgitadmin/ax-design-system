@@ -1,4 +1,4 @@
-@import '../tokens/variables.css';
+@import "../tokens/variables.css";
 
 /*  reset */
 h1,
@@ -13,10 +13,7 @@ p {
 }
 
 html {
-  font-size: 10px;
-}
-body {
-  font-size: 1.6rem;
+  font-size: 100%;
 }
 
 button,
