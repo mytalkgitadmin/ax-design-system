@@ -1,24 +1,24 @@
 {
   "breakpoint": {
-    "sm": {
-      "value": "640",
+    "mobile": {
+      "value": "375",
       "type": "number",
-      "description": "모바일 landscape 기준"
+      "description": "모바일 기준"
     },
-    "md": {
+    "tablet": {
       "value": "768",
       "type": "number",
-      "description": "태블릿 세로 기준"
+      "description": "태블릿 기준"
     },
-    "lg": {
+    "desktop": {
       "value": "1024",
       "type": "number",
-      "description": "태블릿 가로 / 작은 데스크탑"
+      "description": "데스크톱 기준"
     },
-    "xl": {
-      "value": "1280",
+    "wide": {
+      "value": "1440",
       "type": "number",
-      "description": "데스크탑 기준"
+      "description": "와이드 데스크톱"
     }
   }
 }

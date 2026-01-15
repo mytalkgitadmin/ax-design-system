@@ -362,4 +362,5 @@ export const theme = {
   },
 };
 
+export * from './dev/helpers/responsive';
 export * from './dev/helpers/units';
