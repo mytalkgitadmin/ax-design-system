@@ -1,33 +1,31 @@
 import { style } from '@vanilla-extract/css';
 
-import { spacing, toRem } from '../../../tokens';
-import { media } from '../../../utils/media';
+import { clampSize, mqConditions, toRem } from '../../../tokens';
 
 export const pageContainer = style({
   maxWidth: '1200px',
-  width: 'calc(100% - 40px)',
+  padding: `0 ${clampSize(16, 20)}`,
   margin: '0 auto',
   fontFamily: 'system-ui, -apple-system, sans-serif',
-
-  [media.down('md')]: {
-    width: 'calc(100% - 32px)',
-  },
 });
 
 export const mainGrid = style({
   display: 'grid',
   gridTemplateColumns: '68fr 48fr',
-  gap: spacing[32],
+  gap: clampSize(24, 32),
 
-  [media.down('md')]: {
-    gridTemplateColumns: '1fr',
-    gap: spacing[24],
+  '@media': {
+    [`not all and ${mqConditions.tablet}`]: {
+      gridTemplateColumns: '1fr',
+    },
   },
 });
 
 export const imageSection = style({
-  [media.down('md')]: {
-    order: 1,
+  '@media': {
+    [`not all and ${mqConditions.tablet}`]: {
+      order: 1,
+    },
   },
 });
 
@@ -38,43 +36,53 @@ export const infoSection = style({
   alignSelf: 'flex-start', // Grid 내에서 상단 정렬
   maxHeight: '100vh', // 뷰포트 높이를 넘지 않도록
 
-  [media.down('md')]: {
-    // 모바일에서는 스티키 해제
-    position: 'static',
-    maxHeight: 'none',
-    overflowY: 'visible',
-    order: 2,
+  '@media': {
+    [`not all and ${mqConditions.tablet}`]: {
+      // 모바일에서는 스티키 해제
+      position: 'static',
+      maxHeight: 'none',
+      overflowY: 'visible',
+      order: 2,
+    },
   },
 });
 
 export const desktopOnly = style({
-  [media.down('md')]: {
-    display: 'none',
+  '@media': {
+    [`not all and ${mqConditions.tablet}`]: {
+      display: 'none',
+    },
   },
 });
 
 export const mobileOnly = style({
   display: 'none',
 
-  [media.down('md')]: {
-    display: 'flex',
-    flexDirection: 'column',
+  '@media': {
+    [`not all and ${mqConditions.tablet}`]: {
+      display: 'flex',
+      flexDirection: 'column',
+    },
   },
 });
 
 export const purchaseSection = style({
-  [media.down('md')]: {
-    // 모바일에서는 StickyPurchaseBar를 사용하므로 숨김
-    display: 'none',
+  '@media': {
+    [`not all and ${mqConditions.tablet}`]: {
+      // 모바일에서는 StickyPurchaseBar를 사용하므로 숨김
+      display: 'none',
+    },
   },
 });
 
 export const contentSection = style({
-  [media.down('md')]: {
-    gridColumn: '1 / -1',
-    order: 3,
-    // 스티키 바가 가리지 않도록 하단 패딩 추가
-    paddingBottom: toRem(200), // 스티키 바 높이만큼
+  '@media': {
+    [`not all and ${mqConditions.tablet}`]: {
+      gridColumn: '1 / -1',
+      order: 3,
+      // 스티키 바가 가리지 않도록 하단 패딩 추가
+      paddingBottom: toRem(200), // 스티키 바 높이만큼
+    },
   },
 });
 
@@ -83,12 +91,14 @@ export const breadcrumbWrapper = style({
   overflowX: 'auto',
   WebkitOverflowScrolling: 'touch', // iOS 부드러운 스크롤
 
-  [media.down('md')]: {
-    // 스크롤바 숨기기
-    scrollbarWidth: 'none', // Firefox
-    msOverflowStyle: 'none', // IE/Edge
-    '::-webkit-scrollbar': {
-      display: 'none', // Chrome/Safari
+  '@media': {
+    [`not all and ${mqConditions.tablet}`]: {
+      // 스크롤바 숨기기
+      scrollbarWidth: 'none', // Firefox
+      msOverflowStyle: 'none', // IE/Edge
+      '::-webkit-scrollbar': {
+        display: 'none', // Chrome/Safari
+      },
     },
   },
 });
@@ -98,13 +108,15 @@ export const carouselWrapper = style({
   width: '100%',
   maxWidth: '100%',
 
-  [media.down('md')]: {
-    overflowX: 'auto',
-    WebkitOverflowScrolling: 'touch',
-    scrollbarWidth: 'none',
-    msOverflowStyle: 'none',
-    '::-webkit-scrollbar': {
-      display: 'none',
+  '@media': {
+    [`not all and ${mqConditions.tablet}`]: {
+      overflowX: 'auto',
+      WebkitOverflowScrolling: 'touch',
+      scrollbarWidth: 'none',
+      msOverflowStyle: 'none',
+      '::-webkit-scrollbar': {
+        display: 'none',
+      },
     },
   },
 });
@@ -116,11 +128,13 @@ export const tabsWrapper = style({
   overflowX: 'auto',
   WebkitOverflowScrolling: 'touch',
 
-  [media.down('md')]: {
-    scrollbarWidth: 'none',
-    msOverflowStyle: 'none',
-    '::-webkit-scrollbar': {
-      display: 'none',
+  '@media': {
+    [`not all and ${mqConditions.tablet}`]: {
+      scrollbarWidth: 'none',
+      msOverflowStyle: 'none',
+      '::-webkit-scrollbar': {
+        display: 'none',
+      },
     },
   },
 });

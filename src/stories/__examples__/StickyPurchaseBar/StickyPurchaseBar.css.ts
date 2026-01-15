@@ -1,7 +1,6 @@
 import { style } from '@vanilla-extract/css';
 
-import { color, shadow, spacing, zIndex } from '../../../tokens';
-import { media } from '../../../utils/media';
+import { color, mqConditions, shadow, spacing, zIndex } from '../../../tokens';
 
 export const stickyBar = style({
   position: 'fixed',
@@ -15,8 +14,10 @@ export const stickyBar = style({
   boxShadow: shadow.overlay,
   display: 'none',
 
-  [media.down('md')]: {
-    display: 'flex',
+  '@media': {
+    [`not all and ${mqConditions.tablet}`]: {
+      display: 'flex',
+    },
   },
 });
 
