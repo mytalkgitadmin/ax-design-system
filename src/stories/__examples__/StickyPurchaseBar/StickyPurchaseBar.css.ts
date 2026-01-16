@@ -15,7 +15,7 @@ export const stickyBar = style({
   display: 'none',
 
   '@media': {
-    [`not all and ${mqConditions.tablet}`]: {
+    [mqConditions.mobileOnly]: {
       display: 'flex',
     },
   },

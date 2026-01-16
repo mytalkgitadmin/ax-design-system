@@ -74,6 +74,7 @@ export const mq = {
  */
 export const mqConditions = {
   mobile: `screen and (min-width: ${breakpoints.mobile}px)`,
+  mobileOnly: `screen and (max-width: ${breakpoints.tablet - 1}px)`, // 768px 미만
   tablet: `screen and (min-width: ${breakpoints.tablet}px)`,
   desktop: `screen and (min-width: ${breakpoints.desktop}px)`,
   wide: `screen and (min-width: ${breakpoints.wide}px)`,
