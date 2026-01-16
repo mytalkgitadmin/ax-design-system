@@ -15,7 +15,7 @@ export const mainGrid = style({
   gap: clampSize(24, 32),
 
   '@media': {
-    [`not all and ${mqConditions.tablet}`]: {
+    [mqConditions.mobileOnly]: {
       gridTemplateColumns: '1fr',
     },
   },
@@ -23,7 +23,7 @@ export const mainGrid = style({
 
 export const imageSection = style({
   '@media': {
-    [`not all and ${mqConditions.tablet}`]: {
+    [mqConditions.mobileOnly]: {
       order: 1,
     },
   },
@@ -37,7 +37,7 @@ export const infoSection = style({
   maxHeight: '100vh', // 뷰포트 높이를 넘지 않도록
 
   '@media': {
-    [`not all and ${mqConditions.tablet}`]: {
+    [mqConditions.mobileOnly]: {
       // 모바일에서는 스티키 해제
       position: 'static',
       maxHeight: 'none',
@@ -49,7 +49,7 @@ export const infoSection = style({
 
 export const desktopOnly = style({
   '@media': {
-    [`not all and ${mqConditions.tablet}`]: {
+    [mqConditions.mobileOnly]: {
       display: 'none',
     },
   },
@@ -59,7 +59,7 @@ export const mobileOnly = style({
   display: 'none',
 
   '@media': {
-    [`not all and ${mqConditions.tablet}`]: {
+    [mqConditions.mobileOnly]: {
       display: 'flex',
       flexDirection: 'column',
     },
@@ -68,7 +68,7 @@ export const mobileOnly = style({
 
 export const purchaseSection = style({
   '@media': {
-    [`not all and ${mqConditions.tablet}`]: {
+    [mqConditions.mobileOnly]: {
       // 모바일에서는 StickyPurchaseBar를 사용하므로 숨김
       display: 'none',
     },
@@ -77,7 +77,7 @@ export const purchaseSection = style({
 
 export const contentSection = style({
   '@media': {
-    [`not all and ${mqConditions.tablet}`]: {
+    [mqConditions.mobileOnly]: {
       gridColumn: '1 / -1',
       order: 3,
       // 스티키 바가 가리지 않도록 하단 패딩 추가
@@ -92,7 +92,7 @@ export const breadcrumbWrapper = style({
   WebkitOverflowScrolling: 'touch', // iOS 부드러운 스크롤
 
   '@media': {
-    [`not all and ${mqConditions.tablet}`]: {
+    [mqConditions.mobileOnly]: {
       // 스크롤바 숨기기
       scrollbarWidth: 'none', // Firefox
       msOverflowStyle: 'none', // IE/Edge
@@ -109,7 +109,7 @@ export const carouselWrapper = style({
   maxWidth: '100%',
 
   '@media': {
-    [`not all and ${mqConditions.tablet}`]: {
+    [mqConditions.mobileOnly]: {
       overflowX: 'auto',
       WebkitOverflowScrolling: 'touch',
       scrollbarWidth: 'none',
@@ -129,7 +129,7 @@ export const tabsWrapper = style({
   WebkitOverflowScrolling: 'touch',
 
   '@media': {
-    [`not all and ${mqConditions.tablet}`]: {
+    [mqConditions.mobileOnly]: {
       scrollbarWidth: 'none',
       msOverflowStyle: 'none',
       '::-webkit-scrollbar': {
