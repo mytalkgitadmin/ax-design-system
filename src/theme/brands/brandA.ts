@@ -24,6 +24,7 @@ const COLOR_STRONG = BRAND_A_COLORS.strong;
 const COLOR_STRONGER = BRAND_A_COLORS.stronger;
 const COLOR_STRONGEST = BRAND_A_COLORS.strongest;
 const COLOR_SOFT = BRAND_A_COLORS.soft;
+const COLOR_INVERSE_TEXT = color.inverseText; // 역색 텍스트
 
 export const brandATheme = createTheme({
   global: {
@@ -48,7 +49,8 @@ export const brandATheme = createTheme({
           default: COLOR_DEFAULT,
           hover: COLOR_HOVER,
           active: COLOR_ACTIVE,
-          text: color.inverseText,
+          text: COLOR_INVERSE_TEXT,
+          bgHover: COLOR_SOFT, // Pagination hover 배경색
         },
       },
     },
@@ -75,7 +77,7 @@ export const brandATheme = createTheme({
           default: COLOR_DEFAULT,
           hover: COLOR_HOVER,
           active: COLOR_DEFAULT,
-          text: color.inverseText,
+          text: COLOR_INVERSE_TEXT,
         },
       },
     },

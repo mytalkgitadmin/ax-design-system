@@ -35,6 +35,8 @@ export type { GridProps } from './stories/Grid';
 export { Grid } from './stories/Grid';
 export { Icon } from './stories/Icon';
 export type { IconProps, IconType } from './stories/Icon/types';
+export type { PaginationProps } from './stories/Pagination';
+export { Pagination } from './stories/Pagination';
 export { Radio } from './stories/Radio';
 export { RadioGroup } from './stories/Radio/RadioGroup';
 export type {
