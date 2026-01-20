@@ -69,6 +69,7 @@ export const buttonTheme: ButtonTheme = {
       hover: colorTheme.brand.stronger,
       active: colorTheme.brand.strongest,
       text: colorTheme.text.inverse,
+      bgHover: colorTheme.brand.soft, // Primary hover \ubc30\uacbd\uc0c9
     },
     secondary: {
       default: color.bg.darkgray,
