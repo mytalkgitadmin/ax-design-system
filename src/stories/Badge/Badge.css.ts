@@ -15,6 +15,7 @@ export const badgeVars = {
   brandDefault: createVar(),
   brandSubtle: createVar(),
   brandSoft: createVar(),
+  borderRadius: createVar(),
 };
 
 // 기본 스타일
@@ -59,7 +60,7 @@ export const badgeStyle = recipe({
     // 둥근 모서리
     rounded: {
       none: { borderRadius: toRem(rounded.none) },
-      xs: { borderRadius: toRem(rounded.xs) },
+      xs: { borderRadius: badgeVars.borderRadius },
       md: { borderRadius: toRem(rounded.md) },
       full: { borderRadius: toRem(rounded.full) },
     },

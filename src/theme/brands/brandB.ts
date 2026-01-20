@@ -90,5 +90,17 @@ export const brandBTheme = createTheme({
     Thumbnail: {
       radius: BRAND_B_RADIUS, // Brand B는 모든 컴포넌트에 rounded.lg 적용
     },
+    Badge: {
+      radius: BRAND_B_RADIUS,
+    },
+    Checkbox: {
+      radius: {
+        lg: BRAND_B_RADIUS,
+        md: BRAND_B_RADIUS,
+      },
+    },
+    Breadcrumb: {
+      focusRadius: BRAND_B_RADIUS,
+    },
   },
 });

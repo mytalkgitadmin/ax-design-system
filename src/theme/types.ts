@@ -2,7 +2,10 @@
  * Theme 시스템의 핵심 타입 정의
  */
 
+import type { BadgeTheme } from './components/badge';
+import type { BreadcrumbTheme } from './components/breadcrumb';
 import type { ButtonTheme } from './components/button';
+import type { CheckboxTheme } from './components/checkbox';
 import type { IconTheme } from './components/icon';
 import type { InputTheme } from './components/input';
 import type { TabsTheme } from './components/tabs';
@@ -19,7 +22,10 @@ import type { GlobalTheme } from './global';
 export type Theme = {
   global: GlobalTheme;
   components: {
+    Badge: BadgeTheme;
+    Breadcrumb: BreadcrumbTheme;
     Button: ButtonTheme;
+    Checkbox: CheckboxTheme;
     Icon: IconTheme;
     Input: InputTheme;
     Tabs: TabsTheme;

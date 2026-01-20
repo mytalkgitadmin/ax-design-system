@@ -3,7 +3,7 @@ import React from 'react';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 
 import { useTheme } from '../../theme';
-import { color } from '../../tokens';
+import { color, toRem } from '../../tokens';
 import { Icon } from '../Icon';
 import { BreadCrumbItem, BreadCrumbProps } from './types';
 
@@ -21,7 +21,8 @@ export type { BreadCrumbItem, BreadCrumbProps } from './types';
 type DisplayItem = BreadCrumbItem & { isEllipsis?: boolean };
 
 export const BreadCrumb = ({ items, isEllipsis }: BreadCrumbProps) => {
-  const { global } = useTheme();
+  const { global, components } = useTheme();
+  const breadcrumbTheme = components.Breadcrumb;
 
   // 아이템 개수에 따라 표시할 아이템 결정
   const getDisplayItems = (): DisplayItem[] => {
@@ -41,11 +42,16 @@ export const BreadCrumb = ({ items, isEllipsis }: BreadCrumbProps) => {
 
   const displayItems = getDisplayItems();
 
+  // 테마에서 focusRadius 가져오기 (우선순위: Breadcrumb theme > global theme > default)
+  const themeFocusRadius =
+    breadcrumbTheme.focusRadius ?? global.radius?.sm ?? 4;
+
   // CSS Variables 주입 (Button 패턴 참고)
   const vars = assignInlineVars({
     [breadCrumbVars.brandDefault]: global.color.brand.default,
     [breadCrumbVars.focusShadowColor]: global.color.brand.subtle,
     [breadCrumbVars.focusOutlineColor]: `${global.color.brand.subtle}50`,
+    [breadCrumbVars.focusBorderRadius]: toRem(themeFocusRadius),
   });
 
   return (
