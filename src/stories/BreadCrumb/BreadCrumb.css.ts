@@ -7,11 +7,13 @@ import { color, font, spacing, toRem, typography } from '../../tokens';
 const brandDefaultVar = createVar();
 const focusShadowColorVar = createVar();
 const focusOutlineColorVar = createVar();
+const focusBorderRadiusVar = createVar();
 
 export const breadCrumbVars = {
   brandDefault: brandDefaultVar,
   focusShadowColor: focusShadowColorVar,
   focusOutlineColor: focusOutlineColorVar,
+  focusBorderRadius: focusBorderRadiusVar,
 };
 
 // BreadCrumb 컨테이너 스타일
@@ -33,7 +35,7 @@ const baseBreadCrumbItem = style({
   textDecoration: 'none',
   cursor: 'pointer',
   transition: 'all 0.2s ease',
-  borderRadius: spacing[4],
+  borderRadius: focusBorderRadiusVar,
   color: color.text.secondary,
 
   // Hover 상태 - 테마 컬러 적용

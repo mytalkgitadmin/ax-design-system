@@ -5,7 +5,10 @@
  */
 
 import {
+  badgeTheme,
+  breadcrumbTheme,
   buttonTheme,
+  checkboxTheme,
   iconTheme,
   inputTheme,
   tabsTheme,
@@ -20,7 +23,10 @@ import type { Theme } from './types';
 export const defaultTheme: Theme = {
   global: globalTheme,
   components: {
+    Badge: badgeTheme,
+    Breadcrumb: breadcrumbTheme,
     Button: buttonTheme,
+    Checkbox: checkboxTheme,
     Icon: iconTheme,
     Input: inputTheme,
     Tabs: tabsTheme,

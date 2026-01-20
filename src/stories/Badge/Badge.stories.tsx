@@ -156,8 +156,8 @@ export const Rounded: Story = {
       }}
     >
       <Badge color='primary' label='None (0px)' rounded='none' />
-      <Badge color='primary' label='XS (2px)' rounded='xs' />
-      <Badge color='primary' label='MD (8px)' rounded='md' />
+      <Badge color='primary' label='XS (6px)' rounded='xs' />
+      <Badge color='primary' label='MD (12px)' rounded='md' />
       <Badge color='primary' label='Full (999px)' rounded='full' />
     </div>
   ),
