@@ -11,6 +11,31 @@ npm run storybook
 
 ---
 
+## 📚 문서 가이드
+
+### 새 컴포넌트 추가하기
+
+- **체크리스트**: [docs/COMPONENT_CHECKLIST.md](docs/COMPONENT_CHECKLIST.md) - 14점 만점 품질 평가
+- **템플릿**: [docs/COMPONENT_TEMPLATE.md](docs/COMPONENT_TEMPLATE.md) - Stories 작성 템플릿
+- **참고 예시**: Button, Avatar, Input (12-14점 Gold Standard)
+
+### 새 Foundation 추가하기
+
+- **템플릿**: [docs/FOUNDATION_TEMPLATE.md](docs/FOUNDATION_TEMPLATE.md) - Foundation Stories 템플릿
+- **참고 예시**: Colors, Spacing (12-13점 Gold Standard)
+
+### 전체 문서 인덱스
+
+📖 **[docs/DOCS_INDEX.md](docs/DOCS_INDEX.md)** - 모든 가이드 문서의 인덱스
+
+기존 문서:
+
+- [CODE_CONVENTION.md](docs/CODE_CONVENTION.md) - 코드 작성 규칙
+- [COMPONENT_DEVELOPMENT_GUIDE.md](docs/COMPONENT_DEVELOPMENT_GUIDE.md) - 컴포넌트 개발 가이드
+- [TOKEN_GUIDE.md](docs/TOKEN_GUIDE.md) - 디자인 토큰 가이드
+
+---
+
 ## 📝 Jira 연동
 
 ### 초기 설정 (최초 1회)
