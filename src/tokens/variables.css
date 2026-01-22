@@ -145,10 +145,10 @@
   --spacing-64: 4rem;
   --spacing-72: 4.5rem;
   --spacing-80: 5rem;
-  --breakpoint-sm: 640;
-  --breakpoint-md: 768;
-  --breakpoint-lg: 1024;
-  --breakpoint-xl: 1280;
+  --breakpoint-mobile: 375;
+  --breakpoint-tablet: 768;
+  --breakpoint-desktop: 1024;
+  --breakpoint-wide: 1440;
   --componentSize-xs-height: 26;
   --componentSize-xs-fontSize: 12;
   --componentSize-xs-iconSize: 14;
@@ -214,7 +214,7 @@
   --bg-primary: var(--blue-100);
   --bg-subtler: var(--gray-50);
   --bg-darkgray: var(--gray-900);
-  --bg-darkgray-soft: var(--gray-800);
+  --bg-darkgray-soft: var(--gray-700);
   --bg-darkgray-strong: var(--gray-950);
   --border-strong: var(--gray-400);
   --border-default: var(--gray-300);
@@ -227,8 +227,9 @@
   --border-positive-strong: var(--green-600);
   --border-warning-soft: var(--yellow-200);
   --border-warning-strong: var(--yellow-600);
-  --border-focus: var(--gray-900);
+  --border-focus: var(--gray-500);
   --border-subtle: var(--gray-200);
+  --border-selected: var(--gray-800);
   --divider-default: var(--gray-200);
   --divider-soft: var(--gray-150);
   --divider-strong: var(--gray-300);

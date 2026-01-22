@@ -132,7 +132,7 @@ export const color = {
     primary: '#eef3ff',
     subtler: '#fcfdff',
     darkgray: '#2f3744',
-    darkgraySoft: '#4b5465',
+    darkgraySoft: '#697180',
     darkgrayStrong: '#171c24',
   },
   border: {
@@ -147,8 +147,9 @@ export const color = {
     positiveStrong: '#1fa45c',
     warningSoft: '#ffedb8',
     warningStrong: '#ffb020',
-    focus: '#2f3744',
+    focus: '#a6acb7',
     subtle: '#edf0f5',
+    selected: '#4b5465',
   },
   divider: {
     default: '#edf0f5',
@@ -337,10 +338,10 @@ export const componentSize = {
 };
 
 export const breakpoint = {
-  sm: '640',
-  md: '768',
-  lg: '1024',
-  xl: '1280',
+  mobile: '375',
+  tablet: '768',
+  desktop: '1024',
+  wide: '1440',
 };
 
 export const theme = {
