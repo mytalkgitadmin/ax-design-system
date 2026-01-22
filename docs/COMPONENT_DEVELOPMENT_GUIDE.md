@@ -686,3 +686,132 @@ COMPONENT_DEVELOPMENT_GUIDE.md의
 6. 🚫 **자동생성 금지**: `src/tokens/index.ts`, `design/` 수정 금지
 
 **이 가이드를 Claude에게 제공하면, 프로젝트 규칙에 맞는 일관된 코드를 생성합니다.**
+
+---
+
+## 🐛 컴포넌트 개발 중 흔한 에러
+
+### TypeScript 타입 에러
+
+#### Icon 컴포넌트 name 타입 에러
+
+**에러:**
+
+```
+error TS2322: Type '"interface/x"' is not assignable to type 'IconName'
+```
+
+**원인:**
+
+- Icon 이름을 Figma 경로 형식(`'interface/x'`)으로 작성
+- 실제 IconName은 PascalCase 형식(`'X'`)
+
+**해결:**
+
+```tsx
+// ❌ 잘못된 사용
+<Icon name="interface/x" />
+
+// ✅ 올바른 사용
+<Icon name="X" />
+```
+
+**확인 방법:**
+
+```bash
+ls src/stories/Icon/icons/interface
+# X.tsx 확인
+
+# 또는 IconName 타입 확인
+grep "export.*X" src/stories/Icon/icons/index.ts
+```
+
+---
+
+#### Storybook Story args 타입 에러
+
+**에러:**
+
+```
+error TS2322: Type '{}' is missing the following properties from type 'ModalProps': title, open, onClose
+```
+
+**원인:**
+
+- Storybook Story에서 `args: {}` 사용 시 필수 props가 없어서 발생
+- `render` 함수에서 컴포넌트를 직접 렌더링하는 경우
+
+**해결:**
+
+```tsx
+// ❌ 타입 에러 발생
+export const Example: Story = {
+  args: {},
+  render: () => <Component />,
+};
+
+// ✅ satisfies 제거
+export const Example = {
+  render: () => <Component />,
+};
+
+// ✅ 또는 parameters 사용
+export const Example = {
+  render: () => <Component />,
+  parameters: {
+    controls: { disable: true },
+  },
+};
+```
+
+---
+
+### ESLint 에러
+
+#### React Hooks 규칙 위반
+
+**에러:**
+
+```
+error: React Hook "useState" is called in function "render" that is neither
+a React function component nor a custom React Hook function
+```
+
+**원인:**
+
+- Storybook Story의 `render` 함수에서 직접 `useState` 사용
+- 함수 이름이 대문자로 시작하지 않아서 React가 컴포넌트로 인식하지 못함
+
+**해결:**
+
+```tsx
+// ❌ 에러 발생
+export const Example: Story = {
+  render: () => {
+    const [state, setState] = useState(false);
+    return <Component />;
+  },
+};
+
+// ✅ 별도 컴포넌트로 분리
+const ExampleComponent = () => {
+  const [state, setState] = useState(false);
+  return <Component />;
+};
+
+export const Example = {
+  render: () => <ExampleComponent />,
+};
+```
+
+---
+
+### 예방 체크리스트
+
+컴포넌트 개발 완료 후 다음을 확인:
+
+- [ ] React Hooks는 컴포넌트 최상위에서만 사용
+- [ ] Storybook Story에서 hooks 사용 시 별도 컴포넌트로 분리
+- [ ] Icon 이름은 PascalCase 사용 (Figma 경로 아님)
+- [ ] 외부 라이브러리 사용 시 `@types/*` 패키지 설치
+- [ ] `npm run type-check` 및 `npm run lint` 통과

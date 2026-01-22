@@ -51,14 +51,14 @@ export type ColorTheme = {
 
 export const colorTheme: ColorTheme = {
   brand: {
-    default: color.blue['600'], // #4f7cff
-    hover: color.blue['700'], // #355fea
-    active: color.blue['900'], // #1a318b
-    subtle: color.blue['500'], // #6f94ff
-    strong: color.blue['700'], // #355fea
-    stronger: color.blue['800'], // #2747be
-    strongest: color.blue['900'], // #1a318b
-    soft: color.blue['100'], // #eef3ff
+    default: color.green['500'], // #8facff
+    hover: color.green['600'], // #6f94ff
+    active: color.green['700'], // #4f7cff
+    subtle: color.green['300'], // #aec3ff
+    strong: color.green['500'], // #6f94ff
+    stronger: color.green['600'], // #4f7cff
+    strongest: color.green['700'], // #355fea
+    soft: color.green['50'], // #f9fbff
   },
   text: {
     primary: color.text.primary, // #2f3744

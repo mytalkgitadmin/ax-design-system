@@ -25,9 +25,9 @@ export const Stepper = ({
   size = 'md',
   color = 'primary',
   rounded: roundedProp,
-  defaultValue,
+  defaultValue = 1,
   value,
-  min,
+  min = 1,
   max = 100,
   step = 1,
   disabled = false,
@@ -212,6 +212,7 @@ export const Stepper = ({
     [stepperVars.borderRadius]: `${toRem(finalRadius)}`,
     [stepperVars.buttonBorderRadius]: `${toRem(Math.max(finalRadius - 3, 0))}`,
     [stepperVars.fontWeight]: String(finalFontWeight),
+    [stepperVars.fontFamily]: global.typography.fontFamily,
   });
 
   return (

@@ -41,6 +41,7 @@ const selectedOptionTextColorVar = createVar();
 
 // 타이포그래피
 const fontWeightVar = createVar();
+const fontFamilyVar = createVar();
 
 // 레이아웃
 const borderRadiusVar = createVar();
@@ -109,6 +110,7 @@ const baseSelectTrigger = style({
   transition: 'all 0.2s ease',
 
   // 타이포그래피
+  fontFamily: fontFamilyVar,
   fontWeight: fontWeightVar,
   color: textColorVar,
   textAlign: 'left',
@@ -303,6 +305,7 @@ const baseOption = style({
   cursor: 'pointer',
   transition: 'all 0.15s ease',
 
+  fontFamily: fontFamilyVar,
   color: textColorVar,
   fontSize: toRem(componentSize.md.fontSize),
 
@@ -431,6 +434,7 @@ export const selectVars = {
 
   // 타이포그래피
   fontWeight: fontWeightVar,
+  fontFamily: fontFamilyVar,
 
   // 레이아웃
   borderRadius: borderRadiusVar,

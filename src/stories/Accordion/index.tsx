@@ -135,6 +135,7 @@ export const Accordion = ({
     [accordionVars.bgColor]: global.color.bg.default,
     [accordionVars.focusShadowColor]: global.color.brand.subtle,
     [accordionVars.focusOutlineColor]: `${global.color.brand.subtle}50`,
+    [accordionVars.fontFamily]: global.typography.fontFamily,
   });
 
   return (

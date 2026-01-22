@@ -28,6 +28,9 @@ const COLOR_INVERSE_TEXT = color.inverseText; // 역색 텍스트
 
 export const brandATheme = createTheme({
   global: {
+    typography: {
+      fontFamily: "'Pretendard', sans-serif",
+    },
     color: {
       brand: {
         default: COLOR_DEFAULT,
@@ -39,6 +42,27 @@ export const brandATheme = createTheme({
         strongest: COLOR_STRONGEST,
         soft: COLOR_SOFT,
       },
+    },
+    radius: {
+      xxs: BRAND_A_RADIUS,
+      xs: BRAND_A_RADIUS,
+      sm: BRAND_A_RADIUS,
+      md: BRAND_A_RADIUS,
+      lg: BRAND_A_RADIUS,
+      xl: BRAND_A_RADIUS,
+    },
+    motion: {
+      // Strong Spring Effect (High overshoot)
+      hover: 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)',
+      click: 'scale(0.85)',
+      entrance:
+        'opacity 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)',
+      transition: {
+        fast: '0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
+        normal: '0.6s cubic-bezier(0.34, 1.56, 0.64, 1)',
+        slow: '0.8s cubic-bezier(0.34, 1.56, 0.64, 1)',
+      },
+      modalType: 'bouncy',
     },
   },
   components: {

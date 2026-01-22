@@ -28,6 +28,9 @@ const COLOR_INVERSE_TEXT = color.inverseText; // 역색 텍스트
 
 export const brandBTheme = createTheme({
   global: {
+    typography: {
+      fontFamily: "'GMarketSans', sans-serif",
+    },
     color: {
       brand: {
         default: COLOR_DEFAULT,
@@ -39,6 +42,27 @@ export const brandBTheme = createTheme({
         strongest: COLOR_STRONGEST,
         soft: COLOR_SOFT,
       },
+    },
+    radius: {
+      xxs: BRAND_B_RADIUS,
+      xs: BRAND_B_RADIUS,
+      sm: BRAND_B_RADIUS,
+      md: BRAND_B_RADIUS,
+      lg: BRAND_B_RADIUS,
+      xl: BRAND_B_RADIUS,
+    },
+    motion: {
+      // Very Slow & Elegant Fade
+      hover: 'all 0.8s cubic-bezier(0.2, 0, 0, 1)', // Custom ease-out-expo-ish
+      click: 'scale(0.96)',
+      entrance:
+        'opacity 1.2s cubic-bezier(0.2, 0, 0, 1), transform 1.2s cubic-bezier(0.2, 0, 0, 1)',
+      transition: {
+        fast: '0.6s cubic-bezier(0.2, 0, 0, 1)',
+        normal: '0.9s cubic-bezier(0.2, 0, 0, 1)',
+        slow: '1.5s cubic-bezier(0.2, 0, 0, 1)',
+      },
+      modalType: 'slide',
     },
   },
   components: {

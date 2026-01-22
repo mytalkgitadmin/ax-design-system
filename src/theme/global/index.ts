@@ -4,6 +4,7 @@
  */
 
 import { type ColorTheme, colorTheme } from './color';
+import { type MotionTheme, motionTheme } from './motion';
 import { type RadiusTheme, radiusTheme } from './radius';
 import { type TypographyTheme, typographyTheme } from './typography';
 
@@ -11,13 +12,15 @@ export type GlobalTheme = {
   typography: TypographyTheme;
   color: ColorTheme;
   radius: RadiusTheme;
+  motion: MotionTheme;
 };
 
 export const globalTheme: GlobalTheme = {
   typography: typographyTheme,
   color: colorTheme,
   radius: radiusTheme,
+  motion: motionTheme,
 };
 
 // 개별 타입 re-export
-export type { ColorTheme, RadiusTheme, TypographyTheme };
+export type { ColorTheme, MotionTheme, RadiusTheme, TypographyTheme };

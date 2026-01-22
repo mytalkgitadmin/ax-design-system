@@ -28,6 +28,7 @@ const disabledTextColorVar = createVar(); // disabled 텍스트 색상
 
 // 타이포그래피
 const fontWeightVar = createVar();
+const fontFamilyVar = createVar();
 
 // 레이아웃
 const borderRadiusVar = createVar();
@@ -119,6 +120,7 @@ export const textareaContainerStyle = recipe({
 const baseTextarea = style({
   // 타이포그래피
   fontWeight: fontWeightVar,
+  fontFamily: fontFamilyVar,
   color: textColorVar,
   lineHeight: 1.5,
 
@@ -128,7 +130,6 @@ const baseTextarea = style({
   boxSizing: 'border-box',
   width: '100%', // 기본 너비: 100% (부모 컨테이너에 맞춤)
   resize: 'none',
-  fontFamily: 'inherit',
 
   // 외형 (Container가 border를 담당하므로 투명)
   backgroundColor: 'transparent',
@@ -257,6 +258,7 @@ export const textareaVars = {
 
   // 타이포그래피
   fontWeight: fontWeightVar,
+  fontFamily: fontFamilyVar,
 
   // 레이아웃
   borderRadius: borderRadiusVar,

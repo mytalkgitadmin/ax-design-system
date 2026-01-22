@@ -32,7 +32,7 @@ export const Pagination = ({
   totalPages = 1,
   currentPage = 1,
   onPageChange,
-  color: colorProp = 'primary',
+  color: colorProp = 'secondary',
   size = 'md',
   showNavButtons = true,
   siblingCount = 1,
