@@ -76,9 +76,11 @@ export const Text = ({
     };
   };
 
-  // 동적 스타일 변수 (color)
+  // 동적 스타일 변수 (color, fontFamily)
+  const { global } = useTheme();
   const vars = assignInlineVars({
     [textVars.textColor]: finalColor,
+    [textVars.textFontFamily]: global.typography.fontFamily,
   });
 
   // 스타일 클래스 생성

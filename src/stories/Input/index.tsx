@@ -124,6 +124,7 @@ export const Input = ({
     [inputVars.bgColor]: global.color.bg.default,
     [inputVars.disabledBgColor]: global.color.bg.disabled,
     [inputVars.fontWeight]: String(finalFontWeight),
+    [inputVars.fontFamily]: global.typography.fontFamily,
     [inputVars.borderRadius]: `${toRem(actualRadius)}`,
   });
 

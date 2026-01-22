@@ -189,6 +189,7 @@ export const Textarea = ({
     [textareaVars.bgColor]: global.color.bg.default,
     [textareaVars.disabledBgColor]: global.color.bg.disabled,
     [textareaVars.fontWeight]: String(finalFontWeight),
+    [textareaVars.fontFamily]: global.typography.fontFamily,
     [textareaVars.borderRadius]: `${toRem(actualRadius)}`,
   });
 

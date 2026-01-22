@@ -6,10 +6,11 @@ import * as typography from '../../tokens/dev/helpers/typography';
 
 // CSS 변수 정의
 const textColorVar = createVar();
+const textFontFamilyVar = createVar();
 
 // 기본 텍스트 스타일
 const baseText = style({
-  fontFamily: font.family.Pretendard,
+  fontFamily: textFontFamilyVar,
   margin: 0,
   padding: 0,
   color: textColorVar,
@@ -115,4 +116,5 @@ export const textStyle = recipe({
 // vars 객체 export
 export const textVars = {
   textColor: textColorVar,
+  textFontFamily: textFontFamilyVar,
 };

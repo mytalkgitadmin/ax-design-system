@@ -9,6 +9,7 @@ const borderColorVar = createVar();
 const bgColorVar = createVar();
 const focusShadowColorVar = createVar(); // focus 시 그림자 색상
 const focusOutlineColorVar = createVar(); // focus 시 outline 색상
+const fontFamilyVar = createVar(); // fontFamily
 
 // Accordion 컨테이너
 export const accordionContainer = style({
@@ -40,6 +41,7 @@ const baseHeader = style({
   backgroundColor: 'transparent',
   border: 'none',
   color: textColorVar,
+  fontFamily: fontFamilyVar,
   transition: 'all 0.2s ease',
   padding: 0,
   textAlign: 'left',
@@ -140,6 +142,7 @@ const baseContent = style({
   overflow: 'hidden',
   transition: 'max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease',
   color: textColorVar,
+  fontFamily: fontFamilyVar,
 });
 
 export const accordionContent = recipe({
@@ -184,4 +187,5 @@ export const accordionVars = {
   bgColor: bgColorVar,
   focusShadowColor: focusShadowColorVar,
   focusOutlineColor: focusOutlineColorVar,
+  fontFamily: fontFamilyVar,
 };

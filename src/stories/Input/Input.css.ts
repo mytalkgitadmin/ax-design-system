@@ -28,6 +28,7 @@ const disabledTextColorVar = createVar(); // disabled 텍스트 색상
 
 // 타이포그래피
 const fontWeightVar = createVar();
+const fontFamilyVar = createVar();
 
 // 레이아웃
 const borderRadiusVar = createVar();
@@ -140,6 +141,7 @@ export const inputContainerStyle = recipe({
 
 const baseInput = style({
   // 타이포그래피
+  fontFamily: fontFamilyVar,
   fontWeight: fontWeightVar,
   color: textColorVar,
 
@@ -357,6 +359,7 @@ export const inputVars = {
 
   // 타이포그래피
   fontWeight: fontWeightVar,
+  fontFamily: fontFamilyVar,
 
   // 레이아웃
   borderRadius: borderRadiusVar,

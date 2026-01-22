@@ -57,6 +57,7 @@ export const getSelectCSSVars = (
     [selectVars.bgColor]: global.color.bg.default,
     [selectVars.disabledBgColor]: global.color.bg.disabled,
     [selectVars.fontWeight]: String(finalFontWeight),
+    [selectVars.fontFamily]: global.typography.fontFamily,
     [selectVars.borderRadius]: `${toRem(actualRadius)}`,
     [selectVars.optionDividerColor]: color.divider.default,
   });

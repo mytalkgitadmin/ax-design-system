@@ -1,7 +1,7 @@
 import { createVar, style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
-import { componentSize, font, toRem } from '../../tokens';
+import { componentSize, toRem } from '../../tokens';
 
 /**
  * ========================================
@@ -34,6 +34,7 @@ const buttonDisabledBgColorVar = createVar();
 const borderRadiusVar = createVar();
 const buttonBorderRadiusVar = createVar();
 const fontWeightVar = createVar();
+const fontFamilyVar = createVar();
 
 /**
  * ========================================
@@ -69,7 +70,7 @@ const baseInput = style({
   background: 'transparent',
   outline: 'none',
   color: textColorVar,
-  fontFamily: font.family.Pretendard,
+  fontFamily: fontFamilyVar,
   fontWeight: fontWeightVar,
   appearance: 'textfield',
   '::-webkit-outer-spin-button': {
@@ -269,4 +270,5 @@ export const stepperVars = {
   borderRadius: borderRadiusVar,
   buttonBorderRadius: buttonBorderRadiusVar,
   fontWeight: fontWeightVar,
+  fontFamily: fontFamilyVar,
 };
