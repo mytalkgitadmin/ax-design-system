@@ -5,6 +5,7 @@
 
 export type RadiusTheme = {
   none: number;
+  xxs: number;
   xs: number;
   sm: number;
   md: number;
@@ -15,10 +16,11 @@ export type RadiusTheme = {
 
 export const radiusTheme: RadiusTheme = {
   none: 0,
-  xs: 2,
-  sm: 4,
-  md: 8,
-  lg: 12,
-  xl: 16,
+  xxs: 4,
+  xs: 6,
+  sm: 8,
+  md: 12,
+  lg: 16,
+  xl: 24,
   full: 999,
 };

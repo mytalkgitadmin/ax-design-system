@@ -28,7 +28,7 @@ export type TypographyTheme = {
 };
 
 export const typographyTheme: TypographyTheme = {
-  fontFamily: 'Pretendard',
+  fontFamily: "'Noto Sans KR', sans-serif",
   fontWeight: {
     regular: 400,
     medium: 500,
