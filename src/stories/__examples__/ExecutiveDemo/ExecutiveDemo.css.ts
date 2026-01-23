@@ -38,7 +38,7 @@ export const themeSwitcher = style({
 });
 
 export const heroSection = style({
-  padding: `${spacing[32]} ${spacing[24]}`,
+  padding: `${spacing[16]} ${spacing[24]}`,
   marginBottom: spacing[64],
   animation: `${motionEntranceVar}`,
 });
@@ -69,25 +69,93 @@ export const heroColumn = style({
 });
 
 export const heroComponentCard = style({
-  padding: `${spacing[40]} ${spacing[24]}`,
+  padding: `${spacing[32]} ${spacing[24]}`,
   borderRadius: cardBorderRadiusVar,
   border: `1px solid ${color.border.default}`,
   transition: motionHoverVar,
-  display: 'flex',
-  flexDirection: 'column',
-  gap: spacing[16],
 });
 
 export const profileCard = style({
-  marginTop: spacing[8],
   border: `1px solid ${color.border.default}`,
   borderRadius: cardBorderRadiusVar,
   padding: spacing[16],
   transition: motionHoverVar,
 });
 
-export const actionArea = style({
-  marginTop: spacing[8],
+export const authCard = style({
+  border: `1px solid ${color.border.default}`,
+  borderRadius: cardBorderRadiusVar,
+  padding: `${spacing[32]} ${spacing[24]}`,
+  transition: motionHoverVar,
+  display: 'flex',
+  flexDirection: 'column',
+  gap: spacing[24],
+  backgroundColor: color.bg.default,
+});
+
+export const loginCard = style({
+  border: `1px solid ${color.border.default}`,
+  borderRadius: cardBorderRadiusVar,
+  padding: `${spacing[32]} ${spacing[32]}`,
+  transition: motionHoverVar,
+  display: 'flex',
+  flexDirection: 'column',
+  gap: spacing[12],
+  backgroundColor: color.bg.default,
+  maxWidth: '400px',
+});
+
+export const boardCard = style({
+  border: `1px solid ${color.border.default}`,
+  borderRadius: cardBorderRadiusVar,
+  padding: `${spacing[24]} ${spacing[20]}`,
+  transition: motionHoverVar,
+  display: 'flex',
+  flexDirection: 'column',
+  gap: spacing[16],
+  backgroundColor: color.bg.default,
+});
+
+export const divider = style({
+  position: 'relative',
+  textAlign: 'center',
+
+  selectors: {
+    '&::before, &::after': {
+      content: '',
+      position: 'absolute',
+      top: '50%',
+      width: '45%',
+      height: '1px',
+      backgroundColor: color.border.default,
+    },
+    '&::before': {
+      left: 0,
+    },
+    '&::after': {
+      right: 0,
+    },
+  },
+});
+
+export const dividerText = style({
+  padding: `0 ${spacing[8]}`,
+  color: color.text.secondary,
+  fontSize: '0.875rem',
+  backgroundColor: color.bg.default,
+});
+
+export const termsText = style({
+  lineHeight: '1.5',
+});
+
+export const linkText = style({
+  textDecoration: 'underline',
+  cursor: 'pointer',
+
+  ':hover': {
+    color: color.text.primary,
+  },
 });
 
 export const sectionTitle = style({
@@ -178,4 +246,23 @@ export const bg = style({
   padding: `${spacing[64]} ${spacing[24]}`,
 
   backgroundColor: color.bg.subtle,
+});
+
+// Commerce Section Styles
+export const commerceGrid = style({
+  display: 'grid',
+  gridTemplateColumns: 'repeat(2, 1fr)',
+  gap: spacing[8],
+});
+
+export const commerceScroll = style({
+  display: 'grid',
+  gridTemplateColumns: 'repeat(1, 1fr)',
+  gap: spacing[8],
+});
+
+export const commerceList = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: spacing[8],
 });

@@ -21,12 +21,11 @@ import { Modal } from '../../Modal';
 import { Pagination } from '../../Pagination';
 import { RadioGroup } from '../../Radio/RadioGroup';
 import { Select } from '../../Select';
-import { Stepper } from '../../Stepper';
-import { Table } from '../../Table';
 import { Tabs } from '../../Tabs';
 import { Text } from '../../Text';
 import { Textarea } from '../../Textarea';
 import { Thumbnail } from '../../Thumbnail';
+import { ProductCard } from './components/ProductCard/ProductCard';
 
 import type { Theme } from '../../../theme/types';
 
@@ -45,6 +44,49 @@ const THEME_LABELS: Record<ThemeOption, string> = {
   brandA: 'Brand A',
   brandB: 'Brand B',
 };
+
+const PRODUCT_DATA = [
+  {
+    id: 1,
+    image: 'https://picsum.photos/400/400?random=1',
+    title: '엘렌실라 에스카르고 오리지날 리페어 크림',
+    price: 17800,
+    originalPrice: 30000,
+    discount: 41,
+    tags: ['무료배송', '특가'],
+    brand: 'Brand A',
+  },
+  {
+    id: 2,
+    image: 'https://picsum.photos/400/400?random=2',
+    title: '알로에베라 수딩젤 300ml 피부진정 수분공급',
+    price: 11900,
+    originalPrice: 32000,
+    discount: 63,
+    tags: ['단독구성'],
+    brand: 'Brand B',
+  },
+  {
+    id: 3,
+    image: 'https://picsum.photos/400/400?random=3',
+    title: '에스카르고 오리지날 리페어 크림',
+    price: 20900,
+    originalPrice: 3300,
+    discount: 63,
+    tags: ['단독구성'],
+    brand: 'Brand C',
+  },
+  {
+    id: 4,
+    image: 'https://picsum.photos/400/400?random=4',
+    title: '',
+    price: 20900,
+    originalPrice: 3300,
+    discount: 63,
+    tags: ['단독구성'],
+    brand: 'Brand D',
+  },
+];
 
 /**
  * ExecutiveDemo
@@ -112,15 +154,18 @@ export const ExecutiveDemo = () => {
             <div className={styles.heroShowcase}>
               {/* Left Column - Payment Method */}
               <div className={styles.heroColumn}>
-                <Flex gap='8' className={styles.profileCard}>
+                <Flex gap='8' align='center' className={styles.profileCard}>
                   <Avatar size='lg' name='홍' />
                   <Flex direction='column'>
                     <Text preset='subTitle2'>플랫폼사업본부 AX LAB</Text>
-                    <Text preset='body2'>홍길동</Text>
+                    <Text preset='body3' color='gray'>
+                      홍길동
+                    </Text>
                   </Flex>
                 </Flex>
 
-                <Flex gap='4' justify='between' className={styles.actionArea}>
+                <Flex gap='4' justify='between'>
+                  {/* className={styles.actionArea} */}
                   <Button
                     label='상세 보기'
                     variant='solid'
@@ -193,6 +238,25 @@ export const ExecutiveDemo = () => {
                       maxLength={100}
                     />
 
+                    <RadioGroup
+                      label='성별'
+                      direction='horizontal'
+                      name='notification'
+                      value={radioValue}
+                      onChange={setRadioValue}
+                      size='md'
+                      options={[
+                        { value: 'social', label: '남성' },
+                        { value: 'search', label: '여성' },
+                        { value: 'search', label: '제공안함' },
+                      ]}
+                      style={{
+                        paddingBottom: '8px',
+                        marginBottom: '8px',
+                        borderBottom: '1px solid #eee',
+                      }}
+                    />
+
                     <CheckboxGroup
                       label=''
                       name='billing'
@@ -202,7 +266,8 @@ export const ExecutiveDemo = () => {
                       options={[{ value: 'same', label: '약관에 동의합니다.' }]}
                     />
 
-                    <Flex gap='4' justify='end' className={styles.actionArea}>
+                    <Flex gap='4' justify='end'>
+                      {/* className={styles.actionArea} */}
                       <Button
                         label='취소'
                         variant='outline'
@@ -225,7 +290,7 @@ export const ExecutiveDemo = () => {
                 {/* Team Members Card */}
                 <Flex
                   direction='column'
-                  gap='16'
+                  gap='12'
                   align='center'
                   className={styles.heroComponentCard}
                 >
@@ -237,18 +302,17 @@ export const ExecutiveDemo = () => {
                     ]}
                   />
 
-                  <Text preset='subTitle3'>팀 멤버 없음</Text>
-                  <Text
-                    preset='body2'
-                    color={color.text.secondary}
-                    className={styles.description}
-                  >
-                    프로젝트 협업을 위해 팀원을 초대하세요
-                  </Text>
+                  <Flex direction='column' gap='4' align='center'>
+                    <Text preset='subTitle3'>팀 멤버 없음</Text>
+                    <Text preset='body2' color={color.text.secondary}>
+                      프로젝트 협업을 위해 팀원을 초대하세요
+                    </Text>
+                  </Flex>
                   <Button label='팀원 초대' size='sm' leftIcon='Plus' />
                 </Flex>
 
-                <Flex gap='4'>
+                {/* Badge Showcase */}
+                <Flex gap='4' wrap='wrap'>
                   <Badge label='동기화' variant='solid' color='primary' />
                   <Badge
                     label='업데이트중'
@@ -262,6 +326,12 @@ export const ExecutiveDemo = () => {
                     color='red'
                     leftIcon='CircleNegativeFilled'
                   />
+                  <Badge
+                    label='검증됨'
+                    variant='soft'
+                    color='green'
+                    rightIcon='Check'
+                  />
                 </Flex>
 
                 <div className={styles.heroComponentCard}>
@@ -271,41 +341,57 @@ export const ExecutiveDemo = () => {
                     items={[
                       {
                         value: 'item-1',
+                        leftIcon: 'Calendar',
                         category: 'Thumbnail',
                         title: '이미지',
                         content: (
-                          <Flex gap='4' wrap='wrap'>
-                            <Thumbnail
-                              src='https://picsum.photos/201'
-                              alt='Product 2'
-                              width={48}
-                            />
-                            <Thumbnail
-                              src='https://picsum.photos/202'
-                              alt='Product 3'
-                              width={48}
-                            />
-                            <Thumbnail src={null} alt='No image' width={48} />
-                            <Thumbnail
-                              src={null}
-                              alt='No image'
-                              width={48}
-                              color='gray'
-                            />
-                          </Flex>
+                          <>
+                            <Flex gap='4' wrap='wrap'>
+                              <Thumbnail
+                                src='https://picsum.photos/201'
+                                alt='Product 2'
+                                width={48}
+                              />
+                              <Thumbnail
+                                src='https://picsum.photos/202'
+                                alt='Product 3'
+                                width={48}
+                              />
+                              <Thumbnail src={null} alt='No image' width={48} />
+                              <Thumbnail
+                                src={null}
+                                alt='No image'
+                                width={48}
+                                color='gray'
+                              />
+                            </Flex>
+                            <Text
+                              preset='body3'
+                              color='muted'
+                              style={{ marginTop: '8px' }}
+                            >
+                              lorem ipsum dolor sit amet consectetur adipiscing
+                              elit lorem ipsum dolor sit amet consectetur
+                              adipiscing elit
+                            </Text>
+                          </>
                         ),
                       },
                       {
                         value: '2',
-                        category: '왜 필요한가요?',
+                        leftIcon: 'Bag',
+                        category: '장바구니',
+                        // title: '장바구니',
                         content:
-                          '개발 속도 향상, 디자인 일관성 유지, 유지보수 비용 절감 등 다양한 이점이 있습니다.',
+                          'lorem ipsum dolor sit amet consectetur adipiscing elit',
                       },
                       {
                         value: '3',
-                        category: '어떻게 시작하나요?',
+                        leftIcon: 'Search',
+                        category: 'FAQ',
+                        title: '자주묻는질문',
                         content:
-                          '기존 컴포넌트를 분석하고, 공통 패턴을 찾아 표준화하는 것부터 시작합니다.',
+                          'lorem ipsum dolor sit amet consectetur adipiscing elit',
                       },
                     ]}
                   />
@@ -319,97 +405,114 @@ export const ExecutiveDemo = () => {
 
               {/* Right Column - Authentication & Settings */}
               <div className={styles.heroColumn}>
-                {/* Two-factor Authentication */}
-                <div className={styles.heroComponentCard}>
-                  <Flex
-                    justify='between'
-                    align='center'
-                    className={styles.marginBottom16}
-                  >
-                    <Text preset='subTitle3'>2단계 인증</Text>
-                    <Button
-                      label='활성화'
-                      variant='solid'
-                      color='primary'
-                      size='sm'
-                    />
+                {/* Login Card - Create an account */}
+                <div className={styles.loginCard}>
+                  <Flex align='center' gap='8'>
+                    <Text preset='subTitle2'>로그인</Text>
+                    <Text preset='body4' color={color.text.tertiary}>
+                      이메일을 입력하세요
+                    </Text>
                   </Flex>
-
-                  <Flex
-                    justify='between'
-                    align='center'
-                    className={styles.marginBottom16}
-                  >
-                    <Text preset='body2'>프로필이 확인되었습니다</Text>
-                    <Button
-                      label='확인'
-                      icon='Check'
-                      variant='solid'
-                      size='sm'
-                    />
-                  </Flex>
-
-                  <Select
-                    label='정렬'
-                    options={[
-                      { value: 'k8s', label: '최신순' },
-                      { value: 'vm', label: '인기순' },
-                      { value: 'vm', label: '등록순' },
-                    ]}
+                  <Input
+                    label='id'
+                    hiddenLabel
+                    placeholder='name@example.com'
+                    full
+                    type='email'
+                    leftIcon='User'
                   />
 
-                  <Flex justify='between' align='center'>
-                    <Text preset='body2'>수량</Text>
-                    <Stepper defaultValue={3} />
+                  <Button
+                    label='로그인'
+                    variant='solid'
+                    color='primary'
+                    size='md'
+                    full
+                  />
+                </div>
+
+                {/* Commerce UI Card (Replaces Board Card) */}
+                <div
+                  className={styles.boardCard}
+                  style={{ maxHeight: '600px', overflowY: 'auto' }}
+                >
+                  <Flex direction='column' gap='8'>
+                    <Tabs
+                      variant='underlined'
+                      items={[
+                        { label: '추천', value: 'all' },
+                        { label: '인기', value: 'popular' },
+                        { label: '신상', value: 'new' },
+                      ]}
+                    />
+
+                    <Flex
+                      justify='between'
+                      align='center'
+                      gap='8'
+                      style={{ margin: '10px 0 0 0' }}
+                    >
+                      <Text preset='subTitle1' style={{ flex: 3 }}>
+                        추천 상품
+                      </Text>
+
+                      <Select
+                        options={[
+                          { value: 'all', label: '최신순' },
+                          { value: 'best', label: '인기순' },
+                        ]}
+                        text='정렬'
+                        size='sm'
+                        style={{ flex: 1 }}
+                      />
+                    </Flex>
+
+                    {/* Dynamic Content Area */}
+                    <div
+                      className={
+                        selectedTheme === 'default'
+                          ? styles.commerceList
+                          : selectedTheme === 'brandA'
+                            ? styles.commerceGrid
+                            : styles.commerceScroll
+                      }
+                    >
+                      {PRODUCT_DATA.map((product) => (
+                        <ProductCard
+                          key={product.id}
+                          layout={
+                            selectedTheme === 'default'
+                              ? 'horizontal'
+                              : selectedTheme === 'brandA'
+                                ? 'vertical'
+                                : 'compact'
+                          }
+                          image={product.image}
+                          brand={product.brand}
+                          title={product.title}
+                          price={product.price}
+                          originalPrice={product.originalPrice}
+                          discount={product.discount}
+                          tags={product.tags}
+                          themeVars={{
+                            borderRadius:
+                              selectedTheme === 'brandA'
+                                ? toRem(currentThemeObject.global.radius.lg)
+                                : selectedTheme === 'brandB'
+                                  ? toRem(currentThemeObject.global.radius.md)
+                                  : toRem(currentThemeObject.global.radius.sm),
+                          }}
+                        />
+                      ))}
+                    </div>
+
+                    <Flex justify='center' style={{ marginTop: 'auto' }}>
+                      <Pagination totalPages={5} currentPage={1} />
+                    </Flex>
                   </Flex>
                 </div>
 
                 {/* Survey & Settings */}
-                <div className={styles.heroComponentCard}>
-                  <Tabs
-                    variant='underlined'
-                    items={[
-                      { label: '전체', value: 'all' },
-                      { label: '인기', value: 'popular' },
-                      { label: '신상', value: 'new' },
-                    ]}
-                  />
-
-                  {/* Project Status Table */}
-                  <Table
-                    caption='현재 진행 중인 프로젝트'
-                    columns={[
-                      { key: 'project', bgColor: true, width: '40%' },
-                      { key: 'status', width: '30%' },
-                      { key: 'progress', width: '30%' },
-                    ]}
-                    data={[
-                      {
-                        project: '디자인 시스템',
-                        status: '진행중',
-                        progress: '75%',
-                      },
-                      {
-                        project: '모바일 앱',
-                        status: '계획',
-                        progress: '10%',
-                      },
-                    ]}
-                  />
-                  <Text preset='subTitle3'>옵션을 선택하세요</Text>
-
-                  <RadioGroup
-                    label=''
-                    name='notification'
-                    value={radioValue}
-                    onChange={setRadioValue}
-                    size='md'
-                    options={[
-                      { value: 'social', label: '소셜 미디어' },
-                      { value: 'search', label: '검색 엔진' },
-                    ]}
-                  />
-                </div>
               </div>
             </div>
           </Flex>

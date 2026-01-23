@@ -230,41 +230,31 @@ export const inputStyle = recipe({
     {
       variants: { size: 'xs', leftIcon: true },
       style: {
-        paddingLeft: toRem(
-          Number(componentSize.xs.iconSize) + Number(spacing[12]) * 2
-        ), // iconSize + 좌우 spacing
+        paddingLeft: `calc(${toRem(Number(componentSize.xs.iconSize))} + ${spacing[24]} + ${spacing[12]})`, // iconSize + spacing for icon + spacing for text
       },
     },
     {
       variants: { size: 'sm', leftIcon: true },
       style: {
-        paddingLeft: toRem(
-          Number(componentSize.sm.iconSize) + Number(spacing[12]) * 2
-        ),
+        paddingLeft: `calc(${toRem(Number(componentSize.sm.iconSize))} + ${spacing[24]} + ${spacing[12]})`,
       },
     },
     {
       variants: { size: 'md', leftIcon: true },
       style: {
-        paddingLeft: toRem(
-          Number(componentSize.md.iconSize) + Number(spacing[12]) * 2
-        ),
+        paddingLeft: `calc(${toRem(Number(componentSize.md.iconSize))} + ${spacing[24]} + ${spacing[12]})`,
       },
     },
     {
       variants: { size: 'lg', leftIcon: true },
       style: {
-        paddingLeft: toRem(
-          Number(componentSize.lg.iconSize) + Number(spacing[12]) * 2
-        ),
+        paddingLeft: `calc(${toRem(Number(componentSize.lg.iconSize))} + ${spacing[24]} + ${spacing[12]})`,
       },
     },
     {
       variants: { size: 'xl', leftIcon: true },
       style: {
-        paddingLeft: toRem(
-          Number(componentSize.xl.iconSize) + Number(spacing[12]) * 2
-        ),
+        paddingLeft: `calc(${toRem(Number(componentSize.xl.iconSize))} + ${spacing[24]} + ${spacing[12]})`,
       },
     },
     // Right Icon Padding (size별)

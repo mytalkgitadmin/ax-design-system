@@ -63,6 +63,10 @@ export const Select = ({
   name,
   id,
 
+  className,
+  style,
+  width,
+
   // Event Handlers
   onChange,
   onToggle,
@@ -193,8 +197,12 @@ export const Select = ({
   return (
     <div
       ref={wrapperRef}
-      className={`${selectWrapper} ${full ? selectWrapperFull : ''}`}
-      style={{ ...vars }}
+      className={`${selectWrapper} ${full ? selectWrapperFull : ''} ${className || ''}`}
+      style={{
+        ...vars,
+        ...(width ? { width } : {}),
+        ...style,
+      }}
     >
       {/* FormLabel 컴포넌트 사용 */}
       {showLabel && label && (
