@@ -50,6 +50,12 @@ export type SelectProps = {
   full?: boolean;
   /** 테마 설정을 덮어쓰기 위한 rounded 옵션 */
   rounded?: SelectRounded;
+  /** 커스텀 클래스 이름 */
+  className?: string;
+  /** 커스텀 인라인 스타일 */
+  style?: React.CSSProperties;
+  /** 컴포넌트 너비 */
+  width?: string | number;
 
   // Label & Description
   /** 접근성을 위해 필수값 */

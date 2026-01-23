@@ -84,6 +84,7 @@ export const RadioGroup = ({
   disabled = false,
   required = false,
   className,
+  style,
 }: RadioGroupProps) => {
   const { global } = useTheme();
   const groupId = useId();
@@ -151,7 +152,7 @@ export const RadioGroup = ({
   return (
     <div
       className={`${radioGroupContainer} ${className || ''}`}
-      style={vars}
+      style={{ ...vars, ...style }}
       role='radiogroup'
       aria-labelledby={label ? `${groupId}-label` : undefined}
       aria-disabled={disabled}

@@ -777,3 +777,44 @@ export const DisabledOptions: Story = {
     );
   },
 };
+
+/**
+ * 커스텀 스타일 (Width & Truncation)
+ */
+export const CustomStyle: Story = {
+  args: {
+    options: [
+      {
+        value: '1',
+        label:
+          '매우 긴 텍스트 옵션입니다. 너비가 좁을 때 말줄임표(...)가 제대로 표시되는지 확인해야 합니다.',
+      },
+      { value: '2', label: '짧은 옵션' },
+    ],
+    text: '긴 텍스트 테스트',
+  },
+  render: (args) => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+      <div>
+        <h3>Width: 200px (Prop)</h3>
+        <Select {...args} width={200} />
+      </div>
+      <div>
+        <h3>Width: 300px (Style) & Custom Class</h3>
+        <Select
+          {...args}
+          style={{ width: '300px', border: '1px dashed red' }}
+          className='custom-select-class'
+        />
+      </div>
+      <div>
+        <h3>Width: 100% (Full) in 400px container</h3>
+        <div
+          style={{ width: '400px', border: '1px solid #ccc', padding: '10px' }}
+        >
+          <Select {...args} full />
+        </div>
+      </div>
+    </div>
+  ),
+};
