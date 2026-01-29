@@ -30,7 +30,6 @@ export const themeSwitcher = style({
   padding: spacing[8],
   marginBottom: spacing[32],
   display: 'flex',
-  justifyContent: 'space-between',
   alignItems: 'center',
   flexWrap: 'wrap',
   gap: spacing[16],
@@ -159,7 +158,7 @@ export const linkText = style({
 });
 
 export const sectionTitle = style({
-  marginBottom: spacing[4],
+  marginBottom: spacing[12],
 });
 
 export const description = style({

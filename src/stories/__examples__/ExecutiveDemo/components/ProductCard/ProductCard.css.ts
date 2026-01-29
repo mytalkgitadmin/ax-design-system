@@ -92,8 +92,8 @@ export const content = recipe({
   variants: {
     layout: {
       vertical: {
-        padding: `${spacing[16]} 0`,
-        gap: spacing[8],
+        padding: `${spacing[8]} 0`,
+        gap: spacing[4],
       },
       horizontal: {
         flex: 1,
@@ -126,8 +126,10 @@ export const title = recipe({
   variants: {
     layout: {
       vertical: {
-        fontSize: '1rem',
+        fontSize: '0.875rem',
+        letterSpacing: '-0.03em',
         WebkitLineClamp: 2,
+        wordBreak: 'break-all',
       },
       horizontal: {
         fontSize: '1rem',

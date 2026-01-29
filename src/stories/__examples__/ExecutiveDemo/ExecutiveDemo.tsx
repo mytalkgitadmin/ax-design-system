@@ -10,28 +10,26 @@ import {
 } from '../../../theme';
 import { color, toRem } from '../../../tokens';
 import { Accordion } from '../../Accordion';
-import { Avatar } from '../../Avatar';
-import { AvatarGroup } from '../../Avatar/AvatarGroup';
 import { Badge } from '../../Badge';
 import { Button } from '../../Button';
-import { CheckboxGroup } from '../../Checkbox/CheckboxGroup';
 import { Flex } from '../../Flex';
-import { Input } from '../../Input';
+import { Grid } from '../../Grid';
 import { Modal } from '../../Modal';
 import { Pagination } from '../../Pagination';
-import { RadioGroup } from '../../Radio/RadioGroup';
-import { Select } from '../../Select';
-import { Tabs } from '../../Tabs';
 import { Text } from '../../Text';
-import { Textarea } from '../../Textarea';
 import { Thumbnail } from '../../Thumbnail';
-import { ProductCard } from './components/ProductCard/ProductCard';
+import { CommerceSection } from './components/CommerceSection';
+import { LoginCard } from './components/LoginCard';
+import { PaymentFormCard } from './components/PaymentFormCard';
+import { ProfileCard } from './components/ProfileCard';
+import { TeamCard } from './components/TeamCard';
+import { ThemeSwitcher } from './components/ThemeSwitcher';
+import { PRODUCT_DATA } from './constants';
 
 import type { Theme } from '../../../theme/types';
+import type { ThemeOption } from './types';
 
 import * as styles from './ExecutiveDemo.css';
-
-type ThemeOption = 'default' | 'brandA' | 'brandB';
 
 const THEME_MAP: Record<ThemeOption, Theme> = {
   default: defaultTheme,
@@ -40,53 +38,10 @@ const THEME_MAP: Record<ThemeOption, Theme> = {
 };
 
 const THEME_LABELS: Record<ThemeOption, string> = {
-  default: 'Default',
-  brandA: 'Brand A',
-  brandB: 'Brand B',
+  default: 'type A',
+  brandA: 'type B',
+  brandB: 'type C',
 };
-
-const PRODUCT_DATA = [
-  {
-    id: 1,
-    image: 'https://picsum.photos/400/400?random=1',
-    title: '엘렌실라 에스카르고 오리지날 리페어 크림',
-    price: 17800,
-    originalPrice: 30000,
-    discount: 41,
-    tags: ['무료배송', '특가'],
-    brand: 'Brand A',
-  },
-  {
-    id: 2,
-    image: 'https://picsum.photos/400/400?random=2',
-    title: '알로에베라 수딩젤 300ml 피부진정 수분공급',
-    price: 11900,
-    originalPrice: 32000,
-    discount: 63,
-    tags: ['단독구성'],
-    brand: 'Brand B',
-  },
-  {
-    id: 3,
-    image: 'https://picsum.photos/400/400?random=3',
-    title: '에스카르고 오리지날 리페어 크림',
-    price: 20900,
-    originalPrice: 3300,
-    discount: 63,
-    tags: ['단독구성'],
-    brand: 'Brand C',
-  },
-  {
-    id: 4,
-    image: 'https://picsum.photos/400/400?random=4',
-    title: '',
-    price: 20900,
-    originalPrice: 3300,
-    discount: 63,
-    tags: ['단독구성'],
-    brand: 'Brand D',
-  },
-];
 
 /**
  * ExecutiveDemo
@@ -97,7 +52,6 @@ const PRODUCT_DATA = [
 export const ExecutiveDemo = () => {
   const [selectedTheme, setSelectedTheme] = useState<ThemeOption>('default');
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const [radioValue, setRadioValue] = useState('social');
   const [checkboxValues, setCheckboxValues] = useState<string[]>(['same']);
 
@@ -123,20 +77,12 @@ export const ExecutiveDemo = () => {
         }}
       >
         {/* Theme Switcher */}
-        <div className={styles.themeSwitcher}>
-          <Flex gap='8'>
-            {(Object.keys(THEME_MAP) as ThemeOption[]).map((theme) => (
-              <Button
-                key={theme}
-                label={THEME_LABELS[theme]}
-                variant={selectedTheme === theme ? 'solid' : 'ghost'}
-                color='primary'
-                size='sm'
-                onClick={() => setSelectedTheme(theme)}
-              />
-            ))}
-          </Flex>
-        </div>
+        <Flex gap='8' className={styles.themeSwitcher}>
+          <ThemeSwitcher
+            selectedTheme={selectedTheme}
+            onThemeChange={setSelectedTheme}
+          />
+        </Flex>
 
         {/* Hero Section */}
         <section className={styles.heroSection}>
@@ -151,165 +97,26 @@ export const ExecutiveDemo = () => {
             </Text>
 
             {/* Visual Component Showcase Grid */}
-            <div className={styles.heroShowcase}>
+            <Grid
+              columns='repeat(3, 1fr)'
+              gap='24'
+              style={{ maxWidth: '1200px', width: '100%', marginTop: '24px' }}
+            >
               {/* Left Column - Payment Method */}
-              <div className={styles.heroColumn}>
-                <Flex gap='8' align='center' className={styles.profileCard}>
-                  <Avatar size='lg' name='홍' />
-                  <Flex direction='column'>
-                    <Text preset='subTitle2'>플랫폼사업본부 AX LAB</Text>
-                    <Text preset='body3' color='gray'>
-                      홍길동
-                    </Text>
-                  </Flex>
-                </Flex>
-
-                <Flex gap='4' justify='between'>
-                  {/* className={styles.actionArea} */}
-                  <Button
-                    label='상세 보기'
-                    variant='solid'
-                    color='primary'
-                    size='sm'
-                    leftIcon='Search'
-                    onClick={() => setIsModalOpen(true)}
-                  />
-                  <Button
-                    label='Button'
-                    variant='outline'
-                    color='primary'
-                    size='sm'
-                    leftIcon='Edit'
-                  />{' '}
-                  <Button
-                    label='Button'
-                    variant='solid'
-                    color='secondary'
-                    size='sm'
-                    leftIcon='User'
-                  />
-                  <Button
-                    label='Button'
-                    variant='solid'
-                    color='tertiary'
-                    size='sm'
-                    leftIcon='Download'
-                  />
-                </Flex>
-                <div className={styles.heroComponentCard}>
-                  <Text preset='subTitle2' className={styles.sectionTitle}>
-                    결제 수단
-                  </Text>
-
-                  <Flex direction='column' gap='12'>
-                    <Input label='카드 소지자명' placeholder='이름' full />
-
-                    <Flex gap='8'>
-                      <Input label='지역' placeholder='02' full />
-                      <Input label='전화번호' placeholder='000-0000' full />
-                    </Flex>
-
-                    <Flex gap='8'>
-                      <Select
-                        label='년'
-                        options={[
-                          { value: '2024', label: '2024' },
-                          { value: '2025', label: '2025' },
-                        ]}
-                        text='년도 선택'
-                        full
-                      />
-                      <Select
-                        label='월'
-                        options={[
-                          { value: '01', label: '01' },
-                          { value: '02', label: '02' },
-                          { value: '03', label: '03' },
-                        ]}
-                        text='월 선택'
-                        full
-                      />
-                    </Flex>
-
-                    <Textarea
-                      label='추가 의견'
-                      placeholder='추가 의견 입력'
-                      showCharacterCount
-                      maxLength={100}
-                    />
-
-                    <RadioGroup
-                      label='성별'
-                      direction='horizontal'
-                      name='notification'
-                      value={radioValue}
-                      onChange={setRadioValue}
-                      size='md'
-                      options={[
-                        { value: 'social', label: '남성' },
-                        { value: 'search', label: '여성' },
-                        { value: 'search', label: '제공안함' },
-                      ]}
-                      style={{
-                        paddingBottom: '8px',
-                        marginBottom: '8px',
-                        borderBottom: '1px solid #eee',
-                      }}
-                    />
-
-                    <CheckboxGroup
-                      label=''
-                      name='billing'
-                      value={checkboxValues}
-                      onChange={setCheckboxValues}
-                      size='md'
-                      options={[{ value: 'same', label: '약관에 동의합니다.' }]}
-                    />
-
-                    <Flex gap='4' justify='end'>
-                      {/* className={styles.actionArea} */}
-                      <Button
-                        label='취소'
-                        variant='outline'
-                        color='tertiary'
-                        size='sm'
-                      />
-                      <Button
-                        label='제출'
-                        variant='solid'
-                        color='primary'
-                        size='sm'
-                      />
-                    </Flex>
-                  </Flex>
-                </div>
-              </div>
+              <Flex direction='column' gap='16' style={{ minWidth: 0 }}>
+                <ProfileCard />
+                <LoginCard />
+                <PaymentFormCard
+                  radioValue={radioValue}
+                  onRadioChange={setRadioValue}
+                  checkboxValues={checkboxValues}
+                  onCheckboxChange={setCheckboxValues}
+                />
+              </Flex>
 
               {/* Center Column - Team & Status */}
-              <div className={styles.heroColumn}>
-                {/* Team Members Card */}
-                <Flex
-                  direction='column'
-                  gap='12'
-                  align='center'
-                  className={styles.heroComponentCard}
-                >
-                  <AvatarGroup
-                    avatars={[
-                      { type: 'text', name: 'F', size: 'sm' },
-                      { type: 'text', name: 'B', size: 'sm' },
-                      { type: 'text', name: '김', size: 'sm' },
-                    ]}
-                  />
-
-                  <Flex direction='column' gap='4' align='center'>
-                    <Text preset='subTitle3'>팀 멤버 없음</Text>
-                    <Text preset='body2' color={color.text.secondary}>
-                      프로젝트 협업을 위해 팀원을 초대하세요
-                    </Text>
-                  </Flex>
-                  <Button label='팀원 초대' size='sm' leftIcon='Plus' />
-                </Flex>
+              <Flex direction='column' gap='16' style={{ minWidth: 0 }}>
+                <TeamCard />
 
                 {/* Badge Showcase */}
                 <Flex gap='4' wrap='wrap'>
@@ -381,7 +188,6 @@ export const ExecutiveDemo = () => {
                         value: '2',
                         leftIcon: 'Bag',
                         category: '장바구니',
-                        // title: '장바구니',
                         content:
                           'lorem ipsum dolor sit amet consectetur adipiscing elit',
                       },
@@ -401,120 +207,50 @@ export const ExecutiveDemo = () => {
                   <Pagination totalPages={10} currentPage={1} />
                   <Pagination color='primary' totalPages={10} currentPage={5} />
                 </Flex>
-              </div>
+              </Flex>
 
               {/* Right Column - Authentication & Settings */}
-              <div className={styles.heroColumn}>
-                {/* Login Card - Create an account */}
-                <div className={styles.loginCard}>
-                  <Flex align='center' gap='8'>
-                    <Text preset='subTitle2'>로그인</Text>
-                    <Text preset='body4' color={color.text.tertiary}>
-                      이메일을 입력하세요
-                    </Text>
-                  </Flex>
-                  <Input
-                    label='id'
-                    hiddenLabel
-                    placeholder='name@example.com'
-                    full
-                    type='email'
-                    leftIcon='User'
-                  />
-
+              <Flex direction='column' gap='16' style={{ minWidth: 0 }}>
+                <Flex gap='4' justify='between'>
                   <Button
-                    label='로그인'
+                    label='상세 보기'
                     variant='solid'
                     color='primary'
-                    size='md'
-                    full
+                    size='sm'
+                    leftIcon='Search'
+                    onClick={() => setIsModalOpen(true)}
                   />
-                </div>
+                  <Button
+                    label='Button'
+                    variant='outline'
+                    color='primary'
+                    size='sm'
+                    leftIcon='Edit'
+                  />
+                  <Button
+                    label='Button'
+                    variant='solid'
+                    color='secondary'
+                    size='sm'
+                    leftIcon='User'
+                  />
+                  <Button
+                    label='Button'
+                    variant='solid'
+                    color='tertiary'
+                    size='sm'
+                    leftIcon='Download'
+                  />
+                </Flex>
 
-                {/* Commerce UI Card (Replaces Board Card) */}
-                <div
-                  className={styles.boardCard}
-                  style={{ maxHeight: '600px', overflowY: 'auto' }}
-                >
-                  <Flex direction='column' gap='8'>
-                    <Tabs
-                      variant='underlined'
-                      items={[
-                        { label: '추천', value: 'all' },
-                        { label: '인기', value: 'popular' },
-                        { label: '신상', value: 'new' },
-                      ]}
-                    />
-
-                    <Flex
-                      justify='between'
-                      align='center'
-                      gap='8'
-                      style={{ margin: '10px 0 0 0' }}
-                    >
-                      <Text preset='subTitle1' style={{ flex: 3 }}>
-                        추천 상품
-                      </Text>
-
-                      <Select
-                        options={[
-                          { value: 'all', label: '최신순' },
-                          { value: 'best', label: '인기순' },
-                        ]}
-                        text='정렬'
-                        size='sm'
-                        style={{ flex: 1 }}
-                      />
-                    </Flex>
-
-                    {/* Dynamic Content Area */}
-                    <div
-                      className={
-                        selectedTheme === 'default'
-                          ? styles.commerceList
-                          : selectedTheme === 'brandA'
-                            ? styles.commerceGrid
-                            : styles.commerceScroll
-                      }
-                    >
-                      {PRODUCT_DATA.map((product) => (
-                        <ProductCard
-                          key={product.id}
-                          layout={
-                            selectedTheme === 'default'
-                              ? 'horizontal'
-                              : selectedTheme === 'brandA'
-                                ? 'vertical'
-                                : 'compact'
-                          }
-                          image={product.image}
-                          brand={product.brand}
-                          title={product.title}
-                          price={product.price}
-                          originalPrice={product.originalPrice}
-                          discount={product.discount}
-                          tags={product.tags}
-                          themeVars={{
-                            borderRadius:
-                              selectedTheme === 'brandA'
-                                ? toRem(currentThemeObject.global.radius.lg)
-                                : selectedTheme === 'brandB'
-                                  ? toRem(currentThemeObject.global.radius.md)
-                                  : toRem(currentThemeObject.global.radius.sm),
-                          }}
-                        />
-                      ))}
-                    </div>
-
-                    <Flex justify='center' style={{ marginTop: 'auto' }}>
-                      <Pagination totalPages={5} currentPage={1} />
-                    </Flex>
-                  </Flex>
-                </div>
-
-                {/* Survey & Settings */}
-              </div>
-            </div>
+                {/* Commerce UI Section */}
+                <CommerceSection
+                  selectedTheme={selectedTheme}
+                  currentThemeObject={currentThemeObject}
+                  productData={PRODUCT_DATA}
+                />
+              </Flex>
+            </Grid>
           </Flex>
         </section>
 
