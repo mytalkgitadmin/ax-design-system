@@ -16,6 +16,8 @@ export const Badge = ({
   rounded = 'xs',
   leftIcon,
   rightIcon,
+  style,
+  className,
 }: BadgeProps) => {
   const { global, components } = useTheme();
   const badgeTheme = components.Badge;
@@ -35,7 +37,10 @@ export const Badge = ({
   });
 
   return (
-    <span className={badgeStyle({ color, variant, rounded })} style={vars}>
+    <span
+      className={`${badgeStyle({ color, variant, rounded })} ${className || ''}`}
+      style={{ ...vars, ...style }}
+    >
       {leftIcon && <Icon name={leftIcon} size={iconSize} />}
       {label}
       {rightIcon && <Icon name={rightIcon} size={iconSize} />}

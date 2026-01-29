@@ -65,6 +65,10 @@ export const Textarea = ({
   showCharacterCount = false,
   characterCountPosition = 'inside-right',
 
+  // Style
+  style,
+  className,
+
   // Event Handlers
   onChange,
   onFocus,
@@ -197,7 +201,10 @@ export const Textarea = ({
   const textareaId = generateFieldId('textarea', id);
 
   return (
-    <div className={`${textareaWrapper}`} style={{ ...vars }}>
+    <div
+      className={`${textareaWrapper} ${className || ''}`}
+      style={{ ...vars, ...style }}
+    >
       {/* FormLabel 컴포넌트 사용 */}
       <FormLabel
         htmlFor={textareaId}

@@ -56,6 +56,10 @@ export type TextareaProps = BaseFormFieldProps & {
   showCharacterCount?: boolean; // 글자수 표시 여부
   characterCountPosition?: CharacterCountPosition; // 글자수 위치 (기본: 'inside-right')
 
+  // Style
+  style?: React.CSSProperties;
+  className?: string;
+
   // Event Handlers
   onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onFocus?: (e: React.FocusEvent<HTMLTextAreaElement>) => void;

@@ -74,6 +74,7 @@ export const Checkbox = ({
   name,
   value,
   className,
+  style,
 }: CheckboxProps) => {
   const { global, components } = useTheme();
   const checkboxTheme = components.Checkbox;
@@ -163,7 +164,7 @@ export const Checkbox = ({
     <label
       htmlFor={checkboxId}
       className={`${checkboxContainer({ labelPlacement })} ${className || ''}`}
-      style={vars}
+      style={{ ...vars, ...style }}
     >
       <input
         type='checkbox'

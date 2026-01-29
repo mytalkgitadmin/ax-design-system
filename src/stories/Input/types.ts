@@ -50,6 +50,8 @@ export type InputProps = BaseFormFieldProps & {
 
   // Style
   textAlign?: 'left' | 'center' | 'right';
+  style?: React.CSSProperties;
+  className?: string;
 
   // Event Handlers
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;

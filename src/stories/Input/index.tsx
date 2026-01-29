@@ -72,6 +72,8 @@ export const Input = ({
 
   // Style
   textAlign,
+  style,
+  className,
 
   // Event Handlers
   onChange,
@@ -133,8 +135,8 @@ export const Input = ({
 
   return (
     <div
-      className={`${inputWrapper} ${full ? inputWrapperFull : ''}`}
-      style={{ ...vars }}
+      className={`${inputWrapper} ${full ? inputWrapperFull : ''} ${className || ''}`}
+      style={{ ...vars, ...style }}
     >
       {/* FormLabel 컴포넌트 사용 */}
       <FormLabel
