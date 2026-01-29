@@ -14,7 +14,12 @@ export type SolidBadgeColor =
   | 'neutral-disabled';
 
 // outline, soft variant에서 사용 가능한 색상
-export type OutlineSoftBadgeColor = 'primary' | 'green' | 'red' | 'yellow';
+export type OutlineSoftBadgeColor =
+  | 'primary'
+  | 'green'
+  | 'red'
+  | 'yellow'
+  | 'blue';
 
 // 모든 색상 타입
 export type BadgeColor = SolidBadgeColor | OutlineSoftBadgeColor;
@@ -76,6 +81,7 @@ export const OUTLINE_SOFT_BADGE_COLORS: OutlineSoftBadgeColor[] = [
   'green',
   'red',
   'yellow',
+  'blue',
 ];
 
 export const BADGE_ROUNDED: BadgeRounded[] = ['none', 'xs', 'md', 'full'];
