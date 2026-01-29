@@ -82,6 +82,7 @@ export const CheckboxGroup = ({
   children,
   disabled = false,
   className,
+  style,
 }: CheckboxGroupProps) => {
   const { global } = useTheme();
   const groupId = useId();
@@ -157,7 +158,7 @@ export const CheckboxGroup = ({
   return (
     <div
       className={`${checkboxGroupContainer} ${className || ''}`}
-      style={vars}
+      style={{ ...vars, ...style }}
       role='group'
       aria-labelledby={label ? `${groupId}-label` : undefined}
       aria-disabled={disabled}

@@ -34,6 +34,12 @@ type BadgePropsBase = {
 
   /** 오른쪽 아이콘 */
   rightIcon?: IconType;
+
+  /** 스타일 */
+  style?: React.CSSProperties;
+
+  /** 클래스 이름 */
+  className?: string;
 };
 
 type SolidBadgeProps = BadgePropsBase & {
