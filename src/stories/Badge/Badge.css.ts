@@ -39,12 +39,12 @@ export const badgeStyle = recipe({
   base: baseBadge,
 
   variants: {
-    // 색상 변형
     color: {
       primary: {},
       green: {},
       red: {},
       yellow: {},
+      blue: {},
       muted: {},
       'neutral-emphasis': {},
       'neutral-disabled': {},
@@ -168,6 +168,32 @@ export const badgeStyle = recipe({
       style: {
         backgroundColor: color.bg.warning,
         color: color.text.warning,
+        borderColor: 'transparent',
+      },
+    },
+
+    // BLUE 색상 (고정 색상, 테마와 무관)
+    {
+      variants: { color: 'blue', variant: 'solid' },
+      style: {
+        backgroundColor: color.blue[700], // #355fea (brandA strong과 동일하지만 고정)
+        color: color.base.white,
+        borderColor: 'transparent',
+      },
+    },
+    {
+      variants: { color: 'blue', variant: 'outline' },
+      style: {
+        backgroundColor: 'transparent',
+        color: color.blue[700], // #355fea
+        borderColor: color.blue[300], // #aec3ff
+      },
+    },
+    {
+      variants: { color: 'blue', variant: 'soft' },
+      style: {
+        backgroundColor: color.blue[100], // #eef3ff (brandA soft와 동일하지만 고정)
+        color: color.blue[700], // #355fea
         borderColor: 'transparent',
       },
     },

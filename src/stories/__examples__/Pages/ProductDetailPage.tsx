@@ -175,6 +175,7 @@ export const ProductDetailPage = () => {
                   label='이달의 베스트 3위'
                   leftIcon='Heart'
                   variant='soft'
+                  color='blue'
                 />
                 <Badge label='무료배송' variant='soft' color='green' />
                 <Badge label='특가' color='muted' />
