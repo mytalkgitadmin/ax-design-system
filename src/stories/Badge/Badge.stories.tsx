@@ -112,13 +112,14 @@ export const AllColorCombinations: Story = {
       style={{
         display: 'grid',
         gap: '16px',
-        gridTemplateColumns: 'repeat(7, 1fr)',
+        gridTemplateColumns: 'repeat(8, 1fr)', // blue 추가로 8칼럼으로 변경
       }}
     >
       <Badge variant='solid' color='primary' label='텍스트' />
       <Badge variant='solid' color='green' label='텍스트' />
       <Badge variant='solid' color='red' label='텍스트' />
       <Badge variant='solid' color='yellow' label='텍스트' />
+      <Badge variant='solid' color='blue' label='텍스트' />
       <Badge variant='solid' color='muted' label='텍스트' />
       <Badge variant='solid' color='neutral-emphasis' label='텍스트' />
       <Badge variant='solid' color='neutral-disabled' label='텍스트' />
@@ -127,6 +128,7 @@ export const AllColorCombinations: Story = {
       <Badge variant='soft' color='green' label='텍스트' />
       <Badge variant='soft' color='red' label='텍스트' />
       <Badge variant='soft' color='yellow' label='텍스트' />
+      <Badge variant='soft' color='blue' label='텍스트' />
       <span></span>
       <span></span>
       <span></span>
@@ -135,6 +137,7 @@ export const AllColorCombinations: Story = {
       <Badge variant='outline' color='green' label='텍스트' />
       <Badge variant='outline' color='red' label='텍스트' />
       <Badge variant='outline' color='yellow' label='텍스트' />
+      <Badge variant='outline' color='blue' label='텍스트' />
       <span></span>
       <span></span>
       <span></span>

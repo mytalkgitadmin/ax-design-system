@@ -3,9 +3,7 @@
  * Project A의 브랜드 테마 정의
  */
 
-import { color } from 'storybook/theming';
-
-import { rounded, theme } from '../../tokens';
+import { color as tokenColors, rounded, theme } from '../../tokens';
 import { createTheme } from '../createTheme';
 
 /**
@@ -24,7 +22,7 @@ const COLOR_STRONG = BRAND_A_COLORS.strong;
 const COLOR_STRONGER = BRAND_A_COLORS.stronger;
 const COLOR_STRONGEST = BRAND_A_COLORS.strongest;
 const COLOR_SOFT = BRAND_A_COLORS.soft;
-const COLOR_INVERSE_TEXT = color.inverseText; // 역색 텍스트
+const COLOR_BORDER_SOFT = tokenColors.blue['200']; // #cedbff - outline용 연한 테두리
 
 export const brandATheme = createTheme({
   global: {
@@ -41,6 +39,7 @@ export const brandATheme = createTheme({
         stronger: COLOR_STRONGER,
         strongest: COLOR_STRONGEST,
         soft: COLOR_SOFT,
+        borderSoft: COLOR_BORDER_SOFT,
       },
     },
     radius: {
@@ -73,7 +72,7 @@ export const brandATheme = createTheme({
           default: COLOR_DEFAULT,
           hover: COLOR_HOVER,
           active: COLOR_ACTIVE,
-          text: COLOR_INVERSE_TEXT,
+          text: tokenColors.base.white,
           bgHover: COLOR_SOFT, // Pagination hover 배경색
         },
       },
@@ -101,7 +100,7 @@ export const brandATheme = createTheme({
           default: COLOR_DEFAULT,
           hover: COLOR_HOVER,
           active: COLOR_DEFAULT,
-          text: COLOR_INVERSE_TEXT,
+          text: tokenColors.base.white,
         },
       },
     },

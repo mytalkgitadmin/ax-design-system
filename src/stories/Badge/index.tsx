@@ -33,6 +33,7 @@ export const Badge = ({
     [badgeVars.brandDefault]: global.color.brand.default,
     [badgeVars.brandSubtle]: global.color.brand.subtle,
     [badgeVars.brandSoft]: global.color.brand.soft,
+    [badgeVars.brandBorderSoft]: global.color.brand.borderSoft,
     [badgeVars.borderRadius]: toRem(themeRadius),
   });
 

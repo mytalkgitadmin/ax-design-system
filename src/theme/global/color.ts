@@ -18,6 +18,7 @@ export type ColorTheme = {
     stronger: string;
     strongest: string;
     soft: string;
+    borderSoft: string; // outline variant용 연한 테두리
   };
   text: {
     primary: string;
@@ -59,6 +60,7 @@ export const colorTheme: ColorTheme = {
     stronger: color.green['600'], // #4f7cff
     strongest: color.green['700'], // #355fea
     soft: color.green['50'], // #f9fbff
+    borderSoft: color.green['100'], // #f1fcf4 - outline용 연한 테두리 (테마 색상 계열)
   },
   text: {
     primary: color.text.primary, // #2f3744
