@@ -48,6 +48,20 @@ export type ColorTheme = {
     disabled: string;
     inverse: string;
   };
+  icon: {
+    primary: string;
+    fill: string;
+    inverse: string;
+    secondary: string;
+    disabled: string;
+    muted: string;
+    negative: string;
+    positive: string;
+    warning: string;
+    negativeSoft: string;
+    positiveSoft: string;
+    warningSoft: string;
+  };
 };
 
 export const colorTheme: ColorTheme = {
@@ -89,5 +103,19 @@ export const colorTheme: ColorTheme = {
     strong: color.border.strong, // #c5c9d3
     disabled: color.border.disabled, // #e3e6ee
     inverse: color.border.inverse, // #ffffff
+  },
+  icon: {
+    primary: color.icon.primary,
+    fill: color.icon.fill,
+    inverse: color.icon.inverse,
+    secondary: color.icon.secondary,
+    disabled: color.icon.disabled,
+    muted: color.icon.muted,
+    negative: color.icon.negative,
+    positive: color.icon.positive,
+    warning: color.icon.warning,
+    negativeSoft: color.icon.negativeSoft,
+    positiveSoft: color.icon.positiveSoft,
+    warningSoft: color.icon.warningSoft,
   },
 };

@@ -8,6 +8,7 @@ import {
   INPUT_ROUNDED,
   INPUT_SIZES,
   INPUT_TYPES,
+  INPUT_VARIANTS,
 } from './types';
 
 import type { Meta, StoryObj } from '@storybook/react';
@@ -99,6 +100,15 @@ const meta = {
     full: {
       control: 'boolean',
       description: 'Full width',
+      table: {
+        category: 'Appearance',
+      },
+    },
+    variant: {
+      control: 'select',
+      options: INPUT_VARIANTS,
+      description:
+        'Input variant (outline: 전체 테두리, underline: 하단 테두리만)',
       table: {
         category: 'Appearance',
       },
@@ -280,6 +290,7 @@ const meta = {
   args: {
     size: 'md',
     color: 'primary',
+    variant: 'outline',
     full: false,
 
     label: '레이블',
@@ -316,6 +327,33 @@ export const Sizes: Story = {
       <Input label='MD' size='md' />
       <Input label='LG' size='lg' />
       <Input label='XL' size='xl' />
+    </div>
+  ),
+};
+
+/**
+ * Variants
+ * Outline (기본): 전체 테두리
+ * Underline: 하단 테두리만
+ */
+export const Variants: Story = {
+  render: () => (
+    <div
+      style={{
+        display: 'grid',
+        gap: '16px',
+      }}
+    >
+      <Input
+        label='Outline (기본)'
+        variant='outline'
+        placeholder='전체 테두리가 있는 입력 필드'
+      />
+      <Input
+        label='Underline'
+        variant='underline'
+        placeholder='하단 테두리만 있는 입력 필드'
+      />
     </div>
   ),
 };
@@ -513,7 +551,6 @@ export const WithIcons: Story = {
         width: '300px',
       }}
     >
-      <Input label='검색' placeholder='검색어를 입력하세요' leftIcon='Search' />
       <Input
         label='이메일'
         type='email'
@@ -534,6 +571,117 @@ export const WithIcons: Story = {
       />
     </div>
   ),
+};
+
+/**
+ * Search Input with Auto Clear Button
+ * search 타입 input은 자동으로 CircleXDuoFilled 아이콘의 clear 버튼이 표시됩니다.
+ * 값이 있을 때만 버튼이 나타나며, 클릭 시 input이 초기화됩니다.
+ */
+export const SearchInput: Story = {
+  render: () => {
+    const SearchExample = () => {
+      const [searchValue, setSearchValue] = useState('');
+
+      const handleSearch = () => {
+        alert(`입력된 검색어: ${searchValue}`);
+      };
+
+      return (
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '24px',
+            width: '400px',
+          }}
+        >
+          <div>
+            <h4 style={{ margin: '0 0 8px 0', fontSize: '14px' }}>
+              Controlled Search Input (Left Icon)
+            </h4>
+            <Input
+              label='검색'
+              type='search'
+              placeholder='검색어를 입력하세요'
+              leftIcon='Search'
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+              full
+              status='help'
+              statusMessage='텍스트 입력 시 자동으로 clear 버튼이 나타납니다'
+            />
+            <p style={{ marginTop: '8px', fontSize: '12px', color: '#666' }}>
+              현재 값: "{searchValue}"
+            </p>
+          </div>
+
+          <div>
+            <h4 style={{ margin: '0 0 8px 0', fontSize: '14px' }}>
+              Interactive Search Input (Right Icon)
+            </h4>
+            <Input
+              label='검색 (Enter or Click)'
+              type='search'
+              placeholder='검색어 입력 후 Enter 또는 아이콘 클릭'
+              rightIcon='Search'
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+              onRightIconClick={handleSearch}
+              full
+              status='help'
+              statusMessage='엔터키를 누르거나 돋보기를 클릭하면 알림이 뜹니다'
+            />
+          </div>
+
+          <div>
+            <h4 style={{ margin: '0 0 8px 0', fontSize: '14px' }}>
+              Uncontrolled Search Input
+            </h4>
+            <Input
+              label='검색 (Uncontrolled)'
+              type='search'
+              placeholder='검색어를 입력하세요'
+              leftIcon='Search'
+              defaultValue=''
+              full
+            />
+          </div>
+
+          <div>
+            <h4 style={{ margin: '0 0 8px 0', fontSize: '14px' }}>
+              Search Input with Initial Value
+            </h4>
+            <Input
+              label='검색 (초기값 있음)'
+              type='search'
+              placeholder='검색어를 입력하세요'
+              leftIcon='Search'
+              defaultValue='React'
+              full
+            />
+          </div>
+
+          <div>
+            <h4 style={{ margin: '0 0 8px 0', fontSize: '14px' }}>
+              Disabled Search Input
+            </h4>
+            <Input
+              label='검색 (비활성화)'
+              type='search'
+              placeholder='검색어를 입력하세요'
+              leftIcon='Search'
+              defaultValue='disabled 상태에서는 clear 버튼이 나타나지 않습니다'
+              disabled
+              full
+            />
+          </div>
+        </div>
+      );
+    };
+
+    return <SearchExample />;
+  },
 };
 
 /**
@@ -613,7 +761,6 @@ export const SignupForm: Story = {
           }}
         >
           <h3 style={{ margin: '0 0 8px 0' }}>회원가입</h3>
-
           <Input
             label='이름'
             placeholder='홍길동'
@@ -622,7 +769,6 @@ export const SignupForm: Story = {
             status='help'
             statusMessage='실명을 입력해주세요'
           />
-
           <Input
             label='이메일'
             type='email'
@@ -633,7 +779,6 @@ export const SignupForm: Story = {
             status='help'
             statusMessage='로그인 시 사용할 이메일 주소입니다'
           />
-
           <Input
             label='비밀번호'
             type={showPassword ? 'text' : 'password'}
@@ -645,7 +790,6 @@ export const SignupForm: Story = {
             status='help'
             statusMessage='8자 이상, 영문/숫자/특수문자 조합'
           />
-
           <Input
             label='비밀번호 확인'
             type={showConfirmPassword ? 'text' : 'password'}
@@ -659,12 +803,18 @@ export const SignupForm: Story = {
             status='error'
             statusMessage='비밀번호가 일치하지 않습니다'
           />
-
           <Input
             label='전화번호'
             type='tel'
             placeholder='010-1234-5678'
             leftIcon='Download'
+            full
+          />
+          <Input
+            label='검색어'
+            type='search'
+            placeholder='검색어를 입력해주세요'
+            leftIcon='Search'
             full
           />
         </div>
