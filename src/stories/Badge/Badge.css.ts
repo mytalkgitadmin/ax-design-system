@@ -15,6 +15,7 @@ export const badgeVars = {
   brandDefault: createVar(),
   brandSubtle: createVar(),
   brandSoft: createVar(),
+  brandBorderSoft: createVar(),
   borderRadius: createVar(),
 };
 
@@ -82,7 +83,7 @@ export const badgeStyle = recipe({
       style: {
         backgroundColor: 'transparent',
         color: badgeVars.brandSubtle,
-        borderColor: badgeVars.brandSubtle,
+        borderColor: badgeVars.brandBorderSoft, // 연한 테두리 색상 사용
       },
     },
     {
@@ -98,7 +99,7 @@ export const badgeStyle = recipe({
     {
       variants: { color: 'green', variant: 'solid' },
       style: {
-        backgroundColor: color.text.positive,
+        backgroundColor: color.green[500],
         color: color.base.white,
         borderColor: 'transparent',
       },
@@ -107,7 +108,7 @@ export const badgeStyle = recipe({
       variants: { color: 'green', variant: 'outline' },
       style: {
         borderColor: color.border.positiveSoft,
-        color: color.text.positive,
+        color: color.green[500],
         backgroundColor: 'transparent',
       },
     },
@@ -115,7 +116,7 @@ export const badgeStyle = recipe({
       variants: { color: 'green', variant: 'soft' },
       style: {
         backgroundColor: color.bg.positive,
-        color: color.text.positive,
+        color: color.green[500],
         borderColor: 'transparent',
       },
     },
@@ -124,7 +125,7 @@ export const badgeStyle = recipe({
     {
       variants: { color: 'red', variant: 'solid' },
       style: {
-        backgroundColor: color.text.negative,
+        backgroundColor: color.red[500],
         color: color.base.white,
         borderColor: 'transparent',
       },
@@ -133,7 +134,7 @@ export const badgeStyle = recipe({
       variants: { color: 'red', variant: 'outline' },
       style: {
         borderColor: color.border.negativeSoft,
-        color: color.text.negative,
+        color: color.red[500],
         backgroundColor: 'transparent',
       },
     },
@@ -141,7 +142,7 @@ export const badgeStyle = recipe({
       variants: { color: 'red', variant: 'soft' },
       style: {
         backgroundColor: color.bg.negative,
-        color: color.text.negative,
+        color: color.red[500],
         borderColor: 'transparent',
       },
     },
@@ -150,7 +151,7 @@ export const badgeStyle = recipe({
     {
       variants: { color: 'yellow', variant: 'solid' },
       style: {
-        backgroundColor: color.text.warning,
+        backgroundColor: color.yellow[500],
         color: color.gray[900],
         borderColor: 'transparent',
       },
@@ -159,7 +160,7 @@ export const badgeStyle = recipe({
       variants: { color: 'yellow', variant: 'outline' },
       style: {
         backgroundColor: 'transparent',
-        color: color.text.warning,
+        color: color.yellow[500],
         borderColor: color.border.warningSoft,
       },
     },
@@ -167,7 +168,7 @@ export const badgeStyle = recipe({
       variants: { color: 'yellow', variant: 'soft' },
       style: {
         backgroundColor: color.bg.warning,
-        color: color.text.warning,
+        color: color.yellow[500],
         borderColor: 'transparent',
       },
     },
@@ -176,7 +177,7 @@ export const badgeStyle = recipe({
     {
       variants: { color: 'blue', variant: 'solid' },
       style: {
-        backgroundColor: color.blue[700], // #355fea (brandA strong과 동일하지만 고정)
+        backgroundColor: color.blue[500],
         color: color.base.white,
         borderColor: 'transparent',
       },

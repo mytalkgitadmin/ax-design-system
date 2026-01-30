@@ -3,12 +3,13 @@ import { IconType } from '../Icon';
 
 export type BadgeVariant = 'solid' | 'outline' | 'soft';
 
-// solid variant에서만 사용 가능한 색상
+// solid variant에서 사용 가능한 색상
 export type SolidBadgeColor =
   | 'primary'
   | 'green'
   | 'red'
   | 'yellow'
+  | 'blue'
   | 'muted'
   | 'neutral-emphasis'
   | 'neutral-disabled';
@@ -71,6 +72,7 @@ export const SOLID_BADGE_COLORS: SolidBadgeColor[] = [
   'green',
   'red',
   'yellow',
+  'blue',
   'muted',
   'neutral-emphasis',
   'neutral-disabled',
