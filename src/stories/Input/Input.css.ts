@@ -25,6 +25,7 @@ const disabledBgColorVar = createVar(); // disabled 배경 색상
 const textColorVar = createVar(); // 입력 텍스트 색상
 const placeholderColorVar = createVar(); // placeholder 색상
 const disabledTextColorVar = createVar(); // disabled 텍스트 색상
+const disabledIconColorVar = createVar(); // disabled 아이콘 색상
 
 // 타이포그래피
 const fontWeightVar = createVar();
@@ -67,6 +68,9 @@ const baseInputContainer = style({
   alignItems: 'center',
   boxSizing: 'border-box',
 
+  // Icon 색상 상속을 위해 추가
+  color: textColorVar,
+
   // 외형
   borderRadius: borderRadiusVar,
   border: `1px solid ${borderColorVar}`,
@@ -80,8 +84,13 @@ const baseInputContainer = style({
       borderColor: hoverBorderColorVar,
     },
 
-    '&:has(input:focus-visible)': {
+    // Focus: Mouse click or Keyboard (Border Color Only)
+    '&:has(input:focus)': {
       borderColor: focusBorderColorVar,
+    },
+
+    // Focus Visible: Keyboard mainly (Add Shadow)
+    '&:has(input:focus-visible)': {
       boxShadow: `0 0 10px 0 ${focusShadowColorVar}`,
     },
 
@@ -89,6 +98,7 @@ const baseInputContainer = style({
     '&:has(input:disabled)': {
       backgroundColor: disabledBgColorVar,
       borderColor: disabledBgColorVar,
+      color: disabledIconColorVar, // Disabled Icon Color
     },
   },
 });
@@ -115,6 +125,25 @@ export const inputContainerStyle = recipe({
         height: toRem(componentSize.xs.height),
       },
     },
+    variant: {
+      outline: {
+        // 기본 스타일 (전체 테두리)
+      },
+      underline: {
+        // 하단 테두리만
+        borderTop: 'none',
+        borderLeft: 'none',
+        borderRight: 'none',
+        borderRadius: 0,
+        backgroundColor: 'transparent',
+
+        selectors: {
+          '&:has(input:focus)': {
+            boxShadow: `0 1px 0 0 ${focusBorderColorVar}`,
+          },
+        },
+      },
+    },
     error: {
       true: {
         borderColor: errorBorderColorVar,
@@ -128,6 +157,10 @@ export const inputContainerStyle = recipe({
         },
       },
     },
+  },
+
+  defaultVariants: {
+    variant: 'outline',
   },
 });
 
@@ -164,7 +197,13 @@ const baseInput = style({
   // Placeholder
   '::placeholder': {
     color: placeholderColorVar,
+    textOverflow: 'ellipsis', // Firefox might partial support
   },
+
+  // Ellipsis & Overflow
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
 
   // Disabled 상태
   ':disabled': {
@@ -181,8 +220,19 @@ const baseInput = style({
     WebkitAppearance: 'none',
     margin: 0,
   },
+
+  // type='search'일 때 기본 cancel 버튼 숨기기 (커스텀 Icon 컴포넌트 사용)
+  '::-webkit-search-cancel-button': {
+    WebkitAppearance: 'none',
+    appearance: 'none',
+    display: 'none',
+  },
+
   // Firefox용
   selectors: {
+    '&:focus::placeholder': {
+      color: 'transparent',
+    },
     '&[type="number"]': {
       MozAppearance: 'textfield',
     },
@@ -225,80 +275,22 @@ export const inputStyle = recipe({
     },
   },
 
-  compoundVariants: [
-    // Left Icon Padding (size별)
+  compoundVariants: Object.entries(componentSize).flatMap(([key, value]) => [
+    // Left Icon Padding
     {
-      variants: { size: 'xs', leftIcon: true },
+      variants: { size: key as keyof typeof componentSize, leftIcon: true },
       style: {
-        paddingLeft: `calc(${toRem(Number(componentSize.xs.iconSize))} + ${spacing[24]} + ${spacing[12]})`, // iconSize + spacing for icon + spacing for text
+        paddingLeft: `calc(${toRem(Number(value.iconSize))} + 1.6em)`,
       },
     },
+    // Right Icon Padding
     {
-      variants: { size: 'sm', leftIcon: true },
+      variants: { size: key as keyof typeof componentSize, rightIcon: true },
       style: {
-        paddingLeft: `calc(${toRem(Number(componentSize.sm.iconSize))} + ${spacing[24]} + ${spacing[12]})`,
+        paddingRight: `calc(${toRem(Number(value.iconSize))} + 1.6em)`,
       },
     },
-    {
-      variants: { size: 'md', leftIcon: true },
-      style: {
-        paddingLeft: `calc(${toRem(Number(componentSize.md.iconSize))} + ${spacing[24]} + ${spacing[12]})`,
-      },
-    },
-    {
-      variants: { size: 'lg', leftIcon: true },
-      style: {
-        paddingLeft: `calc(${toRem(Number(componentSize.lg.iconSize))} + ${spacing[24]} + ${spacing[12]})`,
-      },
-    },
-    {
-      variants: { size: 'xl', leftIcon: true },
-      style: {
-        paddingLeft: `calc(${toRem(Number(componentSize.xl.iconSize))} + ${spacing[24]} + ${spacing[12]})`,
-      },
-    },
-    // Right Icon Padding (size별)
-    {
-      variants: { size: 'xs', rightIcon: true },
-      style: {
-        paddingRight: toRem(
-          Number(componentSize.xs.iconSize) + Number(spacing[12]) * 2
-        ),
-      },
-    },
-    {
-      variants: { size: 'sm', rightIcon: true },
-      style: {
-        paddingRight: toRem(
-          Number(componentSize.sm.iconSize) + Number(spacing[12]) * 2
-        ),
-      },
-    },
-    {
-      variants: { size: 'md', rightIcon: true },
-      style: {
-        paddingRight: toRem(
-          Number(componentSize.md.iconSize) + Number(spacing[12]) * 2
-        ),
-      },
-    },
-    {
-      variants: { size: 'lg', rightIcon: true },
-      style: {
-        paddingRight: toRem(
-          Number(componentSize.lg.iconSize) + Number(spacing[12]) * 2
-        ),
-      },
-    },
-    {
-      variants: { size: 'xl', rightIcon: true },
-      style: {
-        paddingRight: toRem(
-          Number(componentSize.xl.iconSize) + Number(spacing[12]) * 2
-        ),
-      },
-    },
-  ],
+  ]),
 });
 
 /**
@@ -314,15 +306,21 @@ export const iconContainer = style({
   alignItems: 'center',
   justifyContent: 'center',
   pointerEvents: 'none', // 기본적으로 클릭 불가 (onRightIconClick이 있으면 'auto'로 변경)
-  color: textColorVar,
+  color: 'inherit',
 });
 
 export const leftIconContainer = style({
-  left: spacing[12],
+  left: '1em',
 });
 
-export const rightIconContainer = style({
-  right: spacing[12],
+// Clear 버튼 전용 (search 타입에서 텍스트 바로 옆)
+export const clearButtonContainer = style({
+  right: '1em',
+});
+
+// Search 버튼 전용 (맨 오른쪽, clear 버튼이 있을 때는 더 오른쪽)
+export const searchButtonContainer = style({
+  right: '1em',
 });
 
 /**
@@ -346,6 +344,7 @@ export const inputVars = {
   textColor: textColorVar,
   placeholderColor: placeholderColorVar,
   disabledTextColor: disabledTextColorVar,
+  disabledIconColor: disabledIconColorVar,
 
   // 타이포그래피
   fontWeight: fontWeightVar,

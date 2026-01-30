@@ -11,7 +11,14 @@ import {
 import { IconType } from '../Icon';
 
 export type InputSize = ComponentSize;
-export type InputType = 'text' | 'password' | 'email' | 'tel' | 'number';
+export type InputType =
+  | 'text'
+  | 'password'
+  | 'email'
+  | 'tel'
+  | 'number'
+  | 'search';
+export type InputVariant = 'outline' | 'underline';
 export type InputRounded = Exclude<ComponentRounded, 'full'>;
 
 // 시맨틱 토큰 이름 또는 커스텀 컬러 값(hex, rgb)을 모두 허용
@@ -33,11 +40,12 @@ import { BaseFormFieldProps } from '../FormField';
 
 export type InputProps = BaseFormFieldProps & {
   // Appearance
+  variant?: InputVariant; // outline(전체 테두리) 또는 underline(하단 테두리만)
   rounded?: InputRounded; // 테마 설정을 덮어쓰기 위한 rounded 옵션
 
   // Icons
-  leftIcon?: IconType;
-  rightIcon?: IconType;
+  leftIcon?: IconType | React.ReactNode;
+  rightIcon?: IconType | React.ReactNode;
   onLeftIconClick?: () => void; // leftIcon 클릭 핸들러
   onRightIconClick?: () => void; // rightIcon 클릭 핸들러
 
@@ -67,7 +75,9 @@ export const INPUT_TYPES: InputType[] = [
   'email',
   'tel',
   'number',
+  'search',
 ];
+export const INPUT_VARIANTS: InputVariant[] = ['outline', 'underline'];
 export const INPUT_COLOR_PRESETS: InputColorPreset[] = COMPONENT_COLOR_PRESETS;
 export const INPUT_ROUNDED: InputRounded[] = COMPONENT_ROUNDED.filter(
   (r): r is InputRounded => r !== 'full'
