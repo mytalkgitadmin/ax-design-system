@@ -144,9 +144,9 @@ export const color = {
     negativeSoft: '#ffc5cd',
     negativeStrong: '#e6374f',
     positiveSoft: '#c0eed0',
-    positiveStrong: '#1fa45c',
+    positiveStrong: '#3fbe75',
     warningSoft: '#ffedb8',
-    warningStrong: '#ffb020',
+    warningStrong: '#ffc439',
     focus: '#a6acb7',
     subtle: '#edf0f5',
     selected: '#4b5465',
@@ -166,8 +166,8 @@ export const color = {
     inverse: '#ffffff',
     link: '#355fea',
     negative: '#e6374f',
-    positive: '#1fa45c',
-    warning: '#ffb020',
+    positive: '#3fbe75',
+    warning: '#ffc439',
   },
   icon: {
     primary: '#4b5465',
@@ -177,8 +177,8 @@ export const color = {
     disabled: '#c5c9d3',
     muted: '#a6acb7',
     negative: '#e6374f',
-    positive: '#1fa45c',
-    warning: '#ffb020',
+    positive: '#3fbe75',
+    warning: '#ffc439',
     negativeSoft: '#ffeef1',
     positiveSoft: '#f1fcf4',
     warningSoft: '#fffaee',
@@ -193,9 +193,6 @@ export const font = {
     regular: 400,
     semibold: 600,
     bold: 700,
-  },
-  size: {
-    '0': 0,
   },
 };
 
