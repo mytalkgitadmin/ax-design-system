@@ -685,6 +685,122 @@ export const SearchInput: Story = {
 };
 
 /**
+ * Search Input with Auto Clear Button
+ * search 타입 input은 자동으로 CircleXDuoFilled 아이콘의 clear 버튼이 표시됩니다.
+ * 값이 있을 때만 버튼이 나타나며, 클릭 시 input이 초기화됩니다.
+ */
+export const SearchInputUnderline: Story = {
+  render: () => {
+    const SearchExample = () => {
+      const [searchValue, setSearchValue] = useState('');
+
+      const handleSearch = () => {
+        alert(`입력된 검색어: ${searchValue}`);
+      };
+
+      return (
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '24px',
+            width: '400px',
+          }}
+        >
+          <div>
+            <h4 style={{ margin: '0 0 8px 0', fontSize: '14px' }}>
+              Controlled Search Input (Left Icon)
+            </h4>
+            <Input
+              label='검색'
+              type='search'
+              placeholder='검색어를 입력하세요'
+              leftIcon='Search'
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+              full
+              status='help'
+              variant='underline'
+              statusMessage='텍스트 입력 시 자동으로 clear 버튼이 나타납니다'
+            />
+            <p style={{ marginTop: '8px', fontSize: '12px', color: '#666' }}>
+              현재 값: "{searchValue}"
+            </p>
+          </div>
+
+          <div>
+            <h4 style={{ margin: '0 0 8px 0', fontSize: '14px' }}>
+              Interactive Search Input (Right Icon)
+            </h4>
+            <Input
+              label='검색 (Enter or Click)'
+              type='search'
+              placeholder='검색어 입력 후 Enter 또는 아이콘 클릭'
+              rightIcon='Search'
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+              onRightIconClick={handleSearch}
+              full
+              status='help'
+              statusMessage='엔터키를 누르거나 돋보기를 클릭하면 알림이 뜹니다'
+              variant='underline'
+            />
+          </div>
+
+          <div>
+            <h4 style={{ margin: '0 0 8px 0', fontSize: '14px' }}>
+              Uncontrolled Search Input
+            </h4>
+            <Input
+              label='검색 (Uncontrolled)'
+              type='search'
+              placeholder='검색어를 입력하세요'
+              leftIcon='Search'
+              defaultValue=''
+              full
+              variant='underline'
+            />
+          </div>
+
+          <div>
+            <h4 style={{ margin: '0 0 8px 0', fontSize: '14px' }}>
+              Search Input with Initial Value
+            </h4>
+            <Input
+              label='검색 (초기값 있음)'
+              type='search'
+              placeholder='검색어를 입력하세요'
+              leftIcon='Search'
+              defaultValue='React'
+              full
+              variant='underline'
+            />
+          </div>
+
+          <div>
+            <h4 style={{ margin: '0 0 8px 0', fontSize: '14px' }}>
+              Disabled Search Input
+            </h4>
+            <Input
+              label='검색 (비활성화)'
+              type='search'
+              placeholder='검색어를 입력하세요'
+              leftIcon='Search'
+              defaultValue='disabled 상태에서는 clear 버튼이 나타나지 않습니다'
+              disabled
+              full
+              variant='underline'
+            />
+          </div>
+        </div>
+      );
+    };
+
+    return <SearchExample />;
+  },
+};
+
+/**
  * 비밀번호 토글 예시
  */
 export const PasswordToggle: Story = {

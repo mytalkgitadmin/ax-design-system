@@ -319,9 +319,7 @@ export const Input = ({
             style={{
               ...iconButtonStyle,
               // rightIcon이 있으면 더 왼쪽에 배치
-              right: rightIcon
-                ? `calc(1em + ${toRem(iconSize)} + 0.5em)`
-                : '1em',
+              right: rightIcon ? `calc(1em + ${toRem(iconSize)} + 1em)` : '1em',
             }}
             onClick={handleClear}
             onKeyDown={(e) => {
