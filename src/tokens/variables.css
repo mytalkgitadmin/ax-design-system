@@ -101,7 +101,6 @@
   --font-weight-regular: 400;
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
-  --font-size-0: 0;
   --number-0: 0;
   --number-1: 1;
   --number-2: 2;
@@ -224,9 +223,9 @@
   --border-negative-soft: var(--red-200);
   --border-negative-strong: var(--red-600);
   --border-positive-soft: var(--green-200);
-  --border-positive-strong: var(--green-600);
+  --border-positive-strong: var(--green-500);
   --border-warning-soft: var(--yellow-200);
-  --border-warning-strong: var(--yellow-600);
+  --border-warning-strong: var(--yellow-500);
   --border-focus: var(--gray-500);
   --border-subtle: var(--gray-200);
   --border-selected: var(--gray-800);
@@ -241,8 +240,8 @@
   --text-disabled: var(--gray-400);
   --text-inverse: var(--base-white);
   --text-negative: var(--red-600);
-  --text-positive: var(--green-600);
-  --text-warning: var(--yellow-600);
+  --text-positive: var(--green-500);
+  --text-warning: var(--yellow-500);
   --icon-primary: var(--gray-800);
   --icon-fill: var(--gray-300);
   --icon-inverse: var(--base-white);
@@ -250,8 +249,8 @@
   --icon-disabled: var(--gray-400);
   --icon-muted: var(--gray-500);
   --icon-negative: var(--red-600);
-  --icon-positive: var(--green-600);
-  --icon-warning: var(--yellow-600);
+  --icon-positive: var(--green-500);
+  --icon-warning: var(--yellow-500);
   --icon-negative-soft: var(--red-100);
   --icon-positive-soft: var(--green-100);
   --icon-warning-soft: var(--yellow-100);
