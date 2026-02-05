@@ -49,6 +49,10 @@ export type ButtonTheme = {
     primary: ColorScheme;
     secondary: ColorScheme;
     tertiary: ColorScheme;
+    green: ColorScheme;
+    blue: ColorScheme;
+    red: ColorScheme;
+    yellow: ColorScheme;
   };
 
   ghostSchemes: {
@@ -69,7 +73,7 @@ export const buttonTheme: ButtonTheme = {
       hover: colorTheme.brand.stronger,
       active: colorTheme.brand.strongest,
       text: colorTheme.text.inverse,
-      bgHover: colorTheme.brand.soft, // Primary hover \ubc30\uacbd\uc0c9
+      bgHover: colorTheme.brand.soft, // Primary hover 배경색
     },
     secondary: {
       default: color.bg.darkgray,
@@ -83,6 +87,34 @@ export const buttonTheme: ButtonTheme = {
       hover: color.bg.grayStrong,
       active: color.bg.grayStrongest,
       text: color.text.muted,
+    },
+    green: {
+      default: color.green[500],
+      hover: color.green[600],
+      active: color.green[700],
+      text: color.base.white,
+      bgHover: color.bg.positive,
+    },
+    blue: {
+      default: color.blue[500],
+      hover: color.blue[600],
+      active: color.blue[700],
+      text: color.base.white,
+      bgHover: color.blue[100],
+    },
+    red: {
+      default: color.red[500],
+      hover: color.red[600],
+      active: color.red[700],
+      text: color.base.white,
+      bgHover: color.bg.negative,
+    },
+    yellow: {
+      default: color.yellow[500],
+      hover: color.yellow[600],
+      active: color.yellow[700],
+      text: color.gray[900],
+      bgHover: color.bg.warning,
     },
   },
 

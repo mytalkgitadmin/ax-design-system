@@ -120,6 +120,10 @@ export const buttonStyle = recipe({
       primary: {},
       secondary: {},
       tertiary: {},
+      green: {},
+      blue: {},
+      red: {},
+      yellow: {},
     },
     size: {
       xl: {
