@@ -28,6 +28,7 @@ const COLORED_BUTTONS = ['green', 'blue', 'red', 'yellow'] as const;
  * | `rounded` | `none` \| `xs` \| `sm` \| `md` \| `lg` \| `xl` \| `full` |
  * | `full` | `boolean` |
  * | `disabled` | `boolean` |
+ * | `loading` | `boolean` |
  * | `leftIcon` | `IconType` |
  * | `rightIcon` | `IconType` |
  * | `icon` | `IconType` (아이콘 전용 버튼) |
@@ -133,6 +134,11 @@ const meta = {
     disabled: {
       control: 'boolean',
       description: 'Disabled state',
+      table: { category: 'State' },
+    },
+    loading: {
+      control: 'boolean',
+      description: 'Loading state (shows spinner)',
       table: { category: 'State' },
     },
 
@@ -664,6 +670,123 @@ export const AsLink: Story = {
           label='Search'
           rightIcon='Search'
         />
+      </div>
+    </div>
+  ),
+};
+
+/**
+ * Loading State
+ *
+ * 비동기 작업 중 버튼에 "Loading..." 텍스트를 표시합니다.
+ */
+export const Loading: Story = {
+  render: () => (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '24px',
+      }}
+    >
+      <div>
+        <h4
+          style={{
+            marginBottom: '12px',
+            color: '#697180',
+            fontSize: '14px',
+          }}
+        >
+          Solid Variant
+        </h4>
+        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+          {PRESET_COLORS.map((color) => (
+            <Button
+              key={color}
+              variant='solid'
+              color={color}
+              label='Loading...'
+              loading
+            />
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <h4
+          style={{
+            marginBottom: '12px',
+            color: '#697180',
+            fontSize: '14px',
+          }}
+        >
+          Outline Variant
+        </h4>
+        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+          {PRESET_COLORS.map((color) => (
+            <Button
+              key={color}
+              variant='outline'
+              color={color}
+              label='Loading...'
+              loading
+            />
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <h4
+          style={{
+            marginBottom: '12px',
+            color: '#697180',
+            fontSize: '14px',
+          }}
+        >
+          Ghost Variant
+        </h4>
+        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+          {PRESET_COLORS.map((color) => (
+            <Button
+              key={color}
+              variant='ghost'
+              color={color}
+              label='Loading...'
+              loading
+            />
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <h4
+          style={{
+            marginBottom: '12px',
+            color: '#697180',
+            fontSize: '14px',
+          }}
+        >
+          Different Sizes
+        </h4>
+        <div
+          style={{
+            display: 'flex',
+            gap: '12px',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+          }}
+        >
+          {BUTTON_SIZES.map((size) => (
+            <Button
+              key={size}
+              size={size}
+              variant='solid'
+              color='primary'
+              label='Loading'
+              loading
+            />
+          ))}
+        </div>
       </div>
     </div>
   ),

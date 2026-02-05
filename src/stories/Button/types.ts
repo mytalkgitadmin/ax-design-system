@@ -35,6 +35,7 @@ type ButtonBaseProps = {
 
   label: string;
   disabled?: boolean;
+  loading?: boolean; // 로딩 상태 (spinner 표시 및 disabled 처럼 동작)
 
   icon?: IconType;
   leftIcon?: IconType;

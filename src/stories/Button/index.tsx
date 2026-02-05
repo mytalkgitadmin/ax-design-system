@@ -23,6 +23,7 @@ export const Button = ({
   label,
   full = false,
   disabled = false,
+  loading = false,
   onClick,
   as,
   href,
@@ -147,19 +148,25 @@ export const Button = ({
             | 'yellow')
         : undefined,
       full,
-      leftIcon: !!leftIcon,
-      rightIcon: !!rightIcon,
-      icon: !!icon,
+      leftIcon: !!(leftIcon && !loading),
+      rightIcon: !!(rightIcon && !loading),
+      icon: !!(icon && !loading),
     })}${className ? ` ${className}` : ''}`,
     style: { ...vars, ...style },
-    disabled: disabled,
+    disabled: disabled || loading,
   };
 
   const children = (
     <>
-      {leftIcon && <Icon name={leftIcon} size={iconSize} />}
-      {icon ? <Icon name={icon} size={iconSize} /> : label}
-      {rightIcon && <Icon name={rightIcon} size={iconSize} />}
+      {loading ? (
+        <span style={{ opacity: 0.8 }}>Loading...</span>
+      ) : (
+        <>
+          {leftIcon && <Icon name={leftIcon} size={iconSize} />}
+          {icon ? <Icon name={icon} size={iconSize} /> : label}
+          {rightIcon && <Icon name={rightIcon} size={iconSize} />}
+        </>
+      )}
     </>
   );
 
