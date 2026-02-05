@@ -67,11 +67,19 @@ const baseContainer = style({
   gap: spacing[24],
   padding: spacing[32],
   maxHeight: '90vh',
-  overflowY: 'auto',
+
+  boxSizing: 'border-box',
 
   selectors: {
     '&[data-closing="true"]': {
       animation: `${scaleOut} 0.15s ease-in !important`,
+    },
+  },
+
+  '@media': {
+    '(max-width: 500px)': {
+      padding: spacing[24],
+      gap: spacing[16],
     },
   },
 });
@@ -84,23 +92,35 @@ export const modalContainer = recipe({
       sm: {
         width: '400px',
         maxWidth: '100%',
+        '@media': {
+          '(max-width: 500px)': {
+            width: '100%',
+            maxWidth: `calc(100% - ${spacing[32]})`,
+            minWidth: '280px',
+          },
+        },
       },
       md: {
         width: '560px',
         maxWidth: '100%',
+        '@media': {
+          '(max-width: 500px)': {
+            width: '100%',
+            maxWidth: `calc(100% - ${spacing[32]})`,
+            minWidth: '280px',
+          },
+        },
       },
       lg: {
-        width: '720px',
+        width: '760px',
         maxWidth: '100%',
-      },
-    },
-
-    viewport: {
-      pc: {},
-      mobile: {
-        width: '100%',
-        maxWidth: '100%',
-        borderRadius: toRem(rounded.md),
+        '@media': {
+          '(max-width: 500px)': {
+            width: '100%',
+            maxWidth: `calc(100% - ${spacing[32]})`,
+            minWidth: '280px',
+          },
+        },
       },
     },
 
@@ -119,7 +139,6 @@ export const modalContainer = recipe({
 
   defaultVariants: {
     size: 'md',
-    viewport: 'pc',
     animation: 'default',
   },
 });
@@ -127,12 +146,11 @@ export const modalContainer = recipe({
 // 닫기 버튼
 export const closeButton = style({
   position: 'absolute',
-  top: spacing[32],
-  right: spacing[32],
+  top: spacing[24],
+  right: spacing[24],
   background: 'none',
   border: 'none',
   cursor: 'pointer',
-  padding: spacing[4],
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -155,25 +173,40 @@ export const textContainer = style({
   display: 'flex',
   flexDirection: 'column',
   gap: spacing[8],
-  paddingRight: spacing[48], // 닫기 버튼 공간 확보
 });
 
 // 제목
 export const title = style({
-  fontSize: toRem(20),
   fontWeight: 700,
   lineHeight: 1.2,
   color: color.text.primary,
   margin: 0,
+  fontSize: toRem(20),
+
+  '@media': {
+    '(max-width: 500px)': {
+      fontSize: toRem(18),
+    },
+  },
 });
 
 // 설명
 export const description = style({
-  fontSize: toRem(16),
   fontWeight: 400,
-  lineHeight: 1.4,
+  lineHeight: 1.5,
   color: color.text.secondary,
   margin: 0,
+  display: '-webkit-box',
+  WebkitBoxOrient: 'vertical',
+  overflow: 'hidden',
+  WebkitLineClamp: 3,
+  fontSize: toRem(16),
+
+  '@media': {
+    '(max-width: 500px)': {
+      fontSize: toRem(13),
+    },
+  },
 });
 
 // 컨텐츠 영역
@@ -181,14 +214,46 @@ export const content = style({
   display: 'flex',
   flexDirection: 'column',
   gap: spacing[16],
+  overflowY: 'auto',
+  lineHeight: 1.4,
+  color: color.text.secondary,
 });
 
 // 버튼 컨테이너
-export const buttonContainer = style({
-  display: 'flex',
-  gap: spacing[12],
-  justifyContent: 'flex-end',
-  alignItems: 'center',
+export const buttonContainer = recipe({
+  base: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+
+  variants: {
+    align: {
+      left: {
+        justifyContent: 'flex-start',
+      },
+      center: {
+        justifyContent: 'center',
+      },
+      right: {
+        justifyContent: 'flex-end',
+      },
+    },
+    direction: {
+      row: {
+        flexDirection: 'row',
+      },
+      column: {
+        flexDirection: 'column',
+        alignItems: 'stretch',
+      },
+    },
+  },
+
+  defaultVariants: {
+    align: 'right',
+    direction: 'row',
+  },
 });
 
 // showCloseButton이 false일 때 textContainer padding 제거
