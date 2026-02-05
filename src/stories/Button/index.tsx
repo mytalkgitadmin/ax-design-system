@@ -66,20 +66,43 @@ export const Button = ({
 
   const iconSize = Number(componentSize[finalSize].iconSize);
 
-  const ghostColorKey = ['primary', 'secondary', 'tertiary'].includes(color)
-    ? (color as 'primary' | 'secondary' | 'tertiary')
-    : 'primary';
+  // Ghost variant를 위한 색상 처리
+  const isSemanticColor = ['primary', 'secondary', 'tertiary'].includes(color);
+  const isColoredButton = ['green', 'blue', 'red', 'yellow'].includes(color);
 
-  const ghostScheme =
-    ghostColorKey === 'primary'
-      ? {
-          textDefault: global.color.brand.default,
-          textHover: global.color.brand.stronger,
-          textActive: global.color.brand.strongest,
-          bgHover: global.color.brand.soft,
-          bgActive: global.color.brand.soft,
-        }
-      : buttonTheme.ghostSchemes[ghostColorKey];
+  let ghostScheme;
+
+  if (isColoredButton) {
+    // green, blue, red, yellow는 finalColorScheme의 색상을 사용
+    ghostScheme = {
+      textDefault: finalColorScheme.default,
+      textHover: finalColorScheme.hover,
+      textActive: finalColorScheme.active,
+      bgHover: finalColorScheme.bgHover ?? 'transparent',
+      bgActive: finalColorScheme.bgHover ?? 'transparent',
+    };
+  } else if (isSemanticColor) {
+    const ghostColorKey = color as 'primary' | 'secondary' | 'tertiary';
+    ghostScheme =
+      ghostColorKey === 'primary'
+        ? {
+            textDefault: global.color.brand.default,
+            textHover: global.color.brand.stronger,
+            textActive: global.color.brand.strongest,
+            bgHover: global.color.brand.soft,
+            bgActive: global.color.brand.soft,
+          }
+        : buttonTheme.ghostSchemes[ghostColorKey];
+  } else {
+    // 커스텀 색상의 경우 기본 primary 스킴 사용
+    ghostScheme = {
+      textDefault: global.color.brand.default,
+      textHover: global.color.brand.stronger,
+      textActive: global.color.brand.strongest,
+      bgHover: global.color.brand.soft,
+      bgActive: global.color.brand.soft,
+    };
+  }
 
   const vars = assignInlineVars({
     [buttonVars.defaultColor]: finalColorScheme.default,
@@ -105,8 +128,23 @@ export const Button = ({
     className: `${buttonStyle({
       variant: finalVariant,
       size: finalSize,
-      color: ['primary', 'secondary', 'tertiary'].includes(color)
-        ? (color as 'primary' | 'secondary' | 'tertiary')
+      color: [
+        'primary',
+        'secondary',
+        'tertiary',
+        'green',
+        'blue',
+        'red',
+        'yellow',
+      ].includes(color)
+        ? (color as
+            | 'primary'
+            | 'secondary'
+            | 'tertiary'
+            | 'green'
+            | 'blue'
+            | 'red'
+            | 'yellow')
         : undefined,
       full,
       leftIcon: !!leftIcon,

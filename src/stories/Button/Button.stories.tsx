@@ -12,6 +12,7 @@ import {
 import type { Meta, StoryObj } from '@storybook/react';
 
 const PRESET_COLORS = ['primary', 'secondary', 'tertiary'] as const;
+const COLORED_BUTTONS = ['green', 'blue', 'red', 'yellow'] as const;
 
 /**
  * Button 컴포넌트는 사용자 액션을 트리거하는 기본 버튼입니다.
@@ -240,6 +241,71 @@ export const SemanticColors: Story = {
       })}
       <Button variant='outline' size='md' color='primary' label='Outline' />
       <Button variant='ghost' size='md' color='primary' label='Ghost' />
+    </div>
+  ),
+};
+
+/**
+ * 컬러 버튼 - Badge처럼 green, blue, red, yellow 색상을 사용할 수 있습니다.
+ * 아이콘과 함께 사용할 수도 있습니다.
+ */
+export const ColoredButtons: Story = {
+  render: () => (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '32px',
+      }}
+    >
+      {/* 기본 컬러 버튼 */}
+
+      <h3
+        style={{
+          marginBottom: '16px',
+          color: '#222',
+          fontSize: '16px',
+          fontWeight: 600,
+        }}
+      >
+        기본 컬러 버튼
+      </h3>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '24px',
+        }}
+      >
+        {(['solid', 'outline', 'ghost'] as const).map((variant) => (
+          <div key={variant}>
+            <h4
+              style={{
+                marginBottom: '12px',
+                color: '#697180',
+                textTransform: 'capitalize',
+                fontSize: '14px',
+              }}
+            >
+              {variant}
+            </h4>
+            <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+              {COLORED_BUTTONS.map((color) => {
+                const title = color.charAt(0).toUpperCase() + color.slice(1);
+                return (
+                  <Button
+                    key={color}
+                    variant={variant}
+                    size='md'
+                    color={color}
+                    label={title}
+                  />
+                );
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   ),
 };
