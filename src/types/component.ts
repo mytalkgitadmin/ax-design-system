@@ -27,9 +27,20 @@ export const COMPONENT_STATUSES: ComponentStatus[] = [
   'error',
 ];
 
-export type ComponentColorPreset = 'primary' | 'secondary' | 'tertiary';
+export type ComponentColorPreset =
+  | 'primary'
+  | 'secondary'
+  | 'tertiary'
+  | 'blue'
+  | 'green'
+  | 'yellow'
+  | 'red';
 export const COMPONENT_COLOR_PRESETS: ComponentColorPreset[] = [
   'primary',
   'secondary',
   'tertiary',
+  'blue',
+  'green',
+  'yellow',
+  'red',
 ];

@@ -84,6 +84,10 @@ export const paginationItemStyle = recipe({
       primary: {},
       secondary: {},
       tertiary: {},
+      green: {},
+      blue: {},
+      red: {},
+      yellow: {},
     },
 
     isActive: {
@@ -135,6 +139,10 @@ export const paginationNavStyle = recipe({
       primary: {},
       secondary: {},
       tertiary: {},
+      green: {},
+      blue: {},
+      red: {},
+      yellow: {},
     },
   },
 
