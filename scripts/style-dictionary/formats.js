@@ -26,6 +26,7 @@ const typescriptNestedObject = ({ dictionary }) => {
   // Helper functions export 추가
   output += `export * from './dev/helpers/units';\n`;
   output += `export * from './dev/helpers/responsive';\n`;
+  output += `export * from './dev/helpers/typography';\n`;
 
   return output;
 };
