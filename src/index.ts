@@ -89,12 +89,24 @@ export type { TextareaProps } from './stories/Textarea';
 export { Textarea } from './stories/Textarea';
 export type { ThumbnailProps } from './stories/Thumbnail';
 export { Thumbnail } from './stories/Thumbnail';
-export type { TextProps } from './tokens/dev/helpers/typography';
 export * from './types/component';
 
 // 토큰 export
-export { color, font, number, spacing, theme } from './tokens';
-export { typographyPresets } from './tokens/dev/helpers/typography';
+export type { TextProps } from './tokens';
+export {
+  breakpoint,
+  color,
+  componentSize,
+  font,
+  number,
+  rounded,
+  shadow,
+  spacing,
+  theme,
+  typography,
+  typographyPresets,
+  zIndex,
+} from './tokens';
 
 // Theme export
 export type {
