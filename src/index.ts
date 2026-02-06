@@ -31,10 +31,36 @@ export type {
 } from './stories/Checkbox/types';
 export type { FlexProps } from './stories/Flex';
 export { Flex } from './stories/Flex';
+export type {
+  BaseFormFieldProps,
+  FormFieldColor,
+  FormFieldColorPreset,
+  FormFieldColorScheme,
+  FormFieldSize,
+  FormFieldStatus,
+  FormLabelProps,
+  FormStatusProps,
+} from './stories/FormField';
+export {
+  errorTextStyle,
+  formFieldVars,
+  FormLabel,
+  FormStatus,
+  generateFieldId,
+  helperTextStyle,
+  labelStyle,
+  requiredMark,
+  srOnly,
+  successTextStyle,
+  useFormField,
+  warnTextStyle,
+} from './stories/FormField';
 export type { GridProps } from './stories/Grid';
 export { Grid } from './stories/Grid';
 export { Icon } from './stories/Icon';
 export type { IconProps, IconType } from './stories/Icon/types';
+export type { InputProps } from './stories/Input';
+export { Input } from './stories/Input';
 export type { ModalProps } from './stories/Modal';
 export { Modal } from './stories/Modal';
 export type { AlertProps } from './stories/Modal/Alert';
@@ -56,7 +82,11 @@ export type { StepperProps } from './stories/Stepper';
 export { Stepper } from './stories/Stepper';
 export type { TableColumn, TableProps, TableRow } from './stories/Table';
 export { Table } from './stories/Table';
+export type { TabItem, TabsProps } from './stories/Tabs';
+export { Tabs } from './stories/Tabs';
 export { Text } from './stories/Text';
+export type { TextareaProps } from './stories/Textarea';
+export { Textarea } from './stories/Textarea';
 export type { ThumbnailProps } from './stories/Thumbnail';
 export { Thumbnail } from './stories/Thumbnail';
 export type { TextProps } from './tokens/dev/helpers/typography';
