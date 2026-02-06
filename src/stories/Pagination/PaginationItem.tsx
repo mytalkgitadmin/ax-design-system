@@ -1,0 +1,53 @@
+/**
+ * Pagination Item 컴포넌트
+ */
+
+import { assignInlineVars } from '@vanilla-extract/dynamic';
+
+import { useTheme } from '../../theme/ThemeProvider';
+import { INACTIVE_TEXT_COLOR } from './constants';
+import { PaginationItemProps } from './types';
+import { createPaginationVars, getColorScheme } from './utils';
+
+import { paginationItemStyle } from './Pagination.css';
+
+export const PaginationItem = ({
+  page,
+  isActive = false,
+  disabled = false,
+  onClick,
+  color: colorProp = 'primary',
+  size = 'md',
+  className = '',
+}: PaginationItemProps) => {
+  const { components } = useTheme();
+  const buttonTheme = components.Button;
+
+  const finalColorScheme = getColorScheme(buttonTheme, colorProp);
+
+  return (
+    <a
+      href='#'
+      className={`${paginationItemStyle({ size, color: colorProp, isActive })} ${className}`}
+      onClick={(e) => {
+        e.preventDefault();
+        if (!disabled && !isActive) {
+          onClick?.();
+        }
+      }}
+      aria-current={isActive ? 'page' : undefined}
+      aria-label={`페이지 ${page}`}
+      aria-disabled={disabled}
+      tabIndex={isActive || disabled ? -1 : 0}
+      style={assignInlineVars(
+        createPaginationVars({
+          buttonTheme,
+          colorScheme: finalColorScheme,
+          textColor: INACTIVE_TEXT_COLOR,
+        })
+      )}
+    >
+      {page}
+    </a>
+  );
+};

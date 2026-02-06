@@ -1,6 +1,7 @@
 // Radio types
+import { ComponentSize } from '../../types/component';
 
-export type RadioSize = 'md' | 'lg';
+export type RadioSize = Extract<ComponentSize, 'md' | 'lg'>;
 export type RadioLabelPlacement = 'start' | 'end';
 
 export type RadioProps = {
@@ -154,6 +155,11 @@ export type RadioGroupProps = {
    * 추가 className
    */
   className?: string;
+
+  /**
+   * 추가 style
+   */
+  style?: React.CSSProperties;
 };
 
 // Storybook을 위한 options 배열

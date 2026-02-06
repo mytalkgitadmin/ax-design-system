@@ -1,16 +1,26 @@
+import {
+  ComponentColorPreset,
+  ComponentRounded,
+  ComponentSize,
+  ComponentStatus,
+} from '../../types/component';
+
 /**
  * FormField 공통 타입 정의
  * Input, Textarea 등 Form 요소에서 공통으로 사용하는 타입들
  */
 
 // Form 요소 크기
-export type FormFieldSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+export type FormFieldSize = ComponentSize;
 
 // Form 요소 상태
-export type FormFieldStatus = 'help' | 'success' | 'warn' | 'error';
+export type FormFieldStatus = ComponentStatus;
 
-// Form 요소 컬러 프리셋 (Input/Textarea는 단일 컬러 스킴 사용)
-export type FormFieldColorPreset = 'primary';
+// Form 요소 Rounded (Form 요소는 full 미지원)
+export type FormFieldRounded = Exclude<ComponentRounded, 'full'>;
+
+// Form 요소 컬러 프리셋
+export type FormFieldColorPreset = ComponentColorPreset;
 
 // 시맨틱 프리셋 또는 커스텀 컬러 값(hex, rgb)
 export type FormFieldColor = FormFieldColorPreset | string;

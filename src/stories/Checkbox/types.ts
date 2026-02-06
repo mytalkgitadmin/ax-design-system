@@ -1,6 +1,7 @@
 // Checkbox types
+import { ComponentSize } from '../../types/component';
 
-export type CheckboxSize = 'md' | 'lg';
+export type CheckboxSize = Extract<ComponentSize, 'md' | 'lg'>;
 export type CheckboxLabelPlacement = 'start' | 'end';
 
 export type CheckboxProps = {
@@ -74,6 +75,11 @@ export type CheckboxProps = {
    * 추가 className
    */
   className?: string;
+
+  /**
+   * 추가 style
+   */
+  style?: React.CSSProperties;
 };
 
 // CheckboxGroup types
@@ -154,6 +160,11 @@ export type CheckboxGroupProps = {
    * 추가 className
    */
   className?: string;
+
+  /**
+   * 추가 style
+   */
+  style?: React.CSSProperties;
 };
 
 // Storybook을 위한 options 배열

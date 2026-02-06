@@ -19,12 +19,6 @@
         "value": 700,
         "type": "number"
       }
-    },
-    "size": {
-      "0": {
-        "value": 0,
-        "type": "number"
-      }
     }
   }
 }

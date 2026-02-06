@@ -69,6 +69,11 @@ const tokenProcessors = {
     subPath: token.path.slice(1), // 'componentSize' 제거
   }),
 
+  shadow: (token) => ({
+    category: 'shadow',
+    subPath: token.path.slice(1), // 'shadow' 제거
+  }),
+
   breakpoint: (token) => ({
     category: 'breakpoint',
     subPath: token.path.slice(1), // 'breakpoint' 제거
@@ -102,6 +107,7 @@ function buildNestedObject(tokens) {
     font: {},
     number: {},
     rounded: {},
+    shadow: {},
     zIndex: {},
     spacing: {},
     typography: {},

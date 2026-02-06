@@ -1,5 +1,4 @@
 import { spacing } from '../../tokens';
-import { toRem } from '../../tokens/dev/helpers/units';
 import { Icon } from '../Icon';
 import { FormStatusProps } from './types';
 
@@ -26,7 +25,7 @@ const statusIcons = {
 const statusMessageStyle = {
   display: 'flex',
   alignItems: 'center',
-  gap: toRem(spacing[4]),
+  gap: spacing[4],
 };
 
 /**

@@ -18,6 +18,7 @@ export type ColorTheme = {
     stronger: string;
     strongest: string;
     soft: string;
+    borderSoft: string; // outline variant용 연한 테두리
   };
   text: {
     primary: string;
@@ -47,18 +48,33 @@ export type ColorTheme = {
     disabled: string;
     inverse: string;
   };
+  icon: {
+    primary: string;
+    fill: string;
+    inverse: string;
+    secondary: string;
+    disabled: string;
+    muted: string;
+    negative: string;
+    positive: string;
+    warning: string;
+    negativeSoft: string;
+    positiveSoft: string;
+    warningSoft: string;
+  };
 };
 
 export const colorTheme: ColorTheme = {
   brand: {
-    default: color.blue['600'], // #4f7cff
-    hover: color.blue['700'], // #355fea
-    active: color.blue['900'], // #1a318b
-    subtle: color.blue['500'], // #6f94ff
-    strong: color.blue['700'], // #355fea
-    stronger: color.blue['800'], // #2747be
-    strongest: color.blue['900'], // #1a318b
-    soft: color.blue['100'], // #eef3ff
+    default: color.green['500'], // #8facff
+    hover: color.green['600'], // #6f94ff
+    active: color.green['700'], // #4f7cff
+    subtle: color.green['300'], // #aec3ff
+    strong: color.green['500'], // #6f94ff
+    stronger: color.green['600'], // #4f7cff
+    strongest: color.green['700'], // #355fea
+    soft: color.green['50'], // #f9fbff
+    borderSoft: color.green['100'], // #f1fcf4 - outline용 연한 테두리 (테마 색상 계열)
   },
   text: {
     primary: color.text.primary, // #2f3744
@@ -87,5 +103,19 @@ export const colorTheme: ColorTheme = {
     strong: color.border.strong, // #c5c9d3
     disabled: color.border.disabled, // #e3e6ee
     inverse: color.border.inverse, // #ffffff
+  },
+  icon: {
+    primary: color.icon.primary,
+    fill: color.icon.fill,
+    inverse: color.icon.inverse,
+    secondary: color.icon.secondary,
+    disabled: color.icon.disabled,
+    muted: color.icon.muted,
+    negative: color.icon.negative,
+    positive: color.icon.positive,
+    warning: color.icon.warning,
+    negativeSoft: color.icon.negativeSoft,
+    positiveSoft: color.icon.positiveSoft,
+    warningSoft: color.icon.warningSoft,
   },
 };

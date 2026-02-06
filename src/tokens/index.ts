@@ -122,7 +122,7 @@ export const color = {
     muted: '#f4f6fb',
     disabled: '#e3e6ee',
     inverse: '#2f3744',
-    gray: '#edf0f5',
+    gray: '#f4f6fb',
     grayStrong: '#e3e6ee',
     grayStrongest: '#c5c9d3',
     mask: '#00000066',
@@ -132,7 +132,7 @@ export const color = {
     primary: '#eef3ff',
     subtler: '#fcfdff',
     darkgray: '#2f3744',
-    darkgraySoft: '#4b5465',
+    darkgraySoft: '#697180',
     darkgrayStrong: '#171c24',
   },
   border: {
@@ -144,11 +144,12 @@ export const color = {
     negativeSoft: '#ffc5cd',
     negativeStrong: '#e6374f',
     positiveSoft: '#c0eed0',
-    positiveStrong: '#1fa45c',
+    positiveStrong: '#3fbe75',
     warningSoft: '#ffedb8',
-    warningStrong: '#ffb020',
-    focus: '#2f3744',
+    warningStrong: '#ffc439',
+    focus: '#a6acb7',
     subtle: '#edf0f5',
+    selected: '#4b5465',
   },
   divider: {
     default: '#edf0f5',
@@ -165,8 +166,8 @@ export const color = {
     inverse: '#ffffff',
     link: '#355fea',
     negative: '#e6374f',
-    positive: '#1fa45c',
-    warning: '#ffb020',
+    positive: '#3fbe75',
+    warning: '#ffc439',
   },
   icon: {
     primary: '#4b5465',
@@ -176,8 +177,8 @@ export const color = {
     disabled: '#c5c9d3',
     muted: '#a6acb7',
     negative: '#e6374f',
-    positive: '#1fa45c',
-    warning: '#ffb020',
+    positive: '#3fbe75',
+    warning: '#ffc439',
     negativeSoft: '#ffeef1',
     positiveSoft: '#f1fcf4',
     warningSoft: '#fffaee',
@@ -193,9 +194,6 @@ export const font = {
     semibold: 600,
     bold: 700,
   },
-  size: {
-    '0': 0,
-  },
 };
 
 export const number = {
@@ -203,6 +201,7 @@ export const number = {
   '1': 1,
   '2': 2,
   '4': 4,
+  '6': 6,
   '8': 8,
   '10': 10,
   '12': 12,
@@ -227,12 +226,23 @@ export const number = {
 
 export const rounded = {
   none: 0,
-  xs: 4,
+  xs: 6,
   sm: 8,
   md: 12,
   full: 999,
   lg: 16,
   xl: 24,
+  xxs: 4,
+};
+
+export const shadow = {
+  subtle: '0px 0px 1px 0px #171c2414, 0px 1px 2px 0px #171c241f',
+  default:
+    '0px 0px 1px 0px #171c2414, 0px 1px 4px 0px #171c2414, 0px 2px 8px 0px #171c241f',
+  raised:
+    '0px 0px 4px 0px #171c2414, 0px 4px 8px 0px #171c2414, 0px 6px 12px 0px #171c241f',
+  overlay:
+    '0px 0px 24px 0px #171c241f, 0px 4px 8px 0px #171c2414, 0px 6px 12px 0px #171c241f',
 };
 
 export const zIndex = {
@@ -252,15 +262,19 @@ export const zIndex = {
 
 export const spacing = {
   '0': '0',
-  '4': '4',
-  '8': '8',
-  '12': '12',
-  '16': '16',
-  '20': '20',
-  '24': '24',
-  '32': '32',
-  '48': '48',
-  '64': '64',
+  '2': '0.125rem',
+  '4': '0.25rem',
+  '8': '0.5rem',
+  '12': '0.75rem',
+  '16': '1rem',
+  '20': '1.25rem',
+  '24': '1.5rem',
+  '32': '2rem',
+  '40': '2.5rem',
+  '48': '3rem',
+  '64': '4rem',
+  '72': '4.5rem',
+  '80': '5rem',
 };
 
 export const typography = {
@@ -321,10 +335,10 @@ export const componentSize = {
 };
 
 export const breakpoint = {
-  sm: '640',
-  md: '768',
-  lg: '1024',
-  xl: '1280',
+  mobile: '375',
+  tablet: '768',
+  desktop: '1024',
+  wide: '1440',
 };
 
 export const theme = {
@@ -345,3 +359,6 @@ export const theme = {
     soft: '#fde6f7',
   },
 };
+
+export * from './dev/helpers/responsive';
+export * from './dev/helpers/units';

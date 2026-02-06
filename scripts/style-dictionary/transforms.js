@@ -61,7 +61,33 @@ const tailwindNaming = {
   },
 };
 
+/**
+ * Shadow 객체를 CSS box-shadow 문자열로 변환하는 transform
+ */
+const shadowToCss = {
+  type: 'value',
+  name: 'value/shadow-to-css',
+  matcher: (token) => token.type === 'dropShadow' || token.type === 'boxShadow',
+  transform: (token) => {
+    // Defensive check: ensure we only transform shadow tokens
+    if (token.type !== 'dropShadow' && token.type !== 'boxShadow') {
+      return token.value;
+    }
+
+    const shadows = Array.isArray(token.value) ? token.value : [token.value];
+
+    return shadows
+      .map((shadow) => {
+        const { x, y, blur, spread, color } = shadow;
+        // x, y, blur, spread에 단위(px) 추가
+        return `${x}px ${y}px ${blur}px ${spread}px ${color}`;
+      })
+      .join(', ');
+  },
+};
+
 module.exports = {
   roundedToBorderRadius,
   tailwindNaming,
+  shadowToCss,
 };

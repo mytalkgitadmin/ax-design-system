@@ -53,7 +53,23 @@ function separatePrimitives(primitiveTokens) {
     number: primitiveTokens.number
       ? processTokens(primitiveTokens.number.unit)
       : {},
+    shadow: primitiveTokens.Semantic?.Shadow
+      ? lowercaseKeys(processTokens(primitiveTokens.Semantic.Shadow))
+      : {},
   };
+}
+
+/**
+ * 객체의 키를 소문자로 변환
+ * @param {Object} obj
+ * @returns {Object}
+ */
+function lowercaseKeys(obj) {
+  const result = {};
+  Object.keys(obj).forEach((key) => {
+    result[key.toLowerCase()] = obj[key];
+  });
+  return result;
 }
 
 /**
@@ -61,29 +77,66 @@ function separatePrimitives(primitiveTokens) {
  * @param {Object} figmaTokens - Figma 토큰 전체
  * @returns {Object} { colors, rounded }
  */
+// 헬퍼: px를 rem으로 변환
+function toRem(value) {
+  const numberValue = parseFloat(value);
+  if (isNaN(numberValue)) return value;
+  if (numberValue === 0) return '0';
+  return `${numberValue / 16}rem`;
+}
+
+/**
+ * Semantic 토큰 분리
+ * @param {Object} figmaTokens - Figma 토큰 전체
+ * @returns {Object} { colors, rounded, spacing }
+ */
 function separateSemantics(figmaTokens) {
   const semanticColors = {};
   let roundedTokens = {};
+  let spacingTokens = {};
 
   Object.keys(figmaTokens).forEach((setName) => {
     if (setName.startsWith(FIGMA_TOKEN_SETS.SEMANTIC_PREFIX)) {
       const tokens = figmaTokens[setName];
 
-      // Semantic 색상 토큰 - "color" 키로 감싸서 저장
+      // Semantic 색상 토큰
       if (tokens.color) {
         semanticColors.color = processTokens(tokens.color);
       }
 
-      // Rounded 토큰 (shape.rounded에서 추출)
+      // Rounded 토큰
       if (tokens.shape?.rounded) {
         const processedRounded = processTokens(tokens.shape.rounded);
-
-        // 참조 변환: {number.unit.0} → {number.0}
         roundedTokens = transformTokenReferences(
           processedRounded,
           /\{number\.unit\.(\d+)\}/g,
           '{number.$1}'
         );
+      }
+
+      // Spacing (Gap) 토큰 - REM 변환 적용
+      // tokens.layout.gap 또는 tokens.gap 확인
+      const gapTokens = tokens.layout?.gap || tokens.gap;
+
+      if (gapTokens) {
+        // 1. 기본 추출
+        const processedGap = processTokens(gapTokens);
+
+        // 2. 참조 변환 ({number.unit.16} -> {number.16})
+        spacingTokens = transformTokenReferences(
+          processedGap,
+          /\{number\.unit\.(\d+)\}/g,
+          '{number.$1}'
+        );
+
+        // 3. 값 REM 변환
+        Object.keys(spacingTokens).forEach((key) => {
+          const token = spacingTokens[key];
+          if (!isNaN(key)) {
+            token.value = toRem(key);
+            token.type = 'dimension';
+          }
+        });
       }
     }
   });
@@ -91,13 +144,14 @@ function separateSemantics(figmaTokens) {
   return {
     colors: semanticColors,
     rounded: roundedTokens,
+    spacing: spacingTokens,
   };
 }
 
 /**
  * Brand 토큰 분리
- * @param {Object} figmaTokens - Figma 토큰 전체
- * @returns {Object} Brand 토큰 (brand1, brand2)
+ * @param {Object} figmaTokens
+ * @returns {Object}
  */
 function separateBrands(figmaTokens) {
   const brandTokens = {};
@@ -108,7 +162,6 @@ function separateBrands(figmaTokens) {
       const tokens = figmaTokens[setName];
 
       if (tokens.brand) {
-        // brand-1(blue) → brand1, brand-2(pink) → brand2
         const brandKey = `brand${brandIndex}`;
         brandTokens[brandKey] = processTokens(tokens.brand);
         brandIndex++;
@@ -121,8 +174,8 @@ function separateBrands(figmaTokens) {
 
 /**
  * Primitive 토큰들을 파일로 저장
- * @param {Object} primitives - 분리된 primitive 토큰
- * @param {string} outputDir - 출력 디렉토리
+ * @param {Object} primitives
+ * @param {string} outputDir
  */
 function savePrimitiveTokens(primitives, outputDir) {
   const primitiveFiles = [
@@ -141,6 +194,11 @@ function savePrimitiveTokens(primitives, outputDir) {
       fileName: OUTPUT_FILES.PRIMITIVES.NUMBER,
       data: primitives.number,
     },
+    {
+      category: TOKEN_CATEGORIES.SHADOW,
+      fileName: OUTPUT_FILES.PRIMITIVES.SHADOW,
+      data: primitives.shadow,
+    },
   ];
 
   primitiveFiles.forEach(({ category, fileName, data }) => {
@@ -157,18 +215,17 @@ function savePrimitiveTokens(primitives, outputDir) {
  */
 function buildTokens() {
   try {
-    // 1. Figma 토큰 읽기:  파일 경로 / JSON 파일 읽기
+    // 1. Figma 토큰 읽기
     const figmaTokensPath = resolveProjectPath(__dirname, PATHS.FIGMA_TOKENS);
     const figmaTokens = readJsonFile(figmaTokensPath);
 
-    // 2. 출력 디렉토리 설정 및 생성
+    // 2. 출력 디렉토리 설정
     const primitivesDir = resolveProjectPath(__dirname, PATHS.PRIMITIVES_DIR);
     const semanticDir = resolveProjectPath(__dirname, PATHS.SEMANTIC_DIR);
 
-    // 경로 보장 - 없으면 폴더 생성
     ensureDirectories([primitivesDir, semanticDir]);
 
-    // 3. Primitives 토큰 분리(color, font, number 타입별)및 저장
+    // 3. Primitives 토큰 분리 및 저장
     if (figmaTokens[FIGMA_TOKEN_SETS.PRIMITIVE]) {
       const primitives = separatePrimitives(
         figmaTokens[FIGMA_TOKEN_SETS.PRIMITIVE]
@@ -176,10 +233,10 @@ function buildTokens() {
       savePrimitiveTokens(primitives, primitivesDir);
     }
 
-    // 5. Semantic 토큰 분리 및 저장
+    // 5. Semantic 토큰 분리
     const semantics = separateSemantics(figmaTokens);
 
-    // brand 참조를 brand1로 변환
+    // Colors 저장
     const transformedColors = transformTokenReferences(
       semantics.colors,
       /\{brand\./g,
@@ -192,7 +249,7 @@ function buildTokens() {
       `✅ Semantic: ${OUTPUT_FILES.SEMANTIC.COLORS} 생성 완료`
     );
 
-    // 6. Rounded 토큰 저장 (semantic에서 추출)
+    // Rounded 저장
     if (!isEmptyToken(semantics.rounded)) {
       writeJsonFile(
         `${primitivesDir}/${OUTPUT_FILES.PRIMITIVES.ROUNDED}`,
@@ -200,7 +257,20 @@ function buildTokens() {
         `✅ Primitives: ${OUTPUT_FILES.PRIMITIVES.ROUNDED} 생성 완료`
       );
     }
+
+    // Spacing 저장 (NEW)
+    if (!isEmptyToken(semantics.spacing)) {
+      // spacing은 별도 파일로 저장하거나 primitives 폴더에 저장
+      // 직접 primitives/spacing.json으로 저장
+      writeJsonFile(
+        `${primitivesDir}/spacing.json`,
+        { [TOKEN_CATEGORIES.SPACING]: semantics.spacing },
+        `✅ Primitives: spacing.json 생성 완료`
+      );
+    }
+
     console.log('\n📦 토큰 타입별 분리 완료!');
+
     // 4. Brand 토큰 분리 및 저장
     const brands = separateBrands(figmaTokens);
 

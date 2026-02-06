@@ -3,9 +3,7 @@
  * Project A의 브랜드 테마 정의
  */
 
-import { color } from 'storybook/theming';
-
-import { rounded, theme } from '../../tokens';
+import { color as tokenColors, rounded, theme } from '../../tokens';
 import { createTheme } from '../createTheme';
 
 /**
@@ -24,9 +22,13 @@ const COLOR_STRONG = BRAND_A_COLORS.strong;
 const COLOR_STRONGER = BRAND_A_COLORS.stronger;
 const COLOR_STRONGEST = BRAND_A_COLORS.strongest;
 const COLOR_SOFT = BRAND_A_COLORS.soft;
+const COLOR_BORDER_SOFT = tokenColors.blue['200']; // #cedbff - outline용 연한 테두리
 
 export const brandATheme = createTheme({
   global: {
+    typography: {
+      fontFamily: "'Pretendard', sans-serif",
+    },
     color: {
       brand: {
         default: COLOR_DEFAULT,
@@ -37,7 +39,29 @@ export const brandATheme = createTheme({
         stronger: COLOR_STRONGER,
         strongest: COLOR_STRONGEST,
         soft: COLOR_SOFT,
+        borderSoft: COLOR_BORDER_SOFT,
       },
+    },
+    radius: {
+      xxs: BRAND_A_RADIUS,
+      xs: BRAND_A_RADIUS,
+      sm: BRAND_A_RADIUS,
+      md: BRAND_A_RADIUS,
+      lg: BRAND_A_RADIUS,
+      xl: BRAND_A_RADIUS,
+    },
+    motion: {
+      // Strong Spring Effect (High overshoot)
+      hover: 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)',
+      click: 'scale(0.85)',
+      entrance:
+        'opacity 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)',
+      transition: {
+        fast: '0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
+        normal: '0.6s cubic-bezier(0.34, 1.56, 0.64, 1)',
+        slow: '0.8s cubic-bezier(0.34, 1.56, 0.64, 1)',
+      },
+      modalType: 'bouncy',
     },
   },
   components: {
@@ -48,7 +72,8 @@ export const brandATheme = createTheme({
           default: COLOR_DEFAULT,
           hover: COLOR_HOVER,
           active: COLOR_ACTIVE,
-          text: color.inverseText,
+          text: tokenColors.base.white,
+          bgHover: COLOR_SOFT, // Pagination hover 배경색
         },
       },
     },
@@ -75,7 +100,7 @@ export const brandATheme = createTheme({
           default: COLOR_DEFAULT,
           hover: COLOR_HOVER,
           active: COLOR_DEFAULT,
-          text: color.inverseText,
+          text: tokenColors.base.white,
         },
       },
     },
@@ -87,6 +112,18 @@ export const brandATheme = createTheme({
     },
     Thumbnail: {
       radius: BRAND_A_RADIUS, // Brand A는 모든 컴포넌트에 rounded.none 적용
+    },
+    Badge: {
+      radius: BRAND_A_RADIUS,
+    },
+    Checkbox: {
+      radius: {
+        lg: BRAND_A_RADIUS,
+        md: BRAND_A_RADIUS,
+      },
+    },
+    Breadcrumb: {
+      focusRadius: BRAND_A_RADIUS,
     },
   },
 });

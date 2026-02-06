@@ -1,8 +1,14 @@
 import { createVar, keyframes, style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
-import { color, componentSize, spacing, zIndex } from '../../tokens';
-import { toRem } from '../../tokens/dev/helpers/units';
+import {
+  color,
+  componentSize,
+  shadow,
+  spacing,
+  toRem,
+  zIndex,
+} from '../../tokens';
 
 /**
  * ========================================
@@ -35,6 +41,7 @@ const selectedOptionTextColorVar = createVar();
 
 // 타이포그래피
 const fontWeightVar = createVar();
+const fontFamilyVar = createVar();
 
 // 레이아웃
 const borderRadiusVar = createVar();
@@ -65,7 +72,7 @@ const fadeInUp = keyframes({
 export const selectWrapper = style({
   display: 'inline-flex',
   flexDirection: 'column',
-  gap: toRem(spacing[8]),
+  gap: spacing[8],
   width: '100%',
   position: 'relative',
 });
@@ -103,6 +110,7 @@ const baseSelectTrigger = style({
   transition: 'all 0.2s ease',
 
   // 타이포그래피
+  fontFamily: fontFamilyVar,
   fontWeight: fontWeightVar,
   color: textColorVar,
   textAlign: 'left',
@@ -136,32 +144,32 @@ export const selectTriggerStyle = recipe({
       xs: {
         height: toRem(componentSize.xs.height),
         fontSize: toRem(componentSize.xs.fontSize),
-        padding: `0 ${toRem(spacing[8])}`,
-        gap: toRem(spacing[4]),
+        padding: `0 ${spacing[8]}`,
+        gap: spacing[4],
       },
       sm: {
         height: toRem(componentSize.sm.height),
         fontSize: toRem(componentSize.sm.fontSize),
-        padding: `0 ${toRem(spacing[12])}`,
-        gap: toRem(spacing[4]),
+        padding: `0 ${spacing[12]}`,
+        gap: spacing[4],
       },
       md: {
         height: toRem(componentSize.md.height),
         fontSize: toRem(componentSize.md.fontSize),
-        padding: `0 ${toRem(spacing[12])}`,
-        gap: toRem(spacing[8]),
+        padding: `0 ${spacing[12]}`,
+        gap: spacing[8],
       },
       lg: {
         height: toRem(componentSize.lg.height),
         fontSize: toRem(componentSize.lg.fontSize),
-        padding: `0 ${toRem(spacing[16])}`,
-        gap: toRem(spacing[8]),
+        padding: `0 ${spacing[16]}`,
+        gap: spacing[8],
       },
       xl: {
         height: toRem(componentSize.xl.height),
         fontSize: toRem(componentSize.xl.fontSize),
-        padding: `0 ${toRem(spacing[16])}`,
-        gap: toRem(spacing[8]),
+        padding: `0 ${spacing[16]}`,
+        gap: spacing[8],
       },
     },
     full: {
@@ -190,7 +198,7 @@ export const selectTriggerStyle = recipe({
 export const selectContent = style({
   display: 'flex',
   alignItems: 'center',
-  gap: toRem(spacing[8]),
+  gap: spacing[8],
   flex: 1,
   overflow: 'hidden',
 });
@@ -257,7 +265,7 @@ const baseDropdown = style({
   backgroundColor: bgColorVar,
   borderRadius: borderRadiusVar,
   border: `1px solid ${borderColorVar}`,
-  boxShadow: `0 4px 12px ${color.alpha.black16}`,
+  boxShadow: shadow.raised,
 });
 
 export const dropdownStyle = recipe({
@@ -266,11 +274,11 @@ export const dropdownStyle = recipe({
   variants: {
     placement: {
       bottom: {
-        top: `calc(100% + ${toRem(spacing[4])})`,
+        top: `calc(100% + ${spacing[4]})`,
         animation: `${fadeIn} 0.15s ease-out`,
       },
       top: {
-        bottom: `calc(100% + ${toRem(spacing[4])})`,
+        bottom: `calc(100% + ${spacing[4]})`,
         animation: `${fadeInUp} 0.15s ease-out`,
       },
     },
@@ -289,14 +297,15 @@ export const dropdownStyle = recipe({
 const baseOption = style({
   display: 'flex',
   alignItems: 'center',
-  gap: toRem(spacing[8]),
+  gap: spacing[8],
 
-  padding: `${toRem(spacing[8])} ${toRem(spacing[12])}`,
+  padding: `${spacing[8]} ${spacing[12]}`,
   borderRadius: toRem(4),
 
   cursor: 'pointer',
   transition: 'all 0.15s ease',
 
+  fontFamily: fontFamilyVar,
   color: textColorVar,
   fontSize: toRem(componentSize.md.fontSize),
 
@@ -320,23 +329,23 @@ export const optionStyle = recipe({
     size: {
       xs: {
         fontSize: toRem(componentSize.xs.fontSize),
-        padding: `${toRem(spacing[4])} ${toRem(spacing[8])}`,
+        padding: `${spacing[4]} ${spacing[8]}`,
       },
       sm: {
         fontSize: toRem(componentSize.sm.fontSize),
-        padding: `${toRem(spacing[4])} ${toRem(spacing[12])}`,
+        padding: `${spacing[4]} ${spacing[12]}`,
       },
       md: {
         fontSize: toRem(componentSize.md.fontSize),
-        padding: `${toRem(spacing[8])} ${toRem(spacing[12])}`,
+        padding: `${spacing[8]} ${spacing[12]}`,
       },
       lg: {
         fontSize: toRem(componentSize.lg.fontSize),
-        padding: `${toRem(spacing[12])} ${toRem(spacing[16])}`,
+        padding: `${spacing[12]} ${spacing[16]}`,
       },
       xl: {
         fontSize: toRem(componentSize.xl.fontSize),
-        padding: `${toRem(spacing[12])} ${toRem(spacing[16])}`,
+        padding: `${spacing[12]} ${spacing[16]}`,
       },
     },
     selected: {
@@ -368,7 +377,7 @@ export const optionStyle = recipe({
 export const trailingIconsContainer = style({
   display: 'flex',
   alignItems: 'center',
-  gap: toRem(spacing[8]),
+  gap: spacing[8],
 });
 
 /**
@@ -392,7 +401,7 @@ export const optionCheckmark = style({
 export const descriptionStyle = style({
   fontSize: toRem(12),
   color: color.text.tertiary,
-  marginTop: toRem(spacing[4]),
+  marginTop: spacing[4],
 });
 
 /**
@@ -425,6 +434,7 @@ export const selectVars = {
 
   // 타이포그래피
   fontWeight: fontWeightVar,
+  fontFamily: fontFamilyVar,
 
   // 레이아웃
   borderRadius: borderRadiusVar,

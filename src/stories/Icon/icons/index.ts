@@ -13,6 +13,7 @@ export { SvgComponent as Left } from './arrow/Left';
 export { SvgComponent as Right } from './arrow/Right';
 export { SvgComponent as Up } from './arrow/Up';
 export { SvgComponent as CircleXDuo } from './circle/interface/XDuo';
+export { SvgComponent as CircleXDuoFilled } from './circle/interface/XDuoFilled';
 export { SvgComponent as CircleInfoDuo } from './circle/system/InfoDuo';
 export { SvgComponent as CircleInfoFilled } from './circle/system/InfoFilled';
 export { SvgComponent as CircleNegativeDuo } from './circle/system/NegativeDuo';

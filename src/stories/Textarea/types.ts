@@ -1,21 +1,23 @@
 // Textarea types
+import {
+  COMPONENT_COLOR_PRESETS,
+  COMPONENT_ROUNDED,
+  COMPONENT_SIZES,
+  ComponentColorPreset,
+  ComponentRounded,
+  ComponentSize,
+  ComponentStatus,
+} from '../../types/component';
 
-export type TextareaSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-export type TextareaRounded =
-  | 'none'
-  | 'xs'
-  | 'sm'
-  | 'md'
-  | 'lg'
-  | 'xl'
-  | 'full';
+export type TextareaSize = ComponentSize;
+export type TextareaRounded = Exclude<ComponentRounded, 'full'>;
 
 // 시맨틱 토큰 이름 또는 커스텀 컬러 값(hex, rgb)을 모두 허용
-export type TextareaColorPreset = 'primary' | 'secondary';
+export type TextareaColorPreset = ComponentColorPreset;
 export type TextareaColor = TextareaColorPreset | string;
 
 // Textarea 상태 타입
-export type TextareaStatus = 'help' | 'success' | 'warn' | 'error';
+export type TextareaStatus = ComponentStatus;
 
 // 글자수 카운터 위치 타입
 export type CharacterCountPosition =
@@ -32,33 +34,15 @@ export type TextareaColorScheme = {
   error: string;
 };
 
-export type TextareaProps = {
+import { BaseFormFieldProps } from '../FormField';
+
+export type TextareaProps = BaseFormFieldProps & {
   // Appearance
-  size?: TextareaSize;
-  color?: TextareaColor;
-  full?: boolean;
   rounded?: TextareaRounded; // 테마 설정을 덮어쓰기 위한 rounded 옵션
 
-  // Label & Helper Text
-  label: string; // 접근성을 위해 필수값
-  hiddenLabel?: boolean; // true일 경우 시각적으로만 숨김 (스크린 리더에서는 읽힘)
-  required?: boolean;
-
-  // Status & Message
-  status?: TextareaStatus; // help, success, warn, error
-  statusMessage?: string; // 상태 메시지
-  showStatusIcon?: boolean; // 상태 아이콘 표시 여부 (기본: false)
-
-  // State
-  disabled?: boolean;
-  error?: boolean;
-
   // HTML Textarea Props
-  placeholder?: string;
   value?: string;
   defaultValue?: string;
-  name?: string;
-  id?: string;
   rows?: number; // 기본 줄 수 (autoGrow가 false일 때)
   maxLength?: number; // 최대 글자 수
   minLength?: number; // 최소 글자 수
@@ -72,6 +56,10 @@ export type TextareaProps = {
   showCharacterCount?: boolean; // 글자수 표시 여부
   characterCountPosition?: CharacterCountPosition; // 글자수 위치 (기본: 'inside-right')
 
+  // Style
+  style?: React.CSSProperties;
+  className?: string;
+
   // Event Handlers
   onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onFocus?: (e: React.FocusEvent<HTMLTextAreaElement>) => void;
@@ -79,17 +67,9 @@ export type TextareaProps = {
 };
 
 // Storybook을 위한 options 배열
-export const TEXTAREA_SIZES: TextareaSize[] = ['xs', 'sm', 'md', 'lg', 'xl'];
-export const TEXTAREA_COLOR_PRESETS: TextareaColorPreset[] = [
-  'primary',
-  'secondary',
-];
-export const TEXTAREA_ROUNDED: TextareaRounded[] = [
-  'none',
-  'xs',
-  'sm',
-  'md',
-  'lg',
-  'xl',
-  'full',
-];
+export const TEXTAREA_SIZES: TextareaSize[] = COMPONENT_SIZES;
+export const TEXTAREA_COLOR_PRESETS: TextareaColorPreset[] =
+  COMPONENT_COLOR_PRESETS;
+export const TEXTAREA_ROUNDED: TextareaRounded[] = COMPONENT_ROUNDED.filter(
+  (r): r is TextareaRounded => r !== 'full'
+);

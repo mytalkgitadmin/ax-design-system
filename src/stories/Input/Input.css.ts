@@ -1,8 +1,7 @@
 import { createVar, style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
-import { componentSize, spacing } from '../../tokens';
-import { toRem } from '../../tokens/dev/helpers/units';
+import { componentSize, spacing, toRem } from '../../tokens';
 
 /**
  * ========================================
@@ -26,9 +25,11 @@ const disabledBgColorVar = createVar(); // disabled 배경 색상
 const textColorVar = createVar(); // 입력 텍스트 색상
 const placeholderColorVar = createVar(); // placeholder 색상
 const disabledTextColorVar = createVar(); // disabled 텍스트 색상
+const disabledIconColorVar = createVar(); // disabled 아이콘 색상
 
 // 타이포그래피
 const fontWeightVar = createVar();
+const fontFamilyVar = createVar();
 
 // 레이아웃
 const borderRadiusVar = createVar();
@@ -44,8 +45,9 @@ const borderRadiusVar = createVar();
 export const inputWrapper = style({
   display: 'inline-flex',
   flexDirection: 'column',
-  gap: toRem(spacing[8]),
+  gap: spacing[8],
   width: 'fit-content',
+  verticalAlign: 'middle',
 });
 
 export const inputWrapperFull = style({
@@ -64,6 +66,10 @@ const baseInputContainer = style({
   position: 'relative',
   display: 'inline-flex',
   alignItems: 'center',
+  boxSizing: 'border-box',
+
+  // Icon 색상 상속을 위해 추가
+  color: textColorVar,
 
   // 외형
   borderRadius: borderRadiusVar,
@@ -78,8 +84,13 @@ const baseInputContainer = style({
       borderColor: hoverBorderColorVar,
     },
 
-    '&:has(input:focus-visible)': {
+    // Focus: Mouse click or Keyboard (Border Color Only)
+    '&:has(input:focus)': {
       borderColor: focusBorderColorVar,
+    },
+
+    // Focus Visible: Keyboard mainly (Add Shadow)
+    '&:has(input:focus-visible)': {
       boxShadow: `0 0 10px 0 ${focusShadowColorVar}`,
     },
 
@@ -87,6 +98,7 @@ const baseInputContainer = style({
     '&:has(input:disabled)': {
       backgroundColor: disabledBgColorVar,
       borderColor: disabledBgColorVar,
+      color: disabledIconColorVar, // Disabled Icon Color
     },
   },
 });
@@ -96,6 +108,42 @@ export const inputContainerStyle = recipe({
   base: baseInputContainer,
 
   variants: {
+    size: {
+      xl: {
+        height: toRem(componentSize.xl.height),
+      },
+      lg: {
+        height: toRem(componentSize.lg.height),
+      },
+      md: {
+        height: toRem(componentSize.md.height),
+      },
+      sm: {
+        height: toRem(componentSize.sm.height),
+      },
+      xs: {
+        height: toRem(componentSize.xs.height),
+      },
+    },
+    variant: {
+      outline: {
+        // 기본 스타일 (전체 테두리)
+      },
+      underline: {
+        // 하단 테두리만
+        borderTop: 'none',
+        borderLeft: 'none',
+        borderRight: 'none',
+        borderRadius: 0,
+        backgroundColor: 'transparent',
+
+        selectors: {
+          '&:has(input:focus)': {
+            boxShadow: `0 1px 0 0 ${focusBorderColorVar}`,
+          },
+        },
+      },
+    },
     error: {
       true: {
         borderColor: errorBorderColorVar,
@@ -110,6 +158,10 @@ export const inputContainerStyle = recipe({
       },
     },
   },
+
+  defaultVariants: {
+    variant: 'outline',
+  },
 });
 
 /**
@@ -122,6 +174,7 @@ export const inputContainerStyle = recipe({
 
 const baseInput = style({
   // 타이포그래피
+  fontFamily: fontFamilyVar,
   fontWeight: fontWeightVar,
   color: textColorVar,
 
@@ -130,6 +183,7 @@ const baseInput = style({
   alignItems: 'center',
   padding: '0 1em',
   boxSizing: 'border-box',
+  height: '100%',
 
   // 외형 (Container가 border를 담당하므로 투명)
   backgroundColor: 'transparent',
@@ -143,7 +197,13 @@ const baseInput = style({
   // Placeholder
   '::placeholder': {
     color: placeholderColorVar,
+    textOverflow: 'ellipsis', // Firefox might partial support
   },
+
+  // Ellipsis & Overflow
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
 
   // Disabled 상태
   ':disabled': {
@@ -160,8 +220,19 @@ const baseInput = style({
     WebkitAppearance: 'none',
     margin: 0,
   },
+
+  // type='search'일 때 기본 cancel 버튼 숨기기 (커스텀 Icon 컴포넌트 사용)
+  '::-webkit-search-cancel-button': {
+    WebkitAppearance: 'none',
+    appearance: 'none',
+    display: 'none',
+  },
+
   // Firefox용
   selectors: {
+    '&:focus::placeholder': {
+      color: 'transparent',
+    },
     '&[type="number"]': {
       MozAppearance: 'textfield',
     },
@@ -175,23 +246,18 @@ export const inputStyle = recipe({
   variants: {
     size: {
       xl: {
-        height: `calc(${toRem(componentSize.xl.height)} - 2px)`,
         fontSize: `${toRem(componentSize.xl.fontSize)}`,
       },
       lg: {
-        height: `calc(${toRem(componentSize.lg.height)} - 2px)`,
         fontSize: `${toRem(componentSize.lg.fontSize)}`,
       },
       md: {
-        height: `calc(${toRem(componentSize.md.height)} - 2px)`,
         fontSize: `${toRem(componentSize.md.fontSize)}`,
       },
       sm: {
-        height: `calc(${toRem(componentSize.sm.height)} - 2px)`,
         fontSize: `${toRem(componentSize.sm.fontSize)}`,
       },
       xs: {
-        height: `calc(${toRem(componentSize.xs.height)} - 2px)`,
         fontSize: `${toRem(componentSize.xs.fontSize)}`,
       },
     },
@@ -209,90 +275,22 @@ export const inputStyle = recipe({
     },
   },
 
-  compoundVariants: [
-    // Left Icon Padding (size별)
+  compoundVariants: Object.entries(componentSize).flatMap(([key, value]) => [
+    // Left Icon Padding
     {
-      variants: { size: 'xs', leftIcon: true },
+      variants: { size: key as keyof typeof componentSize, leftIcon: true },
       style: {
-        paddingLeft: toRem(
-          Number(componentSize.xs.iconSize) + Number(spacing[12]) * 2
-        ), // iconSize + 좌우 spacing
+        paddingLeft: `calc(${toRem(Number(value.iconSize))} + 1.6em)`,
       },
     },
+    // Right Icon Padding
     {
-      variants: { size: 'sm', leftIcon: true },
+      variants: { size: key as keyof typeof componentSize, rightIcon: true },
       style: {
-        paddingLeft: toRem(
-          Number(componentSize.sm.iconSize) + Number(spacing[12]) * 2
-        ),
+        paddingRight: `calc(${toRem(Number(value.iconSize))} + 1.6em)`,
       },
     },
-    {
-      variants: { size: 'md', leftIcon: true },
-      style: {
-        paddingLeft: toRem(
-          Number(componentSize.md.iconSize) + Number(spacing[12]) * 2
-        ),
-      },
-    },
-    {
-      variants: { size: 'lg', leftIcon: true },
-      style: {
-        paddingLeft: toRem(
-          Number(componentSize.lg.iconSize) + Number(spacing[12]) * 2
-        ),
-      },
-    },
-    {
-      variants: { size: 'xl', leftIcon: true },
-      style: {
-        paddingLeft: toRem(
-          Number(componentSize.xl.iconSize) + Number(spacing[12]) * 2
-        ),
-      },
-    },
-    // Right Icon Padding (size별)
-    {
-      variants: { size: 'xs', rightIcon: true },
-      style: {
-        paddingRight: toRem(
-          Number(componentSize.xs.iconSize) + Number(spacing[12]) * 2
-        ),
-      },
-    },
-    {
-      variants: { size: 'sm', rightIcon: true },
-      style: {
-        paddingRight: toRem(
-          Number(componentSize.sm.iconSize) + Number(spacing[12]) * 2
-        ),
-      },
-    },
-    {
-      variants: { size: 'md', rightIcon: true },
-      style: {
-        paddingRight: toRem(
-          Number(componentSize.md.iconSize) + Number(spacing[12]) * 2
-        ),
-      },
-    },
-    {
-      variants: { size: 'lg', rightIcon: true },
-      style: {
-        paddingRight: toRem(
-          Number(componentSize.lg.iconSize) + Number(spacing[12]) * 2
-        ),
-      },
-    },
-    {
-      variants: { size: 'xl', rightIcon: true },
-      style: {
-        paddingRight: toRem(
-          Number(componentSize.xl.iconSize) + Number(spacing[12]) * 2
-        ),
-      },
-    },
-  ],
+  ]),
 });
 
 /**
@@ -308,15 +306,21 @@ export const iconContainer = style({
   alignItems: 'center',
   justifyContent: 'center',
   pointerEvents: 'none', // 기본적으로 클릭 불가 (onRightIconClick이 있으면 'auto'로 변경)
-  color: textColorVar,
+  color: 'inherit',
 });
 
 export const leftIconContainer = style({
-  left: toRem(spacing[12]),
+  left: '1em',
 });
 
-export const rightIconContainer = style({
-  right: toRem(spacing[12]),
+// Clear 버튼 전용 (search 타입에서 텍스트 바로 옆)
+export const clearButtonContainer = style({
+  right: '1em',
+});
+
+// Search 버튼 전용 (맨 오른쪽, clear 버튼이 있을 때는 더 오른쪽)
+export const searchButtonContainer = style({
+  right: '1em',
 });
 
 /**
@@ -340,9 +344,11 @@ export const inputVars = {
   textColor: textColorVar,
   placeholderColor: placeholderColorVar,
   disabledTextColor: disabledTextColorVar,
+  disabledIconColor: disabledIconColorVar,
 
   // 타이포그래피
   fontWeight: fontWeightVar,
+  fontFamily: fontFamilyVar,
 
   // 레이아웃
   borderRadius: borderRadiusVar,

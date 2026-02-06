@@ -16,6 +16,7 @@ const TOKEN_CATEGORIES = {
   FONT: 'font',
   NUMBER: 'number',
   ROUNDED: 'rounded',
+  SHADOW: 'shadow',
   ZINDEX: 'zIndex',
   SPACING: 'spacing',
   TYPOGRAPHY: 'typography',
@@ -40,6 +41,7 @@ const OUTPUT_FILES = {
     FONT: 'font.json',
     NUMBER: 'number.json',
     ROUNDED: 'rounded.json',
+    SHADOW: 'shadow.json',
   },
   SEMANTIC: {
     BRANDS: 'brands.json',

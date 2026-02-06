@@ -3,6 +3,7 @@ import React, { useId, useState } from 'react';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 
 import { useTheme } from '../../theme';
+import { toRem } from '../../tokens';
 import { CheckboxProps } from './types';
 
 import {
@@ -73,8 +74,10 @@ export const Checkbox = ({
   name,
   value,
   className,
+  style,
 }: CheckboxProps) => {
-  const { global } = useTheme();
+  const { global, components } = useTheme();
+  const checkboxTheme = components.Checkbox;
   const generatedId = useId();
   const checkboxId = id || generatedId;
 
@@ -100,11 +103,17 @@ export const Checkbox = ({
     }
   };
 
+  // 테마에서 radius 가져오기, 최대값 제한 (lg: 8px, md: 6px)
+  const defaultRadius = size === 'lg' ? 8 : 6;
+  const themeRadius =
+    checkboxTheme.radius?.[size] ?? global.radius?.sm ?? defaultRadius;
+  const finalRadius = Math.min(themeRadius, defaultRadius); // 기존 최대값으로 제한
+
   // CSS Variables 주입
   const vars = assignInlineVars({
     [checkboxVars.fontFamily]: global.typography.fontFamily,
     [checkboxVars.fontWeight]: String(global.typography.fontWeight.semibold),
-    [checkboxVars.borderRadius]: size === 'lg' ? '8px' : '6px',
+    [checkboxVars.borderRadius]: toRem(finalRadius),
     [checkboxVars.primaryColor]: global.color.brand.default,
     [checkboxVars.focusShadowColor]: global.color.brand.subtle,
     [checkboxVars.focusOutlineColor]: `${global.color.brand.subtle}50`,
@@ -155,7 +164,7 @@ export const Checkbox = ({
     <label
       htmlFor={checkboxId}
       className={`${checkboxContainer({ labelPlacement })} ${className || ''}`}
-      style={vars}
+      style={{ ...vars, ...style }}
     >
       <input
         type='checkbox'

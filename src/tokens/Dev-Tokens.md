@@ -8,10 +8,15 @@
 src/tokens/dev/
 ├─ primitives/
 │  └─ zIndex.json          # ✏️ Z-Index 토큰 정의
-├─ rounded.global.css.ts   # ✏️ Tailwind 스타일 유틸리티 클래스
-├─ zIndex.global.css.ts    # ✏️ Z-Index 유틸리티 클래스
-├─ spacing.ts              # ✏️ CSS 변수 참조 JS 토큰
-└─ spacing.global.css.ts   # ✏️ Tailwind 스타일 유틸리티 클래스 (예정)
+├─ helpers/
+│  ├─ responsive.ts        # ✏️ 반응형 유틸리티
+│  ├─ typography.ts        # ✏️ 타이포그래피 헬퍼
+│  └─ units.ts             # ✏️ 단위 변환 헬퍼
+├─ utils/
+│  ├─ rounded.global.css.ts   # ✏️ Rounded 유틸리티 클래스
+│  ├─ zIndex.global.css.ts    # ✏️ Z-Index 유틸리티 클래스
+│  └─ spacing.global.css.ts   # ✏️ Spacing 유틸리티 클래스
+└─ semantic/                   # ✏️ 시맨틱 토큰
 ```
 
 ## 🎯 목적
@@ -82,21 +87,6 @@ import '@/tokens/dev/rounded.global.css';
 
 <div className="rounded-md">카드</div>
 <div className="rounded-t-lg">상단만 둥글게</div>
-```
-
----
-
-### 3. spacing.ts
-
-**목적:** spacing 토큰을 rem 단위로 제공
-
-```typescript
-export const spacing = {
-  0: '0rem',
-  4: '0.4rem',
-  8: '0.8rem',
-  // ...
-} as const;
 ```
 
 ---
@@ -193,13 +183,17 @@ rounded.md = 12           →     Storybook, 컴포넌트에서 직접 사용
   - 전체/방향별/개별 코너 적용 가능
 - **참고:** 숫자 값은 `@/tokens/auto`에서 직접 사용
 
-### spacing
-
-- **파일:** `spacing.ts`
-- **목적:** 여백 토큰 (rem 단위)
+- **파일:** `helpers/responsive.ts`, `primitives/breakpoints.json`
+- **목적:** 반응형 디자인을 위한 유틸리티 함수
 - **제공:**
-  - JS 토큰: `spacing[8] = '0.8rem'`
-  - 음수: `negativeSpacing[8] = '-0.8rem'`
+  - `clampSize(min, max)` - CSS clamp()를 활용한 유동적 크기 조절
+  - `clampTypography` - 타이포그래피 반응형 프리셋
+  - `clampSpacing` - 여백 반응형 프리셋
+  - `breakpoints` - 브레이크포인트 정의 (mobile: 375, tablet: 768, desktop: 1024, wide: 1440)
+  - `mq` - globalStyle용 미디어 쿼리 헬퍼
+  - `mqConditions` - vanilla-extract style() 함수용 미디어 쿼리
+  - `containerQueries` - Container Query 설정
+- **참고:** 16px 기준으로 rem 변환 적용
 
 ---
 

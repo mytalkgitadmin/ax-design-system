@@ -88,7 +88,7 @@ import type { Meta, StoryObj } from '@storybook/react';
  * - **Font Size**: `.text-56`, `.text-44`, `.text-40`, `.text-32`, `.text-26`, `.text-22`, `.text-20`, `.text-18`, `.text-16`, `.text-15`, `.text-14`, `.text-13`, `.text-12`, `.text-11`
  * - **Font Weight**: `.font-regular` (400), `.font-semibold` (600), `.font-bold` (700)
  * - **Line Height**: `.leading-tight` (1.2), `.leading-normal` (1.4), `.leading-relaxed` (1.5)
- * - **Letter Spacing**: `.tracking-tight` (-0.1rem), `.tracking-normal` (0), `.tracking-wide` (0.1rem)
+ * - **Letter Spacing**: `.tracking-tight` (-1px), `.tracking-normal` (0), `.tracking-wide` (1px)
  * - **Text Align**: `.text-left`, `.text-center`, `.text-right`, `.text-justify`
  * - **Text Wrap**: `.text-wrap`, `.text-nowrap`, `.text-balance`, `.text-pretty`
  * - **Word Break**: `.break-normal`, `.break-all`, `.break-keep-all`, `.break-word`
@@ -322,6 +322,35 @@ export const Presets: Story = {
       >
         <Text preset='caption1' />
         <Text preset='caption2' />
+      </div>
+
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '10px',
+          borderTop: '1px solid #eee',
+          padding: '20px 0',
+        }}
+      >
+        <h4 style={{ fontSize: '12px', color: '#999', margin: 0 }}>Commerce</h4>
+        <Text preset='productTitle'>Product Title</Text>
+        <div>
+          <Text preset='productPrice'>29,900</Text>
+          <Text preset='productPrice' as='span' style={{ fontSize: '16px' }}>
+            원
+          </Text>
+        </div>
+        <div>
+          <Text preset='productPriceSmall'>29,900</Text>
+          <Text
+            preset='productPriceSmall'
+            as='span'
+            style={{ fontSize: '14px' }}
+          >
+            원
+          </Text>
+        </div>
       </div>
     </div>
   ),

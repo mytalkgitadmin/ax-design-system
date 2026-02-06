@@ -97,6 +97,23 @@ export const rounded = {
   xl: 24,
   full: 999,
 };
+
+export const spacing = {
+  '0': '0',
+  '2': '0.125rem',
+  '4': '0.25rem',
+  '8': '0.5rem',
+  '12': '0.75rem',
+  '16': '1rem',
+  '20': '1.25rem',
+  '24': '1.5rem',
+  '32': '2rem',
+  '40': '2.5rem',
+  '48': '3rem',
+  '64': '4rem',
+  '72': '4.5rem',
+  '80': '5rem',
+};
 ```
 
 ### 2. variables.css - CSS 변수
@@ -110,14 +127,30 @@ export const rounded = {
   /* Font */
   --family-pretendard: 'Pretendard Variable', sans-serif;
 
-  /* Rounded */
+  /* Rounded (16px 기준: 1rem = 16px) */
   --rounded-none: 0;
-  --rounded-xs: 0.4rem;
-  --rounded-sm: 0.8rem;
-  --rounded-md: 1.2rem;
-  --rounded-lg: 1.6rem;
-  --rounded-xl: 2.4rem;
-  --rounded-full: 99.9rem;
+  --rounded-xs: 0.25rem;
+  --rounded-sm: 0.5rem;
+  --rounded-md: 0.75rem;
+  --rounded-lg: 1rem;
+  --rounded-xl: 1.5rem;
+  --rounded-full: 62.4375rem;
+
+  /* Spacing (16px 기준) */
+  --spacing-0: 0;
+  --spacing-2: 0.125rem;
+  --spacing-4: 0.25rem;
+  --spacing-8: 0.5rem;
+  --spacing-12: 0.75rem;
+  --spacing-16: 1rem;
+  --spacing-20: 1.25rem;
+  --spacing-24: 1.5rem;
+  --spacing-32: 2rem;
+  --spacing-40: 2.5rem;
+  --spacing-48: 3rem;
+  --spacing-64: 4rem;
+  --spacing-72: 4.5rem;
+  --spacing-80: 5rem;
 }
 ```
 
@@ -126,12 +159,13 @@ export const rounded = {
 ### TypeScript/JavaScript
 
 ```typescript
-import { color, font, rounded } from '@/tokens';
+import { color, font, rounded, spacing } from '@/tokens';
 
 // Storybook, 컴포넌트 등에서 사용
 const textColor = color.gray['500'];
 const fontFamily = font.family.pretendard;
 const borderRadius = `${rounded.md}px`; // '12px'
+const padding = spacing['16']; // '1rem'
 ```
 
 ### CSS에서 직접 사용
@@ -151,7 +185,7 @@ import { rounded } from '@/tokens';
 import { toRem } from '@/tokens/dev/helpers/units';
 
 const card = style({
-  borderRadius: toRem(rounded.md), // '1.2rem'
+  borderRadius: toRem(rounded.md), // '0.75rem'
 });
 ```
 

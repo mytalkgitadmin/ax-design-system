@@ -1,7 +1,6 @@
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 
-import { color } from '../../tokens';
-import { toRem } from '../../tokens/dev/helpers/units';
+import { color, toRem } from '../../tokens';
 import { formFieldVars } from '../FormField';
 
 import type { GlobalTheme } from '../../theme/global';
@@ -58,6 +57,7 @@ export const getSelectCSSVars = (
     [selectVars.bgColor]: global.color.bg.default,
     [selectVars.disabledBgColor]: global.color.bg.disabled,
     [selectVars.fontWeight]: String(finalFontWeight),
+    [selectVars.fontFamily]: global.typography.fontFamily,
     [selectVars.borderRadius]: `${toRem(actualRadius)}`,
     [selectVars.optionDividerColor]: color.divider.default,
   });

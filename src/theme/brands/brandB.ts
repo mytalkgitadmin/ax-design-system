@@ -3,9 +3,7 @@
  * Project B의 브랜드 테마 정의
  */
 
-import { color } from 'storybook/theming';
-
-import { rounded, theme } from '../../tokens';
+import { color as tokenColors, rounded, theme } from '../../tokens';
 import { createTheme } from '../createTheme';
 
 /**
@@ -24,9 +22,13 @@ const COLOR_STRONG = BRAND_B_COLORS.strong;
 const COLOR_STRONGER = BRAND_B_COLORS.stronger;
 const COLOR_STRONGEST = BRAND_B_COLORS.strongest;
 const COLOR_SOFT = BRAND_B_COLORS.soft;
+const COLOR_BORDER_SOFT = tokenColors.pink['200']; // #fbccef - outline용 연한 테두리
 
 export const brandBTheme = createTheme({
   global: {
+    typography: {
+      fontFamily: "'GMarketSans', sans-serif",
+    },
     color: {
       brand: {
         default: COLOR_DEFAULT,
@@ -37,7 +39,29 @@ export const brandBTheme = createTheme({
         stronger: COLOR_STRONGER,
         strongest: COLOR_STRONGEST,
         soft: COLOR_SOFT,
+        borderSoft: COLOR_BORDER_SOFT,
       },
+    },
+    radius: {
+      xxs: BRAND_B_RADIUS,
+      xs: BRAND_B_RADIUS,
+      sm: BRAND_B_RADIUS,
+      md: BRAND_B_RADIUS,
+      lg: BRAND_B_RADIUS,
+      xl: BRAND_B_RADIUS,
+    },
+    motion: {
+      // Very Slow & Elegant Fade
+      hover: 'all 0.8s cubic-bezier(0.2, 0, 0, 1)', // Custom ease-out-expo-ish
+      click: 'scale(0.96)',
+      entrance:
+        'opacity 1.2s cubic-bezier(0.2, 0, 0, 1), transform 1.2s cubic-bezier(0.2, 0, 0, 1)',
+      transition: {
+        fast: '0.6s cubic-bezier(0.2, 0, 0, 1)',
+        normal: '0.9s cubic-bezier(0.2, 0, 0, 1)',
+        slow: '1.5s cubic-bezier(0.2, 0, 0, 1)',
+      },
+      modalType: 'slide',
     },
   },
   components: {
@@ -48,7 +72,8 @@ export const brandBTheme = createTheme({
           default: COLOR_DEFAULT,
           hover: COLOR_HOVER,
           active: COLOR_ACTIVE,
-          text: color.inverseText,
+          text: tokenColors.base.white,
+          bgHover: COLOR_SOFT, // Pagination hover 배경색
         },
       },
     },
@@ -75,7 +100,7 @@ export const brandBTheme = createTheme({
           default: COLOR_DEFAULT,
           hover: COLOR_HOVER,
           active: COLOR_DEFAULT,
-          text: color.inverseText,
+          text: tokenColors.base.white,
         },
       },
     },
@@ -87,6 +112,18 @@ export const brandBTheme = createTheme({
     },
     Thumbnail: {
       radius: BRAND_B_RADIUS, // Brand B는 모든 컴포넌트에 rounded.lg 적용
+    },
+    Badge: {
+      radius: BRAND_B_RADIUS,
+    },
+    Checkbox: {
+      radius: {
+        lg: BRAND_B_RADIUS,
+        md: BRAND_B_RADIUS,
+      },
+    },
+    Breadcrumb: {
+      focusRadius: BRAND_B_RADIUS,
     },
   },
 });

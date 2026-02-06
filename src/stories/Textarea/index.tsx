@@ -2,8 +2,7 @@ import { useEffect, useMemo, useRef } from 'react';
 
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 
-import { rounded } from '../../tokens';
-import { toRem } from '../../tokens/dev/helpers/units';
+import { rounded, toRem } from '../../tokens';
 import {
   formFieldVars,
   FormLabel,
@@ -65,6 +64,10 @@ export const Textarea = ({
   // Character Counter
   showCharacterCount = false,
   characterCountPosition = 'inside-right',
+
+  // Style
+  style,
+  className,
 
   // Event Handlers
   onChange,
@@ -190,6 +193,7 @@ export const Textarea = ({
     [textareaVars.bgColor]: global.color.bg.default,
     [textareaVars.disabledBgColor]: global.color.bg.disabled,
     [textareaVars.fontWeight]: String(finalFontWeight),
+    [textareaVars.fontFamily]: global.typography.fontFamily,
     [textareaVars.borderRadius]: `${toRem(actualRadius)}`,
   });
 
@@ -197,7 +201,10 @@ export const Textarea = ({
   const textareaId = generateFieldId('textarea', id);
 
   return (
-    <div className={`${textareaWrapper}`} style={{ ...vars }}>
+    <div
+      className={`${textareaWrapper} ${className || ''}`}
+      style={{ ...vars, ...style }}
+    >
       {/* FormLabel 컴포넌트 사용 */}
       <FormLabel
         htmlFor={textareaId}

@@ -1,13 +1,21 @@
 // Button types
+import {
+  COMPONENT_COLOR_PRESETS,
+  COMPONENT_ROUNDED,
+  COMPONENT_SIZES,
+  ComponentColorPreset,
+  ComponentRounded,
+  ComponentSize,
+} from '../../types/component';
 import { IconType } from '../Icon';
 
-export type ButtonVariant = 'solid' | 'outline';
-export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+export type ButtonVariant = 'solid' | 'outline' | 'ghost';
+export type ButtonSize = ComponentSize;
 export type ButtonType = 'button' | 'submit';
-export type ButtonRounded = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
+export type ButtonRounded = ComponentRounded;
 
 // 시맨틱 토큰 이름 또는 커스텀 컬러 값(hex, rgb)을 모두 허용
-export type ButtonColorPreset = 'primary' | 'secondary';
+export type ButtonColorPreset = ComponentColorPreset;
 export type ButtonColor = ButtonColorPreset | string;
 
 export type ButtonColorScheme = {
@@ -27,10 +35,14 @@ type ButtonBaseProps = {
 
   label: string;
   disabled?: boolean;
+  loading?: boolean; // 로딩 상태 (spinner 표시 및 disabled 처럼 동작)
 
   icon?: IconType;
   leftIcon?: IconType;
   rightIcon?: IconType;
+
+  style?: React.CSSProperties;
+  className?: string;
 };
 
 // Button 태그로 렌더링될 때
@@ -55,19 +67,9 @@ type ButtonAsLink = ButtonBaseProps & {
 export type ButtonProps = ButtonAsButton | ButtonAsLink;
 
 // Storybook을 위한 options 배열
-export const BUTTON_VARIANTS: ButtonVariant[] = ['solid', 'outline'];
-export const BUTTON_SIZES: ButtonSize[] = ['xs', 'sm', 'md', 'lg', 'xl'];
+export const BUTTON_VARIANTS: ButtonVariant[] = ['solid', 'outline', 'ghost'];
+export const BUTTON_SIZES: ButtonSize[] = COMPONENT_SIZES;
 export const BUTTON_TYPES: ButtonType[] = ['button', 'submit'];
-export const BUTTON_COLOR_PRESETS: ButtonColorPreset[] = [
-  'primary',
-  'secondary',
-];
-export const BUTTON_ROUNDED: ButtonRounded[] = [
-  'none',
-  'xs',
-  'sm',
-  'md',
-  'lg',
-  'xl',
-  'full',
-];
+export const BUTTON_COLOR_PRESETS: ButtonColorPreset[] =
+  COMPONENT_COLOR_PRESETS;
+export const BUTTON_ROUNDED: ButtonRounded[] = COMPONENT_ROUNDED;

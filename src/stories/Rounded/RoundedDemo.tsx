@@ -1,5 +1,4 @@
-import { color, rounded, spacing, typography } from '../../tokens';
-import { toRem } from '../../tokens/dev/helpers/units';
+import { color, rounded, spacing, toRem, typography } from '../../tokens';
 
 export type RoundedDemoProps = {
   rounded?: keyof typeof rounded;
@@ -13,7 +12,7 @@ export const RoundedDemo = ({
       style={{
         display: 'flex',
         alignItems: 'center',
-        gap: toRem(spacing[24]),
+        gap: spacing[24],
       }}
     >
       <Box width={100} height={100} rounded={roundedSize} />

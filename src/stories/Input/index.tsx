@@ -1,7 +1,8 @@
+import { useEffect, useRef, useState } from 'react';
+
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 
-import { componentSize, rounded } from '../../tokens';
-import { toRem } from '../../tokens/dev/helpers/units';
+import { componentSize, rounded, toRem } from '../../tokens';
 import {
   formFieldVars,
   FormLabel,
@@ -9,10 +10,11 @@ import {
   generateFieldId,
   useFormField,
 } from '../FormField';
-import { Icon } from '../Icon';
+import { Icon, IconType } from '../Icon';
 import { InputProps } from './types';
 
 import {
+  clearButtonContainer,
   iconContainer,
   inputContainerStyle,
   inputStyle,
@@ -20,7 +22,7 @@ import {
   inputWrapper,
   inputWrapperFull,
   leftIconContainer,
-  rightIconContainer,
+  searchButtonContainer,
 } from './Input.css';
 
 export type { InputProps } from './types';
@@ -38,6 +40,7 @@ export const Input = ({
   // Appearance
   size = 'md',
   color = 'primary',
+  variant = 'outline',
   full = false,
   rounded: roundedProp,
 
@@ -73,12 +76,35 @@ export const Input = ({
 
   // Style
   textAlign,
+  style,
+  className,
 
   // Event Handlers
   onChange,
   onFocus,
   onBlur,
 }: InputProps) => {
+  // ID 생성 (label과 input 연결용)
+  const inputId = generateFieldId('input', id);
+
+  // search 타입 여부
+  const isSearchType = type === 'search';
+
+  // search 타입일 때 내부 상태 관리 (clear 버튼 표시 여부 판단용)
+  const [internalValue, setInternalValue] = useState(
+    (value ?? defaultValue ?? '') as string
+  );
+
+  // Input element ref (clear 기능을 위해 필요)
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  // value prop이 변경되면 내부 상태도 동기화 (Controlled Component 지원)
+  useEffect(() => {
+    if (value !== undefined) {
+      setInternalValue(String(value));
+    }
+  }, [value]);
+
   // 1. 공통 Hook 사용 (테마 값 가져오기)
   const {
     global,
@@ -117,6 +143,7 @@ export const Input = ({
     [inputVars.textColor]: global.color.text.secondary,
     [inputVars.placeholderColor]: global.color.text.muted,
     [inputVars.disabledTextColor]: global.color.text.disabled,
+    [inputVars.disabledIconColor]: global.color.icon.disabled,
     [inputVars.borderColor]: finalColorScheme.default,
     [inputVars.hoverBorderColor]: finalColorScheme.hover,
     [inputVars.focusBorderColor]: finalColorScheme.focus,
@@ -125,16 +152,73 @@ export const Input = ({
     [inputVars.bgColor]: global.color.bg.default,
     [inputVars.disabledBgColor]: global.color.bg.disabled,
     [inputVars.fontWeight]: String(finalFontWeight),
+    [inputVars.fontFamily]: global.typography.fontFamily,
     [inputVars.borderRadius]: `${toRem(actualRadius)}`,
   });
 
-  // ID 생성 (label과 input 연결용)
-  const inputId = generateFieldId('input', id);
+  // ========================================
+  // 3. Search Type 전용 로직
+  // ========================================
+  // Input onChange 핸들러 (내부 상태 업데이트 + 외부 onChange 호출)
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInternalValue(e.target.value);
+    onChange?.(e);
+  };
+
+  // Clear 버튼 핸들러
+  const handleClear = () => {
+    if (!inputRef.current) return;
+
+    // 1. 내부 상태 초기화
+    setInternalValue('');
+
+    // 2. Input DOM 값 직접 변경
+    const input = inputRef.current;
+    const nativeInputValueSetter = Object.getOwnPropertyDescriptor(
+      window.HTMLInputElement.prototype,
+      'value'
+    )?.set;
+
+    if (nativeInputValueSetter) {
+      nativeInputValueSetter.call(input, '');
+    } else {
+      input.value = '';
+    }
+
+    // 3. React가 인식할 수 있는 input 이벤트 디스패치
+    const event = new Event('input', { bubbles: true });
+    input.dispatchEvent(event);
+
+    // 4. onChange 핸들러도 호출 (controlled component 대응)
+    onChange?.({
+      target: input,
+      currentTarget: input,
+    } as React.ChangeEvent<HTMLInputElement>);
+
+    // 5. focus 유지
+    input.focus();
+  };
+
+  // search 타입일 때 자동으로 clear 버튼 추가
+  const hasValue =
+    value !== undefined ? String(value).length > 0 : internalValue.length > 0;
+  const showClearButton = isSearchType && hasValue && !disabled;
+
+  // rightIcon 개수 계산 (padding 조정용)
+  const rightIconCount = (showClearButton ? 1 : 0) + (rightIcon ? 1 : 0);
+
+  // KeyDown Handler (Enter key support for Search)
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && onRightIconClick) {
+      e.preventDefault();
+      onRightIconClick();
+    }
+  };
 
   return (
     <div
-      className={`${inputWrapper} ${full ? inputWrapperFull : ''}`}
-      style={{ ...vars }}
+      className={`${inputWrapper} ${full ? inputWrapperFull : ''} ${className || ''}`}
+      style={{ ...vars, ...style }}
     >
       {/* FormLabel 컴포넌트 사용 */}
       <FormLabel
@@ -148,36 +232,54 @@ export const Input = ({
 
       {/* Input Container */}
       <div
-        className={inputContainerStyle({ error: error || status === 'error' })}
+        className={inputContainerStyle({
+          size: finalSize,
+          variant: variant,
+          error: error || status === 'error',
+        })}
       >
         {/* left Icon */}
         {leftIcon && (
           <>
-            {onLeftIconClick ? (
-              <button
-                type='button'
+            {/* ReactNode인 경우 */}
+            {typeof leftIcon !== 'string' && typeof leftIcon === 'object' ? (
+              <div
                 className={`${iconContainer} ${leftIconContainer}`}
-                style={iconButtonStyle}
-                onClick={onLeftIconClick}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    onLeftIconClick();
-                  }
-                }}
+                style={{ pointerEvents: 'auto' }}
               >
-                <Icon name={leftIcon} size={iconSize} />
-              </button>
-            ) : (
-              <div className={`${iconContainer} ${leftIconContainer}`}>
-                <Icon name={leftIcon} size={iconSize} />
+                {leftIcon}
               </div>
+            ) : (
+              /* IconType인 경우 */
+              <>
+                {onLeftIconClick ? (
+                  <button
+                    type='button'
+                    className={`${iconContainer} ${leftIconContainer}`}
+                    style={iconButtonStyle}
+                    onClick={onLeftIconClick}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        onLeftIconClick();
+                      }
+                    }}
+                  >
+                    <Icon name={leftIcon as IconType} size={iconSize} />
+                  </button>
+                ) : (
+                  <div className={`${iconContainer} ${leftIconContainer}`}>
+                    <Icon name={leftIcon as IconType} size={iconSize} />
+                  </div>
+                )}
+              </>
             )}
           </>
         )}
 
         {/* Input Element */}
         <input
+          ref={inputRef}
           id={inputId}
           name={name}
           type={type}
@@ -185,10 +287,15 @@ export const Input = ({
             size: finalSize,
             full,
             leftIcon: !!leftIcon,
-            rightIcon: !!rightIcon,
+            rightIcon: rightIconCount > 0,
           })}`}
           style={{
             textAlign: textAlign,
+            // right icon이 2개일 때만 추가 padding (1개일 때는 CSS가 처리)
+            paddingRight:
+              rightIconCount === 2
+                ? `calc(${toRem(iconSize * 2)} + 2.4em)` // iconSize * 2 + 1.6em(edge) + 0.8em(gap)
+                : undefined,
           }}
           placeholder={placeholder}
           value={value}
@@ -197,33 +304,76 @@ export const Input = ({
           max={max}
           disabled={disabled}
           required={required}
-          onChange={onChange}
+          onChange={handleInputChange}
           onFocus={onFocus}
           onBlur={onBlur}
+          onKeyDown={handleKeyDown}
         />
 
-        {/* Right Icon */}
+        {/* Right Icons - Clear 버튼과 rightIcon을 함께 표시 */}
+        {/* Clear 버튼 (search 타입, 값이 있을 때) */}
+        {showClearButton && (
+          <button
+            type='button'
+            className={`${iconContainer} ${clearButtonContainer}`}
+            style={{
+              ...iconButtonStyle,
+              // rightIcon이 있으면 더 왼쪽에 배치
+              right: rightIcon ? `calc(1em + ${toRem(iconSize)} + 1em)` : '1em',
+            }}
+            onClick={handleClear}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleClear();
+              }
+            }}
+            aria-label='Clear input'
+          >
+            <Icon name='CircleXDuoFilled' size={iconSize} />
+          </button>
+        )}
+
+        {/* User-provided Right Icon */}
         {rightIcon && (
           <>
-            {onRightIconClick ? (
-              <button
-                type='button'
-                className={`${iconContainer} ${rightIconContainer}`}
-                style={iconButtonStyle}
-                onClick={onRightIconClick}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    onRightIconClick();
-                  }
-                }}
+            {/* ReactNode인 경우 */}
+            {typeof rightIcon !== 'string' && typeof rightIcon === 'object' ? (
+              <div
+                className={`${iconContainer} ${searchButtonContainer}`}
+                style={{ pointerEvents: 'auto' }}
               >
-                <Icon name={rightIcon} size={iconSize} />
-              </button>
-            ) : (
-              <div className={`${iconContainer} ${rightIconContainer}`}>
-                <Icon name={rightIcon} size={iconSize} />
+                {rightIcon}
               </div>
+            ) : (
+              /* IconType인 경우 (일반 아이콘 또는 검색 버튼) */
+              <>
+                {/* Search 타입이거나 핸들러가 있으면 버튼으로 렌더링 */}
+                {onRightIconClick || isSearchType ? (
+                  <button
+                    type='button'
+                    className={`${iconContainer} ${searchButtonContainer}`}
+                    style={{
+                      ...iconButtonStyle,
+                      cursor: onRightIconClick ? 'pointer' : 'default', // 핸들러 없으면 커서 기본
+                    }}
+                    onClick={onRightIconClick}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        onRightIconClick?.();
+                      }
+                    }}
+                    aria-label={isSearchType ? 'Search' : undefined}
+                  >
+                    <Icon name={rightIcon as IconType} size={iconSize} />
+                  </button>
+                ) : (
+                  <div className={`${iconContainer} ${searchButtonContainer}`}>
+                    <Icon name={rightIcon as IconType} size={iconSize} />
+                  </div>
+                )}
+              </>
             )}
           </>
         )}

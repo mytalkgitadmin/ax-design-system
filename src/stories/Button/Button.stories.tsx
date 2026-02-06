@@ -11,6 +11,9 @@ import {
 
 import type { Meta, StoryObj } from '@storybook/react';
 
+const PRESET_COLORS = ['primary', 'secondary', 'tertiary'] as const;
+const COLORED_BUTTONS = ['green', 'blue', 'red', 'yellow'] as const;
+
 /**
  * Button 컴포넌트는 사용자 액션을 트리거하는 기본 버튼입니다.
  *
@@ -19,12 +22,13 @@ import type { Meta, StoryObj } from '@storybook/react';
  * | Prop | Type |
  * |------|------|
  * | `label` | `string` |
- * | `variant` | `solid` \| `outline` |
+ * | `variant` | `solid` \| `outline` \| `ghost` |
  * | `size` | `xs` \| `sm` \| `md` \| `lg` \| `xl` |
- * | `color` | `primary` \| `secondary` \| `string` (hex/rgb) |
+ * | `color` | `primary` \| `secondary` \| `tertiary` \| `string` (hex/rgb) |
  * | `rounded` | `none` \| `xs` \| `sm` \| `md` \| `lg` \| `xl` \| `full` |
  * | `full` | `boolean` |
  * | `disabled` | `boolean` |
+ * | `loading` | `boolean` |
  * | `leftIcon` | `IconType` |
  * | `rightIcon` | `IconType` |
  * | `icon` | `IconType` (아이콘 전용 버튼) |
@@ -47,6 +51,7 @@ import type { Meta, StoryObj } from '@storybook/react';
  * <Button label="작은 버튼" size="sm" />
  * <Button label="큰 버튼" size="lg" />
  * <Button label="Outline" variant="outline" />
+ * <Button label="Ghost" variant="ghost" />
  *
  * // 아이콘 포함
  * <Button label="다운로드" leftIcon="Download" />
@@ -74,7 +79,7 @@ const meta = {
     variant: {
       control: 'select',
       options: BUTTON_VARIANTS,
-      description: 'Button variant (solid, outline)',
+      description: 'Button variant (solid, outline, ghost)',
       table: {
         category: 'Appearance',
       },
@@ -129,6 +134,11 @@ const meta = {
     disabled: {
       control: 'boolean',
       description: 'Disabled state',
+      table: { category: 'State' },
+    },
+    loading: {
+      control: 'boolean',
+      description: 'Loading state (shows spinner)',
       table: { category: 'State' },
     },
 
@@ -223,62 +233,175 @@ export const SemanticColors: Story = {
         alignItems: 'center',
       }}
     >
-      <Button variant='solid' size='md' color='primary' label='Primary' />
-      <Button variant='solid' size='md' color='secondary' label='Secondary' />
+      {PRESET_COLORS.map((color) => {
+        const title = color.charAt(0).toUpperCase() + color.slice(1);
+        return (
+          <Button
+            key={color}
+            variant='solid'
+            size='md'
+            color={color}
+            label={title}
+          />
+        );
+      })}
       <Button variant='outline' size='md' color='primary' label='Outline' />
+      <Button variant='ghost' size='md' color='primary' label='Ghost' />
     </div>
   ),
 };
 
 /**
- * 버튼 사이즈
+ * 컬러 버튼 - Badge처럼 green, blue, red, yellow 색상을 사용할 수 있습니다.
+ * 아이콘과 함께 사용할 수도 있습니다.
  */
-export const Sizes: Story = {
+export const ColoredButtons: Story = {
+  render: () => (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '32px',
+      }}
+    >
+      {/* 기본 컬러 버튼 */}
+
+      <h3
+        style={{
+          marginBottom: '16px',
+          color: '#222',
+          fontSize: '16px',
+          fontWeight: 600,
+        }}
+      >
+        기본 컬러 버튼
+      </h3>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '24px',
+        }}
+      >
+        {(['solid', 'outline', 'ghost'] as const).map((variant) => (
+          <div key={variant}>
+            <h4
+              style={{
+                marginBottom: '12px',
+                color: '#697180',
+                textTransform: 'capitalize',
+                fontSize: '14px',
+              }}
+            >
+              {variant}
+            </h4>
+            <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+              {COLORED_BUTTONS.map((color) => {
+                const title = color.charAt(0).toUpperCase() + color.slice(1);
+                return (
+                  <Button
+                    key={color}
+                    variant={variant}
+                    size='md'
+                    color={color}
+                    label={title}
+                  />
+                );
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  ),
+};
+
+/**
+ * Solid Variant - 각 사이즈와 컬러별 solid 버튼
+ */
+export const Solid: Story = {
   render: () => (
     <div
       style={{
         display: 'grid',
-        gap: '16px',
-        gridTemplateColumns: '40px repeat(3, 1fr)',
-        placeItems: 'center start',
+        gridTemplateColumns: 'repeat(3, 1fr)',
+        placeItems: 'center left',
+        gap: '12px',
       }}
     >
-      <p></p>
-      <p>solid-primary</p>
-      <p>solid-secondary</p>
-      <p>outline-primary</p>
-
-      <p>xs</p>
-      <Button variant='solid' size='xs' color='primary' label='Button' />
-      <Button variant='solid' size='xs' color='secondary' label='Button' />
-      <Button variant='outline' size='xs' color='primary' label='Button' />
-
-      <p>sm</p>
-      <Button variant='solid' size='sm' color='primary' label='Button' />
-      <Button variant='solid' size='sm' color='secondary' label='Button' />
-      <Button variant='outline' size='sm' color='primary' label='Button' />
-
-      <p>md</p>
-      <Button variant='solid' size='md' color='primary' label='Button' />
-      <Button variant='solid' size='md' color='secondary' label='Button' />
-      <Button variant='outline' size='md' color='primary' label='Button' />
-
-      <p>lg</p>
-      <Button variant='solid' size='lg' color='primary' label='Button' />
-      <Button variant='solid' size='lg' color='secondary' label='Button' />
-      <Button variant='outline' size='lg' color='primary' label='Button' />
-
-      <p>xl</p>
-      <Button variant='solid' size='xl' color='primary' label='Button' />
-      <Button variant='solid' size='xl' color='secondary' label='Button' />
-      <Button variant='outline' size='xl' color='primary' label='Button' />
+      {BUTTON_SIZES.map((size) =>
+        PRESET_COLORS.map((color) => (
+          <Button
+            key={`solid-${size}-${color}`}
+            variant='solid'
+            size={size}
+            color={color}
+            label='Button'
+          />
+        ))
+      )}
     </div>
   ),
 };
 
 /**
- * Rounded (모서리 둥글기)
- * 테마 설정을 덮어쓰기하여 원하는 모서리 둥글기를 적용할 수 있습니다.
+ * Outline Variant - 각 사이즈와 컬러별 outline 버튼
+ */
+export const Outline: Story = {
+  render: () => (
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(3, 1fr)',
+        placeItems: 'center left',
+        gap: '12px',
+      }}
+    >
+      {BUTTON_SIZES.map((size) =>
+        PRESET_COLORS.map((color) => (
+          <Button
+            key={`outline-${size}-${color}`}
+            variant='outline'
+            size={size}
+            color={color}
+            label='Button'
+          />
+        ))
+      )}
+    </div>
+  ),
+};
+
+/**
+ * Ghost Variant - 각 사이즈와 컬러별 ghost 버튼 (hover 시 연한 배경 표시)
+ */
+export const Ghost: Story = {
+  render: () => (
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(3, 1fr)',
+        placeItems: 'center left',
+        gap: '12px',
+      }}
+    >
+      {BUTTON_SIZES.map((size) =>
+        PRESET_COLORS.map((color) => (
+          <Button
+            key={`ghost-${size}-${color}`}
+            variant='ghost'
+            size={size}
+            color={color}
+            label='Button'
+          />
+        ))
+      )}
+    </div>
+  ),
+};
+
+/**
+ * Rounded - 테마 설정을 덮어쓰기하여 모서리 둥글기를 조정할 수 있습니다.
  */
 export const Rounded: Story = {
   render: () => (
@@ -338,6 +461,13 @@ export const Disabled: Story = {
         label='Outline'
         disabled
       />
+      <Button
+        variant='ghost'
+        size='md'
+        color='primary'
+        label='Ghost'
+        disabled
+      />
     </div>
   ),
 };
@@ -363,70 +493,110 @@ export const FullWidth: Story = {
 };
 
 /**
- * 아이콘이 있는 버튼
+ * 아이콘이 있는 버튼 - 모든 variant와 color 조합
  */
 export const WithIcon: Story = {
   render: () => (
     <div
       style={{
-        display: 'grid',
-        gap: '16px',
-        gridTemplateColumns: 'auto auto ',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '24px',
       }}
     >
-      <Button label='Download' leftIcon='Download' />
-      <Button label='search' rightIcon='Search' />
-
-      <Button label='Download' color='secondary' leftIcon='Download' />
-      <Button label='search' color='secondary' rightIcon='Search' />
-
-      <Button variant='outline' label='Download' leftIcon='Download' />
-      <Button variant='outline' label='search' rightIcon='Search' />
+      {(['solid', 'outline', 'ghost'] as const).map((variant) => (
+        <div key={variant}>
+          <h4
+            style={{
+              marginBottom: '12px',
+              color: '#697180',
+              textTransform: 'capitalize',
+            }}
+          >
+            {variant}
+          </h4>
+          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+            {PRESET_COLORS.map((color) => (
+              <>
+                <Button
+                  key={`${variant}-${color}-start`}
+                  variant={variant}
+                  label='Download'
+                  leftIcon='Download'
+                  color={color}
+                />
+                <Button
+                  key={`${variant}-${color}-end`}
+                  variant={variant}
+                  label='Search'
+                  rightIcon='Search'
+                  color={color}
+                />
+              </>
+            ))}
+          </div>
+        </div>
+      ))}
     </div>
   ),
 };
+
 /**
- * 아이콘만 있는 버튼
+ * 아이콘만 있는 버튼 - 모든 variant와 color 조합 (사이즈별)
  */
 export const OnlyIcon: Story = {
   render: () => (
     <div
       style={{
-        display: 'grid',
-        gap: '16px',
-        gridTemplateColumns: 'repeat(6, 1fr)',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '24px',
       }}
     >
-      {/* sm */}
-      <Button size='sm' label='Download' icon='Download' />
-      <Button size='sm' label='search' icon='Search' />
-      <Button size='sm' label='Download' color='secondary' icon='Download' />
-      <Button size='sm' label='search' color='secondary' icon='Search' />
-      <Button size='sm' variant='outline' label='Download' icon='Download' />
-      <Button size='sm' variant='outline' label='search' icon='Search' />
-      {/* md */}
-      <Button label='Download' icon='Download' />
-      <Button label='search' icon='Search' />
-      <Button label='Download' color='secondary' icon='Download' />
-      <Button label='search' color='secondary' icon='Search' />
-      <Button variant='outline' label='Download' icon='Download' />
-      <Button variant='outline' label='search' icon='Search' />
-
-      {/* lg */}
-      <Button size='lg' label='Download' icon='Download' />
-      <Button size='lg' label='search' icon='Search' />
-      <Button size='lg' label='Download' color='secondary' icon='Download' />
-      <Button size='lg' label='search' color='secondary' icon='Search' />
-      <Button size='lg' variant='outline' label='Download' icon='Download' />
-      <Button size='lg' variant='outline' label='search' icon='Search' />
-
-      {/* xl */}
-      <Button size='xl' label='Download' icon='Download' />
-      <Button size='xl' label='search' icon='Search' />
-      <Button size='xl' label='Download' color='secondary' icon='Download' />
-      <Button size='xl' label='search' color='secondary' icon='Search' />
-      <Button size='xl' variant='outline' label='Download' icon='Download' />
-      <Button size='xl' variant='outline' label='search' icon='Search' />
+      {(['solid', 'outline', 'ghost'] as const).map((variant) => (
+        <div key={variant}>
+          <h4
+            style={{
+              marginBottom: '12px',
+              color: '#697180',
+              textTransform: 'capitalize',
+            }}
+          >
+            {variant}
+          </h4>
+          <div
+            style={{
+              display: 'grid',
+              gap: '16px',
+              gridTemplateColumns: 'repeat(6, auto)',
+              alignItems: 'center',
+            }}
+          >
+            {BUTTON_SIZES.map((size) =>
+              PRESET_COLORS.map((color) => (
+                <>
+                  <Button
+                    key={`${variant}-${size}-${color}-dl`}
+                    size={size}
+                    variant={variant}
+                    icon='Download'
+                    color={color}
+                    label='Download'
+                  />
+                  <Button
+                    key={`${variant}-${size}-${color}-search`}
+                    size={size}
+                    variant={variant}
+                    icon='Search'
+                    color={color}
+                    label='Search'
+                  />
+                </>
+              ))
+            )}
+          </div>
+        </div>
+      ))}
     </div>
   ),
 };
@@ -500,6 +670,123 @@ export const AsLink: Story = {
           label='Search'
           rightIcon='Search'
         />
+      </div>
+    </div>
+  ),
+};
+
+/**
+ * Loading State
+ *
+ * 비동기 작업 중 버튼에 "Loading..." 텍스트를 표시합니다.
+ */
+export const Loading: Story = {
+  render: () => (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '24px',
+      }}
+    >
+      <div>
+        <h4
+          style={{
+            marginBottom: '12px',
+            color: '#697180',
+            fontSize: '14px',
+          }}
+        >
+          Solid Variant
+        </h4>
+        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+          {PRESET_COLORS.map((color) => (
+            <Button
+              key={color}
+              variant='solid'
+              color={color}
+              label='Loading...'
+              loading
+            />
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <h4
+          style={{
+            marginBottom: '12px',
+            color: '#697180',
+            fontSize: '14px',
+          }}
+        >
+          Outline Variant
+        </h4>
+        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+          {PRESET_COLORS.map((color) => (
+            <Button
+              key={color}
+              variant='outline'
+              color={color}
+              label='Loading...'
+              loading
+            />
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <h4
+          style={{
+            marginBottom: '12px',
+            color: '#697180',
+            fontSize: '14px',
+          }}
+        >
+          Ghost Variant
+        </h4>
+        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+          {PRESET_COLORS.map((color) => (
+            <Button
+              key={color}
+              variant='ghost'
+              color={color}
+              label='Loading...'
+              loading
+            />
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <h4
+          style={{
+            marginBottom: '12px',
+            color: '#697180',
+            fontSize: '14px',
+          }}
+        >
+          Different Sizes
+        </h4>
+        <div
+          style={{
+            display: 'flex',
+            gap: '12px',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+          }}
+        >
+          {BUTTON_SIZES.map((size) => (
+            <Button
+              key={size}
+              size={size}
+              variant='solid'
+              color='primary'
+              label='Loading'
+              loading
+            />
+          ))}
+        </div>
       </div>
     </div>
   ),

@@ -29,6 +29,8 @@ export const Thumbnail = ({
   color = 'brand',
   ratio = '1',
   rounded,
+  className,
+  style,
 }: ThumbnailProps) => {
   const { global, components } = useTheme();
   const thumbnailTheme = components.Thumbnail;
@@ -55,8 +57,8 @@ export const Thumbnail = ({
       <img
         src={src}
         alt={alt}
-        className={thumbnailStyle({ color, ratio, rounded: finalRounded })}
-        style={{ ...vars, ...widthStyle }}
+        className={`${thumbnailStyle({ color, ratio, rounded: finalRounded })} ${className || ''}`.trim()}
+        style={{ ...vars, ...widthStyle, ...style }}
         onError={() => setImageError(true)}
       />
     );
@@ -65,8 +67,8 @@ export const Thumbnail = ({
   // 이미지가 없거나 로드 실패 시 fallback UI
   return (
     <div
-      className={thumbnailStyle({ color, ratio, rounded: finalRounded })}
-      style={{ ...vars, ...widthStyle }}
+      className={`${thumbnailStyle({ color, ratio, rounded: finalRounded })} ${className || ''}`.trim()}
+      style={{ ...vars, ...widthStyle, ...style }}
     >
       <Icon name='Image' size={24} />
     </div>

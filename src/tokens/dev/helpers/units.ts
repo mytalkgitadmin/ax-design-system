@@ -1,25 +1,40 @@
 /**
  * 단위 변환 헬퍼 함수
  *
- * 프로젝트 설정:
- * - html { font-size: 10px }
- * - body { font-size: 1.6rem } = 16px
+ * html { font-size: 100%; } 설정을 따릅니다.
  */
 
 /**
- * px 값을 rem으로 변환
+ * px 값을 rem으로 변환 (16px 기준)
  * @param px - 픽셀 값 (숫자 또는 문자열)
- * @returns rem 단위 문자열 (예: "0.8rem")
+ * @returns rem 단위 문자열
  *
  * @example
- * toRem(8) // "0.8rem"
- * toRem(16) // "1.6rem"
- * toRem('12') // "1.2rem"
+ * toRem(8) // "0.5rem"
+ * toRem(16) // "1rem"
+ * toRem('24') // "1.5rem"
+ * toRem(32) // "2rem"
  */
 export const toRem = (px: number | string): string => {
   const value = typeof px === 'string' ? Number(px) : px;
-  return `${value / 10}rem`;
+  return `${value / 16}rem`;
 };
+
+/**
+ * rem 값을 px로 변환 (16px 기준)
+ * @param rem - rem 값
+ * @returns 픽셀 값
+ *
+ * @example
+ * toPx(0.5) // 8
+ * toPx(1) // 16
+ * toPx(1.5) // 24
+ */
+export const toPx = (rem: number): number => {
+  return rem * 16;
+};
+
+// ===== 공통 유틸리티 =====
 
 /**
  * px 값을 em으로 변환 (부모 fontSize 기준)
@@ -28,8 +43,8 @@ export const toRem = (px: number | string): string => {
  * @returns em 단위 문자열
  *
  * @example
- * toEm(8, 16) // "0.5em"
- * toEm(12, 14) // "0.857em"
+ * toEm({ px: 8, baseFontSize: 16 }) // "0.5em"
+ * toEm({ px: 12, baseFontSize: 14 }) // "0.857em"
  */
 export const toEm = ({
   px,
@@ -43,14 +58,17 @@ export const toEm = ({
 };
 
 /**
- * rem 값을 px로 변환 (html font-size: 10px 기준)
- * @param rem - rem 값
- * @returns 픽셀 값
- *
- * @example
- * toPx(0.8) // 8
- * toPx(1.6) // 16
+ * 📊 빠른 변환표 (16px 기준):
+ * | Figma | toRem()   |
+ * |-------|-----------|
+ * | 2px   | 0.125rem  |
+ * | 4px   | 0.25rem   |
+ * | 8px   | 0.5rem    |
+ * | 12px  | 0.75rem   |
+ * | 16px  | 1rem      |
+ * | 20px  | 1.25rem   |
+ * | 24px  | 1.5rem    |
+ * | 32px  | 2rem      |
+ * | 48px  | 3rem      |
+ * | 64px  | 4rem      |
  */
-export const toPx = (rem: number): number => {
-  return rem * 10;
-};

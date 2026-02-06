@@ -1,6 +1,4 @@
-import { color, rounded, typography } from '../../tokens';
-import { spacing } from '../../tokens/dev/helpers/spacing';
-import { toRem } from '../../tokens/dev/helpers/units';
+import { color, rounded, spacing, toRem, typography } from '../../tokens';
 
 export type SpacingDemoProps = {
   margin?: keyof typeof spacing;
@@ -19,17 +17,17 @@ export type SpacingDemoProps = {
 };
 
 export const SpacingDemo = ({
-  margin = 0,
+  margin = '0',
   marginTop: marginTopProp,
   marginRight: marginRightProp,
   marginBottom: marginBottomProp,
   marginLeft: marginLeftProp,
-  padding = 0,
+  padding = '0',
   paddingTop: paddingTopProp,
   paddingRight: paddingRightProp,
   paddingBottom: paddingBottomProp,
   paddingLeft: paddingLeftProp,
-  gap = 0,
+  gap = '0',
   gapY: gapYProp,
   gapX: gapXProp,
 }: SpacingDemoProps) => {
@@ -49,10 +47,17 @@ export const SpacingDemo = ({
   const gapY = gapYProp ?? gap;
   const gapX = gapXProp ?? gap;
 
+  // 값이 '0'이 아닌지 체크 (문자열 비교)
   const hasMargin =
-    marginTop > 0 || marginRight > 0 || marginBottom > 0 || marginLeft > 0;
+    marginTop !== '0' ||
+    marginRight !== '0' ||
+    marginBottom !== '0' ||
+    marginLeft !== '0';
   const hasPadding =
-    paddingTop > 0 || paddingRight > 0 || paddingBottom > 0 || paddingLeft > 0;
+    paddingTop !== '0' ||
+    paddingRight !== '0' ||
+    paddingBottom !== '0' ||
+    paddingLeft !== '0';
 
   return (
     <div

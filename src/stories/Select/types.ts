@@ -1,13 +1,21 @@
 // Select types
+import {
+  COMPONENT_COLOR_PRESETS,
+  COMPONENT_ROUNDED,
+  COMPONENT_SIZES,
+  ComponentColorPreset,
+  ComponentRounded,
+  ComponentSize,
+} from '../../types/component';
 import { FormFieldStatus } from '../FormField';
 import { IconType } from '../Icon';
 
-export type SelectSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-export type SelectRounded = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
+export type SelectSize = ComponentSize;
+export type SelectRounded = Exclude<ComponentRounded, 'full'>;
 export type SelectPlacement = 'bottom' | 'top';
 
 // 시맨틱 토큰 이름 또는 커스텀 컬러 값(hex, rgb)을 모두 허용
-export type SelectColorPreset = 'primary' | 'secondary';
+export type SelectColorPreset = ComponentColorPreset;
 export type SelectColor = SelectColorPreset | string;
 
 export type SelectColorScheme = {
@@ -42,6 +50,12 @@ export type SelectProps = {
   full?: boolean;
   /** 테마 설정을 덮어쓰기 위한 rounded 옵션 */
   rounded?: SelectRounded;
+  /** 커스텀 클래스 이름 */
+  className?: string;
+  /** 커스텀 인라인 스타일 */
+  style?: React.CSSProperties;
+  /** 컴포넌트 너비 */
+  width?: string | number;
 
   // Label & Description
   /** 접근성을 위해 필수값 */
@@ -111,18 +125,10 @@ export type SelectProps = {
 };
 
 // Storybook을 위한 options 배열
-export const SELECT_SIZES: SelectSize[] = ['xs', 'sm', 'md', 'lg', 'xl'];
-export const SELECT_COLOR_PRESETS: SelectColorPreset[] = [
-  'primary',
-  'secondary',
-];
-export const SELECT_ROUNDED: SelectRounded[] = [
-  'none',
-  'xs',
-  'sm',
-  'md',
-  'lg',
-  'xl',
-  'full',
-];
+export const SELECT_SIZES: SelectSize[] = COMPONENT_SIZES;
+export const SELECT_COLOR_PRESETS: SelectColorPreset[] =
+  COMPONENT_COLOR_PRESETS;
+export const SELECT_ROUNDED: SelectRounded[] = COMPONENT_ROUNDED.filter(
+  (r): r is SelectRounded => r !== 'full'
+);
 export const SELECT_PLACEMENTS: SelectPlacement[] = ['bottom', 'top'];
