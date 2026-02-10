@@ -361,4 +361,5 @@ export const theme = {
 };
 
 export * from './dev/helpers/responsive';
+export * from './dev/helpers/typography';
 export * from './dev/helpers/units';

@@ -1,5 +1,7 @@
 import type { Preview } from '@storybook/react-vite';
 import '../src/styles/globals.css';
+import '../src/styles/fonts.css'; // Pretendard 폰트 (선택적)
+import './storybook.css'; // Storybook 전용 스타일 및 GMarketSans 폰트
 
 import { ThemeProvider } from '../src/theme';
 import { defaultTheme } from '../src/theme';
