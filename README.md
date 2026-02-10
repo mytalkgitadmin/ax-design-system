@@ -287,7 +287,26 @@ yarn add @bemily/design-system
 import '@bemily/design-system/styles.css';
 ```
 
-#### 4. ThemeProvider로 앱 감싸기 (권장)
+#### 4. 폰트 사용 (선택사항)
+
+디자인 시스템은 **Pretendard** 폰트를 제공합니다. 사용하려면 별도로 import 해야 합니다:
+
+```typescript
+// App.tsx 또는 main.tsx
+import '@bemily/design-system/styles.css';
+import '@bemily/design-system/fonts.css'; // Pretendard 폰트 (선택적)
+```
+
+**폰트 파일을 import하지 않는 경우:**
+
+- 디자인 시스템은 정상 작동하며, 시스템 기본 폰트를 사용합니다
+- 프로젝트에서 다른 폰트를 사용하려는 경우 import하지 마세요
+
+**제공되는 폰트:**
+
+- `Pretendard`: 9가지 weight (100-900) 제공
+
+#### 5. ThemeProvider로 앱 감싸기 (권장)
 
 테마 시스템을 사용하려면 앱을 `ThemeProvider`로 감싸야 합니다:
 

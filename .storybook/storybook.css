@@ -1,0 +1,84 @@
+/* Storybook 전용 스타일 */
+
+/* Storybook 전용 폰트 */
+@font-face {
+  font-family: "GMarketSans";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansLight.woff")
+    format("woff");
+  font-weight: 300;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "GMarketSans";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
+    format("woff");
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "GMarketSans";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansBold.woff")
+    format("woff");
+  font-weight: 700;
+  font-display: swap;
+}
+
+[class^="grid"] {
+  display: grid;
+  gap: 0;
+}
+
+.container {
+  container-type: inline-size;
+  container-name: container;
+}
+
+.grid2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grid7 {
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.grid11 {
+  grid-template-columns: repeat(11, 1fr);
+}
+
+@container container (width < 800px) {
+  .grid2,
+  .grid7,
+  .grid11 {
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  }
+}
+
+h1 + p {
+  color: var(--gray-600, #888e9c);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0 0 0.5em 0;
+}
+
+.maxWidth {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+section {
+  margin: 2em 0;
+}
+
+button {
+  border: 0;
+  background: none;
+  padding: 0;
+}
