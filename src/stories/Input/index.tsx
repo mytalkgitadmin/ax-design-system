@@ -298,8 +298,7 @@ export const Input = ({
                 : undefined,
           }}
           placeholder={placeholder}
-          value={value}
-          defaultValue={defaultValue}
+          {...(value !== undefined ? { value: value ?? '' } : { defaultValue })}
           min={min}
           max={max}
           disabled={disabled}

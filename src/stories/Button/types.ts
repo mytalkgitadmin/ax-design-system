@@ -1,4 +1,6 @@
 // Button types
+import { ReactNode } from 'react';
+
 import {
   COMPONENT_COLOR_PRESETS,
   COMPONENT_ROUNDED,
@@ -33,7 +35,8 @@ type ButtonBaseProps = {
   full?: boolean;
   rounded?: ButtonRounded; // 테마 설정을 덮어쓰기 위한 rounded 옵션
 
-  label: string;
+  label?: ReactNode; // children 추가로 인해 optional로 변경
+  children?: ReactNode; // children 우선, 없으면 label 사용
   disabled?: boolean;
   loading?: boolean; // 로딩 상태 (spinner 표시 및 disabled 처럼 동작)
 

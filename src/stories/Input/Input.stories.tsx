@@ -63,6 +63,21 @@ import type { Meta, StoryObj } from '@storybook/react';
  *
  * // 전체 너비
  * <Input label="주소" full placeholder="주소를 입력하세요" />
+ *
+ * // Controlled Component (value 사용)
+ * const [email, setEmail] = useState('');
+ * <Input
+ *   label="이메일"
+ *   type="email"
+ *   value={email}
+ *   onChange={(e) => setEmail(e.target.value)}
+ * />
+ *
+ * ## 특징
+ *
+ * - **자동완성 지원**: 브라우저 자동완성 시 스타일이 깨지지 않습니다
+ * - **Controlled/Uncontrolled**: value prop 사용 여부에 따라 자동 전환
+ * - **접근성**: label이 필수이며, hiddenLabel로 시각적으로 숨길 수 있습니다
  * ```
  */
 const meta = {

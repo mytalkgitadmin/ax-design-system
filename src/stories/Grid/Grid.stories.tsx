@@ -67,7 +67,7 @@ const Box = ({
  *
  * | Prop | Type |
  * |------|------|
- * | `as` | `div` \| `section` \| `article` \| `ul` |
+ * | `as` | `div` \| `section` \| `article` \| `ul` \| `ol` \| `li` \| `nav` \| `main` \| `aside` \| `header` \| `footer` \| `form` |
  * | `columns` | `1` \| `2` \| `3` \| `4` \| `5` \| `6` \| `8` \| `12` \| `auto-fill` \| `auto-fit` |
  * | `rows` | `1` \| `2` \| `3` \| `4` \| `5` \| `6` \| `auto` |
  * | `gap` | `0` \| `4` \| `8` \| `12` \| `16` \| `20` \| `24` \| `32` \| `48` \| `64` |

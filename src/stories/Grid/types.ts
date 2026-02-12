@@ -4,7 +4,19 @@ import type React from 'react';
 // Grid Component Types
 // --------------------------------------------------
 
-export type GridElement = 'div' | 'section' | 'article' | 'ul';
+export type GridElement =
+  | 'div'
+  | 'section'
+  | 'article'
+  | 'ul'
+  | 'ol'
+  | 'li'
+  | 'nav'
+  | 'main'
+  | 'aside'
+  | 'header'
+  | 'footer'
+  | 'form';
 export type GridColumns =
   | '1'
   | '2'
@@ -51,7 +63,20 @@ export type GridPlaceContent =
 // Arrays for Storybook Options
 // --------------------------------------------------
 
-export const GRID_ELEMENTS: GridElement[] = ['div', 'section', 'article', 'ul'];
+export const GRID_ELEMENTS: GridElement[] = [
+  'div',
+  'section',
+  'article',
+  'ul',
+  'ol',
+  'li',
+  'nav',
+  'main',
+  'aside',
+  'header',
+  'footer',
+  'form',
+];
 export const GRID_COLUMNS = [
   '1',
   '2',
