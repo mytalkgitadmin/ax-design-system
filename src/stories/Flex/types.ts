@@ -12,7 +12,20 @@ export type FlexElement =
   | 'header'
   | 'footer'
   | 'nav'
-  | 'main';
+  | 'main'
+  | 'aside'
+  | 'p'
+  | 'h1'
+  | 'h2'
+  | 'h3'
+  | 'h4'
+  | 'h5'
+  | 'h6'
+  | 'ul'
+  | 'ol'
+  | 'li'
+  | 'form'
+  | 'label';
 export type FlexDirection = 'row' | 'column' | 'row-reverse' | 'column-reverse';
 export type FlexJustify =
   | 'start'
@@ -34,6 +47,16 @@ export const FLEX_ELEMENTS: FlexElement[] = [
   'section',
   'article',
   'span',
+  'header',
+  'footer',
+  'nav',
+  'main',
+  'aside',
+  'ul',
+  'ol',
+  'li',
+  'form',
+  'label',
 ];
 export const FLEX_DIRECTIONS: FlexDirection[] = [
   'row',

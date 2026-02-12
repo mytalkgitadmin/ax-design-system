@@ -1,4 +1,5 @@
 import { color } from '../../tokens';
+import { Icon } from '../Icon';
 import { ICON_NAMES } from '../Icon/types';
 import { Button } from './index';
 import {
@@ -21,7 +22,8 @@ const COLORED_BUTTONS = ['green', 'blue', 'red', 'yellow'] as const;
  *
  * | Prop | Type |
  * |------|------|
- * | `label` | `string` |
+ * | `label` | `ReactNode` (optional) |
+ * | `children` | `ReactNode` (optional, label보다 우선) |
  * | `variant` | `solid` \| `outline` \| `ghost` |
  * | `size` | `xs` \| `sm` \| `md` \| `lg` \| `xl` |
  * | `color` | `primary` \| `secondary` \| `tertiary` \| `string` (hex/rgb) |
@@ -46,6 +48,14 @@ const COLORED_BUTTONS = ['green', 'blue', 'red', 'yellow'] as const;
  * // 기본 사용
  * <Button label="클릭" />
  * <Button label="Primary" color="primary" variant="solid" />
+ *
+ * // children 사용 (label보다 우선)
+ * <Button>
+ *   <Icon name="Download" /> 다운로드
+ * </Button>
+ * <Button>
+ *   <strong>Bold</strong> Text
+ * </Button>
  *
  * // 사이즈 및 스타일
  * <Button label="작은 버튼" size="sm" />
@@ -126,7 +136,12 @@ const meta = {
     // Content
     label: {
       control: 'text',
-      description: 'Button text',
+      description: 'Button text (ReactNode)',
+      table: { category: 'Content' },
+    },
+    children: {
+      control: 'text',
+      description: 'Button content (ReactNode, label보다 우선)',
       table: { category: 'Content' },
     },
 
@@ -786,6 +801,69 @@ export const Loading: Story = {
               loading
             />
           ))}
+        </div>
+      </div>
+    </div>
+  ),
+};
+
+/**
+ * children prop을 사용하여 복잡한 컨텐츠를 렌더링할 수 있습니다.
+ * 아이콘과 텍스트를 조합하거나, HTML 요소를 포함할 수 있습니다.
+ */
+export const WithChildren: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      {/* 아이콘 + 텍스트 조합 예제 */}
+      <div>
+        <h4
+          style={{ marginBottom: '12px', fontSize: '14px', color: '#697180' }}
+        >
+          아이콘 + 텍스트 조합
+        </h4>
+        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+          <Button variant='outline'>
+            <Icon name='Download' size={16} /> 다운로드
+          </Button>
+          <Button variant='outline'>
+            <Icon name='Share' size={16} /> 공유하기
+          </Button>
+          <Button variant='solid' color='primary'>
+            <Icon name='UserFilled' size={16} /> 프로필 보기
+          </Button>
+        </div>
+      </div>
+
+      {/* HTML 요소 조합 예제 */}
+      <div>
+        <h4
+          style={{ marginBottom: '12px', fontSize: '14px', color: '#697180' }}
+        >
+          HTML 요소 조합
+        </h4>
+        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+          <Button variant='solid' color='primary'>
+            <strong>강조</strong> 텍스트
+          </Button>
+          <Button variant='outline'>
+            <span style={{ color: '#ff6b6b' }}>빨간</span> 텍스트
+          </Button>
+        </div>
+      </div>
+
+      {/* children과 label 비교 */}
+      <div>
+        <h4
+          style={{ marginBottom: '12px', fontSize: '14px', color: '#697180' }}
+        >
+          children vs label (children이 우선)
+        </h4>
+        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+          <Button label='label prop' variant='outline' />
+          <Button variant='outline'>children prop</Button>
+          <Button label='무시됨' variant='outline'>
+            children이 우선
+          </Button>
         </div>
       </div>
     </div>

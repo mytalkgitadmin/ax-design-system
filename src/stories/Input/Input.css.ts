@@ -190,6 +190,7 @@ const baseInput = style({
   border: 0,
   outline: 'none',
   verticalAlign: 'top',
+  borderRadius: borderRadiusVar, // Container의 border-radius 상속
 
   // 인터랙션
   cursor: 'text',
@@ -235,6 +236,25 @@ const baseInput = style({
     },
     '&[type="number"]': {
       MozAppearance: 'textfield',
+    },
+    // 자동완성 스타일 (브라우저 기본 스타일 덮어쓰기)
+    // Container가 border를 담당하므로, input 요소에는 배경색과 텍스트 색상만 처리
+    '&:-webkit-autofill': {
+      WebkitBoxShadow: `0 0 0 30px ${bgColorVar} inset !important`,
+      WebkitTextFillColor: `${textColorVar} !important`,
+      transition: 'background-color 5000s ease-in-out 0s',
+    },
+    '&:-webkit-autofill:hover': {
+      WebkitBoxShadow: `0 0 0 30px ${bgColorVar} inset !important`,
+      WebkitTextFillColor: `${textColorVar} !important`,
+    },
+    '&:-webkit-autofill:focus': {
+      WebkitBoxShadow: `0 0 0 30px ${bgColorVar} inset !important`,
+      WebkitTextFillColor: `${textColorVar} !important`,
+    },
+    '&:-webkit-autofill:active': {
+      WebkitBoxShadow: `0 0 0 30px ${bgColorVar} inset !important`,
+      WebkitTextFillColor: `${textColorVar} !important`,
     },
   },
 });

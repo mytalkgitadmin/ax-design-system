@@ -21,6 +21,7 @@ export const Button = ({
   rounded: roundedProp,
   type = 'button',
   label,
+  children,
   full = false,
   disabled = false,
   loading = false,
@@ -34,10 +35,15 @@ export const Button = ({
   const { global, components } = useTheme();
   const buttonTheme = components.Button;
 
-  // 런타임 검증: as="a"일 때 href가 필수
+  // 런타임 검증
   if (process.env.NODE_ENV !== 'production') {
     if (as === 'a' && !href) {
       console.error('Button: as="a"로 설정할 때는 href가 필수입니다.');
+    }
+    if (!children && !label && !icon) {
+      console.warn(
+        'Button: children, label, icon 중 최소 하나는 제공되어야 합니다.'
+      );
     }
   }
 
@@ -156,14 +162,14 @@ export const Button = ({
     disabled: disabled || loading,
   };
 
-  const children = (
+  const content = (
     <>
       {loading ? (
         <span style={{ opacity: 0.8 }}>Loading...</span>
       ) : (
         <>
           {leftIcon && <Icon name={leftIcon} size={iconSize} />}
-          {icon ? <Icon name={icon} size={iconSize} /> : label}
+          {icon ? <Icon name={icon} size={iconSize} /> : children || label}
           {rightIcon && <Icon name={rightIcon} size={iconSize} />}
         </>
       )}
@@ -180,7 +186,7 @@ export const Button = ({
         target,
         rel: target === '_blank' ? 'noopener noreferrer' : undefined,
       },
-      children
+      content
     );
   }
 
@@ -192,6 +198,6 @@ export const Button = ({
       type,
       onClick,
     },
-    children
+    content
   );
 };
