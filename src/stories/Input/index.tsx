@@ -329,7 +329,7 @@ export const Input = ({
             }}
             aria-label='Clear input'
           >
-            <Icon name='CircleXDuoFilled' size={iconSize} />
+            <Icon name='CircleXFill' size={iconSize} />
           </button>
         )}
 

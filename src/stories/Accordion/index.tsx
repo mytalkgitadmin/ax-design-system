@@ -243,7 +243,7 @@ export const AccordionTrigger = ({
 
       {/* 오른쪽 Chevron */}
       <div className={`${chevronWrapper} ${isExpanded ? chevronExpanded : ''}`}>
-        <Icon name='ChevronDownSm' size={iconSize} />
+        <Icon name='ChevronDown' size={iconSize} />
       </div>
     </button>
   );

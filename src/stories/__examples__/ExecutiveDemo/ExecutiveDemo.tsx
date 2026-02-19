@@ -125,13 +125,13 @@ export const ExecutiveDemo = () => {
                     label='업데이트중'
                     variant='outline'
                     color='green'
-                    leftIcon='CirclePositiveFilled'
+                    leftIcon='CircleCheckFill'
                   />
                   <Badge
                     label='경고'
                     variant='outline'
                     color='red'
-                    leftIcon='CircleNegativeFilled'
+                    leftIcon='CircleErrorFill'
                   />
                   <Badge
                     label='검증됨'

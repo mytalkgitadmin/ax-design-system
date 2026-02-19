@@ -11,6 +11,7 @@ module.exports = {
     '#4b5465': 'currentColor',
     '#000': 'currentColor',
     '#000000': 'currentColor',
+    '#888E9C': 'currentColor',
   },
 
   dimensions: false, // width/height를 props로 받을 수 있게
