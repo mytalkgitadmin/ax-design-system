@@ -140,7 +140,7 @@ export const Avatar = (props: AvatarProps) => {
     }
 
     // empty (or text fallback fail)
-    return <Icon name='UserFilled' size={iconSize} color={color.icon.muted} />;
+    return <Icon name='UserFill' size={iconSize} color={color.icon.muted} />;
   };
 
   const containerProps = {

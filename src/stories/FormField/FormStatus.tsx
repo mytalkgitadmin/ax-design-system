@@ -14,9 +14,9 @@ import {
  */
 const statusIcons = {
   help: 'Check' as const,
-  success: 'CirclePositiveFilled' as const,
-  warn: 'CircleInfoFilled' as const,
-  error: 'CircleNegativeFilled' as const,
+  success: 'CircleCheckFill' as const,
+  warn: 'CircleInfoFill' as const,
+  error: 'CircleErrorFill' as const,
 };
 
 /**

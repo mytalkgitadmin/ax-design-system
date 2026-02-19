@@ -85,7 +85,7 @@ export const Primary: Story = {
 export const WithIcons: Story = {
   args: {
     items: [
-      { label: 'Home', href: '/', leftIcon: 'Globe' },
+      { label: 'Home', href: '/', leftIcon: 'Home' },
       { label: 'Products', href: '/products', leftIcon: 'Bag' },
       { label: 'Item', href: '/products/item', leftIcon: 'Heart' },
       { label: 'Detail' },

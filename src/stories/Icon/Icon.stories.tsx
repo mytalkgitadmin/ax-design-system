@@ -59,13 +59,13 @@ import type { Meta, StoryObj } from '@storybook/react';
  * **참고**: Button 컴포넌트 내부에서는 Icon이 자동으로 장식용으로 처리됩니다.
  *
  * ## 특별한 아이콘들
- * ### Circle Duotone/Filled 아이콘
- * `CircleNegativeDuotone`, `CirclePositiveFilled` 등의 아이콘은 **고정된 색상**을 사용합니다.
+ * ### Company 아이콘
+ * `Naver`, `KakaoTalk` 등 브랜드 로고 아이콘은 **고정된 색상**을 사용합니다.
  * - `color` prop이 적용되지 않습니다
- * - 디자인 시스템의 시맨틱 컬러를 사용하도록 설계됨
+ * - 브랜드 가이드라인에 따라 색상이 SVG에 하드코딩됨
  * ```tsx
- * <Icon name="CircleNegativeDuo" color="primary" /> // color prop 무시됨
- * <Icon name="CirclePositiveFilled" />              // 항상 초록색
+ * <Icon name="Naver" color="primary" /> // color prop 무시됨 (항상 #03C75A)
+ * <Icon name="KakaoTalk" />             // 브랜드 색상 고정
  * ```
  */
 const meta = {
@@ -368,15 +368,15 @@ export const Accessibility: Story = {
         </h3>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <Icon name='CirclePositiveFilled' size={20} aria-label='성공' />
+            <Icon name='CircleCheckFill' size={20} aria-label='성공' />
             <span>파일 업로드가 완료되었습니다</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <Icon name='CircleNegativeFilled' size={20} aria-label='오류' />
+            <Icon name='CircleErrorFill' size={20} aria-label='오류' />
             <span>파일 업로드에 실패했습니다</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <Icon name='CircleInfoFilled' size={20} aria-label='정보' />
+            <Icon name='CircleInfoFill' size={20} aria-label='정보' />
             <span>최대 10MB까지 업로드 가능합니다</span>
           </div>
           <p
@@ -400,30 +400,31 @@ export const Accessibility: Story = {
  */
 export const AllIcons: Story = {
   render: () => {
-    // 아이콘 이름의 접두사로 카테고리 자동 분류
+    // 아이콘 이름 기반으로 카테고리 분류
     const categorizeIcons = (iconNames: IconName[]) => {
       const categories: Record<string, IconName[]> = {
-        Interface: [],
-        Social: [],
-        Circle: [],
-        Arrow: [],
+        Company: [], // Naver, KakaoTalk 등 브랜드 로고
+        Arrow: [], // Arrow + Chevron (방향 아이콘)
+        Circle: [], // Circle 접두사
+        Other: [], // 나머지 일반 아이콘
       };
 
-      const arrowNames = ['Down', 'Up', 'Left', 'Right'];
+      const COMPANY_NAMES = new Set<IconName>([
+        'Naver',
+        'NaverWhite',
+        'KakaoTalk',
+        'KakaoTalkWhite',
+      ]);
 
       iconNames.forEach((name) => {
-        if (name.startsWith('Circle')) {
-          categories.Circle.push(name);
-        } else if (
-          name.startsWith('Chevron') ||
-          name.startsWith('Dropdown') ||
-          arrowNames.includes(name as string)
-        ) {
+        if (COMPANY_NAMES.has(name)) {
+          categories.Company.push(name);
+        } else if (name.startsWith('Arrow') || name.startsWith('Chevron')) {
           categories.Arrow.push(name);
-        } else if (name === 'Instagram') {
-          categories.Social.push(name);
+        } else if (name.startsWith('Circle')) {
+          categories.Circle.push(name);
         } else {
-          categories.Interface.push(name);
+          categories.Other.push(name);
         }
       });
 
@@ -481,7 +482,7 @@ export const AllIcons: Story = {
                     alignItems: 'center',
                     gap: '8px',
                     transition: 'all 0.2s',
-                    width: '120px',
+                    width: '140px',
                     fontSize: '10px',
                   }}
                   onMouseEnter={(e) => {

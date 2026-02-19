@@ -829,7 +829,7 @@ export const WithChildren: Story = {
             <Icon name='Share' size={16} /> 공유하기
           </Button>
           <Button variant='solid' color='primary'>
-            <Icon name='UserFilled' size={16} /> 프로필 보기
+            <Icon name='UserFill' size={16} /> 프로필 보기
           </Button>
         </div>
       </div>

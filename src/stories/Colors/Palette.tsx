@@ -156,7 +156,11 @@ export const Palette: React.FC<PaletteProps> = (props) => {
         <h3>{props.title}</h3>
         {props.description && (
           <p
-            style={{ fontSize: '14px', color: '#888e9c', marginBottom: '16px' }}
+            style={{
+              fontSize: '14px',
+              color: 'currentColor',
+              marginBottom: '16px',
+            }}
           >
             {props.description}
           </p>

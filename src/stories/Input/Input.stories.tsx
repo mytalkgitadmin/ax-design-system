@@ -570,19 +570,14 @@ export const WithIcons: Story = {
         label='이메일'
         type='email'
         placeholder='email@example.com'
-        leftIcon='Download'
+        leftIcon='Mail'
       />
-      <Input
-        label='전화번호'
-        type='tel'
-        placeholder='010-1234-5678'
-        leftIcon='Download'
-      />
+
       <Input
         label='URL'
         type='text'
         placeholder='https://example.com'
-        rightIcon='Download'
+        rightIcon='Link'
       />
     </div>
   ),
@@ -590,7 +585,7 @@ export const WithIcons: Story = {
 
 /**
  * Search Input with Auto Clear Button
- * search 타입 input은 자동으로 CircleXDuoFilled 아이콘의 clear 버튼이 표시됩니다.
+ * search 타입 input은 자동으로 CircleXFill 아이콘의 clear 버튼이 표시됩니다.
  * 값이 있을 때만 버튼이 나타나며, 클릭 시 input이 초기화됩니다.
  */
 export const SearchInput: Story = {
@@ -700,8 +695,8 @@ export const SearchInput: Story = {
 };
 
 /**
- * Search Input with Auto Clear Button
- * search 타입 input은 자동으로 CircleXDuoFilled 아이콘의 clear 버튼이 표시됩니다.
+ * Search Input with Auto Clear Button (Underline)
+ * search 타입 input은 자동으로 CircleXFill 아이콘의 clear 버튼이 표시됩니다.
  * 값이 있을 때만 버튼이 나타나며, 클릭 시 input이 초기화됩니다.
  */
 export const SearchInputUnderline: Story = {
@@ -837,7 +832,7 @@ export const PasswordToggle: Story = {
             label='비밀번호'
             type={showPassword ? 'text' : 'password'}
             placeholder='비밀번호를 입력하세요'
-            rightIcon={showPassword ? 'User' : 'UserFilled'}
+            rightIcon={showPassword ? 'EyeView' : 'Eye'}
             onRightIconClick={() => setShowPassword(!showPassword)}
             status='help'
             statusMessage='아이콘을 클릭하여 비밀번호를 표시/숨김할 수 있습니다'
@@ -904,7 +899,7 @@ export const SignupForm: Story = {
             label='이메일'
             type='email'
             placeholder='email@example.com'
-            leftIcon='Download'
+            leftIcon='Mail'
             required
             full
             status='help'
@@ -914,7 +909,7 @@ export const SignupForm: Story = {
             label='비밀번호'
             type={showPassword ? 'text' : 'password'}
             placeholder='비밀번호 입력'
-            rightIcon={showPassword ? 'User' : 'UserFilled'}
+            rightIcon={showPassword ? 'EyeView' : 'Eye'}
             onRightIconClick={() => setShowPassword(!showPassword)}
             required
             full
@@ -925,7 +920,7 @@ export const SignupForm: Story = {
             label='비밀번호 확인'
             type={showConfirmPassword ? 'text' : 'password'}
             placeholder='비밀번호 재입력'
-            rightIcon={showConfirmPassword ? 'User' : 'UserFilled'}
+            rightIcon={showConfirmPassword ? 'EyeView' : 'Eye'}
             onRightIconClick={() =>
               setShowConfirmPassword(!showConfirmPassword)
             }
@@ -934,13 +929,7 @@ export const SignupForm: Story = {
             status='error'
             statusMessage='비밀번호가 일치하지 않습니다'
           />
-          <Input
-            label='전화번호'
-            type='tel'
-            placeholder='010-1234-5678'
-            leftIcon='Download'
-            full
-          />
+
           <Input
             label='검색어'
             type='search'
