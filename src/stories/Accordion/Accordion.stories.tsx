@@ -258,11 +258,11 @@ export const WithIcons: Story = {
         </AccordionContent>
       </AccordionItem>
       <AccordionItem value='shipping'>
-        <AccordionTrigger title='배송 정보' leftIcon='Share' />
+        <AccordionTrigger title='배송 정보' leftIcon='Package' />
         <AccordionContent>전국 무료 배송, 2-3일 내 도착</AccordionContent>
       </AccordionItem>
       <AccordionItem value='return'>
-        <AccordionTrigger title='교환/환불' leftIcon='Download' />
+        <AccordionTrigger title='교환/환불' leftIcon='CircleInfo' />
         <AccordionContent>7일 이내 무료 교환/환불</AccordionContent>
       </AccordionItem>
     </Accordion>
@@ -401,21 +401,21 @@ export const WithItemsArray: Story = {
         value: 'shipping',
         category: '운송 정보',
         title: '배송 안내',
-        leftIcon: 'Share' as const,
+        leftIcon: 'Package' as const,
         content: '무료 배송 서비스를 제공합니다. 주문 후 2-3일 내 배송됩니다.',
       },
       {
         value: 'return',
-        category: '고객 지원',
+        category: '교환/환불',
         title: '교환 및 환불',
-        leftIcon: 'Download' as const,
+        leftIcon: 'CircleInfo' as const,
         content: '상품 수령 후 7일 이내 교환 및 환불이 가능합니다.',
       },
       {
         value: 'support',
         category: '고객 지원',
         title: '고객센터',
-        leftIcon: 'User' as const,
+        leftIcon: 'Help' as const,
         content: '평일 09:00 - 18:00 (주말 및 공휴일 휴무)',
       },
     ];

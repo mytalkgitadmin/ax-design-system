@@ -133,7 +133,13 @@ const ColorsStroy = () => {
 
       <section className='container'>
         <h2>Primitive Colors</h2>
-        <p style={{ fontSize: '14px', color: '#888e9c', marginBottom: '24px' }}>
+        <p
+          style={{
+            fontSize: '14px',
+            color: '#888e9c',
+            marginBottom: '24px',
+          }}
+        >
           기본 색상 팔레트입니다. 50(가장 밝음)부터 950(가장 어두움)까지
           11단계로 구성됩니다.
         </p>
@@ -186,7 +192,13 @@ const ColorsStroy = () => {
       {/* Semantic Colors Section */}
       <section className='container'>
         <h2>Semantic Colors</h2>
-        <p style={{ fontSize: '14px', color: '#888e9c', marginBottom: '24px' }}>
+        <p
+          style={{
+            fontSize: '14px',
+            color: '#888e9c',
+            marginBottom: '24px',
+          }}
+        >
           의미에 따라 정의된 색상입니다. 컴포넌트에서 Primitive 색상 대신
           Semantic 색상을 사용하면 일관된 디자인을 유지할 수 있습니다.
         </p>
@@ -235,7 +247,13 @@ const ColorsStroy = () => {
       {/* Brand Colors Section */}
       <section className='container'>
         <h2>Brand Colors</h2>
-        <p style={{ fontSize: '14px', color: '#888e9c', marginBottom: '24px' }}>
+        <p
+          style={{
+            fontSize: '14px',
+            color: '#888e9c',
+            marginBottom: '24px',
+          }}
+        >
           브랜드를 나타내는 주요 색상입니다. Theme 시스템을 통해 프로젝트별로
           다른 브랜드 색상을 적용할 수 있습니다.
         </p>
@@ -260,7 +278,13 @@ const ColorsStroy = () => {
       {/* Alpha Colors Section */}
       <section className='container'>
         <h2>Alpha Colors</h2>
-        <p style={{ fontSize: '14px', color: '#888e9c', marginBottom: '24px' }}>
+        <p
+          style={{
+            fontSize: '14px',
+            color: '#888e9c',
+            marginBottom: '24px',
+          }}
+        >
           투명도가 적용된 흑백 색상입니다. 클릭하면 HEX 코드가 복사됩니다.
         </p>
 
