@@ -18,7 +18,7 @@ export type InputType =
   | 'tel'
   | 'number'
   | 'search';
-export type InputVariant = 'outline' | 'underline';
+export type InputVariant = 'outline' | 'underline' | 'none';
 export type InputRounded = Exclude<ComponentRounded, 'full'>;
 
 // 시맨틱 토큰 이름 또는 커스텀 컬러 값(hex, rgb)을 모두 허용
@@ -77,7 +77,7 @@ export const INPUT_TYPES: InputType[] = [
   'number',
   'search',
 ];
-export const INPUT_VARIANTS: InputVariant[] = ['outline', 'underline'];
+export const INPUT_VARIANTS: InputVariant[] = ['outline', 'underline', 'none'];
 export const INPUT_COLOR_PRESETS: InputColorPreset[] = COMPONENT_COLOR_PRESETS;
 export const INPUT_ROUNDED: InputRounded[] = COMPONENT_ROUNDED.filter(
   (r): r is InputRounded => r !== 'full'

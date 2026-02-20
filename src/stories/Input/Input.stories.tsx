@@ -123,7 +123,7 @@ const meta = {
       control: 'select',
       options: INPUT_VARIANTS,
       description:
-        'Input variant (outline: 전체 테두리, underline: 하단 테두리만)',
+        'Input variant (outline: 전체 테두리, underline: 하단 테두리만, none: 테두리 없음)',
       table: {
         category: 'Appearance',
       },
@@ -350,6 +350,7 @@ export const Sizes: Story = {
  * Variants
  * Outline (기본): 전체 테두리
  * Underline: 하단 테두리만
+ * None: 테두리 및 배경색 없음
  */
 export const Variants: Story = {
   render: () => (
@@ -368,6 +369,11 @@ export const Variants: Story = {
         label='Underline'
         variant='underline'
         placeholder='하단 테두리만 있는 입력 필드'
+      />
+      <Input
+        label='None'
+        variant='none'
+        placeholder='테두리가 전혀 없는 입력 필드'
       />
     </div>
   ),
@@ -686,6 +692,16 @@ export const SearchInput: Story = {
               full
             />
           </div>
+
+          <Input
+            label='검색 (Uncontrolled)'
+            type='search'
+            placeholder='검색어를 입력하세요'
+            rightIcon='Search'
+            defaultValue=''
+            full
+            variant='none'
+          />
         </div>
       );
     };
