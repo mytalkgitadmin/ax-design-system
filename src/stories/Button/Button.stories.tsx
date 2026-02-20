@@ -85,13 +85,14 @@ const meta = {
   },
   tags: ['autodocs', '!dev'],
   argTypes: {
-    // Appearance
+    // === Appearance ===
     variant: {
       control: 'select',
       options: BUTTON_VARIANTS,
       description: 'Button variant (solid, outline, ghost)',
       table: {
         category: 'Appearance',
+        defaultValue: { summary: 'solid' },
       },
     },
     size: {
@@ -100,6 +101,7 @@ const meta = {
       description: 'Button size',
       table: {
         category: 'Appearance',
+        defaultValue: { summary: 'md' },
       },
     },
     color: {
@@ -112,16 +114,10 @@ const meta = {
         color.green['600'],
       ],
       description:
-        '시맨틱 프리셋(primary, secondary 등) 또는 토큰 컬러 선택. 커스텀 hex 값은 직접 입력 가능',
+        '시맨틱 프리셋(primary, secondary, tertiary) 또는 커스텀 hex/rgb 값',
       table: {
         category: 'Appearance',
-      },
-    },
-    full: {
-      control: 'boolean',
-      description: 'Full width',
-      table: {
-        category: 'Appearance',
+        defaultValue: { summary: 'primary' },
       },
     },
     rounded: {
@@ -132,8 +128,26 @@ const meta = {
         category: 'Appearance',
       },
     },
+    full: {
+      control: 'boolean',
+      description: 'Full width',
+      table: {
+        category: 'Appearance',
+        defaultValue: { summary: 'false' },
+      },
+    },
+    className: {
+      control: 'text',
+      description: '추가 CSS 클래스',
+      table: { category: 'Appearance' },
+    },
+    style: {
+      control: 'object',
+      description: '인라인 스타일',
+      table: { category: 'Appearance' },
+    },
 
-    // Content
+    // === Content ===
     label: {
       control: 'text',
       description: 'Button text (ReactNode)',
@@ -145,19 +159,7 @@ const meta = {
       table: { category: 'Content' },
     },
 
-    // State
-    disabled: {
-      control: 'boolean',
-      description: 'Disabled state',
-      table: { category: 'State' },
-    },
-    loading: {
-      control: 'boolean',
-      description: 'Loading state (shows spinner)',
-      table: { category: 'State' },
-    },
-
-    // Icon
+    // === Icon ===
     leftIcon: {
       control: 'select',
       options: [undefined, ...ICON_NAMES],
@@ -173,43 +175,72 @@ const meta = {
     icon: {
       control: 'select',
       options: [undefined, ...ICON_NAMES],
-      description: '아이콘만 있는 버튼',
+      description: '아이콘만 있는 버튼 (text 없음)',
       table: { category: 'Icon' },
     },
 
-    // HTML Attributes
-    type: {
-      control: 'select',
-      options: BUTTON_TYPES,
-      description: 'Button type (기본: button)',
+    // === State ===
+    disabled: {
+      control: 'boolean',
+      description: 'Disabled state',
       table: {
-        category: 'HTML Attributes',
+        category: 'State',
+        defaultValue: { summary: 'false' },
+      },
+    },
+    loading: {
+      control: 'boolean',
+      description: 'Loading state (shows "Loading..." text)',
+      table: {
+        category: 'State',
+        defaultValue: { summary: 'false' },
+      },
+    },
+
+    // === Polymorphic ===
+    as: {
+      control: false,
+      description: '렌더링할 HTML 태그/컴포넌트 (button, a, Link 등)',
+      table: {
+        category: 'Polymorphic',
+        type: { summary: 'ElementType' },
         defaultValue: { summary: 'button' },
       },
     },
-    as: {
-      control: 'text',
-      description: '렌더링할 HTML 태그 ("a"로 설정 시 링크로 렌더링)',
+    type: {
+      control: 'select',
+      options: BUTTON_TYPES,
+      description: 'Button type (as="button"일 때만 사용)',
       table: {
-        category: 'HTML Attributes',
+        category: 'Polymorphic',
+        defaultValue: { summary: 'button' },
       },
     },
     href: {
       control: 'text',
-      description: 'URL (as="a"일 때 필수)',
+      description: 'URL (**필수**: as="a"일 때)',
       table: {
-        category: 'HTML Attributes',
+        category: 'Polymorphic',
       },
     },
     target: {
       control: 'select',
+      options: ['_blank', '_self', '_parent', '_top'],
       description: '링크 타겟 (as="a"일 때 사용)',
       table: {
-        category: 'HTML Attributes',
+        category: 'Polymorphic',
+      },
+    },
+    rel: {
+      control: 'text',
+      description:
+        '링크 관계 (target="_blank" 시 자동으로 "noopener noreferrer" 추가됨)',
+      table: {
+        category: 'Polymorphic',
       },
     },
 
-    // Events
+    // === Events ===
     onClick: {
       control: false,
       description: '클릭 이벤트 핸들러',
