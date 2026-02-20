@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ElementType, useCallback, useMemo } from 'react';
 
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 
@@ -12,7 +12,7 @@ import { textStyle, textVars } from './Text.css';
 
 export type { TextProps } from '../../tokens/dev/helpers/typography';
 
-export const Text = ({
+export const Text = <T extends ElementType = 'p'>({
   preset,
   size,
   weight,
@@ -29,7 +29,8 @@ export const Text = ({
   className,
   style,
   children = `[${preset}] ABC abc 가나다 123 !@#`,
-}: TextProps) => {
+  ...props
+}: TextProps<T>) => {
   const { components } = useTheme();
   const textTheme = components.Text;
 
@@ -54,7 +55,7 @@ export const Text = ({
   const Component = as || presetValues?.element || 'p';
 
   // Truncate 스타일 처리
-  const getTruncateStyle = (): React.CSSProperties => {
+  const getTruncateStyle = useCallback((): React.CSSProperties => {
     if (!truncate) return {};
 
     // truncate가 true 또는 1인 경우: 1줄 말줄임
@@ -74,14 +75,18 @@ export const Text = ({
       overflow: 'hidden',
       textOverflow: 'ellipsis',
     };
-  };
+  }, [truncate]);
 
   // 동적 스타일 변수 (color, fontFamily)
   const { global } = useTheme();
-  const vars = assignInlineVars({
-    [textVars.textColor]: finalColor,
-    [textVars.textFontFamily]: global.typography.fontFamily,
-  });
+  const vars = useMemo(
+    () =>
+      assignInlineVars({
+        [textVars.textColor]: finalColor,
+        [textVars.textFontFamily]: global.typography.fontFamily,
+      }),
+    [finalColor, global.typography.fontFamily]
+  );
 
   // 스타일 클래스 생성
   const styleClass = textStyle({
@@ -101,6 +106,7 @@ export const Text = ({
     {
       className: `${styleClass} ${className || ''}`.trim(),
       style: { ...vars, ...getTruncateStyle(), ...style },
+      ...props,
     },
     children
   );
