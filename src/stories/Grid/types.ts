@@ -1,4 +1,4 @@
-import type React from 'react';
+import type { ComponentPropsWithoutRef, ElementType } from 'react';
 
 // --------------------------------------------------
 // Grid Component Types
@@ -137,8 +137,8 @@ export const GRID_PLACE_CONTENTS: GridPlaceContent[] = [
 // Component Props
 // --------------------------------------------------
 
-export type GridProps = {
-  as?: GridElement;
+export type GridProps<T extends ElementType = 'div'> = {
+  as?: T;
   columns?: GridColumns;
   rows?: GridRows;
   gap?: GridGap;
@@ -158,7 +158,23 @@ export type GridProps = {
   style?: React.CSSProperties;
   className?: string;
   children?: React.ReactNode;
-};
+} & Omit<
+  ComponentPropsWithoutRef<T>,
+  | 'as'
+  | 'columns'
+  | 'rows'
+  | 'gap'
+  | 'columnGap'
+  | 'rowGap'
+  | 'autoFlow'
+  | 'align'
+  | 'justify'
+  | 'placeContent'
+  | 'minColumnWidth'
+  | 'areas'
+  | 'width'
+  | 'height'
+>;
 
 // --------------------------------------------------
 // GridItem Component Props

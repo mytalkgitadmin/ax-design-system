@@ -6,7 +6,7 @@ import {
   ComponentSize,
 } from '../../types/component';
 
-import type { ElementType } from 'react';
+import type { ComponentPropsWithoutRef, ElementType } from 'react';
 
 // AvatarSize (xl 제외)
 export type AvatarSize = Exclude<ComponentSize, 'xl'>;
@@ -21,24 +21,7 @@ type AvatarBaseProps = {
   style?: React.CSSProperties;
   title?: string;
   'aria-label'?: string;
-} & (
-  | {
-      as?: 'button';
-      onClick: () => void; // button일 땐 onClick 필수
-      href?: never;
-    }
-  | {
-      as?: 'a';
-      href: string; // a 태그일 땐 href 필수
-      target?: '_blank' | '_self' | '_parent' | '_top';
-      onClick?: () => void;
-    }
-  | {
-      as?: Exclude<ElementType, 'button' | 'a'>;
-      onClick?: () => void;
-      href?: never;
-    }
-);
+};
 
 // 1. Image 타입: src가 있으면 image로 간주 (alt 필수)
 type AvatarImageProps = AvatarBaseProps & {
@@ -67,8 +50,11 @@ type AvatarEmptyProps = AvatarBaseProps & {
   name?: never;
 };
 
-// 최종 AvatarProps
-export type AvatarProps = AvatarImageProps | AvatarTextProps | AvatarEmptyProps;
+type AvatarVariantProps = AvatarImageProps | AvatarTextProps | AvatarEmptyProps;
+
+export type AvatarProps<T extends ElementType = 'div'> = AvatarVariantProps & {
+  as?: T;
+} & Omit<ComponentPropsWithoutRef<T>, keyof AvatarVariantProps | 'as'>;
 
 // AvatarGroup types
 

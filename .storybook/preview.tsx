@@ -34,6 +34,23 @@ const preview: Preview = {
         color: /(background|color)$/i,
         date: /Date$/i,
       },
+      // HTML DOM 기본 속성들을 Controls에서 제외
+      // 다형성(as prop) 컴포넌트의 수백 개 HTML 속성으로 인한 UI 복잡도 감소
+      exclude: [
+        // 이벤트 핸들러 (on으로 시작)
+        /^on[A-Z].*/,
+        // ARIA 속성 (일부 중요한 것들은 각 Story에서 명시적으로 포함)
+        /^aria[A-Z].*/,
+        // data 속성
+        /^data[A-Z-].*/,
+        // 기타 HTML 속성
+        'tabIndex',
+        'role',
+        'id',
+        'name',
+        // CSS 관련 (각 컴포넌트에서 명시적으로 포함된 것만 표시)
+        // 'className', 'style'은 각 Story에서 선택적으로 포함
+      ],
     },
 
     a11y: {

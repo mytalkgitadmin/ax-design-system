@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 
@@ -25,10 +25,9 @@ export const BreadCrumb = ({ items, isEllipsis }: BreadCrumbProps) => {
   const breadcrumbTheme = components.Breadcrumb;
 
   // 아이템 개수에 따라 표시할 아이템 결정
-  const getDisplayItems = (): DisplayItem[] => {
+  const displayItems = useMemo((): DisplayItem[] => {
     if (isEllipsis) {
       // ... 줄임 처리  -  5개 이상: 첫 번째 + ... + 마지막 2개
-
       return [
         items[0],
         { label: '...', isEllipsis: true },
@@ -38,31 +37,40 @@ export const BreadCrumb = ({ items, isEllipsis }: BreadCrumbProps) => {
     }
 
     return items;
-  };
-
-  const displayItems = getDisplayItems();
+  }, [items, isEllipsis]);
 
   // 테마에서 focusRadius 가져오기 (우선순위: Breadcrumb theme > global theme > default)
   const themeFocusRadius =
     breadcrumbTheme.focusRadius ?? global.radius?.sm ?? 4;
 
   // CSS Variables 주입 (Button 패턴 참고)
-  const vars = assignInlineVars({
-    [breadCrumbVars.brandDefault]: global.color.brand.default,
-    [breadCrumbVars.focusShadowColor]: global.color.brand.subtle,
-    [breadCrumbVars.focusOutlineColor]: `${global.color.brand.subtle}50`,
-    [breadCrumbVars.focusBorderRadius]: toRem(themeFocusRadius),
-  });
+  const vars = useMemo(
+    () =>
+      assignInlineVars({
+        [breadCrumbVars.brandDefault]: global.color.brand.default,
+        [breadCrumbVars.focusShadowColor]: global.color.brand.subtle,
+        [breadCrumbVars.focusOutlineColor]: `${global.color.brand.subtle}50`,
+        [breadCrumbVars.focusBorderRadius]: toRem(themeFocusRadius),
+      }),
+    [global.color.brand, themeFocusRadius]
+  );
 
   return (
     <nav aria-label='breadcrumb'>
       <ol className={breadCrumbContainer} style={vars}>
         {displayItems.map((item, index) => {
           const isLast = index === displayItems.length - 1;
-          const isEllipsis = item.isEllipsis;
+          const {
+            label,
+            leftIcon,
+            href,
+            as: Component = 'a',
+            isEllipsis,
+            ...rest
+          } = item;
 
           return (
-            <React.Fragment key={index}>
+            <React.Fragment key={`${index}-${href || label}`}>
               <li>
                 {isEllipsis ? (
                   // ... 표시
@@ -76,17 +84,19 @@ export const BreadCrumb = ({ items, isEllipsis }: BreadCrumbProps) => {
                   </span>
                 ) : (
                   // 링크로 렌더링
-                  <a
-                    href={item.href || '#'}
+                  <Component
+                    {...(Component === 'a' && !href ? { href: '#' } : {})}
+                    {...(href ? { href } : {})}
                     className={breadCrumbItemStyle({
                       isLast,
                       isEllipsis: false,
                     })}
                     aria-current={isLast ? 'page' : undefined}
+                    {...rest}
                   >
-                    {item.leftIcon && <Icon name={item.leftIcon} size={16} />}
-                    <span className={breadCrumbLabelStyle}>{item.label}</span>
-                  </a>
+                    {leftIcon && <Icon name={leftIcon} size={16} />}
+                    <span className={breadCrumbLabelStyle}>{label}</span>
+                  </Component>
                 )}
               </li>
 

@@ -1,4 +1,4 @@
-import type React from 'react';
+import type { ComponentPropsWithoutRef, ElementType } from 'react';
 
 // --------------------------------------------------
 // Flex Component Types
@@ -90,8 +90,8 @@ export const FLEX_WRAPS: FlexWrap[] = ['wrap', 'nowrap'];
 // Component Props
 // --------------------------------------------------
 
-export type FlexProps = {
-  as?: FlexElement;
+export type FlexProps<T extends ElementType = 'div'> = {
+  as?: T;
   direction?: FlexDirection;
   justify?: FlexJustify;
   align?: FlexAlign;
@@ -103,4 +103,15 @@ export type FlexProps = {
   style?: React.CSSProperties;
   className?: string;
   children?: React.ReactNode;
-};
+} & Omit<
+  ComponentPropsWithoutRef<T>,
+  | 'as'
+  | 'direction'
+  | 'justify'
+  | 'align'
+  | 'gap'
+  | 'wrap'
+  | 'flex'
+  | 'width'
+  | 'height'
+>;

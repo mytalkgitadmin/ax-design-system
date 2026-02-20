@@ -72,6 +72,7 @@ const meta = {
   },
   tags: ['autodocs', '!dev'],
   argTypes: {
+    // === Appearance ===
     size: {
       control: 'select',
       options: AVATAR_SIZES,
@@ -90,6 +91,18 @@ const meta = {
       description: '둥근 모서리',
       table: { category: 'Appearance', defaultValue: { summary: 'full' } },
     },
+    className: {
+      control: 'text',
+      description: '추가 CSS 클래스',
+      table: { category: 'Appearance' },
+    },
+    style: {
+      control: 'object',
+      description: '인라인 스타일',
+      table: { category: 'Appearance' },
+    },
+
+    // === Content ===
     src: {
       control: 'text',
       description: '이미지 URL (**필수**: Image 타입일 때 `alt`와 함께 사용)',
@@ -98,7 +111,7 @@ const meta = {
     alt: {
       control: 'text',
       description: '대체 텍스트 (**필수**: `src`가 있을 때)',
-      table: { category: 'Accessibility' },
+      table: { category: 'Content' },
     },
     text: {
       control: 'text',
@@ -112,19 +125,11 @@ const meta = {
         '사용자 이름 (Image 실패 시 Fallback, Text 타입 시 이니셜 생성)',
       table: { category: 'Content' },
     },
-    as: {
-      control: false,
-      description: '렌더링할 HTML 태그 (`button`, `a`, `div` 등)',
-      table: { category: 'Polymorphic' },
-    },
+
+    // === Interaction ===
     onClick: {
       control: false,
       description: '클릭 이벤트 (**필수**: `as="button"`일 때)',
-      table: { category: 'Interaction' },
-    },
-    href: {
-      control: false,
-      description: '링크 URL (**필수**: `as="a"`일 때)',
       table: { category: 'Interaction' },
     },
     title: {
@@ -132,14 +137,27 @@ const meta = {
       description: '툴팁 텍스트',
       table: { category: 'Interaction' },
     },
+
+    // === Polymorphic ===
+    as: {
+      control: false,
+      description: '렌더링할 HTML 태그/컴포넌트. 예: `button`, `a`, `Link` 등',
+      table: {
+        category: 'Polymorphic',
+        type: { summary: 'ElementType' },
+      },
+    },
+    href: {
+      control: 'text',
+      description: '링크 URL (**필수**: `as="a"`일 때)',
+      table: { category: 'Polymorphic' },
+    },
+
+    // === Accessibility ===
     'aria-label': {
       control: 'text',
-      description: '접근성 레이블 (기본값: name 또는 "프로필")',
+      description: '접근성 레이블 (기본값: name 기반 자동 생성)',
       table: { category: 'Accessibility' },
-    },
-    className: {
-      control: false,
-      table: { category: 'Others' },
     },
   },
 

@@ -1,5 +1,6 @@
-// BreadCrumb types
 import { IconType } from '../Icon';
+
+import type { ElementType } from 'react';
 
 /** BreadCrumb 아이템 */
 export type BreadCrumbItem = {
@@ -11,6 +12,12 @@ export type BreadCrumbItem = {
 
   /** 링크 URL */
   href?: string;
+
+  /** 다형성 지원: 렌더링할 태그 / 컴포넌트 */
+  as?: ElementType;
+
+  /** 기타 추가 prop (Link 컴포넌트용 등) */
+  [key: string]: unknown;
 };
 
 export type BreadCrumbProps = {

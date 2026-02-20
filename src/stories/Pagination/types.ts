@@ -1,8 +1,9 @@
-// Pagination types
 import {
   COMPONENT_COLOR_PRESETS,
   ComponentColorPreset,
 } from '../../types/component';
+
+import type { ComponentPropsWithoutRef, ElementType } from 'react';
 
 export type PaginationColor = Exclude<ComponentColorPreset, 'tertiary'>;
 export type PaginationSize = 'sm' | 'md';
@@ -35,11 +36,20 @@ export type PaginationProps = {
   /** 추가 CSS 클래스 */
   className?: string;
 
+  /** PaginationItem 및 NavButton에 적용될 기본 태그/컴포넌트 (as) */
+  itemAs?: React.ElementType;
+
+  /** Pagination 내 개별 버튼들에 추가로 넘겨줄 prop (ex: href 등) */
+  getItemProps?: (
+    type: 'page' | 'previous' | 'next',
+    pageIndex?: number
+  ) => Record<string, unknown>;
+
   /** 추가 스타일 */
   style?: React.CSSProperties;
 };
 
-export type PaginationItemProps = {
+export type PaginationItemProps<T extends ElementType = 'a'> = {
   /** 페이지 번호 */
   page: number;
 
@@ -60,9 +70,15 @@ export type PaginationItemProps = {
 
   /** 추가 CSS 클래스 */
   className?: string;
-};
 
-export type PaginationNavButtonProps = {
+  /** 다형성 컴포넌트 태그 */
+  as?: T;
+} & Omit<
+  ComponentPropsWithoutRef<T>,
+  'as' | 'color' | 'size' | 'onClick' | 'className'
+>;
+
+export type PaginationNavButtonProps<T extends ElementType = 'a'> = {
   /** 버튼 타입 */
   type: 'previous' | 'next';
 
@@ -80,7 +96,13 @@ export type PaginationNavButtonProps = {
 
   /** 추가 CSS 클래스 */
   className?: string;
-};
+
+  /** 다형성 컴포넌트 태그 */
+  as?: T;
+} & Omit<
+  ComponentPropsWithoutRef<T>,
+  'as' | 'color' | 'size' | 'onClick' | 'type' | 'className'
+>;
 
 export type PaginationEllipsisProps = {
   /** 크기 변형 */

@@ -3,6 +3,8 @@
  * 페이지네이션 UI를 제공하는 메인 컴포넌트
  */
 
+import { useCallback } from 'react';
+
 import { PAGINATION_CONFIG } from './constants';
 import { PaginationEllipsis } from './PaginationEllipsis';
 import { PaginationItem } from './PaginationItem';
@@ -38,24 +40,29 @@ export const Pagination = ({
   siblingCount = 1,
   disabled = false,
   className = '',
+  itemAs,
+  getItemProps,
   style,
 }: PaginationProps) => {
   const pages = usePagination({ totalPages, currentPage, siblingCount });
 
-  const handlePageChange = (page: number) => {
-    if (disabled) return;
-    if (page < 1 || page > totalPages) return;
-    if (page === currentPage) return;
-    onPageChange?.(page);
-  };
+  const handlePageChange = useCallback(
+    (page: number) => {
+      if (disabled) return;
+      if (page < 1 || page > totalPages) return;
+      if (page === currentPage) return;
+      onPageChange?.(page);
+    },
+    [disabled, totalPages, currentPage, onPageChange]
+  );
 
-  const handlePrevious = () => {
+  const handlePrevious = useCallback(() => {
     handlePageChange(currentPage - 1);
-  };
+  }, [handlePageChange, currentPage]);
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     handlePageChange(currentPage + 1);
-  };
+  }, [handlePageChange, currentPage]);
 
   // NAV_BUTTON_THRESHOLD 페이지 이하일 때는 navigation button을 숨김
   const shouldShowNavButtons =
@@ -71,11 +78,15 @@ export const Pagination = ({
         {showPrevious && (
           <li>
             <PaginationNavButton
+              as={itemAs}
               type='previous'
               onClick={handlePrevious}
               disabled={disabled}
               color={colorProp}
               size={size}
+              {...(getItemProps
+                ? getItemProps('previous', currentPage - 1)
+                : {})}
             />
           </li>
         )}
@@ -92,12 +103,14 @@ export const Pagination = ({
           return (
             <li key={page}>
               <PaginationItem
+                as={itemAs}
                 page={page}
                 isActive={page === currentPage}
                 onClick={() => handlePageChange(page)}
                 disabled={disabled}
                 color={colorProp}
                 size={size}
+                {...(getItemProps ? getItemProps('page', page) : {})}
               />
             </li>
           );
@@ -106,11 +119,13 @@ export const Pagination = ({
         {showNext && (
           <li>
             <PaginationNavButton
+              as={itemAs}
               type='next'
               onClick={handleNext}
               disabled={disabled}
               color={colorProp}
               size={size}
+              {...(getItemProps ? getItemProps('next', currentPage + 1) : {})}
             />
           </li>
         )}

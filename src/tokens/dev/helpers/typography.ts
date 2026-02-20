@@ -5,6 +5,8 @@
  */
 import { toRem } from './units';
 
+import type { ComponentPropsWithoutRef, ElementType } from 'react';
+
 export const fontSize = {
   56: toRem(56),
   44: toRem(44),
@@ -291,7 +293,7 @@ export const presetOptions = Object.keys(
 /**
  * Text Component Props
  */
-export type TextProps = {
+export type TextProps<T extends ElementType = 'p'> = {
   // Preset (선택사항 - preset을 사용하면 size, weight, lineHeight 자동 설정)
   preset?: TypographyPresetName;
 
@@ -311,8 +313,23 @@ export type TextProps = {
   truncate?: boolean | number; // true or 1: 1줄 말줄임, 2 이상: 다중 라인 말줄임
 
   // HTML 태그
-  as?: TextElement;
+  as?: T;
   className?: string;
   style?: React.CSSProperties;
   children?: React.ReactNode;
-};
+} & Omit<
+  ComponentPropsWithoutRef<T>,
+  | 'as'
+  | 'preset'
+  | 'size'
+  | 'weight'
+  | 'lineHeight'
+  | 'letterSpacing'
+  | 'color'
+  | 'align'
+  | 'textWrap'
+  | 'wordBreak'
+  | 'underline'
+  | 'through'
+  | 'truncate'
+>;
