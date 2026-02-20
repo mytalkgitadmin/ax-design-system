@@ -143,6 +143,22 @@ export const inputContainerStyle = recipe({
           },
         },
       },
+      none: {
+        border: 'none',
+        backgroundColor: 'transparent',
+        selectors: {
+          '&:hover:not(:has(input:disabled)):not(:has(input:focus-visible))': {
+            borderColor: 'transparent',
+          },
+          '&:has(input:focus)': {
+            borderColor: 'transparent',
+            boxShadow: 'none',
+          },
+          '&:has(input:focus-visible)': {
+            boxShadow: 'none',
+          },
+        },
+      },
     },
     error: {
       true: {

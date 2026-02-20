@@ -1,8 +1,8 @@
-import { useCallback, useMemo, useState } from 'react';
+import React, { ElementType, useCallback, useMemo, useState } from 'react';
 
 import { color } from '../../tokens';
 import { Icon } from '../Icon';
-import { AvatarProps, AvatarSize } from './types';
+import { AvatarProps } from './types';
 import { getColorVariantFromText, getInitials } from './utils';
 
 import {
@@ -14,43 +14,26 @@ import {
 
 export type { AvatarProps } from './types';
 
-// 내부 구현을 위한 포괄적 Props 타입 (never 타입 제약 우회)
-type AvatarInternalProps = {
-  as?: React.ElementType; // Component
-  size?: AvatarSize;
-  rounded?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
-  className?: string;
-  style?: React.CSSProperties;
-  title?: string;
-  'aria-label'?: string;
-  onClick?: () => void;
-  type?: 'image' | 'text' | 'empty';
-  src?: string;
-  alt?: string;
-  text?: string;
-  name?: string;
-  href?: string;
-};
-
-export const Avatar = (props: AvatarProps) => {
-  const {
-    as: Component = 'div',
-    size = 'md',
-    type,
-    rounded = 'full',
-    className,
-    style,
-    title,
-    'aria-label': ariaLabel,
-    onClick,
-    src,
-    alt = 'Avatar',
-    text,
-    name,
-  } = props as unknown as AvatarInternalProps;
+export const Avatar = <T extends ElementType = 'div'>({
+  as,
+  size = 'md',
+  type,
+  rounded = 'full',
+  className,
+  style,
+  title,
+  'aria-label': ariaLabel,
+  onClick,
+  src,
+  alt = 'Avatar',
+  text,
+  name,
+  ...props
+}: AvatarProps<T>) => {
+  const Component = as || 'div';
 
   const [imageError, setImageError] = useState(false);
-  const iconSize = Number(avatarSizes[size as AvatarSize].iconSize);
+  const iconSize = Number(avatarSizes[size].iconSize);
 
   // 최종 표시 타입 결정
   const finalType = useMemo(() => {
@@ -143,19 +126,29 @@ export const Avatar = (props: AvatarProps) => {
     return <Icon name='UserFill' size={iconSize} color={color.icon.muted} />;
   };
 
+  const isButton = Component === 'button';
+  const isLink = Component === 'a' || Boolean(props.href);
+
   const containerProps = {
-    className: `${finalClassName} ${className || ''} ${
-      onClick ? interactiveAvatar : ''
-    }`,
+    className: [finalClassName, className, onClick && interactiveAvatar]
+      .filter(Boolean)
+      .join(' '),
     onClick,
-    role: onClick && Component !== 'button' ? 'button' : undefined,
-    tabIndex: onClick && Component !== 'button' ? 0 : undefined,
-    onKeyDown: onClick && Component !== 'button' ? handleKeyDown : undefined,
+    role: onClick && !isButton && !isLink ? 'button' : undefined,
+    tabIndex: onClick && !isButton && !isLink ? 0 : undefined,
+    onKeyDown: onClick && !isButton && !isLink ? handleKeyDown : undefined,
     'aria-label': finalAriaLabel,
-    ...(Component === 'button' ? { type: 'button' } : {}),
+    ...(isButton && !props.type ? { type: 'button' } : {}),
     ...(title ? { title } : {}),
     ...(style ? { style } : {}),
   } as const;
 
-  return <Component {...containerProps}>{renderContent()}</Component>;
+  return React.createElement(
+    Component,
+    {
+      ...containerProps,
+      ...props,
+    },
+    renderContent()
+  );
 };

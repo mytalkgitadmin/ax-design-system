@@ -1,5 +1,5 @@
 // Button types
-import { ReactNode } from 'react';
+import { ComponentPropsWithoutRef, ElementType, ReactNode } from 'react';
 
 import {
   COMPONENT_COLOR_PRESETS,
@@ -48,26 +48,10 @@ type ButtonBaseProps = {
   className?: string;
 };
 
-// Button 태그로 렌더링될 때
-type ButtonAsButton = ButtonBaseProps & {
-  as?: never; // undefined만 허용
-  href?: never;
-  target?: never;
-  type?: ButtonType;
-  onClick?: () => void;
-};
-
-// a 태그로 렌더링될 때
-type ButtonAsLink = ButtonBaseProps & {
-  as: 'a';
-  href: string; // 필수!
-  target?: '_blank' | '_self';
-  type?: never; // a 태그에는 type 속성 없음
-  onClick?: never; // 링크는 onClick 대신 href 사용
-};
-
-// 최종 타입: ButtonAsButton 또는 ButtonAsLink 둘 중 하나
-export type ButtonProps = ButtonAsButton | ButtonAsLink;
+// 다형성(Polymorphic)을 지원하는 최종 Button Props
+export type ButtonProps<T extends ElementType = 'button'> = ButtonBaseProps & {
+  as?: T;
+} & Omit<ComponentPropsWithoutRef<T>, keyof ButtonBaseProps | 'as'>;
 
 // Storybook을 위한 options 배열
 export const BUTTON_VARIANTS: ButtonVariant[] = ['solid', 'outline', 'ghost'];

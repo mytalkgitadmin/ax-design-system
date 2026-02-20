@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ElementType } from 'react';
 
 import type { FlexProps } from './types';
 
@@ -6,8 +6,8 @@ import { flexStyle } from './Flex.css';
 
 export type { FlexProps };
 
-export const Flex = ({
-  as = 'div',
+export const Flex = <T extends ElementType = 'div'>({
+  as,
   direction = 'row',
   justify = 'start',
   align = 'stretch',
@@ -19,7 +19,9 @@ export const Flex = ({
   style,
   className,
   children,
-}: FlexProps) => {
+  ...props
+}: FlexProps<T>) => {
+  const Component = as || 'div';
   const flexClass = flexStyle({
     direction,
     justify,
@@ -36,10 +38,11 @@ export const Flex = ({
   };
 
   return React.createElement(
-    as,
+    Component,
     {
       className: `${flexClass} ${className || ''}`.trim(),
       style: inlineStyles,
+      ...props,
     },
     children
   );
