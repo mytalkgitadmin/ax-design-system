@@ -17,7 +17,7 @@ const SvgNamecircleArrowFillFalseDirectionright = (
       strokeLinecap='round'
       strokeLinejoin='round'
       strokeWidth={1.3}
-      d='M16 12H9M11.5 9l-3 3 3 3'
+      d='M8 12h7M12.5 9l3 3-3 3'
     />
   </svg>
 );
