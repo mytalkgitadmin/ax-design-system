@@ -209,7 +209,8 @@ export const Input = ({
 
   // KeyDown Handler (Enter key support for Search)
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && onRightIconClick) {
+    // IME composition 중에는 Enter 처리를 하지 않음 (한글, 일본어, 중국어 입력 지원)
+    if (e.key === 'Enter' && !e.nativeEvent.isComposing && onRightIconClick) {
       e.preventDefault();
       onRightIconClick();
     }
