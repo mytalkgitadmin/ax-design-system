@@ -1,5 +1,5 @@
 import type { SVGProps } from 'react';
-const SvgNametrackSizenormal = (props: SVGProps<SVGSVGElement>) => (
+const SvgNametrack = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns='http://www.w3.org/2000/svg'
     fill='none'
@@ -15,4 +15,4 @@ const SvgNametrackSizenormal = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 );
-export { SvgNametrackSizenormal as SvgComponent };
+export { SvgNametrack as SvgComponent };

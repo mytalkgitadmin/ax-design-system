@@ -1,5 +1,5 @@
 import type { SVGProps } from 'react';
-const SvgNameRepairFillTrue = (props: SVGProps<SVGSVGElement>) => (
+const SvgNamerepairFillTrue = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns='http://www.w3.org/2000/svg'
     fill='none'
@@ -12,4 +12,4 @@ const SvgNameRepairFillTrue = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 );
-export { SvgNameRepairFillTrue as SvgComponent };
+export { SvgNamerepairFillTrue as SvgComponent };

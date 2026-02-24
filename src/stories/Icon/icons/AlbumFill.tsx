@@ -1,5 +1,5 @@
 import type { SVGProps } from 'react';
-const SvgNamealbumFillTrueSizenormal = (props: SVGProps<SVGSVGElement>) => (
+const SvgNamealbumFillTrue = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns='http://www.w3.org/2000/svg'
     fill='none'
@@ -12,4 +12,4 @@ const SvgNamealbumFillTrueSizenormal = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 );
-export { SvgNamealbumFillTrueSizenormal as SvgComponent };
+export { SvgNamealbumFillTrue as SvgComponent };
