@@ -35,7 +35,18 @@ export type FlexJustify =
   | 'around'
   | 'evenly';
 export type FlexAlign = 'start' | 'center' | 'end' | 'stretch';
-export type FlexGap = '0' | '4' | '8' | '12' | '16' | '24' | '32' | '48' | '64';
+export type FlexGap =
+  | '0'
+  | '4'
+  | '8'
+  | '12'
+  | '16'
+  | '20'
+  | '24'
+  | '28'
+  | '32'
+  | '48'
+  | '64';
 export type FlexWrap = 'wrap' | 'nowrap';
 
 // --------------------------------------------------
@@ -79,7 +90,9 @@ export const FLEX_GAPS: FlexGap[] = [
   '8',
   '12',
   '16',
+  '20',
   '24',
+  '28',
   '32',
   '48',
   '64',
