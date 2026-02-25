@@ -23,19 +23,32 @@ export const accordionContainer = style({
 });
 
 // Accordion 아이템
-export const accordionItem = style({
-  borderBottom: `1px solid ${color.divider.soft}`,
-  selectors: {
-    '&:last-child': {
-      borderBottom: 'none',
+export const accordionItem = recipe({
+  base: {},
+  variants: {
+    border: {
+      true: {
+        borderBottom: `1px solid ${color.divider.soft}`,
+        selectors: {
+          '&:last-child': {
+            borderBottom: 'none',
+          },
+        },
+      },
+      false: {
+        borderBottom: 'none',
+      },
     },
+  },
+  defaultVariants: {
+    border: true,
   },
 });
 
 // Header 기본 스타일
 const baseHeader = style({
   display: 'flex',
-  alignItems: 'center',
+  alignItems: 'flex-start',
   width: '100%',
   cursor: 'pointer',
   backgroundColor: 'transparent',
@@ -72,22 +85,22 @@ export const accordionHeader = recipe({
   variants: {
     size: {
       sm: {
-        height: toRem(componentSize.sm.height),
+        minHeight: toRem(componentSize.sm.height),
         fontSize: toRem(componentSize.sm.fontSize),
         gap: spacing[8],
-        padding: '0 0.5em',
+        padding: `${spacing[12]} 0.5em`,
       },
       md: {
-        height: toRem(componentSize.md.height),
+        minHeight: toRem(componentSize.md.height),
         fontSize: toRem(componentSize.md.fontSize),
         gap: spacing[8],
-        padding: '0 0.5em',
+        padding: `${spacing[16]} 0.5em`,
       },
       lg: {
-        height: toRem(componentSize.lg.height),
+        minHeight: toRem(componentSize.lg.height),
         fontSize: toRem(componentSize.lg.fontSize),
         gap: spacing[12],
-        padding: '0 0.5em',
+        padding: `${spacing[20]} 0.5em`,
       },
     },
   },
@@ -108,7 +121,7 @@ export const leftIconWrapper = style({
 export const textArea = style({
   flex: 1,
   display: 'flex',
-  alignItems: 'center',
+  alignItems: 'flex-start',
   gap: spacing[32],
   minWidth: 0, // text overflow 방지
 });
@@ -117,12 +130,34 @@ export const textArea = style({
 export const category = style({
   color: color.text.primary,
   fontWeight: font.weight.semibold,
+  whiteSpace: 'nowrap',
+  flexShrink: 0,
 });
 
 // 타이틀
-export const title = style({
-  color: textColorVar,
-  fontWeight: font.weight.regular,
+export const title = recipe({
+  base: {
+    color: textColorVar,
+    fontWeight: font.weight.regular,
+    flex: 1,
+    minWidth: 0,
+  },
+  variants: {
+    expanded: {
+      false: {
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+      },
+      true: {
+        whiteSpace: 'normal',
+        wordBreak: 'break-all',
+      },
+    },
+  },
+  defaultVariants: {
+    expanded: false,
+  },
 });
 
 // 오른쪽 chevron 영역
@@ -139,8 +174,8 @@ export const chevronExpanded = style({
 
 // Content 영역
 const baseContent = style({
-  overflow: 'hidden',
-  transition: 'max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease',
+  display: 'grid',
+  transition: 'grid-template-rows 0.3s ease, border-color 0.3s ease',
   color: textColorVar,
   fontFamily: fontFamilyVar,
 });
@@ -162,20 +197,40 @@ export const accordionContent = recipe({
     },
     expanded: {
       true: {
-        opacity: 1,
-        padding: `1em`,
+        gridTemplateRows: '1fr',
         borderTop: `1px solid ${color.divider.soft}`,
       },
       false: {
-        maxHeight: 0,
-        padding: `0 1em`,
-        opacity: 0,
+        gridTemplateRows: '0fr',
+        borderTop: `1px solid transparent`,
       },
     },
   },
 
   defaultVariants: {
     size: 'md',
+    expanded: false,
+  },
+});
+
+export const accordionContentInner = recipe({
+  base: {
+    overflow: 'hidden',
+    transition: 'opacity 0.3s ease, padding 0.3s ease',
+  },
+  variants: {
+    expanded: {
+      true: {
+        opacity: 1,
+        padding: `1em`,
+      },
+      false: {
+        opacity: 0,
+        padding: `0 1em`,
+      },
+    },
+  },
+  defaultVariants: {
     expanded: false,
   },
 });

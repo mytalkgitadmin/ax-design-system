@@ -53,8 +53,11 @@ export type InputProps = BaseFormFieldProps & {
   type?: InputType;
   value?: string | number;
   defaultValue?: string | number;
-  min?: number;
-  max?: number;
+  min?: number | string;
+  max?: number | string;
+  maxLength?: number;
+  minLength?: number;
+  readOnly?: boolean;
 
   // Style
   textAlign?: 'left' | 'center' | 'right';
@@ -65,6 +68,7 @@ export type InputProps = BaseFormFieldProps & {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 };
 
 // Storybook을 위한 options 배열
