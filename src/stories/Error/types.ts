@@ -6,9 +6,27 @@ import { IconType } from '../Icon';
 export type ErrorProps = {
   /**
    * 커스텀 아이콘 이름
-   * @default "CircleError"
+   * (생략 시 아이콘이 영역에서 제거됨)
    */
-  iconName?: IconType;
+  icon?: IconType;
+  /**
+   * 컴포넌트 전체 크기
+   * - sm: 기본 크기 (기존)
+   * - md: 중간 크기
+   * - lg: 큰 크기
+   * @default "sm"
+   */
+  size?: 'sm' | 'md' | 'lg';
+  /**
+   * 커스텀 아이콘 색상
+   * @default color.icon.primary
+   */
+  iconColor?: string;
+  /**
+   * 아이콘 크기 (size 속성보다 우선 적용됨)
+   * 생략 시 size 속성에 따라 자동 결정됨 (sm: 48, md: 64, lg: 80)
+   */
+  iconSize?: number;
   /**
    * 에러 제목
    * @default "서비스 이용이 원활하지 않아요"
