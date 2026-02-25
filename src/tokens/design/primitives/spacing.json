@@ -32,6 +32,10 @@
       "value": "1.5rem",
       "type": "dimension"
     },
+    "28": {
+      "value": "1.75rem",
+      "type": "dimension"
+    },
     "32": {
       "value": "2rem",
       "type": "dimension"
