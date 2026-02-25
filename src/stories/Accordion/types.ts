@@ -11,8 +11,8 @@ export type AccordionItemData = {
   /** 카테고리 텍스트 (선택적) */
   category?: string;
 
-  /** 타이틀 텍스트 */
-  title?: string;
+  /** 타이틀 텍스트 (또는 커스텀 요소) */
+  title?: React.ReactNode;
 
   /** 왼쪽 아이콘 (선택적) */
   leftIcon?: IconType;
@@ -25,6 +25,12 @@ export type AccordionItemData = {
 
   /** 커스텀 트리거 콘텐츠 (title 대신 사용) */
   trigger?: React.ReactNode;
+
+  /** 스타일 클래스명 */
+  className?: string;
+
+  /** 인라인 스타일 */
+  style?: React.CSSProperties;
 };
 
 // Accordion (컨테이너)
@@ -55,6 +61,12 @@ export type AccordionProps = {
 
   /** 자식 요소 (JSX로 전달 시 사용 - AccordionItem들) */
   children?: React.ReactNode;
+
+  /** 스타일 클래스명 */
+  className?: string;
+
+  /** 인라인 스타일 */
+  style?: React.CSSProperties;
 };
 
 // AccordionItem
@@ -67,6 +79,15 @@ export type AccordionItemProps = {
 
   /** 자식 요소 (AccordionTrigger + AccordionContent) */
   children: React.ReactNode;
+
+  /** 하단 보더 표시 여부 (기본값: true) */
+  border?: boolean;
+
+  /** 스타일 클래스명 */
+  className?: string;
+
+  /** 인라인 스타일 */
+  style?: React.CSSProperties;
 };
 
 // AccordionTrigger
@@ -74,20 +95,32 @@ export type AccordionTriggerProps = {
   /** 카테고리 텍스트 (선택적) */
   category?: string;
 
-  /** 타이틀 텍스트 */
-  title?: string;
+  /** 타이틀 텍스트 (또는 커스텀 요소) */
+  title?: React.ReactNode;
 
   /** 왼쪽 아이콘 (선택적) */
   leftIcon?: IconType;
 
   /** 자식 요소 (커스텀 내용) */
   children?: React.ReactNode;
+
+  /** 스타일 클래스명 */
+  className?: string;
+
+  /** 인라인 스타일 */
+  style?: React.CSSProperties;
 };
 
 // AccordionContent
 export type AccordionContentProps = {
   /** 자식 요소 */
   children: React.ReactNode;
+
+  /** 스타일 클래스명 */
+  className?: string;
+
+  /** 인라인 스타일 */
+  style?: React.CSSProperties;
 };
 
 // Storybook을 위한 options 배열

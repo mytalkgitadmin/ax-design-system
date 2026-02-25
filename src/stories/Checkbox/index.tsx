@@ -112,7 +112,7 @@ export const Checkbox = ({
   // CSS Variables 주입
   const vars = assignInlineVars({
     [checkboxVars.fontFamily]: global.typography.fontFamily,
-    [checkboxVars.fontWeight]: String(global.typography.fontWeight.semibold),
+    [checkboxVars.fontWeight]: String(global.typography.fontWeight.regular),
     [checkboxVars.borderRadius]: toRem(finalRadius),
     [checkboxVars.primaryColor]: global.color.brand.default,
     [checkboxVars.focusShadowColor]: global.color.brand.subtle,
@@ -187,10 +187,12 @@ export const Checkbox = ({
       </div>
 
       <div className={textContainer}>
-        <span className={label({ size, disabled })}>
-          {labelText}
-          {required && <span className={requiredMark}>*</span>}
-        </span>
+        {(labelText || required) && (
+          <span className={label({ size, disabled })}>
+            {labelText}
+            {required && <span className={requiredMark}>*</span>}
+          </span>
+        )}
 
         {helpTextContent && (
           <span id={`${checkboxId}-help`} className={helpText({ disabled })}>

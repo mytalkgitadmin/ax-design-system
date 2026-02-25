@@ -29,6 +29,8 @@ export type {
   CheckboxOption,
   CheckboxProps,
 } from './stories/Checkbox/types';
+export type { ErrorProps } from './stories/Error';
+export { Error } from './stories/Error';
 export type { FlexProps } from './stories/Flex';
 export { Flex } from './stories/Flex';
 export type {
