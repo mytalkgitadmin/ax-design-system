@@ -44,7 +44,7 @@ export type CheckboxProps = {
   /**
    * 체크박스 레이블
    */
-  label: string;
+  label?: React.ReactNode;
 
   /**
    * 부가 설명 텍스트 (선택사항)
@@ -95,7 +95,7 @@ export type CheckboxOption = {
   /**
    * 체크박스 레이블
    */
-  label: string;
+  label?: React.ReactNode;
 
   /**
    * 부가 설명 텍스트 (선택사항)
