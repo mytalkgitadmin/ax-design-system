@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useRef, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 
@@ -16,6 +16,7 @@ import type {
 import {
   accordionContainer,
   accordionContent,
+  accordionContentInner,
   accordionHeader,
   accordionItem,
   accordionVars,
@@ -88,6 +89,8 @@ export const Accordion = ({
   onValueChange,
   items,
   children,
+  className,
+  style,
 }: AccordionProps) => {
   const { global } = useTheme();
 
@@ -142,7 +145,10 @@ export const Accordion = ({
     <AccordionContext.Provider
       value={{ size, type, expandedItems, toggleItem }}
     >
-      <div className={accordionContainer} style={vars}>
+      <div
+        className={`${accordionContainer} ${className || ''}`}
+        style={{ ...vars, ...style }}
+      >
         {items
           ? items.map((item) => (
               <AccordionItem
@@ -171,13 +177,21 @@ export const AccordionItem = ({
   value,
   disabled = false,
   children,
+  border = true,
+  className,
+  style,
 }: AccordionItemProps) => {
   const { expandedItems } = useAccordionContext();
   const isExpanded = expandedItems.includes(value);
 
   return (
     <AccordionItemContext.Provider value={{ value, isExpanded, disabled }}>
-      <div className={accordionItem}>{children}</div>
+      <div
+        className={`${accordionItem({ border })} ${className || ''}`}
+        style={style}
+      >
+        {children}
+      </div>
     </AccordionItemContext.Provider>
   );
 };
@@ -188,6 +202,8 @@ export const AccordionTrigger = ({
   title,
   leftIcon,
   children,
+  className,
+  style,
 }: AccordionTriggerProps) => {
   const { size, toggleItem } = useAccordionContext();
   const { value, isExpanded, disabled } = useAccordionItemContext();
@@ -214,7 +230,8 @@ export const AccordionTrigger = ({
 
   return (
     <button
-      className={accordionHeader({ size })}
+      className={`${accordionHeader({ size })} ${className || ''}`}
+      style={style}
       onClick={handleClick}
       onKeyDown={handleKeyDown}
       disabled={disabled}
@@ -224,58 +241,60 @@ export const AccordionTrigger = ({
     >
       {/* 왼쪽 아이콘 */}
       {leftIcon && (
-        <div className={leftIconWrapper}>
+        <span className={leftIconWrapper}>
           <Icon name={leftIcon} size={iconSize} />
-        </div>
+        </span>
       )}
 
       {/* 텍스트 영역 */}
-      <div className={textArea}>
+      <span className={textArea}>
         {children ? (
           children
         ) : (
           <>
-            {category && <div className={categoryStyle}>{category}</div>}
-            {title && <div className={titleStyle}>{title}</div>}
+            {category && <span className={categoryStyle}>{category}</span>}
+            {title && (
+              <span className={titleStyle({ expanded: isExpanded })}>
+                {title}
+              </span>
+            )}
           </>
         )}
-      </div>
+      </span>
 
       {/* 오른쪽 Chevron */}
-      <div className={`${chevronWrapper} ${isExpanded ? chevronExpanded : ''}`}>
+      <span
+        className={`${chevronWrapper} ${isExpanded ? chevronExpanded : ''}`}
+      >
         <Icon name='ChevronDown' size={iconSize} />
-      </div>
+      </span>
     </button>
   );
 };
 
 // AccordionContent Component
-export const AccordionContent = ({ children }: AccordionContentProps) => {
+export const AccordionContent = ({
+  children,
+  className,
+  style,
+}: AccordionContentProps) => {
   const { size } = useAccordionContext();
   const { value, isExpanded } = useAccordionItemContext();
-  const contentRef = useRef<HTMLDivElement>(null);
-
-  // Content의 동적 높이 계산
-  useEffect(() => {
-    if (contentRef.current) {
-      if (isExpanded) {
-        contentRef.current.style.maxHeight = `${contentRef.current.scrollHeight}px`;
-      } else {
-        contentRef.current.style.maxHeight = '0';
-      }
-    }
-  }, [isExpanded, children]);
 
   const contentId = `accordion-content-${value}`;
 
   return (
     <div
       id={contentId}
-      ref={contentRef}
       role='region'
-      className={accordionContent({ size, expanded: isExpanded })}
+      className={`${accordionContent({ size, expanded: isExpanded })} ${
+        className || ''
+      }`}
+      style={style}
     >
-      {children}
+      <div className={accordionContentInner({ expanded: isExpanded })}>
+        {children}
+      </div>
     </div>
   );
 };
