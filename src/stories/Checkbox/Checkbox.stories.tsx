@@ -152,7 +152,13 @@ const DefaultCheckbox = (args: CheckboxProps) => {
     setChecked(args.checked || false);
   }, [args.checked]);
 
-  return <Checkbox {...args} checked={checked} onChange={setChecked} />;
+  return (
+    <Checkbox
+      {...args}
+      checked={checked}
+      onChange={(e) => setChecked(e.target.checked)}
+    />
+  );
 };
 
 const AllStatesDemo = () => {
@@ -178,14 +184,14 @@ const AllStatesDemo = () => {
         helpText='체크박스 레이블에 대한 부가 설명'
         size='lg'
         checked={checked1}
-        onChange={setChecked1}
+        onChange={(e) => setChecked1(e.target.checked)}
       />
       <Checkbox
         label='체크박스 레이블'
         helpText='체크박스 레이블에 대한 부가 설명'
         size='md'
         checked={checked1}
-        onChange={setChecked1}
+        onChange={(e) => setChecked1(e.target.checked)}
       />
       <p>checked</p>
       <Checkbox
@@ -193,14 +199,14 @@ const AllStatesDemo = () => {
         label='체크박스 레이블'
         helpText='체크박스 레이블에 대한 부가 설명'
         checked={checked2}
-        onChange={setChecked2}
+        onChange={(e) => setChecked2(e.target.checked)}
       />
       <Checkbox
         size='md'
         label='체크박스 레이블'
         helpText='체크박스 레이블에 대한 부가 설명'
         checked={checked2}
-        onChange={setChecked2}
+        onChange={(e) => setChecked2(e.target.checked)}
       />
       <p>disabled</p>
       <Checkbox
@@ -568,7 +574,7 @@ const RequiredExampleComponent = () => {
           helpText='필수 동의 항목입니다'
           required
           checked={terms}
-          onChange={setTerms}
+          onChange={(e) => setTerms(e.target.checked)}
         />
 
         <Checkbox
@@ -576,7 +582,7 @@ const RequiredExampleComponent = () => {
           helpText='필수 동의 항목입니다'
           required
           checked={privacy}
-          onChange={setPrivacy}
+          onChange={(e) => setPrivacy(e.target.checked)}
         />
       </div>
 
@@ -662,14 +668,14 @@ const LabelPlacementExampleComponent = () => {
             helpText='첫 번째 옵션입니다'
             labelPlacement='start'
             checked={checked}
-            onChange={setChecked}
+            onChange={(e) => setChecked(e.target.checked)}
           />
           <Checkbox
             label='옵션 2'
             helpText='두 번째 옵션입니다'
             labelPlacement='start'
             checked={checked}
-            onChange={setChecked}
+            onChange={(e) => setChecked(e.target.checked)}
           />
         </div>
       </div>
@@ -691,14 +697,14 @@ const LabelPlacementExampleComponent = () => {
             helpText='첫 번째 옵션입니다'
             labelPlacement='end'
             checked={checked}
-            onChange={setChecked}
+            onChange={(e) => setChecked(e.target.checked)}
           />
           <Checkbox
             label='옵션 2'
             helpText='두 번째 옵션입니다'
             labelPlacement='end'
             checked={checked}
-            onChange={setChecked}
+            onChange={(e) => setChecked(e.target.checked)}
           />
         </div>
       </div>

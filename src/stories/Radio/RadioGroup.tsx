@@ -124,7 +124,7 @@ export const RadioGroup = ({
         size={size}
         checked={value === option.value}
         disabled={disabled || option.disabled}
-        onChange={() => handleChange(option.value)}
+        onChange={(event) => event.target.checked && handleChange(option.value)}
       />
     ));
   };
@@ -142,7 +142,8 @@ export const RadioGroup = ({
           size: childElement.props.size || size,
           checked: value === childValue,
           disabled: disabled || childElement.props.disabled,
-          onChange: () => handleChange(childValue),
+          onChange: (event: React.ChangeEvent<HTMLInputElement>) =>
+            event.target.checked && handleChange(childValue),
         });
       }
       return child;

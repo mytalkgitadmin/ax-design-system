@@ -151,7 +151,13 @@ const DefaultRadio = (args: RadioProps) => {
     setChecked(args.checked || false);
   }, [args.checked]);
 
-  return <Radio {...args} checked={checked} onChange={setChecked} />;
+  return (
+    <Radio
+      {...args}
+      checked={checked}
+      onChange={(e) => setChecked(e.target.checked)}
+    />
+  );
 };
 const AllStatesDemo = () => {
   const [selectedLg, setSelectedLg] = useState('checked');
