@@ -1,5 +1,5 @@
 // Tabs types
-
+import { ReactNode } from 'react';
 /**
  * 탭의 스타일 변형
  * - none: 스타일 없음 (텍스트만)
@@ -35,7 +35,7 @@ export type TabsColorScheme = {
 };
 
 export type TabItem = {
-  label: string;
+  label: ReactNode;
   value: string;
   disabled?: boolean;
 };
