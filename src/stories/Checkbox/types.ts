@@ -53,8 +53,9 @@ export type CheckboxProps = {
 
   /**
    * 체크 상태 변경 핸들러
+   * react-hook-form 호환을 위해 표준 HTML input onChange 이벤트를 사용합니다
    */
-  onChange?: (checked: boolean) => void;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 
   /**
    * HTML id 속성

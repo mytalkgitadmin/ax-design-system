@@ -130,7 +130,7 @@ export const CheckboxGroup = ({
         size={size}
         checked={value.includes(option.value)}
         disabled={disabled || option.disabled}
-        onChange={(checked) => handleChange(option.value, checked)}
+        onChange={(event) => handleChange(option.value, event.target.checked)}
       />
     ));
   };
@@ -148,7 +148,8 @@ export const CheckboxGroup = ({
           size: childElement.props.size || size,
           checked: value.includes(childValue),
           disabled: disabled || childElement.props.disabled,
-          onChange: (checked: boolean) => handleChange(childValue, checked),
+          onChange: (event: React.ChangeEvent<HTMLInputElement>) =>
+            handleChange(childValue, event.target.checked),
         });
       }
       return child;
