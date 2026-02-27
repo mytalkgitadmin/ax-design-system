@@ -52,7 +52,7 @@ export type TabsProps = {
   justify?: TabsJustify; // 탭들의 정렬 방식
 
   // 상태 제어 (제어 컴포넌트 패턴)
-  value?: string; // 현재 활성화된 탭 (제어 컴포넌트)
+  value?: string | null; // 현재 활성화된 탭 (제어 컴포넌트, null이면 선택 없음)
   defaultValue?: string; // 초기 활성 탭 (비제어 컴포넌트)
   onChange?: (value: string) => void; // 탭 변경 이벤트
 };
