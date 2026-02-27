@@ -30,8 +30,9 @@ export const Tabs = ({
   );
 
   // 제어 컴포넌트 vs 비제어 컴포넌트
+  // undefined: 비제어, null: 선택 없음(controlled), string: 특정 탭 선택(controlled)
   const isControlled = controlledValue !== undefined;
-  const activeValue = isControlled ? controlledValue : internalValue;
+  const activeValue = isControlled ? (controlledValue ?? '') : internalValue;
 
   // 우선순위: props > component theme > global theme
   const finalSize = size ?? tabsTheme.defaultSize;
