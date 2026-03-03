@@ -30,8 +30,10 @@ export type SelectColorScheme = {
 export type SelectOption = {
   /** 옵션 값 */
   value: string | number;
-  /** 옵션 레이블 (화면에 표시되는 텍스트) */
-  label: string;
+  /** 옵션 레이블 (화면에 표시되는 텍스트 또는 컴포넌트) */
+  label: React.ReactNode;
+  /** 리스트 선택 후 Trigger에 표시될 텍스트 (label이 컴포넌트일 때 권장) */
+  textValue?: string;
   /** 비활성화 여부 */
   disabled?: boolean;
   /** 옵션 아이콘 */
@@ -122,6 +124,23 @@ export type SelectProps = {
   onFocus?: () => void;
   /** 블러 핸들러 */
   onBlur?: () => void;
+  /**
+   * 드롭다운 스크롤 핸들러 (무한 스크롤 구현 시 사용)
+   * @performance 스크롤 이벤트는 짧은 시간에 수십 번 호출될 수 있습니다.
+   * 무거운 연산(API 호출, 대량 데이터 렌더링 등)을 수행하는 경우,
+   * lodash의 throttle 또는 debounce를 사용하여 이벤트 처리 빈도를 제한하는 것을 권장합니다.
+   * @example
+   * ```tsx
+   * import { throttle } from 'lodash';
+   *
+   * const handleScroll = throttle((event) => {
+   *   // 무한 스크롤 로직
+   * }, 200);
+   *
+   * <Select onScroll={handleScroll} />
+   * ```
+   */
+  onScroll?: (event: React.UIEvent<HTMLDivElement>) => void;
 };
 
 // Storybook을 위한 options 배열

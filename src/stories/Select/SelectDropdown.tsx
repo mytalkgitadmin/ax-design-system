@@ -11,6 +11,7 @@ type SelectDropdownProps = {
   iconSize: number;
   selectedValue: string | number | undefined;
   onSelect: (value: string | number) => void;
+  onScroll?: (event: React.UIEvent<HTMLDivElement>) => void;
 };
 
 export const SelectDropdown = ({
@@ -20,9 +21,14 @@ export const SelectDropdown = ({
   iconSize,
   selectedValue,
   onSelect,
+  onScroll,
 }: SelectDropdownProps) => {
   return (
-    <div className={dropdownStyle({ placement })} role='listbox'>
+    <div
+      className={dropdownStyle({ placement })}
+      role='listbox'
+      onScroll={onScroll}
+    >
       {options.map((option) => (
         <SelectOption
           key={option.value}

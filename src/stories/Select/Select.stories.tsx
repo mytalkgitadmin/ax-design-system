@@ -36,7 +36,7 @@ import type { Meta, StoryObj } from '@storybook/react';
  * | `trailingIcon` | `IconType` |
  * | `showCaret` | `boolean` |
  * | `placement` | `bottom` \| `top` |
- * | `options` | `SelectOption[]` (required) |
+ * | `options` | `Array<{ value, label(ReactNode), textValue?, disabled?, icon?, thumbnail? }>` |
  * | `value` | `string` \| `number` |
  * | `onChange` | `(value: string \| number) => void` |
  * | `onToggle` | `(isOpen: boolean) => void` |
@@ -48,7 +48,7 @@ import type { Meta, StoryObj } from '@storybook/react';
  *
  * const options = [
  *   { value: '1', label: '옵션 1' },
- *   { value: '2', label: '옵션 2' },
+ *   { value: '2', label: <span>옵션 2 (컴포넌트)</span>, textValue: '옵션 2 (컴포넌트)' },
  *   { value: '3', label: '옵션 3' },
  * ];
  *
@@ -817,4 +817,56 @@ export const CustomStyle: Story = {
       </div>
     </div>
   ),
+};
+
+/**
+ * 컴포넌트를 활용한 커스텀 옵션
+ */
+export const CustomOptionComponents: Story = {
+  args: {
+    options: [
+      {
+        value: '1',
+        label: 'dummy',
+      },
+    ],
+  },
+  render: () => {
+    const customOptions: SelectOption[] = [
+      {
+        value: '1',
+        label: (
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <span style={{ fontWeight: 600 }}>Standard Plan</span>
+            <span style={{ fontSize: '12px', color: color.text.tertiary }}>
+              월 $10, 기본 기능 제공
+            </span>
+          </div>
+        ),
+        textValue: 'Standard Plan', // 트리거에 표시될 텍스트
+      },
+      {
+        value: '2',
+        label: (
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <span style={{ fontWeight: 600 }}>Pro Plan</span>
+            <span style={{ fontSize: '12px', color: color.text.tertiary }}>
+              월 $20, 모든 기능 제공
+            </span>
+          </div>
+        ),
+        textValue: 'Pro Plan',
+      },
+    ];
+
+    return (
+      <div style={{ width: '300px' }}>
+        <Select
+          label='플랜 선택'
+          options={customOptions}
+          text='원하시는 플랜을 선택해 주세요'
+        />
+      </div>
+    );
+  },
 };
