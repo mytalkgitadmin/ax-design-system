@@ -125,7 +125,9 @@ export const SelectTrigger = ({
         <span
           className={`${selectText} ${!selectedOption ? selectPlaceholder : ''}`}
         >
-          {selectedOption ? selectedOption.label : placeholderText}
+          {selectedOption
+            ? (selectedOption.textValue ?? selectedOption.label)
+            : placeholderText}
         </span>
       </div>
 
