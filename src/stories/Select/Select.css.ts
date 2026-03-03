@@ -266,6 +266,12 @@ const baseDropdown = style({
   borderRadius: borderRadiusVar,
   border: `1px solid ${borderColorVar}`,
   boxShadow: shadow.raised,
+
+  // 스크롤 설정
+  maxHeight: toRem(240),
+  overflowY: 'auto',
+  overflowX: 'hidden',
+  overscrollBehavior: 'contain',
 });
 
 export const dropdownStyle = recipe({

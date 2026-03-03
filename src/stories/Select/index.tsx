@@ -72,6 +72,7 @@ export const Select = ({
   onToggle,
   onFocus,
   onBlur,
+  onScroll,
 }: SelectProps) => {
   // 1. 공통 Hook 사용 (테마 값 가져오기)
   const {
@@ -249,6 +250,7 @@ export const Select = ({
             iconSize={iconSize}
             selectedValue={selectedValue}
             onSelect={handleSelect}
+            onScroll={onScroll}
           />
         )}
       </div>

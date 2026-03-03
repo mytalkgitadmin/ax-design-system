@@ -34,6 +34,13 @@ export const SelectOption = ({
     }
   };
 
+  // textValue를 우선 사용하고, label이 문자/숫자일 경우 문자열 변환하여 alt용 텍스트 추출
+  const labelText =
+    option.textValue ??
+    (typeof option.label === 'string' || typeof option.label === 'number'
+      ? String(option.label)
+      : String(option.value));
+
   return (
     <div
       className={optionStyle({
@@ -49,13 +56,13 @@ export const SelectOption = ({
       {option.thumbnail && (
         <Thumbnail
           src={option.thumbnail}
-          alt={option.label}
+          alt={labelText}
           width={40}
           rounded='sm'
         />
       )}
       {option.thumbnail === '' && (
-        <Thumbnail alt={option.label} width={40} rounded='sm' />
+        <Thumbnail alt={labelText} width={40} rounded='sm' />
       )}
       {option.icon && <Icon name={option.icon} size={iconSize} />}
       <span className={optionLabel}>
