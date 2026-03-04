@@ -15,37 +15,37 @@ const fadeOut = keyframes({
 });
 
 const scaleIn = keyframes({
-  from: { opacity: 0, transform: 'scale(0.95)' },
-  to: { opacity: 1, transform: 'scale(1)' },
+  from: { opacity: 0, transform: 'scale(0.95) translate3d(0, 0, 0)' },
+  to: { opacity: 1, transform: 'scale(1) translate3d(0, 0, 0)' },
 });
 
 const scaleOut = keyframes({
-  from: { opacity: 1, transform: 'scale(1)' },
-  to: { opacity: 0, transform: 'scale(0.95)' },
+  from: { opacity: 1, transform: 'scale(1) translate3d(0, 0, 0)' },
+  to: { opacity: 0, transform: 'scale(0.95) translate3d(0, 0, 0)' },
 });
 
 // Brand A: Bouncy (Elastic Pop)
 const bounceIn = keyframes({
-  '0%': { opacity: 0, transform: 'scale(0.8)' },
-  '50%': { opacity: 1, transform: 'scale(1.05)' },
-  '100%': { opacity: 1, transform: 'scale(1)' },
+  '0%': { opacity: 0, transform: 'scale(0.8) translate3d(0, 0, 0)' },
+  '50%': { opacity: 1, transform: 'scale(1.05) translate3d(0, 0, 0)' },
+  '100%': { opacity: 1, transform: 'scale(1) translate3d(0, 0, 0)' },
 });
 
 // Brand B: Slide Up (Bottom Sheet style)
 const slideUp = keyframes({
-  from: { opacity: 0, transform: 'translateY(100px)' },
-  to: { opacity: 1, transform: 'translateY(0)' },
+  from: { opacity: 0, transform: 'translate3d(0, 100px, 0)' },
+  to: { opacity: 1, transform: 'translate3d(0, 0, 0)' },
 });
 
 const bounceOut = keyframes({
-  '0%': { opacity: 1, transform: 'scale(1)' },
-  '50%': { opacity: 0.5, transform: 'scale(0.95)' },
-  '100%': { opacity: 0, transform: 'scale(0.8)' },
+  '0%': { opacity: 1, transform: 'scale(1) translate3d(0, 0, 0)' },
+  '50%': { opacity: 0.5, transform: 'scale(0.95) translate3d(0, 0, 0)' },
+  '100%': { opacity: 0, transform: 'scale(0.8) translate3d(0, 0, 0)' },
 });
 
 const slideDown = keyframes({
-  from: { opacity: 1, transform: 'translateY(0)' },
-  to: { opacity: 0, transform: 'translateY(100px)' },
+  from: { opacity: 1, transform: 'translate3d(0, 0, 0)' },
+  to: { opacity: 0, transform: 'translate3d(0, 100px, 0)' },
 });
 
 // Backdrop (오버레이)
@@ -62,17 +62,17 @@ export const backdrop = style({
   willChange: 'opacity', // GPU 가속 최적화
 
   selectors: {
-    // 기본 닫기 애니메이션
+    // 기본 닫기 애니메이션 (forwards: 애니메이션 끝난 후 opacity:0 유지 → 깜박거림 방지)
     '&[data-closing="true"]': {
-      animation: `${fadeOut} 0.2s ease-in`,
+      animation: `${fadeOut} 0.2s ease-out forwards`,
     },
     // bouncy 타입 닫기 애니메이션
     '&[data-closing="true"][data-animation="bouncy"]': {
-      animation: `${fadeOut} 0.5s ease-in`,
+      animation: `${fadeOut} 0.3s ease-out forwards`,
     },
     // slide 타입 닫기 애니메이션
     '&[data-closing="true"][data-animation="slide"]': {
-      animation: `${fadeOut} 0.6s ease-in`,
+      animation: `${fadeOut} 0.35s ease-out forwards`,
     },
   },
 });
@@ -93,17 +93,17 @@ const baseContainer = style({
   willChange: 'transform, opacity', // GPU 가속 최적화
 
   selectors: {
-    // 기본 닫기 애니메이션
+    // 기본 닫기 애니메이션 (forwards: 애니메이션 끝난 후 마지막 상태 유지 → 깜박거림 방지)
     '&[data-closing="true"]': {
-      animation: `${scaleOut} 0.2s ease-in`,
+      animation: `${scaleOut} 0.2s ease-out forwards`,
     },
     // bouncy 타입 닫기 애니메이션
     '&[data-closing="true"][data-animation="bouncy"]': {
-      animation: `${bounceOut} 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)`,
+      animation: `${bounceOut} 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards`,
     },
     // slide 타입 닫기 애니메이션
     '&[data-closing="true"][data-animation="slide"]': {
-      animation: `${slideDown} 0.6s cubic-bezier(0.2, 0, 0, 1)`,
+      animation: `${slideDown} 0.35s cubic-bezier(0.2, 0, 0, 1) forwards`,
     },
   },
 
