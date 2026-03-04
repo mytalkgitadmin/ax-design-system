@@ -24,9 +24,9 @@ export type { ModalProps } from './types';
 
 // Constants
 const ANIMATION_DURATIONS = {
-  default: 200, // 0.2s
-  bouncy: 500, // 0.5s
-  slide: 600, // 0.6s
+  default: 200, // 0.2s - 빠르고 깔끔
+  bouncy: 300, // 0.3s - 체감상 적절 (기존 0.5s에서 단축)
+  slide: 350, // 0.35s - 부드럽게 (기존 0.6s에서 단축)
 } as const;
 const DEFAULT_BUTTONS_GAP = 8;
 
@@ -73,8 +73,10 @@ export const Modal = ({
     } else if (isVisible) {
       // open이 false이고 현재 보여지는 중이라면 (닫히는 과정)
       // 애니메이션 타입에 따라 다른 duration 사용
+      // +16ms: CSS 애니메이션 종료 직전에 DOM이 사라지는 경쟁 조건(깜박거림) 방지
       const closeDuration =
-        ANIMATION_DURATIONS[animationVariant] || ANIMATION_DURATIONS.default;
+        (ANIMATION_DURATIONS[animationVariant] || ANIMATION_DURATIONS.default) +
+        16;
       const timer = setTimeout(() => {
         setIsVisible(false);
         // 애니메이션 완료 후 afterClose 콜백 호출
@@ -88,8 +90,8 @@ export const Modal = ({
 
   // 커스텀 훅으로 Modal 동작 관리
   useModalKeyboard(open, closeOnEscapeKey, onClose, modalRef);
-  useModalFocus(open, modalRef, previousActiveElement);
-  useBodyScrollLock(open);
+  useModalFocus(open, isClosing, modalRef, previousActiveElement);
+  useBodyScrollLock(open, isClosing);
 
   const handleBackdropClick = (event: React.MouseEvent) => {
     if (closeOnBackdropClick && event.target === event.currentTarget) {
