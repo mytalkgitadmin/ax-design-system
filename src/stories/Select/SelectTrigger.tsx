@@ -41,7 +41,7 @@ type SelectTriggerProps = {
   // HTML Attributes
   id: string;
   name?: string;
-  triggerRef: React.RefObject<HTMLButtonElement | null>;
+  triggerRef: React.Ref<HTMLButtonElement>;
 
   // Event Handlers
   onToggle: () => void;

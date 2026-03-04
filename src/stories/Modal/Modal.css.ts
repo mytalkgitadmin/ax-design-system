@@ -37,6 +37,17 @@ const slideUp = keyframes({
   to: { opacity: 1, transform: 'translateY(0)' },
 });
 
+const bounceOut = keyframes({
+  '0%': { opacity: 1, transform: 'scale(1)' },
+  '50%': { opacity: 0.5, transform: 'scale(0.95)' },
+  '100%': { opacity: 0, transform: 'scale(0.8)' },
+});
+
+const slideDown = keyframes({
+  from: { opacity: 1, transform: 'translateY(0)' },
+  to: { opacity: 0, transform: 'translateY(100px)' },
+});
+
 // Backdrop (오버레이)
 export const backdrop = style({
   position: 'fixed',
@@ -48,10 +59,20 @@ export const backdrop = style({
   justifyContent: 'center',
   padding: spacing[16],
   animation: `${fadeIn} 0.2s ease-out`,
+  willChange: 'opacity', // GPU 가속 최적화
 
   selectors: {
+    // 기본 닫기 애니메이션
     '&[data-closing="true"]': {
-      animation: `${fadeOut} 0.15s ease-in !important`,
+      animation: `${fadeOut} 0.2s ease-in`,
+    },
+    // bouncy 타입 닫기 애니메이션
+    '&[data-closing="true"][data-animation="bouncy"]': {
+      animation: `${fadeOut} 0.5s ease-in`,
+    },
+    // slide 타입 닫기 애니메이션
+    '&[data-closing="true"][data-animation="slide"]': {
+      animation: `${fadeOut} 0.6s ease-in`,
     },
   },
 });
@@ -69,10 +90,20 @@ const baseContainer = style({
   maxHeight: '90vh',
 
   boxSizing: 'border-box',
+  willChange: 'transform, opacity', // GPU 가속 최적화
 
   selectors: {
+    // 기본 닫기 애니메이션
     '&[data-closing="true"]': {
-      animation: `${scaleOut} 0.15s ease-in !important`,
+      animation: `${scaleOut} 0.2s ease-in`,
+    },
+    // bouncy 타입 닫기 애니메이션
+    '&[data-closing="true"][data-animation="bouncy"]': {
+      animation: `${bounceOut} 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)`,
+    },
+    // slide 타입 닫기 애니메이션
+    '&[data-closing="true"][data-animation="slide"]': {
+      animation: `${slideDown} 0.6s cubic-bezier(0.2, 0, 0, 1)`,
     },
   },
 
