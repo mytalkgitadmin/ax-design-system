@@ -23,7 +23,11 @@ import {
 export type { ModalProps } from './types';
 
 // Constants
-const MODAL_CLOSE_ANIMATION_DURATION = 150;
+const ANIMATION_DURATIONS = {
+  default: 200, // 0.2s
+  bouncy: 500, // 0.5s
+  slide: 600, // 0.6s
+} as const;
 const DEFAULT_BUTTONS_GAP = 8;
 
 export const Modal = ({
@@ -68,14 +72,17 @@ export const Modal = ({
       setIsVisible(true);
     } else if (isVisible) {
       // open이 false이고 현재 보여지는 중이라면 (닫히는 과정)
+      // 애니메이션 타입에 따라 다른 duration 사용
+      const closeDuration =
+        ANIMATION_DURATIONS[animationVariant] || ANIMATION_DURATIONS.default;
       const timer = setTimeout(() => {
         setIsVisible(false);
         // 애니메이션 완료 후 afterClose 콜백 호출
         latestAfterClose.current?.();
-      }, MODAL_CLOSE_ANIMATION_DURATION);
+      }, closeDuration);
       return () => clearTimeout(timer);
     }
-  }, [open, isVisible]);
+  }, [open, isVisible, animationVariant]);
 
   const isClosing = !open && isVisible;
 
@@ -105,6 +112,7 @@ export const Modal = ({
       className={backdrop}
       onClick={handleBackdropClick}
       data-closing={isClosing}
+      data-animation={animationVariant}
       role='presentation'
     >
       <div
@@ -118,6 +126,7 @@ export const Modal = ({
         aria-labelledby={titleId}
         aria-describedby={descriptionId}
         data-closing={isClosing}
+        data-animation={animationVariant}
       >
         {/* 닫기 버튼 */}
         {showCloseButton && (

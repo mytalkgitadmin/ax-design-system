@@ -1283,7 +1283,7 @@ export const AdvancedAfterCloseCallback = {
 
 **onClose vs afterClose:**
 - \`onClose\`: Modal 닫기 시작 시 즉시 호출 (state 업데이트)
-- \`afterClose\`: 닫기 애니메이션 완료 후 호출 (약 150ms 후)
+- \`afterClose\`: 닫기 애니메이션 완료 후 호출 (테마 설정에 따라 200ms ~ 600ms 후)
 
 **사용 예시:**
 - 폼 초기화
