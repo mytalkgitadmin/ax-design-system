@@ -24,13 +24,13 @@ export const flexStyle = recipe({
     },
     justify: {
       start: {
-        justifyContent: 'flex-start',
+        justifyContent: 'start',
       },
       center: {
         justifyContent: 'center',
       },
       end: {
-        justifyContent: 'flex-end',
+        justifyContent: 'end',
       },
       between: {
         justifyContent: 'space-between',
@@ -44,13 +44,13 @@ export const flexStyle = recipe({
     },
     align: {
       start: {
-        alignItems: 'flex-start',
+        alignItems: 'start',
       },
       center: {
         alignItems: 'center',
       },
       end: {
-        alignItems: 'flex-end',
+        alignItems: 'end',
       },
       stretch: {
         alignItems: 'stretch',

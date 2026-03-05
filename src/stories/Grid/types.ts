@@ -1,4 +1,5 @@
-import type { ComponentPropsWithoutRef, ElementType } from 'react';
+import type { ComponentPropsWithoutRef, ElementType, ReactNode } from 'react';
+import type { CSSProperties } from 'react';
 
 // --------------------------------------------------
 // Grid Component Types
@@ -30,7 +31,17 @@ export type GridColumns =
   | 'auto-fit'
   | (string & {});
 export type GridRows = '1' | '2' | '3' | '4' | '5' | '6' | 'auto';
-export type GridGap = '0' | '4' | '8' | '12' | '16' | '24' | '32' | '48' | '64';
+export type GridGap =
+  | '0'
+  | '4'
+  | '8'
+  | '12'
+  | '16'
+  | '20'
+  | '24'
+  | '32'
+  | '48'
+  | '64';
 export type GridAutoFlow = 'row' | 'column' | 'row-dense' | 'column-dense';
 export type GridAlign = 'start' | 'center' | 'end' | 'stretch';
 export type GridJustify =
@@ -96,6 +107,7 @@ export const GRID_GAPS: GridGap[] = [
   '8',
   '12',
   '16',
+  '20',
   '24',
   '32',
   '48',
@@ -180,7 +192,9 @@ export type GridProps<T extends ElementType = 'div'> = {
 // GridItem Component Props
 // --------------------------------------------------
 
-export type GridItemProps = {
+export type GridItemProps<T extends ElementType = 'div'> = {
+  /** 렌더링할 HTML 요소 또는 컴포넌트 (기본값: div) */
+  as?: T;
   /** grid-area 이름 (grid-template-areas와 함께 사용) */
   area?: string;
   /** grid-column 시작/끝 또는 span */
@@ -195,7 +209,10 @@ export type GridItemProps = {
   rowStart?: number;
   /** grid-row-end */
   rowEnd?: number;
-  style?: React.CSSProperties;
+  style?: CSSProperties;
   className?: string;
-  children?: React.ReactNode;
-};
+  children?: ReactNode;
+} & Omit<
+  ComponentPropsWithoutRef<T>,
+  'as' | 'style' | 'className' | 'children'
+>;
