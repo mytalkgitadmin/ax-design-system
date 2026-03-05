@@ -57,8 +57,8 @@ export {
   useFormField,
   warnTextStyle,
 } from './stories/FormField';
-export type { GridProps } from './stories/Grid';
-export { Grid } from './stories/Grid';
+export type { GridItemProps, GridProps } from './stories/Grid';
+export { Grid, GridItem } from './stories/Grid';
 export { Icon } from './stories/Icon';
 export type { IconProps, IconType } from './stories/Icon/types';
 export type { InputProps } from './stories/Input';

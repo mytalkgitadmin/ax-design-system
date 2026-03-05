@@ -36,6 +36,7 @@ export const gridStyle = recipe({
       '8': { gap: spacing[8] },
       '12': { gap: spacing[12] },
       '16': { gap: spacing[16] },
+      '20': { gap: spacing[20] },
       '24': { gap: spacing[24] },
       '32': { gap: spacing[32] },
       '48': { gap: spacing[48] },
@@ -47,6 +48,7 @@ export const gridStyle = recipe({
       '8': { columnGap: spacing[8] },
       '12': { columnGap: spacing[12] },
       '16': { columnGap: spacing[16] },
+      '20': { columnGap: spacing[20] },
       '24': { columnGap: spacing[24] },
       '32': { columnGap: spacing[32] },
       '48': { columnGap: spacing[48] },
@@ -58,6 +60,7 @@ export const gridStyle = recipe({
       '8': { rowGap: spacing[8] },
       '12': { rowGap: spacing[12] },
       '16': { rowGap: spacing[16] },
+      '20': { rowGap: spacing[20] },
       '24': { rowGap: spacing[24] },
       '32': { rowGap: spacing[32] },
       '48': { rowGap: spacing[48] },
@@ -87,7 +90,6 @@ export const gridStyle = recipe({
   },
 
   defaultVariants: {
-    columns: '1',
     align: 'stretch',
     justify: 'start',
     autoFlow: 'row',

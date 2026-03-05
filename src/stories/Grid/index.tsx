@@ -97,7 +97,8 @@ export const Grid = <T extends ElementType = 'div'>({
  * GridItem 컴포넌트
  * Grid의 자식 요소로 사용하여 개별 아이템의 위치와 크기를 제어합니다.
  */
-export const GridItem = ({
+export const GridItem = <T extends React.ElementType = 'div'>({
+  as,
   area,
   colSpan,
   rowSpan,
@@ -108,7 +109,10 @@ export const GridItem = ({
   style,
   className,
   children,
-}: GridItemProps) => {
+  ...props
+}: GridItemProps<T>) => {
+  const Component = as || 'div';
+
   const itemStyles = useMemo(
     (): React.CSSProperties => ({
       ...style,
@@ -127,9 +131,9 @@ export const GridItem = ({
     [style, area, colSpan, rowSpan, colStart, colEnd, rowStart, rowEnd]
   );
 
-  return (
-    <div className={className} style={itemStyles}>
-      {children}
-    </div>
+  return React.createElement(
+    Component,
+    { className, style: itemStyles, ...props },
+    children
   );
 };

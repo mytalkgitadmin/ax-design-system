@@ -74,7 +74,7 @@ const Box = ({
  * | `as` | `div` \| `section` \| `article` \| `span` \| `header` \| `footer` \| `nav` \| `main` \| `aside` \| `p` \| `h1`-`h6` \| `ul` \| `ol` \| `li` \| `form` \| `label` |
  * | `direction` | `row` \| `column` \| `row-reverse` \| `column-reverse` |
  * | `justify` | `start` \| `center` \| `end` \| `between` \| `around` \| `evenly` |
- * | `align` | `start` \| `center` \| `end` |
+ * | `align` | `start` \| `center` \| `end` \| `stretch` |
  * | `gap` | `0` \| `4` \| `8` \| `12` \| `16` \| `20` \| `24` \| `32` \| `48` \| `64` |
  * | `wrap` | `wrap` \| `nowrap` |
  * | `flex` | `string` (CSS flex 속성) |
