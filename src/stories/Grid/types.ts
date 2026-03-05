@@ -2,6 +2,16 @@ import type { ComponentPropsWithoutRef, ElementType, ReactNode } from 'react';
 import type { CSSProperties } from 'react';
 
 // --------------------------------------------------
+// Responsive Types (from Flex)
+// --------------------------------------------------
+
+/** breakpoint 타입 */
+export type Breakpoint = 'base' | 'sm' | 'md' | 'lg' | 'xl';
+
+/** breakpoint별 값 지정 (반응형 props용) */
+export type Responsive<T> = T | { base?: T; sm?: T; md?: T; lg?: T; xl?: T };
+
+// --------------------------------------------------
 // Grid Component Types
 // --------------------------------------------------
 
@@ -99,6 +109,7 @@ export const GRID_COLUMNS = [
   '12',
   'auto-fill',
   'auto-fit',
+  '__responsive', // 내부 전용 — responsiveColumns prop 사용 시 활성화
 ] as const;
 export const GRID_ROWS: GridRows[] = ['1', '2', '3', '4', '5', '6', 'auto'];
 export const GRID_GAPS: GridGap[] = [
@@ -151,18 +162,23 @@ export const GRID_PLACE_CONTENTS: GridPlaceContent[] = [
 
 export type GridProps<T extends ElementType = 'div'> = {
   as?: T;
-  columns?: GridColumns;
-  rows?: GridRows;
-  gap?: GridGap;
-  columnGap?: GridGap;
-  rowGap?: GridGap;
+  /** grid-template-columns. 반응형 객체 사용 가능: { base: '2', md: '4' } */
+  columns?: Responsive<GridColumns>;
+  /** grid-template-rows. 반응형 객체 사용 가능: { base: 'auto', md: '3' } */
+  rows?: Responsive<GridRows>;
+  /** gap. 반응형 객체 사용 가능: { base: '16', md: '32' } */
+  gap?: Responsive<GridGap>;
+  /** column-gap. 반응형 객체 사용 가능 */
+  columnGap?: Responsive<GridGap>;
+  /** row-gap. 반응형 객체 사용 가능 */
+  rowGap?: Responsive<GridGap>;
   autoFlow?: GridAutoFlow;
   align?: GridAlign;
   justify?: GridJustify;
   /** place-content 속성 (align-content + justify-content의 shorthand) */
   placeContent?: GridPlaceContent;
-  /** auto-fill/auto-fit 사용 시 최소 열 너비 (기본값: 200px) */
-  minColumnWidth?: string | number;
+  /** auto-fill/auto-fit 사용 시 최소 열 너비 (기본값: 200px). 반응형 객체 사용 가능: { base: '150px', md: '250px' } */
+  minColumnWidth?: Responsive<string | number>;
   /** grid-template-areas를 위한 레이아웃 문자열 배열 */
   areas?: string[];
   width?: React.CSSProperties['width'];
@@ -197,10 +213,10 @@ export type GridItemProps<T extends ElementType = 'div'> = {
   as?: T;
   /** grid-area 이름 (grid-template-areas와 함께 사용) */
   area?: string;
-  /** grid-column 시작/끝 또는 span */
-  colSpan?: number | string;
-  /** grid-row 시작/끝 또는 span */
-  rowSpan?: number | string;
+  /** grid-column 시작/끝 또는 span. 반응형 객체 사용 가능: { base: 1, md: 2 } */
+  colSpan?: Responsive<number | string>;
+  /** grid-row 시작/끝 또는 span. 반응형 객체 사용 가능: { base: 1, lg: 2 } */
+  rowSpan?: Responsive<number | string>;
   /** grid-column-start */
   colStart?: number;
   /** grid-column-end */

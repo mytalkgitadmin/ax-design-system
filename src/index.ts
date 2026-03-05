@@ -31,7 +31,7 @@ export type {
 } from './stories/Checkbox/types';
 export type { ErrorProps } from './stories/Error';
 export { Error } from './stories/Error';
-export type { FlexProps } from './stories/Flex';
+export type { Breakpoint, FlexProps, Responsive } from './stories/Flex';
 export { Flex } from './stories/Flex';
 export type {
   BaseFormFieldProps,
@@ -57,8 +57,13 @@ export {
   useFormField,
   warnTextStyle,
 } from './stories/FormField';
-export type { GridItemProps, GridProps } from './stories/Grid';
 export { Grid, GridItem } from './stories/Grid';
+export type {
+  Breakpoint as GridBreakpoint,
+  GridItemProps,
+  GridProps,
+  Responsive as GridResponsive,
+} from './stories/Grid/types';
 export { Icon } from './stories/Icon';
 export type { IconProps, IconType } from './stories/Icon/types';
 export type { InputProps } from './stories/Input';
