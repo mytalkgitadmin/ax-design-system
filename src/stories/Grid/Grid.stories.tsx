@@ -65,24 +65,24 @@ const Box = ({
  *
  * ## Props
  *
- * | Prop | Type |
- * |------|------|
- * | `as` | `div` \| `section` \| `article` \| `ul` \| `ol` \| `li` \| `nav` \| `main` \| `aside` \| `header` \| `footer` \| `form` |
- * | `columns` | `1` \| `2` \| `3` \| `4` \| `5` \| `6` \| `8` \| `12` \| `auto-fill` \| `auto-fit` |
- * | `rows` | `1` \| `2` \| `3` \| `4` \| `5` \| `6` \| `auto` |
- * | `gap` | `0` \| `4` \| `8` \| `12` \| `16` \| `20` \| `24` \| `32` \| `48` \| `64` |
- * | `columnGap` | `0` \| `4` \| `8` \| `12` \| `16` \| `20` \| `24` \| `32` \| `48` \| `64` |
- * | `rowGap` | `0` \| `4` \| `8` \| `12` \| `16` \| `20` \| `24` \| `32` \| `48` \| `64` |
- * | `autoFlow` | `row` \| `column` \| `row-dense` \| `column-dense` |
- * | `align` | `start` \| `center` \| `end` \| `stretch` |
- * | `justify` | `start` \| `center` \| `end` \| `stretch` \| `between` \| `around` \| `evenly` |
- * | `placeContent` | `center` \| `start` \| `end` \| `center center` 등 (shorthand) |
- * | `minColumnWidth` | `string` \| `number` (auto-fill/auto-fit 사용 시) |
- * | `areas` | `string[]` (grid-template-areas) |
- * | `width` | `string` \| `number` |
- * | `height` | `string` \| `number` |
- * | `style` | `React.CSSProperties` |
- * | `className` | `string` |
+ * | Prop | Type | 반응형 지원 |
+ * |------|------|-----------|
+ * | `as` | `div` \| `section` \| `article` \| `ul` \| `ol` \| `li` \| `nav` \| `main` \| `aside` \| `header` \| `footer` \| `form` | - |
+ * | `columns` | `Responsive<GridColumns>` | ✅ |
+ * | `rows` | `Responsive<GridRows>` | ✅ |
+ * | `gap` | `Responsive<GridGap>` | ✅ |
+ * | `columnGap` | `Responsive<GridGap>` | ✅ |
+ * | `rowGap` | `Responsive<GridGap>` | ✅ |
+ * | `autoFlow` | `GridAutoFlow` | - |
+ * | `align` | `GridAlign` | - |
+ * | `justify` | `GridJustify` | - |
+ * | `placeContent` | `GridPlaceContent` | - |
+ * | `minColumnWidth` | `Responsive<string \| number>` | ✅ |
+ * | `areas` | `string[]` (grid-template-areas) | - |
+ * | `width` | `string` \| `number` | - |
+ * | `height` | `string` \| `number` | - |
+ * | `style` | `React.CSSProperties` | - |
+ * | `className` | `string` | - |
  *
  * ## 사용 예시
  *
@@ -96,7 +96,20 @@ const Box = ({
  *   <div>Item 3</div>
  * </Grid>
  *
- * // 반응형 그리드 (auto-fill)
+ * // 반응형 그리드 (모바일 1열 → 태블릿 2열 → 데스크탑 4열)
+ * <Grid columns=&#123;&#123; base: '1', sm: '2', md: '3', lg: '4' &#125;&#125; gap='16'>
+ *   <div>Card 1</div>
+ *   <div>Card 2</div>
+ *   <div>Card 3</div>
+ * </Grid>
+ *
+ * // 반응형 gap (화면 크기별 다른 간격)
+ * <Grid columns='3' gap=&#123;&#123; base: '8', md: '16', lg: '24' &#125;&#125;>
+ *   <div>Item 1</div>
+ *   <div>Item 2</div>
+ * </Grid>
+ *
+ * // auto-fill로 자동 반응형
  * <Grid columns='auto-fill' minColumnWidth='200px' gap='16'>
  *   <div>Card 1</div>
  *   <div>Card 2</div>
@@ -147,31 +160,33 @@ const meta = {
     columns: {
       control: { type: 'select' },
       options: GRID_COLUMNS,
-      description: '그리드 열 개수 (auto-fill, auto-fit은 반응형)',
+      description:
+        '그리드 열 개수 (객체를 통해 반응형 설정 가능: `{ base: "1", md: "2" }`)',
       table: { category: 'Grid' },
     },
     rows: {
       control: { type: 'select' },
       options: GRID_ROWS,
-      description: '그리드 행 개수 (auto는 자동 높이)',
+      description:
+        '그리드 행 개수 (객체를 통해 반응형 설정 가능: `{ base: "auto", lg: "3" }`)',
       table: { category: 'Grid' },
     },
     gap: {
       control: { type: 'select' },
       options: GRID_GAPS,
-      description: 'Gap 간격 (px) - 행과 열 모두 적용',
+      description: 'Gap 간격 (px) - 행과 열 모두 적용 (반응형 객체 가능)',
       table: { category: 'Grid' },
     },
     columnGap: {
       control: { type: 'select' },
       options: GRID_GAPS,
-      description: '열 간격 (px)',
+      description: '열 간격 (px) (반응형 객체 가능)',
       table: { category: 'Grid' },
     },
     rowGap: {
       control: { type: 'select' },
       options: GRID_GAPS,
-      description: '행 간격 (px)',
+      description: '행 간격 (px) (반응형 객체 가능)',
       table: { category: 'Grid' },
     },
     autoFlow: {
@@ -194,7 +209,8 @@ const meta = {
     },
     minColumnWidth: {
       control: { type: 'text' },
-      description: 'auto-fill/auto-fit 사용 시 최소 열 너비 (기본: 200px)',
+      description:
+        'auto-fill/auto-fit 사용 시 최소 열 너비 (기본: 200px, 반응형 객체 사용 가능)',
       table: { category: 'Grid' },
     },
     areas: {
@@ -647,6 +663,238 @@ export const Alignment: Story = {
     </div>
   ),
 };
+/**
+ * 반응형 Grid - columns를 breakpoint별로 변경
+ *
+ * 모바일: 1열, 태블릿: 2열, 데스크탑: 3-4열로 자동 조정됩니다.
+ */
+export const ResponsiveColumns: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+      <div>
+        <h4 style={{ marginBottom: '12px', fontSize: '14px', color: '#666' }}>
+          columns=&#123;&#123; base: '1', sm: '2', md: '3', lg: '4' &#125;&#125;
+        </h4>
+        <Grid
+          columns={{ base: '1', sm: '2', md: '3', lg: '4' }}
+          gap='16'
+          style={{
+            border: '1px solid #eee',
+            padding: '16px',
+            maxWidth: '1000px',
+          }}
+        >
+          <Box>Item 1</Box>
+          <Box>Item 2</Box>
+          <Box>Item 3</Box>
+          <Box>Item 4</Box>
+          <Box>Item 5</Box>
+          <Box>Item 6</Box>
+          <Box>Item 7</Box>
+          <Box>Item 8</Box>
+        </Grid>
+        <p style={{ marginTop: '8px', fontSize: '12px', color: '#999' }}>
+          💡 브라우저 창 크기를 조절해서 열 개수 변화를 확인해보세요
+        </p>
+      </div>
+    </div>
+  ),
+};
+
+/**
+ * 반응형 gap - 화면 크기에 따라 간격 조정
+ *
+ * 모바일에서는 좁게, 데스크탑에서는 넓게 간격을 설정합니다.
+ */
+export const ResponsiveGaps: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+      <div>
+        <h4 style={{ marginBottom: '12px', fontSize: '14px', color: '#666' }}>
+          gap=&#123;&#123; base: '8', md: '16', lg: '24' &#125;&#125;
+        </h4>
+        <Grid
+          columns='3'
+          gap={{ base: '8', md: '16', lg: '24' }}
+          style={{
+            border: '1px solid #eee',
+            padding: '16px',
+            maxWidth: '800px',
+          }}
+        >
+          <Box>1</Box>
+          <Box>2</Box>
+          <Box>3</Box>
+          <Box>4</Box>
+          <Box>5</Box>
+          <Box>6</Box>
+        </Grid>
+        <p style={{ marginTop: '8px', fontSize: '12px', color: '#999' }}>
+          💡 브라우저 창 크기를 조절해서 간격 변화를 확인해보세요
+        </p>
+      </div>
+
+      <div>
+        <h4 style={{ marginBottom: '12px', fontSize: '14px', color: '#666' }}>
+          columnGap / rowGap 개별 조정
+        </h4>
+        <Grid
+          columns='3'
+          columnGap={{ base: '8', md: '24' }}
+          rowGap={{ base: '8', md: '16' }}
+          style={{
+            border: '1px solid #eee',
+            padding: '16px',
+            maxWidth: '800px',
+          }}
+        >
+          <Box>1</Box>
+          <Box>2</Box>
+          <Box>3</Box>
+          <Box>4</Box>
+          <Box>5</Box>
+          <Box>6</Box>
+        </Grid>
+        <p style={{ marginTop: '8px', fontSize: '12px', color: '#999' }}>
+          모바일: 8px, 데스크탑: 열 간격 24px / 행 간격 16px
+        </p>
+      </div>
+    </div>
+  ),
+};
+
+/**
+ * 반응형 rows - 화면 크기에 따라 행 개수 조정
+ *
+ * 모바일에서는 자동 높이(auto), 데스크탑에서는 고정 행 개수로 설정할 수 있습니다.
+ */
+export const ResponsiveRows: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+      <div>
+        <h4 style={{ marginBottom: '12px', fontSize: '14px', color: '#666' }}>
+          rows=&#123;&#123; base: 'auto', lg: '3' &#125;&#125; - 모바일: 자동,
+          데스크탑: 3행 고정
+        </h4>
+        <Grid
+          columns={{ base: '2', md: '3' }}
+          rows={{ base: 'auto', lg: '3' }}
+          gap='12'
+          style={{
+            border: '1px solid #eee',
+            padding: '16px',
+            maxWidth: '800px',
+            minHeight: '300px',
+          }}
+        >
+          <Box>1</Box>
+          <Box>2</Box>
+          <Box>3</Box>
+          <Box>4</Box>
+          <Box>5</Box>
+          <Box>6</Box>
+        </Grid>
+        <p style={{ marginTop: '8px', fontSize: '12px', color: '#999' }}>
+          💡 큰 화면에서는 3행으로 고정, 작은 화면에서는 자동 높이
+        </p>
+      </div>
+    </div>
+  ),
+};
+
+/**
+ * 실전 예제 - 반응형 카드 그리드
+ *
+ * 실제 상품 목록이나 블로그 카드 레이아웃에 적합한 반응형 그리드입니다.
+ */
+export const ResponsiveCardGrid: Story = {
+  render: () => (
+    <div style={{ padding: '20px', backgroundColor: '#f9f9f9' }}>
+      <Grid
+        columns={{ base: '1', sm: '2', md: '3', lg: '4' }}
+        gap={{ base: '16', md: '24' }}
+        style={{ maxWidth: '1200px', margin: '0 auto' }}
+      >
+        {[1, 2, 3, 4, 5, 6, 7, 8].map((num) => (
+          <div
+            key={num}
+            style={{
+              backgroundColor: 'white',
+              borderRadius: '12px',
+              overflow: 'hidden',
+              border: '1px solid #eee',
+            }}
+          >
+            <Box height='180px'>{`Product ${num}`}</Box>
+            <div style={{ padding: '16px' }}>
+              <h4
+                style={{
+                  marginBottom: '8px',
+                  fontSize: '16px',
+                  fontWeight: '600',
+                }}
+              >
+                상품명 {num}
+              </h4>
+              <p
+                style={{
+                  fontSize: '14px',
+                  color: '#666',
+                  marginBottom: '12px',
+                }}
+              >
+                상품 설명이 들어갑니다.
+              </p>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}
+              >
+                <span
+                  style={{
+                    fontSize: '18px',
+                    fontWeight: '700',
+                    color: colors[3],
+                  }}
+                >
+                  {(num * 10000).toLocaleString()}원
+                </span>
+                <button
+                  style={{
+                    padding: '8px 16px',
+                    backgroundColor: colors[4],
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '6px',
+                    cursor: 'pointer',
+                    fontSize: '14px',
+                  }}
+                >
+                  장바구니
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </Grid>
+
+      <p
+        style={{
+          marginTop: '24px',
+          fontSize: '12px',
+          color: '#999',
+          textAlign: 'center',
+        }}
+      >
+        💡 브라우저 창 크기를 조절해서 열 개수가 자동으로 변하는 것을
+        확인해보세요
+      </p>
+    </div>
+  ),
+};
+
 /**
  * placeContent - Grid 전체를 컨테이너 내에서 정렬
  *

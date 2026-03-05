@@ -20,6 +20,28 @@ export const gridStyle = recipe({
       // auto-fill과 auto-fit은 동적으로 처리 (index.tsx에서)
       'auto-fill': {},
       'auto-fit': {},
+      // 반응형 columns용 내부 variant — CSS 변수로 외부에서 값 주입
+      __responsive: {
+        gridTemplateColumns: 'var(--_gc-base, repeat(1, 1fr))',
+        '@media': {
+          'screen and (min-width: 640px)': {
+            gridTemplateColumns:
+              'var(--_gc-sm, var(--_gc-base, repeat(1, 1fr)))',
+          },
+          'screen and (min-width: 768px)': {
+            gridTemplateColumns:
+              'var(--_gc-md, var(--_gc-sm, var(--_gc-base, repeat(1, 1fr))))',
+          },
+          'screen and (min-width: 1024px)': {
+            gridTemplateColumns:
+              'var(--_gc-lg, var(--_gc-md, var(--_gc-sm, var(--_gc-base, repeat(1, 1fr)))))',
+          },
+          'screen and (min-width: 1280px)': {
+            gridTemplateColumns:
+              'var(--_gc-xl, var(--_gc-lg, var(--_gc-md, var(--_gc-sm, var(--_gc-base, repeat(1, 1fr))))))',
+          },
+        },
+      },
     },
     rows: {
       '1': { gridTemplateRows: 'repeat(1, 1fr)' },
@@ -29,6 +51,27 @@ export const gridStyle = recipe({
       '5': { gridTemplateRows: 'repeat(5, 1fr)' },
       '6': { gridTemplateRows: 'repeat(6, 1fr)' },
       auto: { gridTemplateRows: 'auto' },
+      // 반응형 rows 내부 variant — CSS 변수로 외부에서 값 주입
+      __responsive: {
+        gridTemplateRows: 'var(--_gr-base, auto)',
+        '@media': {
+          'screen and (min-width: 640px)': {
+            gridTemplateRows: 'var(--_gr-sm, var(--_gr-base, auto))',
+          },
+          'screen and (min-width: 768px)': {
+            gridTemplateRows:
+              'var(--_gr-md, var(--_gr-sm, var(--_gr-base, auto)))',
+          },
+          'screen and (min-width: 1024px)': {
+            gridTemplateRows:
+              'var(--_gr-lg, var(--_gr-md, var(--_gr-sm, var(--_gr-base, auto))))',
+          },
+          'screen and (min-width: 1280px)': {
+            gridTemplateRows:
+              'var(--_gr-xl, var(--_gr-lg, var(--_gr-md, var(--_gr-sm, var(--_gr-base, auto)))))',
+          },
+        },
+      },
     },
     gap: {
       '0': { gap: 0 },
@@ -41,6 +84,24 @@ export const gridStyle = recipe({
       '32': { gap: spacing[32] },
       '48': { gap: spacing[48] },
       '64': { gap: spacing[64] },
+      // 반응형 gap 내부 variant — CSS 변수로 외부에서 값 주입
+      __responsive: {
+        gap: 'var(--_gg-base, 0)' as unknown as number,
+        '@media': {
+          'screen and (min-width: 640px)': {
+            gap: 'var(--_gg-sm, var(--_gg-base, 0))' as unknown as number,
+          },
+          'screen and (min-width: 768px)': {
+            gap: 'var(--_gg-md, var(--_gg-sm, var(--_gg-base, 0)))' as unknown as number,
+          },
+          'screen and (min-width: 1024px)': {
+            gap: 'var(--_gg-lg, var(--_gg-md, var(--_gg-sm, var(--_gg-base, 0))))' as unknown as number,
+          },
+          'screen and (min-width: 1280px)': {
+            gap: 'var(--_gg-xl, var(--_gg-lg, var(--_gg-md, var(--_gg-sm, var(--_gg-base, 0)))))' as unknown as number,
+          },
+        },
+      },
     },
     columnGap: {
       '0': { columnGap: 0 },
@@ -53,6 +114,28 @@ export const gridStyle = recipe({
       '32': { columnGap: spacing[32] },
       '48': { columnGap: spacing[48] },
       '64': { columnGap: spacing[64] },
+      // 반응형 columnGap 내부 variant — CSS 변수로 외부에서 값 주입
+      __responsive: {
+        columnGap: 'var(--_gcg-base, 0)' as unknown as number,
+        '@media': {
+          'screen and (min-width: 640px)': {
+            columnGap:
+              'var(--_gcg-sm, var(--_gcg-base, 0))' as unknown as number,
+          },
+          'screen and (min-width: 768px)': {
+            columnGap:
+              'var(--_gcg-md, var(--_gcg-sm, var(--_gcg-base, 0)))' as unknown as number,
+          },
+          'screen and (min-width: 1024px)': {
+            columnGap:
+              'var(--_gcg-lg, var(--_gcg-md, var(--_gcg-sm, var(--_gcg-base, 0))))' as unknown as number,
+          },
+          'screen and (min-width: 1280px)': {
+            columnGap:
+              'var(--_gcg-xl, var(--_gcg-lg, var(--_gcg-md, var(--_gcg-sm, var(--_gcg-base, 0)))))' as unknown as number,
+          },
+        },
+      },
     },
     rowGap: {
       '0': { rowGap: 0 },
@@ -65,6 +148,27 @@ export const gridStyle = recipe({
       '32': { rowGap: spacing[32] },
       '48': { rowGap: spacing[48] },
       '64': { rowGap: spacing[64] },
+      // 반응형 rowGap 내부 variant — CSS 변수로 외부에서 값 주입
+      __responsive: {
+        rowGap: 'var(--_grg-base, 0)' as unknown as number,
+        '@media': {
+          'screen and (min-width: 640px)': {
+            rowGap: 'var(--_grg-sm, var(--_grg-base, 0))' as unknown as number,
+          },
+          'screen and (min-width: 768px)': {
+            rowGap:
+              'var(--_grg-md, var(--_grg-sm, var(--_grg-base, 0)))' as unknown as number,
+          },
+          'screen and (min-width: 1024px)': {
+            rowGap:
+              'var(--_grg-lg, var(--_grg-md, var(--_grg-sm, var(--_grg-base, 0))))' as unknown as number,
+          },
+          'screen and (min-width: 1280px)': {
+            rowGap:
+              'var(--_grg-xl, var(--_grg-lg, var(--_grg-md, var(--_grg-sm, var(--_grg-base, 0)))))' as unknown as number,
+          },
+        },
+      },
     },
     autoFlow: {
       row: { gridAutoFlow: 'row' },
