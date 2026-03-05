@@ -90,7 +90,14 @@ const baseContainer = style({
   maxHeight: '90vh',
 
   boxSizing: 'border-box',
-  willChange: 'transform, opacity', // GPU 가속 최적화
+  // ⚠️ willChange: 'transform, opacity' 제거
+  // 원인: will-change는 keyframes 애니메이션과 달리 '애니메이션이 끝난 후에도'
+  //        브라우저가 해당 요소를 transform 대비 상태(GPU 레이어)로 유지한다.
+  //        이 상태에서 CSS 스펙에 따라 이 요소가 position:fixed 자식들의
+  //        기준점(containing block)이 되어버려, DragOverlay 등 fixed 포지션 요소의
+  //        좌표 계산이 viewport 대신 이 요소 기준으로 틀어지는 부작용이 있음.
+  //        keyframes 자체는 실행 중에만 transform을 적용하고 종료 시 해제되므로,
+  //        will-change 없이도 GPU 가속은 충분히 작동됨.
 
   selectors: {
     // 기본 닫기 애니메이션 (forwards: 애니메이션 끝난 후 마지막 상태 유지 → 깜박거림 방지)
