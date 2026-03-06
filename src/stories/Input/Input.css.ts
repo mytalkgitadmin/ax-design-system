@@ -79,18 +79,19 @@ const baseInputContainer = style({
 
   // 상태별 스타일
   selectors: {
-    // Hover: disabled나 focus가 아닐 때만
-    '&:hover:not(:has(input:disabled)):not(:has(input:focus-visible))': {
-      borderColor: hoverBorderColorVar,
-    },
+    // Hover: disabled나 focus, read-only가 아닐 때만
+    '&:hover:not(:has(input:disabled)):not(:has(input:read-only)):not(:has(input:focus-visible))':
+      {
+        borderColor: hoverBorderColorVar,
+      },
 
     // Focus: Mouse click or Keyboard (Border Color Only)
-    '&:has(input:focus)': {
+    '&:has(input:focus):not(:has(input:read-only))': {
       borderColor: focusBorderColorVar,
     },
 
     // Focus Visible: Keyboard mainly (Add Shadow)
-    '&:has(input:focus-visible)': {
+    '&:has(input:focus-visible):not(:has(input:read-only))': {
       boxShadow: `0 0 10px 0 ${focusShadowColorVar}`,
     },
 
@@ -99,6 +100,13 @@ const baseInputContainer = style({
       backgroundColor: disabledBgColorVar,
       borderColor: disabledBgColorVar,
       color: disabledIconColorVar, // Disabled Icon Color
+    },
+
+    // ReadOnly: input이 read-only 상태일 때 (값은 form 제출에 포함, 직접 편집 불가)
+    '&:has(input:read-only)': {
+      backgroundColor: disabledBgColorVar,
+      borderColor: disabledBgColorVar, // Disabled와 동일하게 테두리도 비활성화 느낌을 주는게 일반적입니다
+      cursor: 'default',
     },
   },
 });
@@ -138,8 +146,12 @@ export const inputContainerStyle = recipe({
         backgroundColor: 'transparent',
 
         selectors: {
-          '&:has(input:focus)': {
+          '&:has(input:focus):not(:has(input:read-only))': {
             boxShadow: `0 1px 0 0 ${focusBorderColorVar}`,
+          },
+          '&:has(input:read-only)': {
+            backgroundColor: 'transparent',
+            borderColor: disabledBgColorVar,
           },
         },
       },
@@ -147,15 +159,19 @@ export const inputContainerStyle = recipe({
         border: 'none',
         backgroundColor: 'transparent',
         selectors: {
-          '&:hover:not(:has(input:disabled)):not(:has(input:focus-visible))': {
-            borderColor: 'transparent',
-          },
+          '&:hover:not(:has(input:disabled)):not(:has(input:read-only)):not(:has(input:focus-visible))':
+            {
+              borderColor: 'transparent',
+            },
           '&:has(input:focus)': {
             borderColor: 'transparent',
             boxShadow: 'none',
           },
           '&:has(input:focus-visible)': {
             boxShadow: 'none',
+          },
+          '&:has(input:read-only)': {
+            backgroundColor: 'transparent',
           },
         },
       },
@@ -164,10 +180,10 @@ export const inputContainerStyle = recipe({
       true: {
         borderColor: errorBorderColorVar,
         selectors: {
-          '&:hover:not(:has(input:disabled))': {
+          '&:hover:not(:has(input:disabled)):not(:has(input:read-only))': {
             borderColor: focusBorderColorVar,
           },
-          '&:has(input:focus)': {
+          '&:has(input:focus):not(:has(input:read-only))': {
             borderColor: focusBorderColorVar,
           },
         },
@@ -226,6 +242,11 @@ const baseInput = style({
   ':disabled': {
     cursor: 'not-allowed',
     color: disabledTextColorVar,
+  },
+
+  // ReadOnly 상태: 편집 불가지만 값은 유효 (cursor: default로 not-allowed와 구분)
+  ':read-only': {
+    cursor: 'default',
   },
 
   // type='number'일 때 기본 스핀 버튼 제거

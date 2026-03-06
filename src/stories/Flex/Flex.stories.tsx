@@ -69,19 +69,19 @@ const Box = ({
  *
  * ## Props
  *
- * | Prop | Type |
- * |------|------|
- * | `as` | `div` \| `section` \| `article` \| `span` \| `header` \| `footer` \| `nav` \| `main` \| `aside` \| `p` \| `h1`-`h6` \| `ul` \| `ol` \| `li` \| `form` \| `label` |
- * | `direction` | `row` \| `column` \| `row-reverse` \| `column-reverse` |
- * | `justify` | `start` \| `center` \| `end` \| `between` \| `around` \| `evenly` |
- * | `align` | `start` \| `center` \| `end` \| `stretch` |
- * | `gap` | `0` \| `4` \| `8` \| `12` \| `16` \| `20` \| `24` \| `32` \| `48` \| `64` |
- * | `wrap` | `wrap` \| `nowrap` |
- * | `flex` | `string` (CSS flex 속성) |
- * | `width` | `string` \| `number` |
- * | `height` | `string` \| `number` |
- * | `style` | `React.CSSProperties` |
- * | `className` | `string` |
+ * | Prop | Type | 반응형 지원 |
+ * |------|------|-----------|
+ * | `as` | `div` \| `section` \| `article` \| `span` \| `header` \| `footer` \| `nav` \| `main` \| `aside` \| `p` \| `h1`-`h6` \| `ul` \| `ol` \| `li` \| `form` \| `label` | - |
+ * | `direction` | `row` \| `column` \| `row-reverse` \| `column-reverse` | ✅ |
+ * | `justify` | `start` \| `center` \| `end` \| `between` \| `around` \| `evenly` | - |
+ * | `align` | `start` \| `center` \| `end` \| `stretch` | - |
+ * | `gap` | `0` \| `4` \| `8` \| `12` \| `16` \| `20` \| `24` \| `32` \| `48` \| `64` | ✅ |
+ * | `wrap` | `wrap` \| `nowrap` | - |
+ * | `flex` | `string` (CSS flex 속성) | - |
+ * | `width` | `string` \| `number` | - |
+ * | `height` | `string` \| `number` | - |
+ * | `style` | `React.CSSProperties` | - |
+ * | `className` | `string` | - |
  *
  * ## 사용 예시
  *
@@ -123,6 +123,30 @@ const Box = ({
  *   <div>Item 1</div>
  *   <div>Item 2</div>
  *   <div>Item 3</div>
+ * </Flex>
+ *
+ * // 반응형 direction (모바일: 세로, 데스크탑: 가로)
+ * <Flex direction=&#123;&#123; base: 'column', md: 'row' &#125;&#125; gap='16'>
+ *   <div>Item 1</div>
+ *   <div>Item 2</div>
+ * </Flex>
+ *
+ * // 반응형 gap (화면 크기별 다른 간격)
+ * <Flex gap=&#123;&#123; base: '8', md: '16', lg: '32' &#125;&#125;>
+ *   <div>Item 1</div>
+ *   <div>Item 2</div>
+ * </Flex>
+ *
+ * // 주문/결제 페이지 레이아웃 (3:1 비율, 반응형 direction)
+ * <Flex direction={{ base: 'column', lg: 'row' }} gap='32' align='start'>
+ *   <Flex direction='column' flex='3'>
+ *     <section>주문자 정보</section>
+ *     <section>배송 정보</section>
+ *   </Flex>
+ *
+ *   <Flex flex='1' direction='column'>
+ *     <aside>결제 금액</aside>
+ *   </Flex>
  * </Flex>
  * ```
  */
@@ -330,5 +354,255 @@ export const RealWorldCard: Story = {
         </Flex>
       </Flex>
     </Flex>
+  ),
+};
+
+/**
+ * 반응형 direction - 화면 크기에 따라 방향 전환
+ *
+ * 모바일에서는 세로, 데스크탑에서는 가로로 배치됩니다.
+ */
+export const ResponsiveDirection: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+      <div>
+        <h4 style={{ marginBottom: '12px', fontSize: '14px', color: '#666' }}>
+          direction=&#123;&#123; base: 'column', md: 'row' &#125;&#125; -
+          모바일: 세로, 데스크탑: 가로
+        </h4>
+        <Flex
+          direction={{ base: 'column', md: 'row' }}
+          gap='16'
+          style={{
+            border: '1px solid #eee',
+            padding: '16px',
+            maxWidth: '800px',
+          }}
+        >
+          <Box width='100%'>Box 1</Box>
+          <Box width='100%'>Box 2</Box>
+          <Box width='100%'>Box 3</Box>
+        </Flex>
+        <p style={{ marginTop: '8px', fontSize: '12px', color: '#999' }}>
+          💡 브라우저 창 크기를 조절해서 반응형을 확인해보세요
+        </p>
+      </div>
+    </div>
+  ),
+};
+
+/**
+ * 반응형 gap - 화면 크기에 따라 간격 조정
+ *
+ * 모바일에서는 좁게, 데스크탑에서는 넓게 간격을 설정합니다.
+ */
+export const ResponsiveGap: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+      <div>
+        <h4 style={{ marginBottom: '12px', fontSize: '14px', color: '#666' }}>
+          gap=&#123;&#123; base: '8', md: '24', lg: '32' &#125;&#125; - 모바일:
+          8px, 태블릿: 24px, 데스크탑: 32px
+        </h4>
+        <Flex
+          gap={{ base: '8', md: '24', lg: '32' }}
+          style={{
+            border: '1px solid #eee',
+            padding: '16px',
+            maxWidth: '800px',
+          }}
+        >
+          <Box>Box 1</Box>
+          <Box>Box 2</Box>
+          <Box>Box 3</Box>
+          <Box>Box 4</Box>
+        </Flex>
+        <p style={{ marginTop: '8px', fontSize: '12px', color: '#999' }}>
+          💡 브라우저 창 크기를 조절해서 간격 변화를 확인해보세요
+        </p>
+      </div>
+    </div>
+  ),
+};
+
+/**
+ * 실전 레이아웃 - 주문/결제 페이지
+ *
+ * 분할 비율 (왼쪽 3 : 오른쪽 1)
+ * 화면이 넓을 때는 좌우로 배치되고, 좁아질 때(lg 미만)는 상하(컬럼)로 자연스럽게 배치됩니다.
+ */
+export const CheckoutLayout: Story = {
+  render: () => (
+    <div style={{ padding: '20px', backgroundColor: '#f9f9f9', width: '100%' }}>
+      <Flex
+        direction={{ base: 'column', lg: 'row' }}
+        gap='32'
+        align='start'
+        style={{ maxWidth: '1200px', margin: '0 auto' }}
+      >
+        {/* 왼쪽: 주문 정보 영역 (flex: 3) */}
+        <Flex
+          direction='column'
+          gap='24'
+          flex='3'
+          style={{ minWidth: 0, width: '100%' }}
+        >
+          {/* 주문자 정보 */}
+          <div
+            style={{
+              backgroundColor: 'white',
+              padding: '24px',
+              borderRadius: '8px',
+              border: '1px solid #eee',
+            }}
+          >
+            <h3
+              style={{
+                marginBottom: '16px',
+                fontSize: '18px',
+                fontWeight: '600',
+              }}
+            >
+              주문자 정보
+            </h3>
+            <Flex direction='column' gap='12'>
+              <Box height='40px' color='#f5f5f5'>
+                주문자
+              </Box>
+              <Box height='40px' color='#f5f5f5'>
+                연락처
+              </Box>
+            </Flex>
+          </div>
+
+          {/* 배송 정보 */}
+          <div
+            style={{
+              backgroundColor: 'white',
+              padding: '24px',
+              borderRadius: '8px',
+              border: '1px solid #eee',
+            }}
+          >
+            <h3
+              style={{
+                marginBottom: '16px',
+                fontSize: '18px',
+                fontWeight: '600',
+              }}
+            >
+              배송 정보
+            </h3>
+            <Flex direction='column' gap='12'>
+              <Box height='40px' color='#f5f5f5'>
+                수령인
+              </Box>
+              <Box height='80px' color='#f5f5f5'>
+                배송지
+              </Box>
+            </Flex>
+          </div>
+
+          {/* 주문 상품 */}
+          <div
+            style={{
+              backgroundColor: 'white',
+              padding: '24px',
+              borderRadius: '8px',
+              border: '1px solid #eee',
+            }}
+          >
+            <h3
+              style={{
+                marginBottom: '16px',
+                fontSize: '18px',
+                fontWeight: '600',
+              }}
+            >
+              주문 상품
+            </h3>
+            <Flex direction='column' gap='12'>
+              <Box height='80px' color='#f5f5f5'>
+                상품 1
+              </Box>
+              <Box height='80px' color='#f5f5f5'>
+                상품 2
+              </Box>
+            </Flex>
+          </div>
+        </Flex>
+
+        {/* 오른쪽: 결제 금액 (flex: 1) */}
+        <Flex
+          direction='column'
+          flex='1'
+          style={{ width: '100%', minWidth: '300px' }}
+        >
+          <div
+            style={{
+              backgroundColor: 'white',
+              padding: '24px',
+              borderRadius: '8px',
+              border: '1px solid #eee',
+              position: 'sticky',
+              top: '20px',
+            }}
+          >
+            <h3
+              style={{
+                marginBottom: '16px',
+                fontSize: '18px',
+                fontWeight: '600',
+              }}
+            >
+              결제 금액
+            </h3>
+            <Flex direction='column' gap='12'>
+              <Flex justify='between'>
+                <span>총 상품 금액</span>
+                <strong>18,100원</strong>
+              </Flex>
+              <Flex justify='between'>
+                <span>총 배송비</span>
+                <strong>0원</strong>
+              </Flex>
+              <Flex justify='between'>
+                <span>쿠폰 사용</span>
+                <strong>0원</strong>
+              </Flex>
+              <hr
+                style={{
+                  margin: '12px 0',
+                  border: 'none',
+                  borderTop: '1px solid #eee',
+                }}
+              />
+              <Flex
+                justify='between'
+                style={{ fontSize: '18px', fontWeight: '700' }}
+              >
+                <span>최종 결제 금액</span>
+                <span style={{ color: colors[3] }}>18,100원</span>
+              </Flex>
+              <Box height='48px' color={colors[4]} width='100%'>
+                결제하기
+              </Box>
+            </Flex>
+          </div>
+        </Flex>
+      </Flex>
+
+      <p
+        style={{
+          marginTop: '16px',
+          fontSize: '12px',
+          color: '#999',
+          textAlign: 'center',
+        }}
+      >
+        💡 브라우저 창 너비를 조절해서 레이아웃 변화를 확인해보세요. lg
+        브레이크포인트 기준으로 화면이 좁아지면 위아래로 떨어집니다.
+      </p>
+    </div>
   ),
 };

@@ -423,6 +423,46 @@ export const State: Story = {
     </div>
   ),
 };
+
+/**
+ * 읽기 전용 (ReadOnly)
+ * 값을 사용자가 수정할 수 없지만, 폼 전송 시 값은 포함되는 상태입니다.
+ * disabled와 달리 포커스가 가능하며, 텍스트가 회색으로 희미해지지 않습니다.
+ */
+export const ReadOnly: Story = {
+  render: () => (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '16px',
+        width: '320px',
+      }}
+    >
+      <Input
+        label='읽기 전용 (값 있음)'
+        readOnly
+        defaultValue='수정할 수 없는 텍스트'
+        status='help'
+        statusMessage='클릭/포커스는 가능하지만 내용 수정은 불가능합니다.'
+      />
+      <Input
+        label='기본 상태 (수정 가능)'
+        defaultValue='수정할 수 있는 텍스트'
+        status='help'
+        statusMessage='비교용: 이 필드는 자유롭게 수정 가능합니다.'
+      />
+      <Input
+        label='비활성화 (Disabled)'
+        disabled
+        defaultValue='비활성화된 텍스트'
+        status='help'
+        statusMessage='비교용: 포커스가 불가능하며 텍스트가 희미해집니다.'
+      />
+    </div>
+  ),
+};
+
 /**
  * Label과 Required
  */

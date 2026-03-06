@@ -1,4 +1,9 @@
-import type { ComponentPropsWithoutRef, ElementType } from 'react';
+import type {
+  ComponentPropsWithoutRef,
+  CSSProperties,
+  ElementType,
+  ReactNode,
+} from 'react';
 
 // --------------------------------------------------
 // Flex Component Types
@@ -48,6 +53,15 @@ export type FlexGap =
   | '48'
   | '64';
 export type FlexWrap = 'wrap' | 'nowrap';
+
+// --------------------------------------------------
+// Responsive Types
+// --------------------------------------------------
+
+export type Breakpoint = 'base' | 'sm' | 'md' | 'lg' | 'xl';
+
+/** breakpoint별 값 지정 (반응형 props용) */
+export type Responsive<T> = T | { base?: T; sm?: T; md?: T; lg?: T; xl?: T };
 
 // --------------------------------------------------
 // Arrays for Storybook Options
@@ -105,17 +119,19 @@ export const FLEX_WRAPS: FlexWrap[] = ['wrap', 'nowrap'];
 
 export type FlexProps<T extends ElementType = 'div'> = {
   as?: T;
-  direction?: FlexDirection;
+  /** flex-direction. 반응형 객체 사용 가능: { base: 'column', md: 'row' } */
+  direction?: Responsive<FlexDirection>;
   justify?: FlexJustify;
   align?: FlexAlign;
-  gap?: FlexGap;
+  /** gap. 반응형 객체 사용 가능: { base: '16', md: '32' } */
+  gap?: Responsive<FlexGap>;
   wrap?: FlexWrap;
-  flex?: React.CSSProperties['flex'];
-  width?: React.CSSProperties['width'];
-  height?: React.CSSProperties['height'];
-  style?: React.CSSProperties;
+  flex?: CSSProperties['flex'];
+  width?: CSSProperties['width'];
+  height?: CSSProperties['height'];
+  style?: CSSProperties;
   className?: string;
-  children?: React.ReactNode;
+  children?: ReactNode;
 } & Omit<
   ComponentPropsWithoutRef<T>,
   | 'as'

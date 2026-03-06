@@ -69,19 +69,26 @@ const baseTextareaContainer = style({
 
   // 상태별 스타일
   selectors: {
-    // Hover: disabled나 focus가 아닐 때만
-    '&:hover:not(:has(textarea:disabled)):not(:has(textarea:focus-visible))': {
-      borderColor: hoverBorderColorVar,
-    },
+    // Hover: disabled나 focus, read-only가 아닐 때만
+    '&:hover:not(:has(textarea:disabled)):not(:has(textarea:read-only)):not(:has(textarea:focus-visible))':
+      {
+        borderColor: hoverBorderColorVar,
+      },
 
     // Focus: textarea가 focus 상태일 때
-    '&:has(textarea:focus-visible)': {
+    '&:has(textarea:focus-visible):not(:has(textarea:read-only))': {
       borderColor: focusBorderColorVar,
       boxShadow: `0 0 10px 0 ${focusShadowColorVar}`,
     },
 
     // Disabled: textarea가 disabled 상태일 때
     '&:has(textarea:disabled)': {
+      backgroundColor: disabledBgColorVar,
+      borderColor: disabledBgColorVar,
+    },
+
+    // ReadOnly: textarea가 read-only 상태일 때
+    '&:has(textarea:read-only)': {
       backgroundColor: disabledBgColorVar,
       borderColor: disabledBgColorVar,
     },
@@ -97,10 +104,11 @@ export const textareaContainerStyle = recipe({
       true: {
         borderColor: errorBorderColorVar,
         selectors: {
-          '&:hover:not(:has(textarea:disabled))': {
-            borderColor: focusBorderColorVar,
-          },
-          '&:has(textarea:focus-visible)': {
+          '&:hover:not(:has(textarea:disabled)):not(:has(textarea:read-only))':
+            {
+              borderColor: focusBorderColorVar,
+            },
+          '&:has(textarea:focus-visible):not(:has(textarea:read-only))': {
             borderColor: focusBorderColorVar,
           },
         },
@@ -149,6 +157,11 @@ const baseTextarea = style({
   ':disabled': {
     cursor: 'not-allowed',
     color: disabledTextColorVar,
+  },
+
+  // ReadOnly 상태
+  ':read-only': {
+    cursor: 'default',
   },
 });
 

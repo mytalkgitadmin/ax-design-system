@@ -310,6 +310,46 @@ type Story = StoryObj<typeof meta>;
 export const Primary: Story = {};
 
 /**
+ * 상태 (State) 및 읽기 전용 (ReadOnly)
+ */
+export const State: Story = {
+  render: () => (
+    <div
+      style={{
+        width: '600px',
+        maxWidth: '100%',
+        display: 'grid',
+        gap: '16px',
+      }}
+    >
+      <Textarea
+        label='기본 상태 (수정 가능)'
+        defaultValue='자유롭게 수정 가능한 텍스트 공간입니다.'
+        status='help'
+        statusMessage='비교용: 일반적인 입력 상태입니다'
+        rows={3}
+      />
+      <Textarea
+        label='읽기 전용 (값 있음)'
+        readOnly
+        defaultValue='수정할 수 없는 텍스트입니다.&#13;&#10;포커스와 텍스트 선택/복사만 가능합니다.'
+        status='help'
+        statusMessage='클릭/포커스는 가능하지만 내용 수정은 불가능합니다.'
+        rows={3}
+      />
+      <Textarea
+        label='비활성화 (Disabled)'
+        disabled
+        defaultValue='비활성화된 텍스트입니다.'
+        status='help'
+        statusMessage='비교용: 포커스가 불가능하며 텍스트가 희미해집니다.'
+        rows={3}
+      />
+    </div>
+  ),
+};
+
+/**
  * Textarea 사이즈
  */
 export const Sizes: Story = {
