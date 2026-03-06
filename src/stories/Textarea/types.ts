@@ -46,6 +46,7 @@ export type TextareaProps = BaseFormFieldProps & {
   rows?: number; // 기본 줄 수 (autoGrow가 false일 때)
   maxLength?: number; // 최대 글자 수
   minLength?: number; // 최소 글자 수
+  readOnly?: boolean; // 읽기 전용 상태
 
   // Auto-grow 기능
   autoGrow?: boolean; // 자동 확장 기능 활성화

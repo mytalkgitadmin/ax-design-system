@@ -55,6 +55,7 @@ export const Textarea = ({
   rows = 4,
   maxLength,
   minLength,
+  readOnly,
 
   // Auto-grow
   autoGrow = false,
@@ -236,6 +237,7 @@ export const Textarea = ({
           maxLength={maxLength}
           minLength={minLength}
           disabled={disabled}
+          readOnly={readOnly}
           required={required}
           onChange={(e) => {
             onChange?.(e);
