@@ -48,12 +48,12 @@ export {
   formFieldVars,
   FormLabel,
   FormStatus,
-  generateFieldId,
   helperTextStyle,
   labelStyle,
   requiredMark,
   srOnly,
   successTextStyle,
+  useFieldId,
   useFormField,
   warnTextStyle,
 } from './stories/FormField';

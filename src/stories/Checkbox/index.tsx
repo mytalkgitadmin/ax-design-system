@@ -1,9 +1,10 @@
-import React, { forwardRef, useId, useState } from 'react';
+import React, { forwardRef, useState } from 'react';
 
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 
 import { useTheme } from '../../theme';
 import { toRem } from '../../tokens';
+import { useFieldId } from '../FormField';
 import { CheckboxProps } from './types';
 
 import {
@@ -97,8 +98,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
   ) => {
     const { global, components } = useTheme();
     const checkboxTheme = components.Checkbox;
-    const generatedId = useId();
-    const checkboxId = id || generatedId;
+    const checkboxId = useFieldId('checkbox', id);
 
     // 제어/비제어 컴포넌트 판단
     const isControlled = checked !== undefined;

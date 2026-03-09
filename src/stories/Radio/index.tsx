@@ -1,8 +1,9 @@
-import React, { forwardRef, useId, useState } from 'react';
+import React, { forwardRef, useState } from 'react';
 
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 
 import { useTheme } from '../../theme';
+import { useFieldId } from '../FormField';
 import { RadioProps } from './types';
 
 import {
@@ -94,8 +95,7 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
     ref
   ) => {
     const { global } = useTheme();
-    const generatedId = useId();
-    const radioId = id || generatedId;
+    const radioId = useFieldId('radio', id);
 
     // 제어/비제어 컴포넌트 판단
     const isControlled = checked !== undefined;

@@ -1,12 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { componentSize, rounded } from '../../tokens';
-import {
-  FormLabel,
-  FormStatus,
-  generateFieldId,
-  useFormField,
-} from '../FormField';
+import { FormLabel, FormStatus, useFieldId, useFormField } from '../FormField';
 import { SelectDropdown } from './SelectDropdown';
 import { SelectTrigger } from './SelectTrigger';
 import { getSelectCSSVars } from './selectUtils';
@@ -101,11 +96,16 @@ export const Select = React.forwardRef<HTMLButtonElement, SelectProps>(
     const wrapperRef = useRef<HTMLDivElement>(null);
     const triggerRef = useRef<HTMLButtonElement>(null);
 
-    const mergedRef = (node: HTMLButtonElement) => {
-      triggerRef.current = node;
-      if (typeof ref === 'function') ref(node);
-      else if (ref) ref.current = node;
-    };
+    const mergedRef = useCallback(
+      (node: HTMLButtonElement) => {
+        triggerRef.current = node;
+        if (typeof ref === 'function') ref(node);
+        else if (ref)
+          (ref as React.MutableRefObject<HTMLButtonElement | null>).current =
+            node;
+      },
+      [ref]
+    );
 
     // 선택된 옵션 찾기
     const selectedOption = options.find((opt) => opt.value === selectedValue);
@@ -129,7 +129,7 @@ export const Select = React.forwardRef<HTMLButtonElement, SelectProps>(
     );
 
     // ID 생성 (label과 select 연결용)
-    const selectId = generateFieldId('select', id);
+    const selectId = useFieldId('select', id);
 
     // 드롭다운 토글
     const handleToggle = () => {
@@ -255,7 +255,7 @@ export const Select = React.forwardRef<HTMLButtonElement, SelectProps>(
           {isOpen && !disabled && (
             <SelectDropdown
               options={options}
-              placement={placement || 'bottom'}
+              placement={placement} // Redundant || 'bottom' 제거 (props default 적용됨)
               size={finalSize}
               iconSize={iconSize}
               selectedValue={selectedValue}
