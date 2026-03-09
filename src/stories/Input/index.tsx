@@ -7,7 +7,7 @@ import {
   formFieldVars,
   FormLabel,
   FormStatus,
-  generateFieldId,
+  useFieldId,
   useFormField,
 } from '../FormField';
 import { Icon, IconType } from '../Icon';
@@ -93,14 +93,14 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     ref
   ) => {
     // ID 생성 (label과 input 연결용)
-    const inputId = generateFieldId('input', id);
+    const inputId = useFieldId('input', id);
 
     // search 타입 여부
     const isSearchType = type === 'search';
 
-    // search 타입일 때 내부 상태 관리 (clear 버튼 표시 여부 판단용)
+    // [개선] search 타입일 때만 내부 상태 관리 (불필요한 상태 생성 방지)
     const [internalValue, setInternalValue] = useState(
-      (value ?? defaultValue ?? '') as string
+      isSearchType ? ((value ?? defaultValue ?? '') as string) : ''
     );
 
     // Input element ref (clear 기능을 위해 필요)
@@ -119,12 +119,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       [ref]
     );
 
-    // value prop이 변경되면 내부 상태도 동기화 (Controlled Component 지원)
+    // [개선] search 타입일 때만 value prop 동기화
     useEffect(() => {
-      if (value !== undefined) {
+      if (isSearchType && value !== undefined) {
         setInternalValue(String(value));
       }
-    }, [value]);
+    }, [isSearchType, value]);
 
     // 1. 공통 Hook 사용 (테마 값 가져오기)
     const {
@@ -182,7 +182,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     // ========================================
     // Input onChange 핸들러 (내부 상태 업데이트 + 외부 onChange 호출)
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      setInternalValue(e.target.value);
+      if (isSearchType) setInternalValue(e.target.value);
       onChange?.(e);
     };
 
@@ -206,14 +206,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       }
 
       // 3. React가 인식할 수 있는 input 이벤트 디스패치
+      // [수정] dispatchEvent만으로도 handleInputChange -> onChange가 트리거되므로
+      // 여기서 onChange를 직접 호출하면 이중 호출이 발생합니다. 명시적 호출을 제거합니다.
       const event = new Event('input', { bubbles: true });
       input.dispatchEvent(event);
-
-      // 4. onChange 핸들러도 호출 (controlled component 대응)
-      onChange?.({
-        target: input,
-        currentTarget: input,
-      } as React.ChangeEvent<HTMLInputElement>);
 
       // 5. focus 유지
       input.focus();
@@ -268,8 +264,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           {/* left Icon */}
           {leftIcon && (
             <>
-              {/* ReactNode인 경우 */}
-              {typeof leftIcon !== 'string' && typeof leftIcon === 'object' ? (
+              {/* ReactNode인 경우 (typeof null === 'object'이므로 truthy 체크 필수) */}
+              {typeof leftIcon === 'object' ? (
                 <div
                   className={`${iconContainer} ${leftIconContainer}`}
                   style={{ pointerEvents: 'auto' }}
@@ -371,8 +367,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           {rightIcon && (
             <>
               {/* ReactNode인 경우 */}
-              {typeof rightIcon !== 'string' &&
-              typeof rightIcon === 'object' ? (
+              {typeof rightIcon === 'object' ? (
                 <div
                   className={`${iconContainer} ${searchButtonContainer}`}
                   style={{ pointerEvents: 'auto' }}
