@@ -71,7 +71,6 @@ export const useFormField = (
  * Form 요소 ID 생성 Hook
  *
  * useId()를 사용하여 SSR/CSR 간 일관된 ID를 생성합니다.
- * Math.random() 기반의 generateFieldId를 대체합니다.
  *
  * @param prefix - ID 접두사 (예: 'input', 'textarea')
  * @param id - 사용자가 제공한 ID (있으면 그대로 반환)
@@ -87,11 +86,4 @@ export const useFormField = (
 export const useFieldId = (prefix: string, id?: string): string => {
   const generatedId = useId();
   return id || `${prefix}-${generatedId}`;
-};
-
-/**
- * @deprecated useFieldId()를 사용하세요. SSR hydration 에러가 발생할 수 있습니다.
- */
-export const generateFieldId = (prefix: string, id?: string): string => {
-  return id || `${prefix}-${Math.random().toString(36).substring(2, 9)}`;
 };

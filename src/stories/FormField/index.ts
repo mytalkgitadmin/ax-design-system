@@ -10,7 +10,7 @@ export { FormLabel } from './FormLabel';
 export { FormStatus } from './FormStatus';
 
 // Hooks & Utils
-export { generateFieldId, useFieldId, useFormField } from './useFormField';
+export { useFieldId, useFormField } from './useFormField';
 
 // Types
 export type {
