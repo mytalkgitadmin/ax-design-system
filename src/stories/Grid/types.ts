@@ -217,14 +217,14 @@ export type GridItemProps<T extends ElementType = 'div'> = {
   colSpan?: Responsive<number | string>;
   /** grid-row 시작/끝 또는 span. 반응형 객체 사용 가능: { base: 1, lg: 2 } */
   rowSpan?: Responsive<number | string>;
-  /** grid-column-start */
-  colStart?: number;
-  /** grid-column-end */
-  colEnd?: number;
-  /** grid-row-start */
-  rowStart?: number;
-  /** grid-row-end */
-  rowEnd?: number;
+  /** grid-column-start. 반응형 객체 사용 가능 */
+  colStart?: Responsive<number | string>;
+  /** grid-column-end. 반응형 객체 사용 가능 */
+  colEnd?: Responsive<number | string>;
+  /** grid-row-start. 반응형 객체 사용 가능 */
+  rowStart?: Responsive<number | string>;
+  /** grid-row-end. 반응형 객체 사용 가능 */
+  rowEnd?: Responsive<number | string>;
   style?: CSSProperties;
   className?: string;
   children?: ReactNode;
