@@ -1,3 +1,4 @@
+import { style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
 import { spacing } from '../../tokens';
@@ -197,5 +198,188 @@ export const gridStyle = recipe({
     align: 'stretch',
     justify: 'start',
     autoFlow: 'row',
+  },
+});
+
+/**
+ * auto-fill + 반응형 minColumnWidth를 위한 CSS class
+ * --_gmw-base, --_gmw-sm, --_gmw-md, --_gmw-lg, --_gmw-xl CSS 변수로 제어
+ */
+export const autoFillMinWidthResponsiveStyle = style({
+  gridTemplateColumns: `repeat(auto-fill, minmax(var(--_gmw-base, 200px), 1fr))`,
+  '@media': {
+    'screen and (min-width: 640px)': {
+      gridTemplateColumns: `repeat(auto-fill, minmax(var(--_gmw-sm, var(--_gmw-base, 200px)), 1fr))`,
+    },
+    'screen and (min-width: 768px)': {
+      gridTemplateColumns: `repeat(auto-fill, minmax(var(--_gmw-md, var(--_gmw-sm, var(--_gmw-base, 200px))), 1fr))`,
+    },
+    'screen and (min-width: 1024px)': {
+      gridTemplateColumns: `repeat(auto-fill, minmax(var(--_gmw-lg, var(--_gmw-md, var(--_gmw-sm, var(--_gmw-base, 200px)))), 1fr))`,
+    },
+    'screen and (min-width: 1280px)': {
+      gridTemplateColumns: `repeat(auto-fill, minmax(var(--_gmw-xl, var(--_gmw-lg, var(--_gmw-md, var(--_gmw-sm, var(--_gmw-base, 200px))))), 1fr))`,
+    },
+  },
+});
+
+/**
+ * auto-fit + 반응형 minColumnWidth를 위한 CSS class
+ * --_gmw-base, --_gmw-sm, --_gmw-md, --_gmw-lg, --_gmw-xl CSS 변수로 제어
+ */
+export const autoFitMinWidthResponsiveStyle = style({
+  gridTemplateColumns: `repeat(auto-fit, minmax(var(--_gmw-base, 200px), 1fr))`,
+  '@media': {
+    'screen and (min-width: 640px)': {
+      gridTemplateColumns: `repeat(auto-fit, minmax(var(--_gmw-sm, var(--_gmw-base, 200px)), 1fr))`,
+    },
+    'screen and (min-width: 768px)': {
+      gridTemplateColumns: `repeat(auto-fit, minmax(var(--_gmw-md, var(--_gmw-sm, var(--_gmw-base, 200px))), 1fr))`,
+    },
+    'screen and (min-width: 1024px)': {
+      gridTemplateColumns: `repeat(auto-fit, minmax(var(--_gmw-lg, var(--_gmw-md, var(--_gmw-sm, var(--_gmw-base, 200px)))), 1fr))`,
+    },
+    'screen and (min-width: 1280px)': {
+      gridTemplateColumns: `repeat(auto-fit, minmax(var(--_gmw-xl, var(--_gmw-lg, var(--_gmw-md, var(--_gmw-sm, var(--_gmw-base, 200px))))), 1fr))`,
+    },
+  },
+});
+
+/**
+ * GridItem의 반응형 span 제어를 위한 recipe
+ */
+export const gridItemStyle = recipe({
+  variants: {
+    colSpan: {
+      __responsive: {
+        gridColumn: 'var(--_gic-base, auto)',
+        '@media': {
+          'screen and (min-width: 640px)': {
+            gridColumn: 'var(--_gic-sm, var(--_gic-base, auto))',
+          },
+          'screen and (min-width: 768px)': {
+            gridColumn:
+              'var(--_gic-md, var(--_gic-sm, var(--_gic-base, auto)))',
+          },
+          'screen and (min-width: 1024px)': {
+            gridColumn:
+              'var(--_gic-lg, var(--_gic-md, var(--_gic-sm, var(--_gic-base, auto))))',
+          },
+          'screen and (min-width: 1280px)': {
+            gridColumn:
+              'var(--_gic-xl, var(--_gic-lg, var(--_gic-md, var(--_gic-sm, var(--_gic-base, auto)))))',
+          },
+        },
+      },
+    },
+    rowSpan: {
+      __responsive: {
+        gridRow: 'var(--_gir-base, auto)',
+        '@media': {
+          'screen and (min-width: 640px)': {
+            gridRow: 'var(--_gir-sm, var(--_gir-base, auto))',
+          },
+          'screen and (min-width: 768px)': {
+            gridRow: 'var(--_gir-md, var(--_gir-sm, var(--_gir-base, auto)))',
+          },
+          'screen and (min-width: 1024px)': {
+            gridRow:
+              'var(--_gir-lg, var(--_gir-md, var(--_gir-sm, var(--_gir-base, auto))))',
+          },
+          'screen and (min-width: 1280px)': {
+            gridRow:
+              'var(--_gir-xl, var(--_gir-lg, var(--_gir-md, var(--_gir-sm, var(--_gir-base, auto)))))',
+          },
+        },
+      },
+    },
+    colStart: {
+      __responsive: {
+        gridColumnStart: 'var(--_gics-base, auto)',
+        '@media': {
+          'screen and (min-width: 640px)': {
+            gridColumnStart: 'var(--_gics-sm, var(--_gics-base, auto))',
+          },
+          'screen and (min-width: 768px)': {
+            gridColumnStart:
+              'var(--_gics-md, var(--_gics-sm, var(--_gics-base, auto)))',
+          },
+          'screen and (min-width: 1024px)': {
+            gridColumnStart:
+              'var(--_gics-lg, var(--_gics-md, var(--_gics-sm, var(--_gics-base, auto))))',
+          },
+          'screen and (min-width: 1280px)': {
+            gridColumnStart:
+              'var(--_gics-xl, var(--_gics-lg, var(--_gics-md, var(--_gics-sm, var(--_gics-base, auto)))))',
+          },
+        },
+      },
+    },
+    colEnd: {
+      __responsive: {
+        gridColumnEnd: 'var(--_gice-base, auto)',
+        '@media': {
+          'screen and (min-width: 640px)': {
+            gridColumnEnd: 'var(--_gice-sm, var(--_gice-base, auto))',
+          },
+          'screen and (min-width: 768px)': {
+            gridColumnEnd:
+              'var(--_gice-md, var(--_gice-sm, var(--_gice-base, auto)))',
+          },
+          'screen and (min-width: 1024px)': {
+            gridColumnEnd:
+              'var(--_gice-lg, var(--_gice-md, var(--_gice-sm, var(--_gice-base, auto))))',
+          },
+          'screen and (min-width: 1280px)': {
+            gridColumnEnd:
+              'var(--_gice-xl, var(--_gice-lg, var(--_gice-md, var(--_gice-sm, var(--_gice-base, auto)))))',
+          },
+        },
+      },
+    },
+    rowStart: {
+      __responsive: {
+        gridRowStart: 'var(--_girs-base, auto)',
+        '@media': {
+          'screen and (min-width: 640px)': {
+            gridRowStart: 'var(--_girs-sm, var(--_girs-base, auto))',
+          },
+          'screen and (min-width: 768px)': {
+            gridRowStart:
+              'var(--_girs-md, var(--_girs-sm, var(--_girs-base, auto)))',
+          },
+          'screen and (min-width: 1024px)': {
+            gridRowStart:
+              'var(--_girs-lg, var(--_girs-md, var(--_girs-sm, var(--_girs-base, auto))))',
+          },
+          'screen and (min-width: 1280px)': {
+            gridRowStart:
+              'var(--_girs-xl, var(--_girs-lg, var(--_girs-md, var(--_girs-sm, var(--_girs-base, auto)))))',
+          },
+        },
+      },
+    },
+    rowEnd: {
+      __responsive: {
+        gridRowEnd: 'var(--_gire-base, auto)',
+        '@media': {
+          'screen and (min-width: 640px)': {
+            gridRowEnd: 'var(--_gire-sm, var(--_gire-base, auto))',
+          },
+          'screen and (min-width: 768px)': {
+            gridRowEnd:
+              'var(--_gire-md, var(--_gire-sm, var(--_gire-base, auto)))',
+          },
+          'screen and (min-width: 1024px)': {
+            gridRowEnd:
+              'var(--_gire-lg, var(--_gire-md, var(--_gire-sm, var(--_gire-base, auto))))',
+          },
+          'screen and (min-width: 1280px)': {
+            gridRowEnd:
+              'var(--_gire-xl, var(--_gire-lg, var(--_gire-md, var(--_gire-sm, var(--_gire-base, auto)))))',
+          },
+        },
+      },
+    },
   },
 });

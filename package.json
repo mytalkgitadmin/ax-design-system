@@ -1,6 +1,6 @@
 {
   "name": "@bemily/design-system",
-  "version": "0.1.18",
+  "version": "0.1.19",
   "description": "Design System Component Library",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

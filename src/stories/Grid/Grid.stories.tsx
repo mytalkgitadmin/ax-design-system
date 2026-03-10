@@ -1046,3 +1046,40 @@ export const PlaceContent: Story = {
     </div>
   ),
 };
+
+/**
+ * 반응형 GridItem - 화면 크기에 따라 아이템의 크기와 위치 조정
+ *
+ * 모바일에서는 1열씩 차지하다가, 데스크탑에서는 여러 열을 차지하거나 위치가 바뀝니다.
+ */
+export const ResponsiveGridItem: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+      <div>
+        <h4 style={{ marginBottom: '12px', fontSize: '14px', color: '#666' }}>
+          colSpan=&#123;&#123; base: 1, md: 2 &#125;&#125; - 큰 화면에서 더 넓게
+          차지
+        </h4>
+        <Grid columns='2' gap='16' width={600}>
+          <GridItem colSpan={{ base: 1, md: 2 }}>
+            <Box>모바일: 1열, 데스크탑: 2열</Box>
+          </GridItem>
+          <Box>Next Item</Box>
+          <Box>Next Item</Box>
+        </Grid>
+      </div>
+
+      <div>
+        <h4 style={{ marginBottom: '12px', fontSize: '14px', color: '#666' }}>
+          colStart=&#123;&#123; base: 1, lg: 2 &#125;&#125; - 화면 크기에 따른
+          시작 위치 변경
+        </h4>
+        <Grid columns='3' gap='16' width={600}>
+          <GridItem colStart={{ base: 1, lg: 2 }}>
+            <Box>모바일: 1번 열 시작, 데스크탑: 2번 열 시작</Box>
+          </GridItem>
+        </Grid>
+      </div>
+    </div>
+  ),
+};
