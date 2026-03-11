@@ -21,6 +21,7 @@ import type { Meta, StoryObj } from '@storybook/react';
  * | Prop | Type |
  * |------|------|
  * | `label` | `string` |
+ * | `variant` | `'outline'` \| `'underline'` \| `'none'` \| `Responsive<Variant>` |
  * | `size` | `xs` \| `sm` \| `md` \| `lg` \| `xl` |
  * | `color` | `primary` \| `secondary` \| `string` (hex/rgb) |
  * | `rounded` | `none` \| `xs` \| `sm` \| `md` \| `lg` \| `xl` |
@@ -105,6 +106,15 @@ const meta = {
     full: {
       control: 'boolean',
       description: 'Full width',
+      table: {
+        category: 'Appearance',
+      },
+    },
+    variant: {
+      control: 'select',
+      options: ['outline', 'underline', 'none'],
+      description:
+        'Select variant (outline: 전체 테두리, underline: 하단 테두리만, none: 테두리 없음)',
       table: {
         category: 'Appearance',
       },
@@ -352,6 +362,65 @@ export const Sizes: Story = {
       <Select label='MD' size='md' options={productOptions} />
       <Select label='LG' size='lg' options={productOptions} />
       <Select label='XL' size='xl' options={productOptions} />
+    </div>
+  ),
+};
+
+/**
+ * Variants
+ * Outline (기본): 전체 테두리
+ * Underline: 하단 테두리만
+ * None: 테두리 및 배경색 없음
+ */
+export const Variants: Story = {
+  args: {
+    options: productOptions,
+  },
+  render: () => (
+    <div
+      style={{
+        display: 'grid',
+        gap: '16px',
+        width: '320px',
+      }}
+    >
+      <Select
+        label='Outline (기본)'
+        variant='outline'
+        options={productOptions}
+      />
+      <Select label='Underline' variant='underline' options={productOptions} />
+      <Select label='None' variant='none' options={productOptions} />
+    </div>
+  ),
+};
+
+/**
+ * Responsive Variants
+ * 화면 크기에 따라 variant가 자동으로 변경됩니다. (JS 없이 Media Query로 동작)
+ * 예: 모바일(`base`)에서는 `underline`, 태블릿(`md`) 이상에서는 `outline`
+ */
+export const ResponsiveVariant: Story = {
+  args: {
+    options: productOptions,
+  },
+  render: () => (
+    <div
+      style={{
+        display: 'grid',
+        gap: '24px',
+        width: '100%',
+        maxWidth: '400px',
+      }}
+    >
+      <Select
+        label='반응형 테두리 (브라우저 리사이즈 테스트)'
+        variant={{ base: 'underline', md: 'outline' }}
+        options={productOptions}
+        status='help'
+        statusMessage='base: underline, md: outline'
+        full
+      />
     </div>
   ),
 };

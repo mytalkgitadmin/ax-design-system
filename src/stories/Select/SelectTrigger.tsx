@@ -20,6 +20,8 @@ import {
 
 type SelectTriggerProps = {
   // Appearance
+  variant: string;
+  responsiveVariantProps: Record<string, string>;
   size: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   full: boolean;
   error: boolean;
@@ -51,6 +53,8 @@ type SelectTriggerProps = {
 };
 
 export const SelectTrigger = ({
+  variant,
+  responsiveVariantProps,
   size,
   full,
   error,
@@ -95,11 +99,14 @@ export const SelectTrigger = ({
 
   return (
     <button
+      {...responsiveVariantProps}
       ref={triggerRef}
       id={id}
       name={name}
       type='button'
       className={selectTriggerStyle({
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        variant: variant as any,
         size,
         full,
         error,
