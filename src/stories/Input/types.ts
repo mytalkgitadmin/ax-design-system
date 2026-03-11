@@ -18,7 +18,9 @@ export type InputType =
   | 'tel'
   | 'number'
   | 'search';
+export type Responsive<T> = T | { base?: T; sm?: T; md?: T; lg?: T; xl?: T };
 export type InputVariant = 'outline' | 'underline' | 'none';
+export type ResponsiveInputVariant = Responsive<InputVariant>;
 export type InputRounded = Exclude<ComponentRounded, 'full'>;
 
 // 시맨틱 토큰 이름 또는 커스텀 컬러 값(hex, rgb)을 모두 허용
@@ -40,7 +42,7 @@ import { BaseFormFieldProps } from '../FormField';
 
 export type InputProps = BaseFormFieldProps & {
   // Appearance
-  variant?: InputVariant; // outline(전체 테두리) 또는 underline(하단 테두리만)
+  variant?: ResponsiveInputVariant; // outline(전체 테두리) 또는 underline(하단 테두리만)
   rounded?: InputRounded; // 테마 설정을 덮어쓰기 위한 rounded 옵션
 
   // Icons

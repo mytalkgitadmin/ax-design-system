@@ -21,6 +21,7 @@ export const Select = React.forwardRef<HTMLButtonElement, SelectProps>(
   (
     {
       // Appearance
+      variant = 'outline',
       size = 'md',
       color = 'primary',
       full = false,
@@ -88,9 +89,11 @@ export const Select = React.forwardRef<HTMLButtonElement, SelectProps>(
     const [internalValue, setInternalValue] = useState(defaultValue);
 
     // 제어 vs 비제어 결정
-    const isControlled = controlledExpanded !== undefined;
-    const isOpen = isControlled ? controlledExpanded : internalExpanded;
-    const selectedValue = controlledValue ?? internalValue;
+    const isExpandedControlled = controlledExpanded !== undefined;
+    const isValueControlled = controlledValue !== undefined;
+
+    const isOpen = isExpandedControlled ? controlledExpanded : internalExpanded;
+    const selectedValue = isValueControlled ? controlledValue : internalValue;
 
     // Refs
     const wrapperRef = useRef<HTMLDivElement>(null);
@@ -136,7 +139,7 @@ export const Select = React.forwardRef<HTMLButtonElement, SelectProps>(
       if (disabled) return;
 
       const newExpanded = !isOpen;
-      if (!isControlled) {
+      if (!isExpandedControlled) {
         setInternalExpanded(newExpanded);
       }
       onToggle?.(newExpanded);
@@ -144,8 +147,10 @@ export const Select = React.forwardRef<HTMLButtonElement, SelectProps>(
 
     // 옵션 선택
     const handleSelect = (optionValue: string | number) => {
-      if (!isControlled) {
+      if (!isValueControlled) {
         setInternalValue(optionValue);
+      }
+      if (!isExpandedControlled) {
         setInternalExpanded(false);
       }
       onChange?.(optionValue);
@@ -159,7 +164,7 @@ export const Select = React.forwardRef<HTMLButtonElement, SelectProps>(
           wrapperRef.current &&
           !wrapperRef.current.contains(event.target as Node)
         ) {
-          if (!isControlled) {
+          if (!isExpandedControlled) {
             setInternalExpanded(false);
           }
           onToggle?.(false);
@@ -173,7 +178,7 @@ export const Select = React.forwardRef<HTMLButtonElement, SelectProps>(
       return () => {
         document.removeEventListener('mousedown', handleClickOutside);
       };
-    }, [isOpen, isControlled, onToggle]);
+    }, [isOpen, isExpandedControlled, onToggle]);
 
     // 키보드 네비게이션
     const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -188,7 +193,7 @@ export const Select = React.forwardRef<HTMLButtonElement, SelectProps>(
         case 'Escape':
           if (isOpen) {
             e.preventDefault();
-            if (!isControlled) {
+            if (!isExpandedControlled) {
               setInternalExpanded(false);
             }
             onToggle?.(false);
@@ -204,6 +209,17 @@ export const Select = React.forwardRef<HTMLButtonElement, SelectProps>(
           break;
       }
     };
+
+    const isResponsiveVariant = typeof variant !== 'string';
+    const responsiveVariantProps = isResponsiveVariant
+      ? {
+          ...(variant.base && { 'data-variant-base': variant.base }),
+          ...(variant.sm && { 'data-variant-sm': variant.sm }),
+          ...(variant.md && { 'data-variant-md': variant.md }),
+          ...(variant.lg && { 'data-variant-lg': variant.lg }),
+          ...(variant.xl && { 'data-variant-xl': variant.xl }),
+        }
+      : {};
 
     return (
       <div
@@ -231,6 +247,8 @@ export const Select = React.forwardRef<HTMLButtonElement, SelectProps>(
         <div className={selectContainer}>
           {/* Select Trigger */}
           <SelectTrigger
+            variant={isResponsiveVariant ? '__responsive' : variant}
+            responsiveVariantProps={responsiveVariantProps}
             size={finalSize}
             full={full}
             error={error || status === 'error'}

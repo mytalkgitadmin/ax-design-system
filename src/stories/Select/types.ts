@@ -14,6 +14,10 @@ export type SelectSize = ComponentSize;
 export type SelectRounded = Exclude<ComponentRounded, 'full'>;
 export type SelectPlacement = 'bottom' | 'top';
 
+export type Responsive<T> = T | { base?: T; sm?: T; md?: T; lg?: T; xl?: T };
+export type SelectVariant = 'outline' | 'underline' | 'none';
+export type ResponsiveSelectVariant = Responsive<SelectVariant>;
+
 // 시맨틱 토큰 이름 또는 커스텀 컬러 값(hex, rgb)을 모두 허용
 export type SelectColorPreset = ComponentColorPreset;
 export type SelectColor = SelectColorPreset | string;
@@ -44,6 +48,8 @@ export type SelectOption = {
 
 export type SelectProps = {
   // Appearance
+  /** 컴포넌트 변형(스타일) */
+  variant?: ResponsiveSelectVariant;
   /** 컴포넌트 크기 */
   size?: SelectSize;
   /** 컴포넌트 색상 테마 */
@@ -121,9 +127,9 @@ export type SelectProps = {
   /** 드롭다운 열기/닫기 핸들러 */
   onToggle?: (isOpen: boolean) => void;
   /** 포커스 핸들러 */
-  onFocus?: () => void;
+  onFocus?: (e: React.FocusEvent<HTMLButtonElement>) => void;
   /** 블러 핸들러 */
-  onBlur?: () => void;
+  onBlur?: (e: React.FocusEvent<HTMLButtonElement>) => void;
   /**
    * 드롭다운 스크롤 핸들러 (무한 스크롤 구현 시 사용)
    * @performance 스크롤 이벤트는 짧은 시간에 수십 번 호출될 수 있습니다.
@@ -145,6 +151,11 @@ export type SelectProps = {
 
 // Storybook을 위한 options 배열
 export const SELECT_SIZES: SelectSize[] = COMPONENT_SIZES;
+export const SELECT_VARIANTS: SelectVariant[] = [
+  'outline',
+  'underline',
+  'none',
+];
 export const SELECT_COLOR_PRESETS: SelectColorPreset[] =
   COMPONENT_COLOR_PRESETS;
 export const SELECT_ROUNDED: SelectRounded[] = COMPONENT_ROUNDED.filter(

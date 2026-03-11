@@ -136,10 +136,123 @@ const baseSelectTrigger = style({
   },
 });
 
+// responsive variant를 위한 동적 CSS 클래스 생성 헬퍼
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function generateResponsiveVariantSelectors(): any {
+  const breakpoints = {
+    base: null,
+    sm: 'screen and (min-width: 640px)',
+    md: 'screen and (min-width: 768px)',
+    lg: 'screen and (min-width: 1024px)',
+    xl: 'screen and (min-width: 1280px)',
+  } as const;
+
+  const selectors: Record<string, unknown> = {};
+  const media: Record<string, unknown> = {};
+
+  // 반응형 분기별로 스타일 생성
+  for (const [bp, query] of Object.entries(breakpoints)) {
+    const currentSelectors: Record<string, unknown> = {
+      // == underline ==
+      [`&[data-variant-${bp}="underline"]`]: {
+        borderTop: 'none',
+        borderLeft: 'none',
+        borderRight: 'none',
+        borderRadius: 0,
+        backgroundColor: 'transparent',
+      },
+      [`&[data-variant-${bp}="underline"]:focus-visible`]: {
+        boxShadow: `0 1px 0 0 ${focusBorderColorVar}`,
+      },
+      [`&[data-variant-${bp}="underline"]:disabled`]: {
+        backgroundColor: 'transparent',
+        borderColor: disabledBgColorVar,
+      },
+      // == outline == (outline으로 돌아올 때 리셋 스타일)
+      [`&[data-variant-${bp}="outline"]`]: {
+        borderTop: `1px solid ${borderColorVar}`,
+        borderLeft: `1px solid ${borderColorVar}`,
+        borderRight: `1px solid ${borderColorVar}`,
+        borderBottom: `1px solid ${borderColorVar}`,
+        borderRadius: borderRadiusVar,
+        backgroundColor: bgColorVar,
+      },
+      [`&[data-variant-${bp}="outline"]:focus-visible`]: {
+        boxShadow: `0 0 10px 0 ${focusShadowColorVar}`,
+      },
+      // == none ==
+      [`&[data-variant-${bp}="none"]`]: {
+        border: 'none',
+        backgroundColor: 'transparent',
+      },
+      [`&[data-variant-${bp}="none"]:hover:not(:disabled)`]: {
+        borderColor: 'transparent',
+      },
+      [`&[data-variant-${bp}="none"]:focus-visible`]: {
+        boxShadow: 'none',
+        borderColor: 'transparent',
+      },
+      [`&[data-variant-${bp}="none"]:disabled`]: {
+        backgroundColor: 'transparent',
+      },
+    };
+
+    if (bp === 'base') {
+      Object.assign(selectors, currentSelectors);
+    } else {
+      if (query) {
+        media[query] = { selectors: currentSelectors };
+      }
+    }
+  }
+
+  return { selectors, '@media': media };
+}
+
 export const selectTriggerStyle = recipe({
   base: baseSelectTrigger,
 
   variants: {
+    variant: {
+      outline: {
+        // 기본 스타일 (전체 테두리)
+      },
+      underline: {
+        // 하단 테두리만
+        borderTop: 'none',
+        borderLeft: 'none',
+        borderRight: 'none',
+        borderRadius: 0,
+        backgroundColor: 'transparent',
+
+        selectors: {
+          '&:focus-visible': {
+            boxShadow: `0 1px 0 0 ${focusBorderColorVar}`,
+          },
+          '&:disabled': {
+            backgroundColor: 'transparent',
+            borderColor: disabledBgColorVar,
+          },
+        },
+      },
+      none: {
+        border: 'none',
+        backgroundColor: 'transparent',
+        selectors: {
+          '&:hover:not(:disabled)': {
+            borderColor: 'transparent',
+          },
+          '&:focus-visible': {
+            boxShadow: 'none',
+            borderColor: 'transparent',
+          },
+          '&:disabled': {
+            backgroundColor: 'transparent',
+          },
+        },
+      },
+      __responsive: generateResponsiveVariantSelectors(),
+    },
     size: {
       xs: {
         height: toRem(componentSize.xs.height),

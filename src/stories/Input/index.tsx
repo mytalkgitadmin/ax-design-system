@@ -232,11 +232,27 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       if (e.defaultPrevented) return;
 
       // IME composition 중에는 Enter 처리를 하지 않음 (한글, 일본어, 중국어 입력 지원)
-      if (e.key === 'Enter' && !e.nativeEvent.isComposing && onRightIconClick) {
+      if (
+        e.key === 'Enter' &&
+        !e.nativeEvent.isComposing &&
+        isSearchType &&
+        onRightIconClick
+      ) {
         e.preventDefault();
         onRightIconClick();
       }
     };
+
+    const isResponsiveVariant = typeof variant !== 'string';
+    const responsiveVariantProps = isResponsiveVariant
+      ? {
+          ...(variant.base && { 'data-variant-base': variant.base }),
+          ...(variant.sm && { 'data-variant-sm': variant.sm }),
+          ...(variant.md && { 'data-variant-md': variant.md }),
+          ...(variant.lg && { 'data-variant-lg': variant.lg }),
+          ...(variant.xl && { 'data-variant-xl': variant.xl }),
+        }
+      : {};
 
     return (
       <div
@@ -253,11 +269,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           {label}
         </FormLabel>
 
-        {/* Input Container */}
         <div
+          {...responsiveVariantProps}
           className={inputContainerStyle({
             size: finalSize,
-            variant: variant,
+            variant: isResponsiveVariant ? '__responsive' : variant,
             error: error || status === 'error',
           })}
         >
