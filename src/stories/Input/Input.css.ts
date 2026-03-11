@@ -111,27 +111,100 @@ const baseInputContainer = style({
   },
 });
 
+// responsive variant를 위한 동적 CSS 클래스 생성 헬퍼
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function generateResponsiveVariantSelectors(): any {
+  const breakpoints = {
+    base: null,
+    sm: 'screen and (min-width: 640px)',
+    md: 'screen and (min-width: 768px)',
+    lg: 'screen and (min-width: 1024px)',
+    xl: 'screen and (min-width: 1280px)',
+  } as const;
+
+  const selectors: Record<string, unknown> = {};
+  const media: Record<string, unknown> = {};
+
+  // 반응형 분기별로 스타일 생성
+  for (const [bp, query] of Object.entries(breakpoints)) {
+    const currentSelectors: Record<string, unknown> = {
+      // == underline ==
+      [`&[data-variant-${bp}="underline"]`]: {
+        borderTop: 'none',
+        borderLeft: 'none',
+        borderRight: 'none',
+        borderRadius: 0,
+        backgroundColor: 'transparent',
+      },
+      [`&[data-variant-${bp}="underline"]:has(input:focus):not(:has(input:read-only))`]:
+        {
+          boxShadow: `0 1px 0 0 ${focusBorderColorVar}`,
+        },
+      [`&[data-variant-${bp}="underline"]:has(input:read-only)`]: {
+        backgroundColor: 'transparent',
+        borderColor: disabledBgColorVar,
+      },
+      // == outline == (outline으로 돌아올 때 리셋 스타일)
+      [`&[data-variant-${bp}="outline"]`]: {
+        borderTop: `1px solid ${borderColorVar}`,
+        borderLeft: `1px solid ${borderColorVar}`,
+        borderRight: `1px solid ${borderColorVar}`,
+        borderBottom: `1px solid ${borderColorVar}`,
+        borderRadius: borderRadiusVar,
+        backgroundColor: bgColorVar,
+      },
+      [`&[data-variant-${bp}="outline"]:has(input:focus):not(:has(input:read-only))`]:
+        {
+          boxShadow: 'none',
+        },
+      [`&[data-variant-${bp}="outline"]:has(input:focus-visible):not(:has(input:read-only))`]:
+        {
+          boxShadow: `0 0 10px 0 ${focusShadowColorVar}`,
+        },
+      // == none ==
+      [`&[data-variant-${bp}="none"]`]: {
+        border: 'none',
+        backgroundColor: 'transparent',
+      },
+      [`&[data-variant-${bp}="none"]:hover:not(:has(input:disabled)):not(:has(input:read-only)):not(:has(input:focus-visible))`]:
+        {
+          borderColor: 'transparent',
+        },
+      [`&[data-variant-${bp}="none"]:has(input:focus)`]: {
+        borderColor: 'transparent',
+        boxShadow: 'none',
+      },
+      [`&[data-variant-${bp}="none"]:has(input:focus-visible)`]: {
+        boxShadow: 'none',
+      },
+      [`&[data-variant-${bp}="none"]:has(input:read-only)`]: {
+        backgroundColor: 'transparent',
+      },
+    };
+
+    if (bp === 'base') {
+      Object.assign(selectors, currentSelectors);
+    } else {
+      if (query) {
+        media[query] = { selectors: currentSelectors };
+      }
+    }
+  }
+
+  return { selectors, '@media': media };
+}
+
 // Input Container Recipe (variant 지원)
 export const inputContainerStyle = recipe({
   base: baseInputContainer,
 
   variants: {
     size: {
-      xl: {
-        height: toRem(componentSize.xl.height),
-      },
-      lg: {
-        height: toRem(componentSize.lg.height),
-      },
-      md: {
-        height: toRem(componentSize.md.height),
-      },
-      sm: {
-        height: toRem(componentSize.sm.height),
-      },
-      xs: {
-        height: toRem(componentSize.xs.height),
-      },
+      xl: { height: toRem(componentSize.xl.height) },
+      lg: { height: toRem(componentSize.lg.height) },
+      md: { height: toRem(componentSize.md.height) },
+      sm: { height: toRem(componentSize.sm.height) },
+      xs: { height: toRem(componentSize.xs.height) },
     },
     variant: {
       outline: {
@@ -175,6 +248,7 @@ export const inputContainerStyle = recipe({
           },
         },
       },
+      __responsive: generateResponsiveVariantSelectors(),
     },
     error: {
       true: {

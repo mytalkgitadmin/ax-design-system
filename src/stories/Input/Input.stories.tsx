@@ -22,8 +22,7 @@ import type { Meta, StoryObj } from '@storybook/react';
  * |------|------|
  * | `label` | `string` (required) |
  * | `size` | `xs` \| `sm` \| `md` \| `lg` \| `xl` |
- * | `type` | `text` \| `password` \| `email` \| `tel` \| `number` |
- * | `color` | `primary` \| `secondary` \| `string` (hex/rgb) |
+ * | `variant` | `'outline'` \| `'underline'` \| `'none'` \| `Responsive<Variant>` |
  * | `rounded` | `none` \| `xs` \| `sm` \| `md` \| `lg` \| `xl` |
  * | `full` | `boolean` |
  * | `disabled` | `boolean` |
@@ -63,6 +62,12 @@ import type { Meta, StoryObj } from '@storybook/react';
  *
  * // 전체 너비
  * <Input label="주소" full placeholder="주소를 입력하세요" />
+ *
+ * // 반응형 Variant (모바일에서는 underline, 데스크톱에서는 outline)
+ * <Input
+ *   label="반응형 필드"
+ *   variant={{ base: 'underline', md: 'outline' }}
+ * />
  *
  * // Controlled Component (value 사용)
  * const [email, setEmail] = useState('');
@@ -374,6 +379,33 @@ export const Variants: Story = {
         label='None'
         variant='none'
         placeholder='테두리가 전혀 없는 입력 필드'
+      />
+    </div>
+  ),
+};
+
+/**
+ * Responsive Variants
+ * 화면 크기에 따라 variant가 자동으로 변경됩니다. (JS 없이 Media Query로 동작)
+ * 예: 모바일(`base`)에서는 `underline`, 태블릿(`md`) 이상에서는 `outline`
+ */
+export const ResponsiveVariant: Story = {
+  render: () => (
+    <div
+      style={{
+        display: 'grid',
+        gap: '24px',
+        width: '100%',
+        maxWidth: '400px',
+      }}
+    >
+      <Input
+        label='반응형 테두리 (브라우저 리사이즈 테스트)'
+        variant={{ base: 'underline', md: 'outline' }}
+        placeholder='화면 크기에 따라 테두리가 변합니다'
+        status='help'
+        statusMessage='base: underline, md: outline'
+        full
       />
     </div>
   ),
