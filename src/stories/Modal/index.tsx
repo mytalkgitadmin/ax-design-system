@@ -32,6 +32,8 @@ const DEFAULT_BUTTONS_GAP = 8;
 
 export const Modal = ({
   size = 'md',
+  width,
+  noPadding = false,
   title: titleText,
   description: descriptionText,
   children,
@@ -46,6 +48,7 @@ export const Modal = ({
   buttonsAlign = 'right',
   buttonsGap = DEFAULT_BUTTONS_GAP,
   buttonsDirection = 'row',
+  ariaLabel,
 }: ModalProps) => {
   const { global } = useTheme();
   const animationVariant = global.motion.modalType || 'default';
@@ -123,9 +126,16 @@ export const Modal = ({
           size,
           animation: animationVariant,
         })}
+        style={{
+          ...(width !== undefined && {
+            width: typeof width === 'number' ? `${width}px` : width,
+          }),
+          ...(noPadding && { padding: 0 }),
+        }}
         role='dialog'
         aria-modal='true'
-        aria-labelledby={titleId}
+        aria-labelledby={titleText ? titleId : undefined}
+        aria-label={!titleText ? ariaLabel : undefined}
         aria-describedby={descriptionId}
         data-closing={isClosing}
         data-animation={animationVariant}
@@ -142,17 +152,22 @@ export const Modal = ({
           </button>
         )}
 
-        {/* 텍스트 컨테이너 */}
-        <div className={textContainer} data-no-close-button={!showCloseButton}>
-          <h2 id={titleId} className={title}>
-            {titleText}
-          </h2>
-          {descriptionText && (
-            <p id={descriptionId} className={description}>
-              {descriptionText}
-            </p>
-          )}
-        </div>
+        {/* 텍스트 컨테이너: title이 있을 때만 렌더링 */}
+        {titleText && (
+          <div
+            className={textContainer}
+            data-no-close-button={!showCloseButton}
+          >
+            <h2 id={titleId} className={title}>
+              {titleText}
+            </h2>
+            {descriptionText && (
+              <p id={descriptionId} className={description}>
+                {descriptionText}
+              </p>
+            )}
+          </div>
+        )}
 
         {/* 컨텐츠 (children) */}
         {children && <div className={content}>{children}</div>}

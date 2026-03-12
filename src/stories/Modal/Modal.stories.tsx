@@ -187,7 +187,7 @@ function Example() {
       description: '버튼 간의 간격(px)을 설정합니다.',
       table: {
         type: { summary: 'number' },
-        defaultValue: { summary: '12' },
+        defaultValue: { summary: '8' },
       },
     },
     children: {
@@ -195,6 +195,14 @@ function Example() {
         'Modal 내부에 렌더링할 커스텀 컨텐츠입니다. Dialog 타입에서 주로 사용됩니다.',
       table: {
         type: { summary: 'ReactNode' },
+      },
+    },
+    ariaLabel: {
+      control: 'text',
+      description:
+        'title이 없는 Modal에서 스크린리더용 레이블을 제공합니다. title이 있으면 자동으로 무시됩니다.',
+      table: {
+        type: { summary: 'string' },
       },
     },
   },
@@ -226,6 +234,8 @@ export default meta;
  * ## 🚀 Advanced (고급 기능)
  * - 긴 컨텐츠 (스크롤): 내용이 많을 때 자동 스크롤
  * - AfterClose 콜백: Modal 닫힌 후 후속 작업
+ * - 비동기 작업 & 로딩: 버튼 로딩 상태
+ * - 외부 결제 모듈 연동: PG사 결제창과 함께 사용
  *
  * ============================================================================
  */
@@ -538,6 +548,100 @@ import { Input } from '@/components';
     <Input id="email" label="이메일" placeholder="이메일을 입력해 주세요" full />
   </div>
 </Dialog>
+\`\`\``,
+      },
+    },
+  },
+};
+
+/**
+ * ## ariaLabel (title 없는 Modal 접근성)
+ *
+ * title 없이 children만 사용하는 Modal에서
+ * `ariaLabel`로 스크린리더용 레이블을 제공합니다.
+ */
+const AriaLabelComponent = () => {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <button onClick={() => setOpen(true)} style={{ padding: '12px 24px' }}>
+        Open Modal (제목 없음)
+      </button>
+      <Modal
+        ariaLabel='결제 정보 입력 모달'
+        open={open}
+        onClose={() => setOpen(false)}
+        primaryAction={{
+          label: '결제하기',
+          onClick: () => setOpen(false),
+        }}
+        secondaryAction={{
+          label: '취소',
+          onClick: () => setOpen(false),
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '16px',
+            padding: '8px 0',
+          }}
+        >
+          <p style={{ margin: 0, color: '#666', fontSize: '14px' }}>
+            스크린리더는 Modal 진입 시{' '}
+            <strong>&ldquo;결제 정보 입력 모달, 대화상자&rdquo;</strong>를
+            읽습니다.
+          </p>
+          <Input
+            id='aria-card-number'
+            label='카드 번호'
+            placeholder='0000-0000-0000-0000'
+            full
+          />
+          <Input id='aria-expiry' label='유효기간' placeholder='MM/YY' full />
+        </div>
+      </Modal>
+    </>
+  );
+};
+
+export const BasicsAriaLabel = {
+  name: 'ariaLabel (접근성 레이블)',
+  render: () => <AriaLabelComponent />,
+  parameters: {
+    controls: { disable: true },
+    docs: {
+      description: {
+        story: `\`title\`없이 children만 사용하는 Modal에서는 \`ariaLabel\`로 스크린리더용 레이블을 제공해야 합니다.
+
+**접근성 원칙:**
+- WAI-ARIA 명세에 따르면 \`role="dialog"\`의 요소는 **반드시** 접근 가능한 이름(accessible name)을 가져야 합니다.
+- \`title\`이 있으면 \`aria-labelledby\`로 자동 연결, \`title\`이 없으면 \`aria-label\`로 대체합니다.
+
+\`\`\`tsx
+// ❌ title도 ariaLabel도 없는 경우 → 접근성 위반
+<Modal open={open} onClose={onClose}>
+  <PaymentForm />
+</Modal>
+
+// ✅ ariaLabel로 스크린리더용 레이블 제공
+<Modal
+  ariaLabel="결제 정보 입력 모달"
+  open={open}
+  onClose={onClose}
+>
+  <PaymentForm />
+</Modal>
+
+// ✅ title이 있는 경우 → ariaLabel은 자동 무시
+<Modal
+  title="결제"
+  ariaLabel="이 값은 무시됩니다"
+  open={open}
+  onClose={onClose}
+/>
 \`\`\``,
       },
     },
@@ -1408,6 +1512,125 @@ const handleSubmit = async () => {
     label: '취소',
     disabled: loading,
     onClick: () => setOpen(false),
+  }}
+/>
+\`\`\``,
+      },
+    },
+  },
+};
+
+/**
+ * ## 외부 결제 모듈 연동
+ *
+ * 토스페이, KG이니시스 등 외부 PG사 결제 모듈과 함께 사용할 때의 패턴입니다.
+ * 결제 모듈은 자체 팝업/레이어를 띄우므로, Modal은 결제 전후 UI로만 활용합니다.
+ */
+const ExternalPaymentComponent = () => {
+  const [step, setStep] = useState<'idle' | 'confirm' | 'processing' | 'done'>(
+    'idle'
+  );
+
+  const handlePaymentRequest = async () => {
+    // 1. 확인 Modal 닫힘과 동시에 외부 결제 모듈 실행
+    setStep('processing');
+
+    // 외부 결제 SDK 호출 시뮬레이션
+    // 실제로는: window.PAYMODULE.requestPayment({ ... })
+    await new Promise((resolve) => setTimeout(resolve, 2500));
+
+    setStep('done');
+  };
+
+  return (
+    <>
+      <button
+        onClick={() => setStep('confirm')}
+        style={{ padding: '12px 24px' }}
+        disabled={step === 'processing'}
+      >
+        결제하기
+      </button>
+
+      {step === 'processing' && (
+        <p style={{ marginTop: '12px', color: '#888' }}>
+          ⏳ 외부 결제 모듈 처리 중...
+        </p>
+      )}
+
+      {/* 1단계: 결제 확인 Modal */}
+      {/* onClick이 없어도 되도록 ModalAction.onClick은 optional */}
+      <Modal
+        title='결제를 진행하시겠습니까?'
+        description='확인을 누르면 외부 결제 모듈이 실행됩니다. 결제창이 별도로 열립니다.'
+        open={step === 'confirm'}
+        onClose={() => setStep('idle')}
+        closeOnBackdropClick={false}
+        closeOnEscapeKey={false}
+        primaryAction={{
+          label: '결제 진행',
+          color: 'blue',
+          onClick: handlePaymentRequest,
+        }}
+        secondaryAction={{
+          label: '취소',
+          onClick: () => setStep('idle'),
+        }}
+      />
+
+      {/* 2단계: 결제 완료 Modal */}
+      <Modal
+        title='결제가 완료되었습니다 ✅'
+        description='결제가 정상적으로 처리되었습니다.'
+        open={step === 'done'}
+        onClose={() => setStep('idle')}
+        showCloseButton={false}
+        closeOnBackdropClick={false}
+        primaryAction={{
+          label: '확인',
+          color: 'green',
+          onClick: () => setStep('idle'),
+        }}
+      />
+    </>
+  );
+};
+
+export const AdvancedExternalPayment = {
+  name: '외부 결제 모듈 연동',
+  render: () => <ExternalPaymentComponent />,
+  parameters: {
+    controls: { disable: true },
+    docs: {
+      description: {
+        story: `외부 PG사 결제 모듈(토스페이, KG이니시스 등)과 함께 Modal을 활용하는 패턴입니다.
+
+**핵심 포인트:**
+- \`closeOnBackdropClick={false}\` + \`closeOnEscapeKey={false}\`: 결제 진행 중 실수로 닫히는 것 방지
+- \`showCloseButton={false}\`: 완료 Modal에서 X 버튼 제거로 명확한 CTA 유도
+- \`onClick\`의 async 지원으로 결제 API 호출을 자연스럽게 처리
+- \`ModalAction.onClick\`은 optional이므로, 외부 모듈이 자체 버튼을 관리하는 경우 생략 가능
+
+\`\`\`tsx
+// 결제 확인 Modal
+<Modal
+  title="결제를 진행하시겠습니까?"
+  open={step === 'confirm'}
+  onClose={() => setStep('idle')}
+  closeOnBackdropClick={false}
+  closeOnEscapeKey={false}
+  primaryAction={{
+    label: '결제 진행',
+    onClick: async () => {
+      setStep('processing');
+      // 외부 결제 SDK 호출
+      await window.PAYMODULE.requestPayment({ orderId, amount });
+      setStep('done');
+    },
+  }}
+  secondaryAction={{
+    label: '취소',
+    onClick: () => setStep('idle'),
   }}
 />
 \`\`\``,
