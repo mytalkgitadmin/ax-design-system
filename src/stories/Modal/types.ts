@@ -8,7 +8,7 @@ export type ModalAction = {
   /** 버튼 레이블 */
   label: string;
   /** 클릭 핸들러 (비동기 지원) */
-  onClick: () => void | Promise<void>;
+  onClick?: () => void | Promise<void>;
   /** 로딩 상태 */
   loading?: boolean;
 
@@ -53,8 +53,21 @@ export type ModalProps = {
   /** Modal 크기 */
   size?: ModalSize;
 
-  /** Modal 제목 */
-  title: string;
+  /** Modal 커스텀 너비 (px 단위 숫자 또는 CSS 문자열) */
+  width?: number | string;
+
+  /** 내부 패딩 제거 (외부 콘텐츠가 직접 채울 때 사용) */
+  noPadding?: boolean;
+
+  /** Modal 제목 (없으면 헤더 영역 전체 숨김) */
+  title?: string;
+
+  /**
+   * 스크린리더용 Modal 레이블
+   * title이 없는 Modal(커스텀 children만 사용)에서 접근성을 위해 제공합니다.
+   * title이 있으면 자동으로 무시됩니다.
+   */
+  ariaLabel?: string;
 
   /** 부가 설명 */
   description?: string;
